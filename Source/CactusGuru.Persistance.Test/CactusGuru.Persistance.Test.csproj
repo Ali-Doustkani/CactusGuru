@@ -62,8 +62,6 @@
     <Compile Include="Translators\CollectionItemImageTranslatorTest.cs" />
     <Compile Include="Translators\CollectionItemTranslatorTest.cs" />
     <Compile Include="Translators\CollectorTranslatorTest.cs" />
-    <Compile Include="Translators\SeedListItemTranslatorTest.cs" />
-    <Compile Include="Translators\SeedListTranslatorTest.cs" />
     <Compile Include="Translators\SupplierTranslatorTest.cs" />
     <Compile Include="Translators\GenusTranslatorTest.cs" />
     <Compile Include="Translators\TaxonTranslatorTest.cs" />

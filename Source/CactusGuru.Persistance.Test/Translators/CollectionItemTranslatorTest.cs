@@ -70,7 +70,6 @@ namespace CactusGuru.Persistance.Test.Translators
             var entity = CreateEntity();
             var poco = _translator.ToDomainEntity(entity);
             Assert.AreEqual(poco.Code, (entity.Code));
-            Assert.AreEqual(poco.Collector.Id, (entity.tblCollector.Id));
             Assert.AreEqual(poco.Count, (33));
             Assert.AreEqual(poco.Description, ("desc"));
             Assert.AreEqual(poco.FieldNumber, ("ff"));
@@ -78,8 +77,6 @@ namespace CactusGuru.Persistance.Test.Translators
             Assert.AreEqual(poco.IncomeDate, (new DateTime(2015, 1, 2)));
             Assert.AreEqual(poco.IncomeType, (IncomeType.Plant));
             Assert.AreEqual(poco.Locality, ("meix"));
-            Assert.AreEqual(poco.Supplier.Id, entity.tblSupplier.Id);
-            Assert.AreEqual(poco.Taxon.Id, entity.tblTaxon.Id);
             Assert.AreEqual(poco.SupplierCode, entity.SupplierCode);
         }
 

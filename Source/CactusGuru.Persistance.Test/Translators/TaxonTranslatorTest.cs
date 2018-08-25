@@ -5,7 +5,6 @@ using CactusGuru.Persistance.Translators;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
-using System.Linq;
 
 namespace CactusGuru.Persistance.Test.Translators
 {
@@ -37,7 +36,6 @@ namespace CactusGuru.Persistance.Test.Translators
             var poco = _translator.ToDomainEntity(entity);
 
             Assert.AreEqual("cultivar", poco.Cultivar);
-            Assert.AreEqual(entity.tblGenus.Id, poco.GeneraId);
             Assert.AreEqual(entity.Id, poco.Id);
             Assert.AreEqual("spec", poco.Species);
             Assert.AreEqual("ssp", poco.SubSpecies);
@@ -68,12 +66,6 @@ namespace CactusGuru.Persistance.Test.Translators
             Assert.AreEqual("sub", entity.SubSpecies);
             Assert.AreEqual("var", entity.Variety);
             Assert.AreEqual("fa", entity.Forma);
-        }
-
-        [TestMethod]
-        public void Taxon_Properties_Count()
-        {
-            Assert.AreEqual(8, typeof(tblTaxon).GetProperties().Count());
         }
     }
 }

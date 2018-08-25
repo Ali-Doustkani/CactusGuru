@@ -1,4 +1,5 @@
 ﻿using CactusGuru.Application.Common;
+using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
@@ -40,7 +41,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
             var parameters = new List<object>();
             foreach (var p in ctor.GetParameters())
             {
-                if (p.ParameterType == typeof(TProvider))
+                if (p.ParameterType == typeof(TProvider) || p.ParameterType == typeof(IDataEntryViewProvider))
                     parameters.Add(dataProvider.Object);
                 else if (p.ParameterType == typeof(IDialogService))
                     parameters.Add(dialogService.Object);

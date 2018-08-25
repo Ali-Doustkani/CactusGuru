@@ -33,7 +33,6 @@ namespace CactusGuru.Persistance.Test.Translators
             Assert.AreEqual(entity.tblCollectionItemId, poco.CollectionItemId);
             Assert.AreEqual(entity.DateAdded, new DateTime(2015, 1, 2));
             Assert.AreEqual(entity.Description, "desc");
-            Assert.AreEqual(entity.Image, new byte[] { 1, 2, 3, 4 });
         }
 
         [TestMethod]

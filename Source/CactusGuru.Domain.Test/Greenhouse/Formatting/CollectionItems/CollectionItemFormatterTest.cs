@@ -10,13 +10,12 @@ namespace CactusGuru.Domain.Test.Greenhouse.Formatting.CollectionItems
     public class CollectionItemFormatterTest
     {
         private CollectionItemFormatter _formatter;
-        private Mock<IFormatter<Taxon>> _taxonFormatter;
 
         [TestInitialize]
         public void SetUp()
         {
-            _taxonFormatter = new Mock<IFormatter<Taxon>>();
-            _formatter = new CollectionItemFormatter(_taxonFormatter.Object);
+            var taxonFormatter = new TaxonFormatter(new GenusCapitalFormatter());
+            _formatter = new CollectionItemFormatter(taxonFormatter);
         }
 
         [TestMethod]
@@ -29,33 +28,29 @@ namespace CactusGuru.Domain.Test.Greenhouse.Formatting.CollectionItems
         [TestMethod]
         public void FormatWithTaxon()
         {
-            var Genera = new Mock<Genus>(new GenusCapitalFormatter());
-            Genera.Setup(x => x.Title).Returns("astrophytum");
-            var taxon = new Mock<Taxon>();
-            taxon.Setup(x => x.Genus).Returns(Genera.Object);
-            taxon.Setup(x => x.Species).Returns("asterias");
-            var item = new Mock<CollectionItem>();
-            item.Setup(x => x.Taxon).Returns(taxon.Object);
+            var taxon = new Taxon();
+            taxon.Genus = new Genus { Title = "astrophytum" };
+            taxon.Species = "asterias";
+            var item = new CollectionItem();
+            item.Taxon = taxon;
 
-            Assert.AreEqual(_formatter.Format(item.Object), "ASTROPHYTUM asterias");
+            Assert.AreEqual(_formatter.Format(item), "ASTROPHYTUM asterias");
         }
 
         [TestMethod]
         public void FormatComplete()
         {
-            var Genera = new Mock<Genus>(new GenusCapitalFormatter());
-            Genera.Setup(x => x.Title).Returns("astrophytum");
-            var taxon = new Mock<Taxon>();
-            taxon.Setup(x => x.Genus).Returns(Genera.Object);
-            taxon.Setup(x => x.Species).Returns("asterias");
-            var collector = new Mock<Collector>();
-            collector.Setup(x => x.Acronym).Returns("L");
-            var item = new Mock<CollectionItem>();
-            item.Setup(x => x.Taxon).Returns(taxon.Object);
-            item.Setup(x => x.Collector).Returns(collector.Object);
-            item.Setup(x => x.FieldNumber).Returns("80");
+            var taxon = new Taxon();
+            taxon.Genus = new Genus { Title = "astrophytum" };
+            taxon.Species = "asterias";
+            var collector = new Collector();
+            collector.Acronym = "L";
+            var item = new CollectionItem();
+            item.Taxon = taxon;
+            item.Collector = collector;
+            item.FieldNumber = "80";
 
-            Assert.AreEqual(_formatter.Format(item.Object), "ASTROPHYTUM asterias L80");
+            Assert.AreEqual(_formatter.Format(item), "ASTROPHYTUM asterias L80");
         }
     }
 }

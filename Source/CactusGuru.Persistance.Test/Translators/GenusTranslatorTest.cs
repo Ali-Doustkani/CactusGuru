@@ -18,6 +18,7 @@ namespace CactusGuru.Persistance.Test.Translators
         public void SetUp()
         {
             _factory = new Mock<IFactory<Genus>>();
+            _factory.Setup(x => x.CreateNew()).Returns(new Genus());
             _translator = new GenusTranslator(_factory.Object);
         }
 

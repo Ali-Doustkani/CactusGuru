@@ -1,10 +1,10 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using System.Linq;
 using CactusGuru.Domain.Greenhouse.Qualification.Validators;
 using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.Qualification;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
+using System.Linq;
 
 namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Validators
 {
@@ -18,15 +18,16 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Validators
         [TestInitialize]
         public void SetUp()
         {
-            var mock = new Mock<CollectionItem>();
-            mock.SetupAllProperties();
-            _collectionItem = mock.Object;
+            _collectionItem = new CollectionItem();
+            var noErrSpec = new Mock<ISpecification>();
+            noErrSpec.Setup(x => x.Satisfy(It.IsAny<DomainEntity>())).Returns(Error.Empty);
             _emptySpec = new Mock<IEmptySpecification>();
+            _emptySpec.Setup(x => x.SetProperty(It.IsAny<string>())).Returns(noErrSpec.Object);
             _validator = new CollectionItemValidator(_emptySpec.Object);
         }
 
         [TestMethod]
-        public void IfSupplierIsEmpty_CanNotSetSupplierCode()
+        public void IfSupplierIsEmptyAndCodeIsNot_Err()
         {
             _collectionItem.Supplier = Supplier.Empty;
             _collectionItem.SupplierCode = "12.34";
@@ -38,7 +39,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Validators
             }
             catch (ErrorHappenedException ex)
             {
-                CollectionAssert.Contains(ex.Errors.ToList(), CollectionItemValidator.ERROR_SUPPLIER_CODE);
+                Assert.IsTrue(ex.Errors.Any(x => x.Message == CollectionItemValidator.ERROR_SUPPLIER_CODE));
             }
         }
     }

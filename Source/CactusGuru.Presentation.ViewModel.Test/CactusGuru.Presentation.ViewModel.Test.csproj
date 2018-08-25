@@ -61,7 +61,6 @@
     <Compile Include="Utils\DateUtilTest.cs" />
     <Compile Include="ViewModels\CollectionItemViewModels\CollectionItemEditorViewModelTest.cs" />
     <Compile Include="ViewModels\CollectorViewModelsTest\CollectorEditorViewModelTest.cs" />
-    <Compile Include="ViewModels\EditorBaseViewModelTest.cs" />
     <Compile Include="ViewModels\ImageGallery\ImageGalleryViewModelTest.cs" />
     <Compile Include="ViewModels\SupplierViewModels\SupplierEditorViewModelTest.cs" />
     <Compile Include="ViewModels\TaxonViewModels\TaxonEditorViewModelTest.cs" />
