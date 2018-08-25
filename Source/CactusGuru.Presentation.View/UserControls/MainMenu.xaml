@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="CactusGuru.Presentation.View.UserControls.MainMenu"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="410" d:DesignWidth="250" Background="#878788" x:Name="this">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="..\Skins\MenuSegmentBorder.xaml"/>
+                <ResourceDictionary Source="..\Skins\MainMenuButton.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="{x:Type Image}">
+                <Setter Property="HorizontalAlignment" Value="Right"/>
+                <Setter Property="Stretch" Value="None"/>
+            </Style>
+            <Style TargetType="{x:Type WrapPanel}">
+                <Setter Property="FlowDirection" Value="RightToLeft"/>
+                <Setter Property="Margin" Value="5 0"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+
+        <!-- Definitions -->
+        <Border Grid.Row="0" Style="{StaticResource MenuSegmentBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Source="..\Images\DefinitionHeader.png"/>
+                <WrapPanel Grid.Row="1">
+                    <Button Style="{StaticResource MainMenuButton}" Content="جنس ها" Command="{Binding ElementName=this, Path=GeneraCommand}" Click="ButtonClicked"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="تاکسون ها" Command="{Binding ElementName=this, Path=TaxaCommand}" Click="ButtonClicked"/>
+                </WrapPanel>
+            </Grid>
+        </Border>
+
+        <!-- Collection -->
+        <Border Grid.Row="1" Style="{StaticResource MenuSegmentBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Source="..\Images\CollectionHeader.png"/>
+                <WrapPanel Grid.Row="1">
+                    <Button Style="{StaticResource MainMenuButton}" Content="ثبت گیاه جدید به مجموعه" Command="{Binding ElementName=this, Path=AddCollectionItemCommand}" Click="ButtonClicked"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="چاپ برچسب" Command="{Binding ElementName=this, Path=LabelPrintCommand}" Click="ButtonClicked"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="لیست های بذر" IsEnabled="False"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="کشت بذر" IsEnabled="False"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="مدیریت تراکنش ها" Command="{Binding ElementName=this, Path=TransactionCommand}" Click="ButtonClicked"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="گالری تصاویر" Command="{Binding ElementName=this, Path=ImageGalleryCommand}" Click="ButtonClicked"/>
+                </WrapPanel>
+            </Grid>
+        </Border>
+
+        <!-- People -->
+        <Border Grid.Row="2" Style="{StaticResource MenuSegmentBorder}">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Image Source="..\Images\PeopleHeader.png"/>
+                <WrapPanel Grid.Row="1">
+                    <Button Style="{StaticResource MainMenuButton}" Content="تامین کنندگان"  Command="{Binding ElementName=this, Path=SuppliersCommand}" Click="ButtonClicked"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="کلکتورها" Command="{Binding ElementName=this, Path=CollectorsCommand}" Click="ButtonClicked"/>
+                    <Button Style="{StaticResource MainMenuButton}" Content="مشتری ها" Click="ButtonClicked" IsEnabled="False"/>
+                </WrapPanel>
+            </Grid>
+        </Border>
+
+    </Grid>
+</UserControl>

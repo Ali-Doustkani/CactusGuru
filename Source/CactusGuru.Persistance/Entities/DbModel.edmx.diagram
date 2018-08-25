@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="722e469d91454d708a0ca0879b30de42" Name="Diagram1">
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblCollectionItem" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblCollector" Width="1.5" PointX="0.75" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblGenus" Width="1.5" PointX="1.5" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblSeedList" Width="1.5" PointX="6" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblSeedListItem" Width="1.5" PointX="8.25" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblSupplier" Width="1.5" PointX="0.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblTaxon" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblCollectionItem_tblCollector" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblCollectionItem_tblSupplier" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblCollectionItem_tblTaxon" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblSeedListItem_tblCollectionItem" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblTaxon_tblGenus" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblSeedListItem_tblSeedList" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblSeedListItem_tblSupplier" ManuallyRouted="false" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblSeedListItem_tblTaxon" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblCollectionItemImage" Width="1.5" PointX="5.25" PointY="3.75" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblCollectionItemImage_tblCollectionItem" />
+        <EntityTypeShape EntityType="CactusGuru.DatabaseModel.tblCollectionItemFullImage" Width="1.5" PointX="7.5" PointY="8.125" />
+        <AssociationConnector Association="CactusGuru.DatabaseModel.FK_tblCollectionItemFullImage_To_tblCollectionItemImage" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

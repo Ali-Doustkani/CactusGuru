@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CactusGuru.DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="tblCollectionItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="tblTaxonId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="tblCollectorId" Type="uniqueidentifier" />
+          <Property Name="tblSupplierId" Type="uniqueidentifier" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="SupplierCode" Type="nvarchar" MaxLength="20" />
+          <Property Name="Count" Type="int" />
+          <Property Name="FieldNumber" Type="nvarchar" MaxLength="20" />
+          <Property Name="Locality" Type="nvarchar" MaxLength="200" />
+          <Property Name="IncomeDate" Type="datetime" />
+          <Property Name="IncomeType" Type="tinyint" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="300" />
+        </EntityType>
+        <EntityType Name="tblCollectionItemFullImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCollectionItemImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="tblCollectionItemId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="DateAdded" Type="datetime" Nullable="false" />
+          <Property Name="Image" Type="varbinary(max)" Nullable="false" />
+          <Property Name="SharedOnInstagram" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblCollector">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="FieldAcronym" Type="nvarchar" MaxLength="20" />
+          <Property Name="WebSite" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblGenus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSeedList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PublishDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tblSeedListItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="tblSeedListId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Code" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="StandardPocketCount" Type="int" Nullable="false" />
+          <Property Name="StandardPocketPrice" Type="int" Nullable="false" />
+          <Property Name="Pocket100sPrice" Type="int" />
+          <Property Name="Pocket500sPrice" Type="int" />
+          <Property Name="Pocket1000sPrice" Type="int" />
+          <Property Name="tblCollectionItemId" Type="uniqueidentifier" />
+          <Property Name="tblTaxonId" Type="uniqueidentifier" />
+          <Property Name="tblSupplierId" Type="uniqueidentifier" />
+          <Property Name="SupplierCode" Type="nvarchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tblSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="Acronym" Type="nvarchar" MaxLength="10" />
+          <Property Name="WebSite" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tblTaxon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="tblGenusId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Species" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Variety" Type="nvarchar" MaxLength="50" />
+          <Property Name="SubSpecies" Type="nvarchar" MaxLength="50" />
+          <Property Name="Forma" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cultivar" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_tblCollectionItem_tblCollector">
+          <End Role="tblCollector" Type="Self.tblCollector" Multiplicity="0..1" />
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollector">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItem">
+              <PropertyRef Name="tblCollectorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCollectionItem_tblSupplier">
+          <End Role="tblSupplier" Type="Self.tblSupplier" Multiplicity="0..1" />
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSupplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItem">
+              <PropertyRef Name="tblSupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCollectionItem_tblTaxon">
+          <End Role="tblTaxon" Type="Self.tblTaxon" Multiplicity="1" />
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTaxon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItem">
+              <PropertyRef Name="tblTaxonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCollectionItemFullImage_To_tblCollectionItemImage">
+          <End Role="tblCollectionItemImage" Type="Self.tblCollectionItemImage" Multiplicity="1" />
+          <End Role="tblCollectionItemFullImage" Type="Self.tblCollectionItemFullImage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollectionItemImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItemFullImage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCollectionItemImage_tblCollectionItem">
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="1" />
+          <End Role="tblCollectionItemImage" Type="Self.tblCollectionItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollectionItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItemImage">
+              <PropertyRef Name="tblCollectionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblCollectionItem">
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="0..1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollectionItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblCollectionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblSeedList">
+          <End Role="tblSeedList" Type="Self.tblSeedList" Multiplicity="1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSeedList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblSeedListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblSupplier">
+          <End Role="tblSupplier" Type="Self.tblSupplier" Multiplicity="0..1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSupplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblSupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblTaxon">
+          <End Role="tblTaxon" Type="Self.tblTaxon" Multiplicity="0..1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTaxon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblTaxonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTaxon_tblGenus">
+          <End Role="tblGenus" Type="Self.tblGenus" Multiplicity="1" />
+          <End Role="tblTaxon" Type="Self.tblTaxon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblTaxon">
+              <PropertyRef Name="tblGenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CactusGuruDatabaseModelStoreContainer">
+          <EntitySet Name="tblCollectionItem" EntityType="Self.tblCollectionItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCollectionItemFullImage" EntityType="Self.tblCollectionItemFullImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCollectionItemImage" EntityType="Self.tblCollectionItemImage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblCollector" EntityType="Self.tblCollector" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblGenus" EntityType="Self.tblGenus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSeedList" EntityType="Self.tblSeedList" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSeedListItem" EntityType="Self.tblSeedListItem" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblSupplier" EntityType="Self.tblSupplier" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tblTaxon" EntityType="Self.tblTaxon" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_tblCollectionItem_tblCollector" Association="Self.FK_tblCollectionItem_tblCollector">
+            <End Role="tblCollector" EntitySet="tblCollector" />
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCollectionItem_tblSupplier" Association="Self.FK_tblCollectionItem_tblSupplier">
+            <End Role="tblSupplier" EntitySet="tblSupplier" />
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCollectionItem_tblTaxon" Association="Self.FK_tblCollectionItem_tblTaxon">
+            <End Role="tblTaxon" EntitySet="tblTaxon" />
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCollectionItemFullImage_To_tblCollectionItemImage" Association="Self.FK_tblCollectionItemFullImage_To_tblCollectionItemImage">
+            <End Role="tblCollectionItemImage" EntitySet="tblCollectionItemImage" />
+            <End Role="tblCollectionItemFullImage" EntitySet="tblCollectionItemFullImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCollectionItemImage_tblCollectionItem" Association="Self.FK_tblCollectionItemImage_tblCollectionItem">
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+            <End Role="tblCollectionItemImage" EntitySet="tblCollectionItemImage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblCollectionItem" Association="Self.FK_tblSeedListItem_tblCollectionItem">
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblSeedList" Association="Self.FK_tblSeedListItem_tblSeedList">
+            <End Role="tblSeedList" EntitySet="tblSeedList" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblSupplier" Association="Self.FK_tblSeedListItem_tblSupplier">
+            <End Role="tblSupplier" EntitySet="tblSupplier" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblTaxon" Association="Self.FK_tblSeedListItem_tblTaxon">
+            <End Role="tblTaxon" EntitySet="tblTaxon" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTaxon_tblGenus" Association="Self.FK_tblTaxon_tblGenus">
+            <End Role="tblGenus" EntitySet="tblGenus" />
+            <End Role="tblTaxon" EntitySet="tblTaxon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CactusGuru.DatabaseModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="tblCollectionItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="tblTaxonId" Type="Guid" Nullable="false" />
+          <Property Name="tblCollectorId" Type="Guid" />
+          <Property Name="tblSupplierId" Type="Guid" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SupplierCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="FieldNumber" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="Locality" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="IncomeDate" Type="DateTime" Precision="3" />
+          <Property Name="IncomeType" Type="Byte" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCollector" Relationship="Self.FK_tblCollectionItem_tblCollector" FromRole="tblCollectionItem" ToRole="tblCollector" />
+          <NavigationProperty Name="tblSupplier" Relationship="Self.FK_tblCollectionItem_tblSupplier" FromRole="tblCollectionItem" ToRole="tblSupplier" />
+          <NavigationProperty Name="tblTaxon" Relationship="Self.FK_tblCollectionItem_tblTaxon" FromRole="tblCollectionItem" ToRole="tblTaxon" />
+          <NavigationProperty Name="tblSeedListItem" Relationship="Self.FK_tblSeedListItem_tblCollectionItem" FromRole="tblCollectionItem" ToRole="tblSeedListItem" />
+          <NavigationProperty Name="tblCollectionItemImage" Relationship="CactusGuru.DatabaseModel.FK_tblCollectionItemImage_tblCollectionItem" FromRole="tblCollectionItem" ToRole="tblCollectionItemImage" />
+        </EntityType>
+        <EntityType Name="tblCollector">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="FieldAcronym" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="WebSite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCollectionItem" Relationship="Self.FK_tblCollectionItem_tblCollector" FromRole="tblCollector" ToRole="tblCollectionItem" />
+        </EntityType>
+        <EntityType Name="tblGenus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="tblTaxon" Relationship="Self.FK_tblTaxon_tblGenus" FromRole="tblGenus" ToRole="tblTaxon" />
+        </EntityType>
+        <EntityType Name="tblSeedList">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="PublishDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="tblSeedListItem" Relationship="Self.FK_tblSeedListItem_tblSeedList" FromRole="tblSeedList" ToRole="tblSeedListItem" />
+        </EntityType>
+        <EntityType Name="tblSeedListItem">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="tblSeedListId" Type="Guid" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="StandardPocketCount" Type="Int32" Nullable="false" />
+          <Property Name="StandardPocketPrice" Type="Int32" Nullable="false" />
+          <Property Name="Pocket100sPrice" Type="Int32" />
+          <Property Name="Pocket500sPrice" Type="Int32" />
+          <Property Name="Pocket1000sPrice" Type="Int32" />
+          <Property Name="tblCollectionItemId" Type="Guid" />
+          <Property Name="tblTaxonId" Type="Guid" />
+          <Property Name="tblSupplierId" Type="Guid" />
+          <Property Name="SupplierCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCollectionItem" Relationship="Self.FK_tblSeedListItem_tblCollectionItem" FromRole="tblSeedListItem" ToRole="tblCollectionItem" />
+          <NavigationProperty Name="tblSeedList" Relationship="Self.FK_tblSeedListItem_tblSeedList" FromRole="tblSeedListItem" ToRole="tblSeedList" />
+          <NavigationProperty Name="tblSupplier" Relationship="Self.FK_tblSeedListItem_tblSupplier" FromRole="tblSeedListItem" ToRole="tblSupplier" />
+          <NavigationProperty Name="tblTaxon" Relationship="Self.FK_tblSeedListItem_tblTaxon" FromRole="tblSeedListItem" ToRole="tblTaxon" />
+        </EntityType>
+        <EntityType Name="tblSupplier">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Acronym" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="WebSite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCollectionItem" Relationship="Self.FK_tblCollectionItem_tblSupplier" FromRole="tblSupplier" ToRole="tblCollectionItem" />
+          <NavigationProperty Name="tblSeedListItem" Relationship="Self.FK_tblSeedListItem_tblSupplier" FromRole="tblSupplier" ToRole="tblSeedListItem" />
+        </EntityType>
+        <EntityType Name="tblTaxon">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="tblGenusId" Type="Guid" Nullable="false" />
+          <Property Name="Species" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Variety" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SubSpecies" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Forma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cultivar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tblCollectionItem" Relationship="Self.FK_tblCollectionItem_tblTaxon" FromRole="tblTaxon" ToRole="tblCollectionItem" />
+          <NavigationProperty Name="tblGenus" Relationship="Self.FK_tblTaxon_tblGenus" FromRole="tblTaxon" ToRole="tblGenus" />
+          <NavigationProperty Name="tblSeedListItem" Relationship="Self.FK_tblSeedListItem_tblTaxon" FromRole="tblTaxon" ToRole="tblSeedListItem" />
+        </EntityType>
+        <Association Name="FK_tblCollectionItem_tblCollector">
+          <End Role="tblCollector" Type="Self.tblCollector" Multiplicity="0..1" />
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollector">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItem">
+              <PropertyRef Name="tblCollectorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCollectionItem_tblSupplier">
+          <End Role="tblSupplier" Type="Self.tblSupplier" Multiplicity="0..1" />
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSupplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItem">
+              <PropertyRef Name="tblSupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblCollectionItem_tblTaxon">
+          <End Role="tblTaxon" Type="Self.tblTaxon" Multiplicity="1" />
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTaxon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItem">
+              <PropertyRef Name="tblTaxonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblCollectionItem">
+          <End Role="tblCollectionItem" Type="Self.tblCollectionItem" Multiplicity="0..1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollectionItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblCollectionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblTaxon_tblGenus">
+          <End Role="tblGenus" Type="Self.tblGenus" Multiplicity="1" />
+          <End Role="tblTaxon" Type="Self.tblTaxon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblGenus">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblTaxon">
+              <PropertyRef Name="tblGenusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblSeedList">
+          <End Role="tblSeedList" Type="Self.tblSeedList" Multiplicity="1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSeedList">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblSeedListId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblSupplier">
+          <End Role="tblSupplier" Type="Self.tblSupplier" Multiplicity="0..1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblSupplier">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblSupplierId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tblSeedListItem_tblTaxon">
+          <End Role="tblTaxon" Type="Self.tblTaxon" Multiplicity="0..1" />
+          <End Role="tblSeedListItem" Type="Self.tblSeedListItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblTaxon">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblSeedListItem">
+              <PropertyRef Name="tblTaxonId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CactusGuruEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="tblCollectionItem" EntityType="Self.tblCollectionItem" />
+          <EntitySet Name="tblCollector" EntityType="Self.tblCollector" />
+          <EntitySet Name="tblGenus" EntityType="Self.tblGenus" />
+          <EntitySet Name="tblSeedList" EntityType="Self.tblSeedList" />
+          <EntitySet Name="tblSeedListItem" EntityType="Self.tblSeedListItem" />
+          <EntitySet Name="tblSupplier" EntityType="Self.tblSupplier" />
+          <EntitySet Name="tblTaxon" EntityType="Self.tblTaxon" />
+          <AssociationSet Name="FK_tblCollectionItem_tblCollector" Association="Self.FK_tblCollectionItem_tblCollector">
+            <End Role="tblCollector" EntitySet="tblCollector" />
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCollectionItem_tblSupplier" Association="Self.FK_tblCollectionItem_tblSupplier">
+            <End Role="tblSupplier" EntitySet="tblSupplier" />
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblCollectionItem_tblTaxon" Association="Self.FK_tblCollectionItem_tblTaxon">
+            <End Role="tblTaxon" EntitySet="tblTaxon" />
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblCollectionItem" Association="Self.FK_tblSeedListItem_tblCollectionItem">
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblTaxon_tblGenus" Association="Self.FK_tblTaxon_tblGenus">
+            <End Role="tblGenus" EntitySet="tblGenus" />
+            <End Role="tblTaxon" EntitySet="tblTaxon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblSeedList" Association="Self.FK_tblSeedListItem_tblSeedList">
+            <End Role="tblSeedList" EntitySet="tblSeedList" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblSupplier" Association="Self.FK_tblSeedListItem_tblSupplier">
+            <End Role="tblSupplier" EntitySet="tblSupplier" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tblSeedListItem_tblTaxon" Association="Self.FK_tblSeedListItem_tblTaxon">
+            <End Role="tblTaxon" EntitySet="tblTaxon" />
+            <End Role="tblSeedListItem" EntitySet="tblSeedListItem" />
+          </AssociationSet>
+          <EntitySet Name="tblCollectionItemImage" EntityType="CactusGuru.DatabaseModel.tblCollectionItemImage" />
+          <AssociationSet Name="FK_tblCollectionItemImage_tblCollectionItem" Association="CactusGuru.DatabaseModel.FK_tblCollectionItemImage_tblCollectionItem">
+            <End Role="tblCollectionItem" EntitySet="tblCollectionItem" />
+            <End Role="tblCollectionItemImage" EntitySet="tblCollectionItemImage" />
+          </AssociationSet>
+          <EntitySet Name="tblCollectionItemFullImage" EntityType="CactusGuru.DatabaseModel.tblCollectionItemFullImage" />
+          <AssociationSet Name="FK_tblCollectionItemFullImage_To_tblCollectionItemImage" Association="CactusGuru.DatabaseModel.FK_tblCollectionItemFullImage_To_tblCollectionItemImage">
+            <End Role="tblCollectionItemImage" EntitySet="tblCollectionItemImage" />
+            <End Role="tblCollectionItemFullImage" EntitySet="tblCollectionItemFullImage" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="tblCollectionItemImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="tblCollectionItemId" Type="Guid" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="DateAdded" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblCollectionItem" Relationship="CactusGuru.DatabaseModel.FK_tblCollectionItemImage_tblCollectionItem" FromRole="tblCollectionItemImage" ToRole="tblCollectionItem" />
+          <NavigationProperty Name="tblCollectionItemFullImage" Relationship="CactusGuru.DatabaseModel.FK_tblCollectionItemFullImage_To_tblCollectionItemImage" FromRole="tblCollectionItemImage" ToRole="tblCollectionItemFullImage" />
+          <Property Name="SharedOnInstagram" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_tblCollectionItemImage_tblCollectionItem">
+          <End Type="CactusGuru.DatabaseModel.tblCollectionItem" Role="tblCollectionItem" Multiplicity="1" />
+          <End Type="CactusGuru.DatabaseModel.tblCollectionItemImage" Role="tblCollectionItemImage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollectionItem">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItemImage">
+              <PropertyRef Name="tblCollectionItemId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="tblCollectionItemFullImage">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" />
+          <Property Name="Image" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+          <NavigationProperty Name="tblCollectionItemImage" Relationship="CactusGuru.DatabaseModel.FK_tblCollectionItemFullImage_To_tblCollectionItemImage" FromRole="tblCollectionItemFullImage" ToRole="tblCollectionItemImage" />
+        </EntityType>
+        <Association Name="FK_tblCollectionItemFullImage_To_tblCollectionItemImage">
+          <End Type="CactusGuru.DatabaseModel.tblCollectionItemImage" Role="tblCollectionItemImage" Multiplicity="1" />
+          <End Type="CactusGuru.DatabaseModel.tblCollectionItemFullImage" Role="tblCollectionItemFullImage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="tblCollectionItemImage">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="tblCollectionItemFullImage">
+              <PropertyRef Name="Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CactusGuruDatabaseModelStoreContainer" CdmEntityContainer="CactusGuruEntities">
+          <EntitySetMapping Name="tblCollectionItem">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblCollectionItem">
+              <MappingFragment StoreEntitySet="tblCollectionItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="tblTaxonId" ColumnName="tblTaxonId" />
+                <ScalarProperty Name="tblCollectorId" ColumnName="tblCollectorId" />
+                <ScalarProperty Name="tblSupplierId" ColumnName="tblSupplierId" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="FieldNumber" ColumnName="FieldNumber" />
+                <ScalarProperty Name="Locality" ColumnName="Locality" />
+                <ScalarProperty Name="IncomeDate" ColumnName="IncomeDate" />
+                <ScalarProperty Name="IncomeType" ColumnName="IncomeType" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCollector">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblCollector">
+              <MappingFragment StoreEntitySet="tblCollector">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="FieldAcronym" ColumnName="FieldAcronym" />
+                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblGenus">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblGenus">
+              <MappingFragment StoreEntitySet="tblGenus">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSeedList">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblSeedList">
+              <MappingFragment StoreEntitySet="tblSeedList">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PublishDate" ColumnName="PublishDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSeedListItem">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblSeedListItem">
+              <MappingFragment StoreEntitySet="tblSeedListItem">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="tblSeedListId" ColumnName="tblSeedListId" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="StandardPocketCount" ColumnName="StandardPocketCount" />
+                <ScalarProperty Name="StandardPocketPrice" ColumnName="StandardPocketPrice" />
+                <ScalarProperty Name="Pocket100sPrice" ColumnName="Pocket100sPrice" />
+                <ScalarProperty Name="Pocket500sPrice" ColumnName="Pocket500sPrice" />
+                <ScalarProperty Name="Pocket1000sPrice" ColumnName="Pocket1000sPrice" />
+                <ScalarProperty Name="tblCollectionItemId" ColumnName="tblCollectionItemId" />
+                <ScalarProperty Name="tblTaxonId" ColumnName="tblTaxonId" />
+                <ScalarProperty Name="tblSupplierId" ColumnName="tblSupplierId" />
+                <ScalarProperty Name="SupplierCode" ColumnName="SupplierCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblSupplier">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblSupplier">
+              <MappingFragment StoreEntitySet="tblSupplier">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Acronym" ColumnName="Acronym" />
+                <ScalarProperty Name="WebSite" ColumnName="WebSite" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblTaxon">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblTaxon">
+              <MappingFragment StoreEntitySet="tblTaxon">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="tblGenusId" ColumnName="tblGenusId" />
+                <ScalarProperty Name="Species" ColumnName="Species" />
+                <ScalarProperty Name="Variety" ColumnName="Variety" />
+                <ScalarProperty Name="SubSpecies" ColumnName="SubSpecies" />
+                <ScalarProperty Name="Forma" ColumnName="Forma" />
+                <ScalarProperty Name="Cultivar" ColumnName="Cultivar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCollectionItemImage">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblCollectionItemImage">
+              <MappingFragment StoreEntitySet="tblCollectionItemImage">
+                <ScalarProperty Name="SharedOnInstagram" ColumnName="SharedOnInstagram" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="DateAdded" ColumnName="DateAdded" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="tblCollectionItemId" ColumnName="tblCollectionItemId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tblCollectionItemFullImage">
+            <EntityTypeMapping TypeName="CactusGuru.DatabaseModel.tblCollectionItemFullImage">
+              <MappingFragment StoreEntitySet="tblCollectionItemFullImage">
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,102 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{638EF6B7-F52B-4B76-B06B-BE7452360E6B}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CactusGuru.Application.Implementation</RootNamespace>
+    <AssemblyName>CactusGuru.Application.Implementation</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AssemblerBase.cs" />
+    <Compile Include="Assemblers\CollectionItemAssembler.cs" />
+    <Compile Include="Assemblers\CollectorAssembler.cs" />
+    <Compile Include="Assemblers\GenusAssembler.cs" />
+    <Compile Include="Assemblers\SupplierAssembler.cs" />
+    <Compile Include="Assemblers\TaxonAssembler.cs" />
+    <Compile Include="Copier.cs" />
+    <Compile Include="ViewProviders\CollectionItemList\CollectionItemListViewProvider.cs" />
+    <Compile Include="ViewProviders\CollectionItemViewProvider.cs" />
+    <Compile Include="ViewProviders\CollectorViewProvider.cs" />
+    <Compile Include="ViewProviders\CommonDataEntryViewProvider.cs" />
+    <Compile Include="ViewProviders\GenusViewProvider.cs" />
+    <Compile Include="ViewProviders\ImageGallery\CollectionItemAssembler.cs" />
+    <Compile Include="ViewProviders\ImageGallery\CollectionItemImageAssembler.cs" />
+    <Compile Include="ViewProviders\ImageGallery\FileSaver.cs" />
+    <Compile Include="ViewProviders\ImageGallery\ImageGallerySaver.cs" />
+    <Compile Include="ViewProviders\ImageGallery\ImageGalleryViewProvider.cs" />
+    <Compile Include="ViewProviders\ImageList\ImageAssembler.cs" />
+    <Compile Include="ViewProviders\ImageList\ImageListViewProvider.cs" />
+    <Compile Include="Services\InstagramPackageMaker.cs" />
+    <Compile Include="ViewProviders\LabelPrinting\CollectionItemAssembler.cs" />
+    <Compile Include="ViewProviders\LabelPrinting\LabelPrintViewProvider.cs" />
+    <Compile Include="ViewProviders\LabelPrinting\TaxonAssembler.cs" />
+    <Compile Include="ViewProviders\CollectionItemList\CollectionItemAssembler.cs" />
+    <Compile Include="ViewProviders\Main\FirstPageViewProvider.cs" />
+    <Compile Include="ViewProviders\SeedListViewProvider.cs" />
+    <Compile Include="ViewProviders\SupplierViewProvider.cs" />
+    <Compile Include="ViewProviders\TaxonViewProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CactusGuru.Application\CactusGuru.Application.csproj">
+      <Project>{01233b7d-5191-4cee-aef4-650ac2e3fe17}</Project>
+      <Name>CactusGuru.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CactusGuru.Domain\CactusGuru.Domain.csproj">
+      <Project>{e775ad92-5afc-450b-b7f3-6e03bb37caaa}</Project>
+      <Name>CactusGuru.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CactusGuru.Infrastructure\CactusGuru.Infrastructure.csproj">
+      <Project>{6d3e0c55-73c6-492d-a389-7da3542dd732}</Project>
+      <Name>CactusGuru.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

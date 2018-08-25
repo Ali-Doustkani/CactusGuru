@@ -1,0 +1,17 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <!-- BRUSHES -->
+    <SolidColorBrush x:Key="MouseOverBG" Color="#e3f6fd"/>
+    <SolidColorBrush x:Key="MouseOutBG" Color="#fcfcfc"/>
+    <!-- STYLE -->
+    <Style x:Key="MenuSegmentBorder" TargetType="Border">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource MouseOverBG}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="False">
+                <Setter Property="Background" Value="{StaticResource MouseOutBG}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>

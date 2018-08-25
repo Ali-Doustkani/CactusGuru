@@ -1,0 +1,46 @@
+﻿<dxr:DXRibbonWindow
+    x:Class="CactusGuru.Presentation.View.Views.Main"
+    x:Name="window"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+    xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:userControls="clr-namespace:CactusGuru.Presentation.View.UserControls"
+    Title="Cactus Guru" Height="700" Width="1100"
+    SnapsToDevicePixels="True" UseLayoutRounding="True"
+    WindowStartupLocation="CenterScreen">
+    <dxr:DXRibbonWindow.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </dxr:DXRibbonWindow.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.Row="0" Orientation="Horizontal">
+            <Button Grid.Row="0" VerticalAlignment="Center" Command="{Binding HomeCommand}" Width="32" Height="32" Margin="10 0 0 0" Cursor="Hand">
+                <Button.Template>
+                    <ControlTemplate>
+                        <Image Grid.Row="0" Source="../Images/Icon/home.png" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Border Width="1" Height="30" Background="LightGray" Margin="10 0"/>
+            <userControls:PopupMainMenu Height="500"
+                                    AddCollectionItemCommand="{Binding AddCollectionItemCommand}"
+                                    TaxaCommand="{Binding TaxaCommand}"
+                                    GeneraCommand="{Binding GeneraCommand}"
+                                    SuppliersCommand="{Binding SuppliersCommand}"
+                                    CollectorsCommand="{Binding CollectorsCommand}"
+                                    LabelPrintCommand="{Binding LabelPrintCommand}"
+                                    TransactionCommand="{Binding TransactionCommand}"
+                                    ImageGalleryCommand="{Binding GotoImageGallaryCommand}"/>
+            <TextBlock Style="{DynamicResource LabelFontStyle}" Foreground="LightGray" Margin="5 20 0 0">منوی اصلی:</TextBlock>
+        </StackPanel>
+        <dxwui:NavigationFrame Name="navFrame" Grid.Row="1" AnimationType="SlideHorizontal" ContentRendered="navFrame_ContentRendered"/>
+    </Grid>
+</dxr:DXRibbonWindow>
