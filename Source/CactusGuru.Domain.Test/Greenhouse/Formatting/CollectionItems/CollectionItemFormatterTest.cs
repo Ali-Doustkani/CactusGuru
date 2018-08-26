@@ -14,7 +14,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Formatting.CollectionItems
         [TestInitialize]
         public void SetUp()
         {
-            var taxonFormatter = new TaxonFormatter(new GenusCapitalFormatter());
+            var taxonFormatter = new TaxonFormatter( );
             _formatter = new CollectionItemFormatter(taxonFormatter);
         }
 

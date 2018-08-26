@@ -1,7 +1,6 @@
-﻿using System;
-using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting.Genera;
+﻿using CactusGuru.Domain.Greenhouse;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 
 namespace CactusGuru.Domain.Test
 {

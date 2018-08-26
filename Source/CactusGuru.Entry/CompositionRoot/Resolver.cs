@@ -15,13 +15,7 @@ namespace CactusGuru.Entry.CompositionRoot
 
         public Resolver()
         {
-            var registery = new Registry();
-            registery.IncludeRegistry<InfrastructureRegistry>();
-            registery.IncludeRegistry<DomainRegistry>();
-            registery.IncludeRegistry<ApplicationRegistry>();
-            registery.IncludeRegistry<PresentationRegistry>();
-            _container = new Container(registery);
-            
+            _container = new Container();
             _container.Configure(cfg =>
             {
                 cfg.For<IContext>().Use(ctx => ctx);
@@ -30,7 +24,7 @@ namespace CactusGuru.Entry.CompositionRoot
                     x.TheCallingAssembly();
                     x.AssembliesFromApplicationBaseDirectory(asm => asm.GetName().Name.StartsWith("CactusGuru."));
                     x.ConnectImplementationsToTypesClosing(typeof(TranslatorBase<,>));
-                    //x.ConnectImplementationsToTypesClosing(typeof(AssemblerBase<,>));
+                    x.ConnectImplementationsToTypesClosing(typeof(AssemblerBase<,>));
                     x.ConnectImplementationsToTypesClosing(typeof(IFormatter<>));
                     x.ConnectImplementationsToTypesClosing(typeof(IFactory<>));
                     x.ConnectImplementationsToTypesClosing(typeof(ITerminator<>));
@@ -38,6 +32,10 @@ namespace CactusGuru.Entry.CompositionRoot
                     x.ConnectImplementationsToTypesClosing(typeof(InquiryBase<>));
                     x.WithDefaultConventions();
                 });
+                cfg.AddRegistry<InfrastructureRegistry>();
+                cfg.AddRegistry<DomainRegistry>();
+                cfg.AddRegistry<ApplicationRegistry>();
+                cfg.AddRegistry<PresentationRegistry>();
             });
 
             var a = _container.GetInstance<AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto>>();

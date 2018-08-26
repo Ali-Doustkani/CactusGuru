@@ -13,8 +13,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Formatting
         [TestInitialize]
         public void Setup()
         {
-            var genusFormatter = new GenusCapitalFormatter();
-            _formatter = new TaxonFormatter(genusFormatter);
+            _formatter = new TaxonFormatter( );
             _taxon = new Taxon();
             _taxon.Genus = new Genus();
         }

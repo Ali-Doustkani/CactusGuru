@@ -59,9 +59,6 @@
     <Compile Include="Greenhouse\Formatting\CollectionItems\CollectionItemFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\CollectionItems\RefCollectionItemFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\CollectionItems\LabelFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\GenusCapitalFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\GenusFirstLetterCapitalFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\GenusLowerCaseFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\IFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\NullFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\SupplierFormatter.cs" />

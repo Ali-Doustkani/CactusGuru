@@ -9,25 +9,22 @@ namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
     {
         public CollectionItemAssembler(IFormatter<CollectionItem> fullNameFormatter,
             IFormatter<CollectionItem> referenceInfoFormatter,
-            IFormatter<Genus> genusFormatter, 
             IFormatter<CollectionItem> itemFormatter)
         {
             _fullNameFormatter = fullNameFormatter;
             _referenceInfoFormatter = referenceInfoFormatter;
-            _genusFormatter = genusFormatter;
             _itemFormatter = itemFormatter;
         }
 
         private readonly IFormatter<CollectionItem> _fullNameFormatter;
         private readonly IFormatter<CollectionItem> _referenceInfoFormatter;
-        private readonly IFormatter<Genus> _genusFormatter;
         private readonly IFormatter<CollectionItem> _itemFormatter;
 
         protected override void FillDataTransferEntityImp(CollectionItemDto transferEntity, CollectionItem domainEntity)
         {
             transferEntity.Code = domainEntity.Code;
             transferEntity.Name = _fullNameFormatter.Format(domainEntity);
-            transferEntity.Genus = _genusFormatter.Format(domainEntity.Taxon.Genus);
+            transferEntity.Genus = domainEntity.Taxon.Genus.ToString("GENUS");
             transferEntity.ReferenceInfo = _referenceInfoFormatter.Format(domainEntity);
             transferEntity.Species = _itemFormatter.Format(domainEntity);
         }

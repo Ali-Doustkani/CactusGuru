@@ -2,13 +2,6 @@
 {
     public class TaxonFormatter : IFormatter<Taxon>
     {
-        public TaxonFormatter(IFormatter<Genus> genusFormatter)
-        {
-            _genusFormatter = genusFormatter;
-        }
-
-        private readonly IFormatter<Genus> _genusFormatter;
-
         public string Format(Taxon taxon)
         {
             if (taxon.Genus.Equals(Genus.Empty))
@@ -16,7 +9,7 @@
             if (string.IsNullOrEmpty(taxon.Genus.Title))
                 return string.Empty;
             var taxonwithoutGenus = FormatTaxon(taxon);
-            return $"{_genusFormatter.Format(taxon.Genus)} {taxonwithoutGenus}";
+            return $"{taxon.Genus.ToString("GENUS")} {taxonwithoutGenus}";
         }
 
         public string FormatTaxon(Taxon taxon)
@@ -43,7 +36,7 @@
             if (!string.IsNullOrEmpty(taxon.Forma))
                 ret = $"{ret} fa. {taxon.Forma}";
             if (!string.IsNullOrEmpty(taxon.Cultivar))
-                ret = $"{ret} cv. {GenusFirstLetterCapitalFormatter.CapitalFirstChar(taxon.Cultivar)}";
+                ret = $"{ret} cv. {Genus.CapitalizeFirstLetter(taxon.Cultivar)}";
             return ret;
         }
     }

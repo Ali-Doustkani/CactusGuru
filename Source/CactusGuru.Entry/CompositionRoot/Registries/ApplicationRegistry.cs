@@ -23,7 +23,9 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<IDataEntryViewProvider>().Use<CollectorViewProvider>().Named("collector");
             For<IDataEntryViewProvider>().Use<SupplierViewProvider>().Named("supplier");
 
-            For<AssemblerBase<CollectionItem, CollectionItemDto>>().Use(ctx => CreateImageGalleryCollectionItemAssembler(ctx));
+            For<AssemblerBase<CollectionItem, CollectionItemDto>>()
+              .Use<CollectionItemAssembler>();
+               //.Ctor<IFormatter<CollectionItem>>().IsNamedInstance("taxonField");
 
 
             For<AssemblerBase<CollectionItem, Application.ViewProviders.LabelPrinting.CollectionItemDto>>()
@@ -36,7 +38,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
                 .Ctor<IFormatter<Taxon>>("speciesFormatter").IsNamedInstance("labelPrintSpec");
 
 
-           // For<AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto>>().Use(ctx => CreateLabelPrintTaxonAssembler(ctx));
+            // For<AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto>>().Use(ctx => CreateLabelPrintTaxonAssembler(ctx));
 
             For<AssemblerBase<CollectionItemImage, Application.ViewProviders.ImageList.ImageDto>>().Use(ctx => CreateImageListItemAssembler(ctx));
             For<FileSaver>().Use(ctx => CreateFileSaver(ctx));
@@ -48,22 +50,17 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         //    return new Application.Implementation.ViewProviders.LabelPrinting.CollectionItemAssembler(
         //        ctx.GetInstance<IFormatter<CollectionItem>>(),
         //        ctx.GetInstance<IFormatter<CollectionItem>>("labelPrintRef"),
-        //        ctx.GetInstance<IFormatter<Genus>>(),
         //        ctx.GetInstance<IFormatter<CollectionItem>>("labelPrintSpec"));
         //}
 
         //private AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto> CreateLabelPrintTaxonAssembler(IContext ctx)
         //{
         //    return new Application.Implementation.ViewProviders.LabelPrinting.TaxonAssembler(
-        //        ctx.GetInstance<IFormatter<Genus>>(),
         //        ctx.GetInstance<IFormatter<Taxon>>("labelPrintSpec"),
         //        ctx.GetInstance<IFormatter<Taxon>>());
         //}
 
-        private AssemblerBase<CollectionItem, CollectionItemDto> CreateImageGalleryCollectionItemAssembler(IContext ctx)
-        {
-            return new CollectionItemAssembler(ctx.GetInstance<IFormatter<CollectionItem>>("taxonField"));
-        }
+
 
         private AssemblerBase<CollectionItemImage, Application.ViewProviders.ImageList.ImageDto> CreateImageListItemAssembler(IContext ctx)
         {

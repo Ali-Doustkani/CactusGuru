@@ -58,12 +58,10 @@
     <Compile Include="EqualityTest.cs" />
     <Compile Include="Greenhouse\CollectorTest.cs" />
     <Compile Include="Greenhouse\Formatting\AcronymFormatterTest.cs" />
-    <Compile Include="Greenhouse\Formatting\CapitalGenusFormatterTest.cs" />
     <Compile Include="Greenhouse\Formatting\CollectionItems\CollectionItemFormatterTest.cs" />
-    <Compile Include="Greenhouse\Formatting\Genera\FirstLetterCapitalFormatterTest.cs" />
-    <Compile Include="Greenhouse\Formatting\Genera\LowerCaseFormatterTest.cs" />
     <Compile Include="Greenhouse\Formatting\CollectionItems\RefCollectionItemFormatterTest.cs" />
     <Compile Include="Greenhouse\Formatting\TaxonFormatterTest.cs" />
+    <Compile Include="Greenhouse\GenusTest.cs" />
     <Compile Include="Greenhouse\SupplierTest.cs" />
     <Compile Include="Greenhouse\TaxonTest.cs" />
     <Compile Include="Greenhouse\Qualification\Inquiries\CollectorInquiryTest.cs" />

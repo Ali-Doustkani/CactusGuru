@@ -1,4 +1,6 @@
 ﻿using CactusGuru.Infrastructure;
+using System;
+using System.Linq;
 
 namespace CactusGuru.Domain.Greenhouse
 {
@@ -9,6 +11,15 @@ namespace CactusGuru.Domain.Greenhouse
         public override string ToString()
         {
             return Title;
+        }
+
+        public virtual string ToString(string format)
+        {
+            if (format == "GENUS")
+                return Title.ToUpper();
+            if (format == "Genus")
+                return CapitalizeFirstLetter(Title);
+            throw new Exception("Invalid format");
         }
 
         public virtual bool Equals(Genus other)
@@ -26,6 +37,11 @@ namespace CactusGuru.Domain.Greenhouse
         public override int GetHashCode()
         {
             return Id.GetHashCode();
+        }
+
+        public static string CapitalizeFirstLetter(string title)
+        {
+            return title.First().ToString().ToUpper() + title.Substring(1).ToLower();
         }
 
         #region NULL OBJECT
@@ -46,6 +62,11 @@ namespace CactusGuru.Domain.Greenhouse
             public override string ToString()
             {
                 return "EMPTY Genera";
+            }
+
+            public override string ToString(string format)
+            {
+                return string.Empty;
             }
         }
 
