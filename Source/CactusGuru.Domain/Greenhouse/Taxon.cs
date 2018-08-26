@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using CactusGuru.Infrastructure;
 
 namespace CactusGuru.Domain.Greenhouse
@@ -47,9 +48,7 @@ namespace CactusGuru.Domain.Greenhouse
                     GeneraId = value.Id;
                 }
             }
-        } 
-
-        #region IEqutable
+        }
 
         public override bool Equals(object obj)
         {
@@ -70,18 +69,73 @@ namespace CactusGuru.Domain.Greenhouse
             return Id.GetHashCode();
         }
 
-        #endregion
-
-        #region METHODS
-
         public override string ToString()
         {
             if (Genus == Genus.Empty)
                 return String.Empty;
-            return String.Format("{0} {1}", Genus, Species);
+            return String.Format($"{Genus} {Species}");
         }
 
-        #endregion
+        public virtual string ToString(string format)
+        {
+            var reg = new Regex(@"{\w+}");
+            var matches = reg.Matches(format);
+            var result = format;
+            foreach (Match match in matches)
+            {
+                var tokenFormat = RemoveBraces(match.Value);
+                var formattedStr = string.Empty;
+                if (IsGenus(tokenFormat))
+                    formattedStr = Genus.ToString(tokenFormat);
+                else if (IsTaxon(tokenFormat))
+                    formattedStr = FormatTaxon(tokenFormat);
+                result = result.Replace(match.Value, formattedStr);
+            }
+            return result;
+        }
+
+        public static string RemoveBraces(string token)
+        {
+            return token.Replace("{", string.Empty).Replace("}", string.Empty);
+        }
+
+        private bool IsGenus(string token)
+        {
+            return token.ToLower() == "genus";
+        }
+
+        private bool IsTaxon(string token)
+        {
+            return token.ToLower() == "taxon";
+        }
+
+        private string FormatTaxon(string format)
+        {
+            var displayName = Species.Trim().ToLower();
+            return ConcatToSubSpecies(displayName);
+        }
+
+        private string ConcatToSubSpecies(string displayName)
+        {
+            var sspVar = GetSubSpecies();
+            if (!string.IsNullOrEmpty(sspVar))
+                displayName = $"{displayName}{sspVar}";
+            return displayName;
+        }
+
+        private string GetSubSpecies()
+        {
+            var ret = string.Empty;
+            if (!string.IsNullOrEmpty(SubSpecies))
+                ret = $"{ret} ssp. {SubSpecies}";
+            if (!string.IsNullOrEmpty(Variety))
+                ret = $"{ret} var. {Variety}";
+            if (!string.IsNullOrEmpty(Forma))
+                ret = $"{ret} fa. {Forma}";
+            if (!string.IsNullOrEmpty(Cultivar))
+                ret = $"{ret} cv. {Genus.CapitalizeFirstLetter(Cultivar)}";
+            return ret;
+        }
 
         #region NULL OBJECT
 

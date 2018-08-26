@@ -62,7 +62,6 @@
     <Compile Include="Greenhouse\Formatting\IFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\NullFormatter.cs" />
     <Compile Include="Greenhouse\Formatting\SupplierFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\TaxonFormatter.cs" />
     <Compile Include="Greenhouse\Genus.cs" />
     <Compile Include="Greenhouse\IHaveAcronym.cs" />
     <Compile Include="Greenhouse\Qualification\Validators\CollectionItemImageValidator.cs" />

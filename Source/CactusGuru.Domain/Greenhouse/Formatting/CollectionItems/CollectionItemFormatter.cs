@@ -2,17 +2,10 @@
 {
     public class CollectionItemFormatter : IFormatter<CollectionItem>
     {
-        public CollectionItemFormatter(IFormatter<Taxon> taxonFormatter)
-        {
-            _taxonFormatter = taxonFormatter;
-        }
-
-        private readonly IFormatter<Taxon> _taxonFormatter;
-
         public string Format(CollectionItem collectionItem)
         {
             if (collectionItem.Taxon == null) return string.Empty;
-            var taxon = _taxonFormatter.Format(collectionItem.Taxon);
+            var taxon = collectionItem.Taxon.ToString("{GENUS} {taxon}");
             var field = FormatField(collectionItem);
             string displayName;
             if (HasLocality(collectionItem))

@@ -2,18 +2,11 @@
 {
     public class LabelFormatter : IFormatter<CollectionItem>
     {
-        public LabelFormatter(IFormatter<Taxon> taxonFormatter)
-        {
-            _taxonFormatter = taxonFormatter;
-        }
-
-        private readonly IFormatter<Taxon> _taxonFormatter;
-
         public string Format(CollectionItem collectionItem)
         {
             if (HasField(collectionItem))
-                return $"{_taxonFormatter.Format(collectionItem.Taxon)} {GetField(collectionItem)}";
-            return _taxonFormatter.Format(collectionItem.Taxon);
+                return $"{ collectionItem.Taxon.ToString("{GENUS} {taxon}")} {GetField(collectionItem)}";
+            return collectionItem.Taxon.ToString("{GENUS} {taxon}");
         }
 
         private string GetField(CollectionItem collectionItem)

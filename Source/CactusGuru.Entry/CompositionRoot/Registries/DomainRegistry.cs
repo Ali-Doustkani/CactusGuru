@@ -18,15 +18,12 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         {
             For<ICollectionItemCodeGenerator>().Use<SequentialCodeGenerator>();
 
-            For<IFormatter<Taxon>>().Use<TaxonFormatter>().Named("labelPrintSpec");
-            For<IFormatter<Taxon>>().Use<TaxonFormatter>();
-
             For<IFormatter<CollectionItem>>().Use<CollectionItemFormatter>();
             For<IFormatter<CollectionItem>>().Add<CodeFormatter>().Named("codeFormatter");
             For<IFormatter<CollectionItem>>().Add<RefCollectionItemFormatter>().Named("labelPrintRef");
             //For<IFormatter<CollectionItem>>().Use(CollectionItemLabelFormatter).Named("labelPrintSpec");
             //    return new LabelFormatter(new TaxonFormatter(new NullFormatter<Genus>()));
-            For<IFormatter<CollectionItem>>().Add<LabelFormatter>().Named("labelPrintSpec").Ctor<IFormatter<Taxon>>().Is<TaxonFormatter>();
+           
             For<IFormatter<CollectionItem>>().Add<TaxonFieldFormatter>().Named("taxonField");
          
 

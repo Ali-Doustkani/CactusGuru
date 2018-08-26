@@ -30,7 +30,7 @@ namespace CactusGuru.Domain.Test.Greenhouse
         public void CanSetGenera()
         {
             var GeneraId = Guid.NewGuid();
-            var taxon = new Taxon { Genus = new Genus(){ Id = GeneraId } };
+            var taxon = new Taxon { Genus = new Genus() { Id = GeneraId } };
             Assert.AreEqual(taxon.Genus.Id, GeneraId);
             var Genera = new Genus();
             Genera.Title = "astro";
@@ -65,6 +65,49 @@ namespace CactusGuru.Domain.Test.Greenhouse
 
             t2.Id = t1.Id;
             Assert.IsTrue(t1.Equals(t2));
+        }
+
+        [TestMethod]
+        public void FormatGenusAndTaxon()
+        {
+            Assert.AreEqual("LOBIVIA ferox", Lobivia().ToString("{GENUS} {taxon}"));
+        }
+
+        [TestMethod]
+        public void FormatOnlyGenus()
+        {
+            Assert.AreEqual("Lobivia", Lobivia().ToString("{Genus}"));
+        }
+
+        [TestMethod]
+        public void FormatOnlyTaxon()
+        {
+            Assert.AreEqual("ferox", Lobivia().ToString("{taxon}"));
+        }
+
+        [TestMethod]
+        public void FormatCultivatedTaxon()
+        {
+            Assert.AreEqual("ASTROPHYTUM asterias cv. Superkabuto", Superkubato().ToString("{GENUS} {taxon}"));
+        }
+
+        private Taxon Lobivia()
+        {
+            return new Taxon
+            {
+                Genus = new Genus { Title = "lobivia" },
+                Species = "ferox"
+            };
+        }
+
+        private Taxon Superkubato()
+        {
+            return new Taxon
+            {
+                Genus = new Genus { Title = "astrophytum" },
+                Species = "asterias",
+                Cultivar = "superkabuto"
+            };
         }
     }
 }

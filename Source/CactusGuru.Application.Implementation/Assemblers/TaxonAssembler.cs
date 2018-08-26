@@ -8,22 +8,20 @@ namespace CactusGuru.Application.Implementation.Assemblers
 {
     public class TaxonAssembler : AssemblerBase<Taxon, TaxonDto>
     {
-        public TaxonAssembler(IFormatter<Taxon> formatter,
+        public TaxonAssembler(
             AssemblerBase<Genus, GenusDto> genusAssembler,
             IGenusRepository genusRepository)
         {
-            _formatter = formatter;
             _genusAssembler = genusAssembler;
             _genusRepository = genusRepository;
         }
 
-        private readonly IFormatter<Taxon> _formatter;
         private readonly AssemblerBase<Genus, GenusDto> _genusAssembler;
         private readonly IGenusRepository _genusRepository;
 
         protected override void FillDataTransferEntityImp(TaxonDto transferEntity, Taxon domainEntity)
         {
-            transferEntity.Name = _formatter.Format(domainEntity);
+            transferEntity.Name = domainEntity.ToString("{GENUS} {taxon}");
             transferEntity.Cultivar = domainEntity.Cultivar;
             transferEntity.Forma = domainEntity.Forma;
             transferEntity.Genus = _genusAssembler.ToDataTransferEntity(domainEntity.Genus);

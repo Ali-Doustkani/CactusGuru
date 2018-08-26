@@ -34,8 +34,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
                 .Ctor<IFormatter<CollectionItem>>("itemFormatter").IsNamedInstance("labelPrintSpec");
 
             For<AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto>>()
-                .Use<Application.Implementation.ViewProviders.LabelPrinting.TaxonAssembler>()
-                .Ctor<IFormatter<Taxon>>("speciesFormatter").IsNamedInstance("labelPrintSpec");
+                .Use<Application.Implementation.ViewProviders.LabelPrinting.TaxonAssembler>();
 
 
             // For<AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto>>().Use(ctx => CreateLabelPrintTaxonAssembler(ctx));
@@ -55,9 +54,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
 
         //private AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto> CreateLabelPrintTaxonAssembler(IContext ctx)
         //{
-        //    return new Application.Implementation.ViewProviders.LabelPrinting.TaxonAssembler(
-        //        ctx.GetInstance<IFormatter<Taxon>>("labelPrintSpec"),
-        //        ctx.GetInstance<IFormatter<Taxon>>());
+        //    return new Application.Implementation.ViewProviders.LabelPrinting.TaxonAssembler();
         //}
 
 

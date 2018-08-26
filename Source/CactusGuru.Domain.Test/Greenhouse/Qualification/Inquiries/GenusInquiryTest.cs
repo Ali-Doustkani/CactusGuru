@@ -26,7 +26,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
             _uow.DefaultValue = DefaultValue.Mock;
             _Genera = new Genus();
             _Genera.Id = Guid.NewGuid();
-            _inq = new GeneraInquiry(_uow.Object, Mock.Of<IFormatter<Taxon>>());
+            _inq = new GeneraInquiry(_uow.Object);
         }
 
         [TestMethod]
