@@ -15,12 +15,12 @@ namespace CactusGuru.Entry
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             _resolver = new Resolver();
-             CactusGuru.Presentation.View.Main.Start(_resolver.Resolve<MainViewModel>(), _resolver.Resolve<INavigationService>());
+            CactusGuru.Presentation.View.Main.Start(_resolver.GetInstance<MainViewModel>(), _resolver.GetInstance<INavigationService>());
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var log = _resolver.Resolve<ILogger>();
+            var log = _resolver.GetInstance<ILogger>();
             var ex = e.ExceptionObject as Exception;
             log.Fatal(ex.Message, ex);
         }

@@ -1,21 +1,18 @@
-﻿using CactusGuru.Application.Implementation.ViewProviders.ImageGallery;
-using CactusGuru.Domain.Greenhouse;
+﻿using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Entry.Infrastructure.Logging;
-using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Infrastructure.Logging;
 using CactusGuru.Infrastructure.Persistance;
-using CactusGuru.Infrastructure.Persistance.Merging;
 using CactusGuru.Infrastructure.Qualification;
+using CactusGuru.Persistance;
+using StructureMap;
+using StructureMap.Configuration.DSL;
 
 namespace CactusGuru.Entry.CompositionRoot.Registries
 {
-    internal class InfrastructureRegistry : RegistryBase
+    internal class InfrastructureRegistry : Registry
     {
-        public InfrastructureRegistry(IResolver resolver)
-            : base(resolver)
+        public InfrastructureRegistry()
         {
-            For<ILogger>().Use<LogForNet>();
             For<EventAggregator>().Singleton().Use<EventAggregator>();
             For<IPublisher<Genus>>().Use<Publisher<Genus>>();
             For<ITerminator<Genus>>().Use<Terminator<Genus>>();
@@ -26,14 +23,16 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<IPublisher<Supplier>>().Use<Publisher<Supplier>>();
             For<ITerminator<Supplier>>().Use<Terminator<Supplier>>();
             For<IPublisher<CollectionItem>>().Use<Publisher<CollectionItem>>();
-            For<ITerminator<CollectionItem>>().Use(CollectionItemTerminator);
+            For<ITerminator<CollectionItem>>().Use(ctx => CollectionItemTerminator(ctx.GetInstance<IUnitOfWork>()));
             For<IPublisher<CollectionItemImage>>().Use<SimplePublisher<CollectionItemImage>>();
             For<ITerminator<CollectionItemImage>>().Use<SimpleTerminator<CollectionItemImage>>();
         }
 
-        private ITerminator<CollectionItem> CollectionItemTerminator()
+        private ITerminator<CollectionItem> CollectionItemTerminator(IUnitOfWork uow)
         {
-            return new Terminator<CollectionItem>(Res<IUnitOfWork>(), new NullInquiry<CollectionItem>());
+            return new Terminator<CollectionItem>(uow, new NullInquiry<CollectionItem>());
         }
+
+      
     }
 }

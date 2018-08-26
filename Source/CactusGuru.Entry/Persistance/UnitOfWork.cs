@@ -1,11 +1,10 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Sales;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Persistance.Entities;
 using CactusGuru.Persistance.Repositories;
+using StructureMap;
 using System;
 using System.Collections.Generic;
 
@@ -13,18 +12,18 @@ namespace CactusGuru.Persistance
 {
     public class UnitOfWork : IUnitOfWork
     {
-        public UnitOfWork(CactusGuruEntities context, IResolver resolver)
+        public UnitOfWork(CactusGuruEntities context, IContext container)
         {
             ArgumentChecker.CheckNull(context);
-            ArgumentChecker.CheckNull(resolver);
+            ArgumentChecker.CheckNull(container);
             _context = context;
-            _translatorResolver = resolver;
+            _container = container;
             _dic = new Dictionary<Type, Func<object>>();
             InitializeTypes();
         }
 
         private readonly CactusGuruEntities _context;
-        private readonly IResolver _translatorResolver;
+        private readonly IContext _container;
         private readonly Dictionary<Type, Func<object>> _dic;
 
         public void SaveChanges()
@@ -34,11 +33,6 @@ namespace CactusGuru.Persistance
 
         public T CreateRepository<T>()
         {
-            if (typeof(T) == typeof(ISeedListItemRepository))
-                return (T)(object)new SeedListItemRepository(_context, _translatorResolver.Resolve<TranslatorBase<SeedListItemBase, tblSeedListItem>>());
-            if (typeof(T) == typeof(IRepository<SeedList>))
-                return (T)(object)new SeedListRepository(_context, _translatorResolver.Resolve<TranslatorBase<SeedList, tblSeedList>>());
-
             var requestedType = typeof(T);
             if (!_dic.ContainsKey(requestedType))
                 throw new NotImplementedException("Repository is not registered in the unit of work.");
@@ -64,32 +58,32 @@ namespace CactusGuru.Persistance
 
         private object GenusRepo()
         {
-            return new GenusRepository(_context, _translatorResolver.Resolve<TranslatorBase<Genus, tblGenus>>());
+            return new GenusRepository(_context,_container.GetInstance<TranslatorBase<Genus, tblGenus>>());
         }
 
         private object TaxonRepo()
         {
-            return new TaxonRepository(_context, _translatorResolver.Resolve<TranslatorBase<Taxon, tblTaxon>>());
+            return new TaxonRepository(_context, _container.GetInstance<TranslatorBase<Taxon, tblTaxon>>());
         }
 
         private object SupplierRepo()
         {
-            return new SupplierRepository(_context, _translatorResolver.Resolve<TranslatorBase<Supplier, tblSupplier>>());
+            return new SupplierRepository(_context, _container.GetInstance<TranslatorBase<Supplier, tblSupplier>>());
         }
 
         private object CollectorRepo()
         {
-            return new CollectorRepository(_context, _translatorResolver.Resolve<TranslatorBase<Collector, tblCollector>>());
+            return new CollectorRepository(_context, _container.GetInstance<TranslatorBase<Collector, tblCollector>>());
         }
 
         private object CollectionItemRepo()
         {
-            return new CollectionItemRepository(_context, _translatorResolver.Resolve<TranslatorBase<CollectionItem, tblCollectionItem>>());
+            return new CollectionItemRepository(_context, _container.GetInstance<TranslatorBase<CollectionItem, tblCollectionItem>>());
         }
 
         private object CollectionItemImageRepo()
         {
-            return new CollectionItemImageRepository(_context, _translatorResolver.Resolve<TranslatorBase<CollectionItemImage, tblCollectionItemImage>>());
+            return new CollectionItemImageRepository(_context, _container.GetInstance<TranslatorBase<CollectionItemImage, tblCollectionItemImage>>());
         }
     }
 }

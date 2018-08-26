@@ -3,7 +3,7 @@ using CactusGuru.Infrastructure.Logging;
 
 namespace CactusGuru.Entry.Infrastructure.Logging
 {
-    internal class LogForNet : ILogger
+    public class LogForNet : ILogger
     {
         public LogForNet()
         {

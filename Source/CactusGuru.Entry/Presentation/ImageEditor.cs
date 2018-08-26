@@ -6,7 +6,7 @@ using System.IO;
 
 namespace CactusGuru.Entry.Presentation
 {
-    internal class ImageEditor : IImageEditor
+    public class ImageEditor : IImageEditor
     {
         public byte[] CreateThumbnail(string filePath)
         {

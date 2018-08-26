@@ -1,9 +1,9 @@
-﻿using CactusGuru.Infrastructure;
-using CactusGuru.Presentation.View.Views;
+﻿using CactusGuru.Presentation.View.Views;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
 using Microsoft.Win32;
+using StructureMap;
 using System;
 using System.Drawing;
 using System.IO;
@@ -14,65 +14,65 @@ namespace CactusGuru.Entry.Presentation
 {
     public class NavigationService : INavigationService
     {
-        public NavigationService(IResolver resolver)
+        public NavigationService(IContext container)
         {
-            _resolver = resolver;
+            _container = container;
         }
 
-        private readonly IResolver _resolver;
+        private readonly IContext _container;
 
         public void GotoHome()
         {
-            SlideTo(_resolver.Resolve<FirstPage>());
+            SlideTo(_container.GetInstance<FirstPage>());
         }
 
         public void GotoGenera()
         {
-            OpenUserControl(_resolver.Resolve<GenusEditor>());
+            OpenUserControl(_container.GetInstance<GenusEditor>());
         }
 
         public void GotoTaxa()
         {
-            OpenUserControl(_resolver.Resolve<TaxonEditor>());
+            OpenUserControl(_container.GetInstance<TaxonEditor>());
         }
 
         public void GotoSuppliers()
         {
-            OpenUserControl(_resolver.Resolve<SupplierEditor>());
+            OpenUserControl(_container.GetInstance<SupplierEditor>());
         }
 
         public void GotoCollectors()
         {
-            OpenUserControl(_resolver.Resolve<CollectorEditor>());
+            OpenUserControl(_container.GetInstance<CollectorEditor>());
         }
 
         public void GotoCollectionItemImageGallary(Guid collectionItem)
         {
-            var view = _resolver.Resolve<ImageGallary>();
+            var view = _container.GetInstance<ImageGallary>();
             ((ImageGallaryEditorViewModel)view.DataContext).Load(collectionItem);
             ShowDialog(view);
         }
 
         public void GotoCollectionItemInserter()
         {
-            OpenUserControl(_resolver.Resolve<CollectionItemEditor>("forInsert"), 450, 420);
+            OpenUserControl(_container.GetInstance<CollectionItemEditor>("forInsert"), 450, 420);
         }
 
         public void GotoCollectionItemUpdater(Guid collectionItem)
         {
-            var editor = _resolver.Resolve<CollectionItemEditor>("forUpdate");
+            var editor = _container.GetInstance<CollectionItemEditor>("forUpdate");
             ((CollectionItemEditorViewModel)editor.DataContext).PrepareForEdit(collectionItem);
             OpenUserControl(editor, 450, 420);
         }
 
         public void GotoCollectionItemList()
         {
-            SlideTo(_resolver.Resolve<CollectionItemList>());
+            SlideTo(_container.GetInstance<CollectionItemList>());
         }
 
         public void GotoImageList()
         {
-            SlideTo(_resolver.Resolve<ImageList>());
+            SlideTo(_container.GetInstance<ImageList>());
         }
 
         public void GotoLabelPrint()
@@ -80,7 +80,7 @@ namespace CactusGuru.Entry.Presentation
             var openedWindow = System.Windows.Application.Current.Windows.OfType<LabelPrint>().SingleOrDefault();
             if (openedWindow == null)
             {
-                var window = _resolver.Resolve<LabelPrint>();
+                var window = _container.GetInstance<LabelPrint>();
                 window.Show();
             }
             else
@@ -91,7 +91,7 @@ namespace CactusGuru.Entry.Presentation
 
         public void GotoTransaction()
         {
-            var view = _resolver.Resolve<TransactionEditor>();
+            var view = _container.GetInstance<TransactionEditor>();
             view.ResizeMode = ResizeMode.CanResize;
             ShowDialog(view);
         }

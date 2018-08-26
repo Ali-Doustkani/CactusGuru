@@ -1,116 +1,100 @@
 ﻿using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Greenhouse.CodeGenerating;
-using CactusGuru.Domain.Greenhouse.Factories;
 using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Domain.Greenhouse.Formatting.CollectionItems;
 using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Greenhouse.Qualification.Validators;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Entry.Infrastructure;
-using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
+using StructureMap;
 
 namespace CactusGuru.Entry.CompositionRoot.Registries
 {
-    public class DomainRegistry : RegistryBase
+    public class DomainRegistry : Registry
     {
-        public DomainRegistry(IResolver resolver)
-            : base(resolver)
+        public DomainRegistry()
         {
             For<ICollectionItemCodeGenerator>().Use<SequentialCodeGenerator>();
+
             For<IFormatter<Genus>>().Use<GenusCapitalFormatter>();
-            For<IFormatter<Taxon>>().Use(TaxonSpeciesFormatter).Named("labelPrintSpec");
+
+          
+            For<IFormatter<Taxon>>().Use<TaxonFormatter>().Named("labelPrintSpec").Ctor<IFormatter<Genus>>().Is<NullFormatter<Genus>>();
             For<IFormatter<Taxon>>().Use<TaxonFormatter>();
-            For<IFormatter<CollectionItem>>().Use<CodeFormatter>().Named("codeFormatter");
-            For<IFormatter<CollectionItem>>().Use<RefCollectionItemFormatter>().Named("labelPrintRef");
-            For<IFormatter<CollectionItem>>().Use(CollectionItemLabelFormatter).Named("labelPrintSpec");
-            For<IFormatter<CollectionItem>>().Use<TaxonFieldFormatter>().Named("taxonField");
+            //For<IFormatter<Taxon>>().Use<TaxonFormatter>().Named("labelPrintSpec").Ctor<IFormatter<Genus>>().Is<NullFormatter<Genus>>();
+
             For<IFormatter<CollectionItem>>().Use<CollectionItemFormatter>();
+            For<IFormatter<CollectionItem>>().Add<CodeFormatter>().Named("codeFormatter");
+            For<IFormatter<CollectionItem>>().Add<RefCollectionItemFormatter>().Named("labelPrintRef");
+            //For<IFormatter<CollectionItem>>().Use(CollectionItemLabelFormatter).Named("labelPrintSpec");
+            //    return new LabelFormatter(new TaxonFormatter(new NullFormatter<Genus>()));
+            For<IFormatter<CollectionItem>>().Add<LabelFormatter>().Named("labelPrintSpec").Ctor<IFormatter<Taxon>>().Is<TaxonFormatter>();
+            For<IFormatter<CollectionItem>>().Add<TaxonFieldFormatter>().Named("taxonField");
+         
 
             // Factories
             For<IFactory<Genus>>().Use<SimpleFactory<Genus>>();
             For<IFactory<Taxon>>().Use<SimpleFactory<Taxon>>();
             For<IFactory<Collector>>().Use<SimpleFactory<Collector>>();
             For<IFactory<Supplier>>().Use<SimpleFactory<Supplier>>();
-            For<IFactory<CollectionItem>>().Use<CollectionItemFactory>();
-            For<IFactory<CollectionItemImage>>().Use<CollectionItemImageFactory>();
 
             // Validators
-            For<ValidatorBase<Collector>>().Use(() => Validator<Collector>.Create(
-                Res<EmptySpecification>().SetProperty(nameof(Collector.Acronym)),
-                Res<EmptySpecification>().SetProperty(nameof(Collector.FullName)),
-                SimilaritySpec<ICollectorRepository>()));
+            For<ValidatorBase<Collector>>().Use(ctx => Validator<Collector>.Create(
+                ctx.GetInstance<EmptySpecification>().SetProperty(nameof(Collector.Acronym)),
+                ctx.GetInstance<EmptySpecification>().SetProperty(nameof(Collector.FullName)),
+                SimilaritySpec<ICollectorRepository>(ctx)));
 
-            For<ValidatorBase<Genus>>().Use(() => Validator<Genus>.Create(
-                Res<EmptySpecification>().SetProperty(nameof(Genus.Title)),
-                SimilaritySpec<IGenusRepository>()));
+            For<ValidatorBase<Genus>>().Use(ctx => Validator<Genus>.Create(
+                ctx.GetInstance<EmptySpecification>().SetProperty(nameof(Genus.Title)),
+                SimilaritySpec<IGenusRepository>(ctx)));
 
-            For<ValidatorBase<Supplier>>().Use(() => Validator<Supplier>.Create(
-                Res<EmptySpecification>().SetProperty(nameof(Supplier.FullName)),
-                SimilaritySpec<ISupplierRepository>()));
+            For<ValidatorBase<Supplier>>().Use(ctx => Validator<Supplier>.Create(
+                ctx.GetInstance<EmptySpecification>().SetProperty(nameof(Supplier.FullName)),
+                SimilaritySpec<ISupplierRepository>(ctx)));
 
-            For<ValidatorBase<Taxon>>().Use(() => Validator<Taxon>.Create(
-                Res<EmptySpecification>().SetProperty(nameof(Taxon.Genus)),
-                Res<EmptySpecification>().SetProperty(nameof(Taxon.Species)),
-                SimilaritySpec<ITaxonRepository>()));
+            For<ValidatorBase<Taxon>>().Use(ctx => Validator<Taxon>.Create(
+                ctx.GetInstance<EmptySpecification>().SetProperty(nameof(Taxon.Genus)),
+                ctx.GetInstance<EmptySpecification>().SetProperty(nameof(Taxon.Species)),
+                SimilaritySpec<ITaxonRepository>(ctx)));
 
-            For<ValidatorBase<CollectionItem>>().Use(() => new CollectionItemValidator(Res<EmptySpecification>()));
+            For<ValidatorBase<CollectionItem>>().Use(ctx => new CollectionItemValidator(ctx.GetInstance<EmptySpecification>()));
 
             // Inquiries
-            For<InquiryBase<Collector>>().Use(CollectorInquiry);
-            For<InquiryBase<Supplier>>().Use(SupplierInquiry);
-            For<InquiryBase<Taxon>>().Use(TaxonInquiry);
+            // For<InquiryBase<Collector>>().Use(CollectorInquiry);
+            For<InquiryBase<Collector>>().Use<CollectorInquiry>().Ctor<IFormatter<CollectionItem>>().IsNamedInstance("codeFormatter");
+            //For<InquiryBase<Supplier>>().Use(SupplierInquiry);
+            For<InquiryBase<Supplier>>().Use<SupplierInquiry>().Ctor<IFormatter<CollectionItem>>().IsNamedInstance("codeFormatter");
+            //For<InquiryBase<Taxon>>().Use(TaxonInquiry);
+            For<InquiryBase<Taxon>>().Use<TaxonInquiry>().Ctor<IFormatter<CollectionItem>>().IsNamedInstance("codeFormatter");
             For<InquiryBase<CollectionItemImage>>().Use(() => new NullInquiry<CollectionItemImage>());
-
-            Scan(x =>
-            {
-                x.AssemblyContainingType<Genus>();
-                x.ConnectImplementationsToTypesClosing(typeof(IFormatter<>));
-                x.ConnectImplementationsToTypesClosing(typeof(IFactory<>));
-                x.ConnectImplementationsToTypesClosing(typeof(ITerminator<>));
-                x.ConnectImplementationsToTypesClosing(typeof(ValidatorBase<>));
-                x.ConnectImplementationsToTypesClosing(typeof(InquiryBase<>));
-                x.WithDefaultConventions();
-            });
-
-            Scan(x =>
-            {
-                x.AssemblyContainingType<DomainDictionary>();
-                x.WithDefaultConventions();
-            });
         }
 
-        private SimilaritySpec SimilaritySpec<TRepo>()
+        private SimilaritySpec SimilaritySpec<TRepo>(IContext ctx)
             where TRepo : ISimilarityRepository
         {
-            return new SimilaritySpec(Res<TRepo>(), Res<IDomainDictionary>());
+            return new SimilaritySpec(ctx.GetInstance<TRepo>(), ctx.GetInstance<IDomainDictionary>());
         }
 
-        private InquiryBase<Collector> CollectorInquiry()
-        {
-            return new CollectorInquiry(Res<IUnitOfWork>(), Res<IFormatter<CollectionItem>>("codeFormatter"));
-        }
+        //private InquiryBase<Collector> CollectorInquiry(IContext ctx)
+        //{
+        //    return new CollectorInquiry(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<IFormatter<CollectionItem>>("codeFormatter"));
+        //}
 
-        private InquiryBase<Supplier> SupplierInquiry()
-        {
-            return new SupplierInquiry(Res<IUnitOfWork>(), Res<IFormatter<CollectionItem>>("codeFormatter"));
-        }
+        //private InquiryBase<Supplier> SupplierInquiry(IContext ctx)
+        //{
+        //    return new SupplierInquiry(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<IFormatter<CollectionItem>>("codeFormatter"));
+        //}
 
-        private InquiryBase<Taxon> TaxonInquiry()
-        {
-            return new TaxonInquiry(Res<IUnitOfWork>(), Res<IFormatter<CollectionItem>>("codeFormatter"));
-        }
+        //private InquiryBase<Taxon> TaxonInquiry(IContext ctx)
+        //{
+        //    return new TaxonInquiry(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<IFormatter<CollectionItem>>("codeFormatter"));
+        //}
 
-        private IFormatter<CollectionItem> CollectionItemLabelFormatter()
-        {
-            return new LabelFormatter(new TaxonFormatter(new NullFormatter<Genus>()));
-        }
-
-        private IFormatter<Taxon> TaxonSpeciesFormatter()
-        {
-            return new TaxonFormatter(new NullFormatter<Genus>());
-        }
+        //private IFormatter<CollectionItem> CollectionItemLabelFormatter()
+        //{
+        //    return new LabelFormatter(new TaxonFormatter(new NullFormatter<Genus>()));
+        //}
     }
 }

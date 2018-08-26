@@ -59,7 +59,6 @@
     <Compile Include="Utils\IImageEditor.cs" />
     <Compile Include="ObjectCreation\FactoryArg.cs" />
     <Compile Include="ObjectCreation\IFactory.cs" />
-    <Compile Include="IResolver.cs" />
     <Compile Include="Persistance\Merging\IMerger.cs" />
     <Compile Include="Persistance\Merging\MergerAlgorithm.cs" />
     <Compile Include="Persistance\SimplePublisher.cs" />

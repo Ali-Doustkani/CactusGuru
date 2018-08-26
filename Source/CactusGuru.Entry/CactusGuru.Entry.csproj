@@ -64,8 +64,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Dependencies\Stimulsoft.Report.dll</HintPath>
     </Reference>
-    <Reference Include="StructureMap">
-      <HintPath>..\..\Dependencies\StructureMap.dll</HintPath>
+    <Reference Include="StructureMap, Version=4.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StructureMap.4.7.0\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -96,14 +96,13 @@
     <Compile Include="CompositionRoot\Registries\ApplicationRegistry.cs" />
     <Compile Include="CompositionRoot\Registries\DomainRegistry.cs" />
     <Compile Include="CompositionRoot\Registries\InfrastructureRegistry.cs" />
-    <Compile Include="CompositionRoot\Registries\PersistanceRegistry.cs" />
-    <Compile Include="CompositionRoot\Registries\RegistryBase.cs" />
-    <Compile Include="CompositionRoot\Resolver.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompositionRoot\Registries\PresentationRegistry.cs" />
+    <Compile Include="CompositionRoot\Resolver.cs" />
     <Compile Include="Infrastructure\DomainDictionary.cs" />
     <Compile Include="Infrastructure\Logging\LogForNet.cs" />
+    <Compile Include="Persistance\UnitOfWork.cs" />
     <Compile Include="Presentation\ImageEditor.cs" />
     <Compile Include="Presentation\NavigationService.cs" />
     <Compile Include="Presentation\PrintService.cs" />

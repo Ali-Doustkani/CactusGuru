@@ -6,9 +6,7 @@ using CactusGuru.Application.ViewProviders.LabelPrinting;
 using CactusGuru.Application.ViewProviders.Main;
 using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Entry.Presentation;
-using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Presentation.View.NavigationService;
 using CactusGuru.Presentation.View.Views;
 using CactusGuru.Presentation.ViewModel.NavigationService;
@@ -24,117 +22,115 @@ using CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.TransactionViewModels;
+using StructureMap;
+using StructureMap.Configuration.DSL;
 using System;
 
 namespace CactusGuru.Entry.CompositionRoot.Registries
 {
-    public class PresentationRegistry : RegistryBase
+    public class PresentationRegistry : Registry
     {
-        public PresentationRegistry(IResolver resolver)
-            : base(resolver)
+        public PresentationRegistry()
         {
-            For<INavigationService>().Singleton().Use(() => new NavigationService(resolver));
-            For<IImageEditor>().Use<ImageEditor>();
-            For<IPrintService>().Use<PrintService>();
-            For<MainViewModel>().Use<MainViewModel>();
+            For<INavigationService>().Singleton().Use(ctx => new NavigationService(ctx));
             For<IDialogService>().Singleton().Use<DialogService>();
-            For<FirstPage>().Use(CreateFirstPage);
-            For<GenusEditor>().Use(CreateGeneraEditor);
-            For<TaxonEditor>().Use(CreateTaxonEditor);
-            For<SupplierEditor>().Use(CreateSupplierEditor);
-            For<CollectorEditor>().Use(CreateCollectorEditor);
-            For<ImageGallary>().Use(CreateImageGallary);
-            For<CollectionItemEditor>().Use(CreateCollectionItemInserter).Named("forInsert");
-            For<CollectionItemEditor>().Use(CreateCollectionItemUpdater).Named("forUpdate");
-            For<CollectionItemList>().Use(CreateCollectionItemList);
-            For<ImageList>().Use(CreateImageList);
-            For<LabelPrint>().Use(CreateLabelPrint);
-            For<TransactionEditor>().Use(CreateTransactionEditor);
-            For<IFormatter<DateTime>>().Singleton().Use(() => { return new MonthNameDateFormatter(); }).Named("monthName");
-            For<IFormatter<DateTime>>().Use(() => { return new MonthNumberDateFormatter(); }).Named("monthNumber");
+            For<FirstPage>().Use(ctx => CreateFirstPage(ctx));
+            For<GenusEditor>().Use(ctx => CreateGeneraEditor(ctx));
+            For<TaxonEditor>().Use(ctx => CreateTaxonEditor(ctx));
+            For<SupplierEditor>().Use(ctx => CreateSupplierEditor(ctx));
+            For<CollectorEditor>().Use(ctx => CreateCollectorEditor(ctx));
+            For<ImageGallary>().Use(ctx => CreateImageGallary(ctx));
+            For<CollectionItemEditor>().Use(ctx => CreateCollectionItemInserter(ctx)).Named("forInsert");
+            For<CollectionItemEditor>().Use(ctx => CreateCollectionItemUpdater(ctx)).Named("forUpdate");
+            For<CollectionItemList>().Use(ctx => CreateCollectionItemList(ctx));
+            For<ImageList>().Use(ctx => CreateImageList(ctx));
+            For<LabelPrint>().Use(ctx => CreateLabelPrint(ctx));
+            For<TransactionEditor>().Use(ctx => CreateTransactionEditor());
+            For<IFormatter<DateTime>>().Singleton().Use<MonthNameDateFormatter>().Named("monthName");
+            For<IFormatter<DateTime>>().Use<MonthNumberDateFormatter>().Named("monthNumber");
         }
 
-        private FirstPage CreateFirstPage()
+        private FirstPage CreateFirstPage(IContext container)
         {
             var ret = new FirstPage();
-            ret.DataContext = new FirstPageViewModel(Res<IFirstPageViewProvider>(), Res<INavigationService>());
+            ret.DataContext = new FirstPageViewModel(container.GetInstance<IFirstPageViewProvider>(), container.GetInstance<INavigationService>());
             return ret;
         }
 
-        private GenusEditor CreateGeneraEditor()
+        private GenusEditor CreateGeneraEditor(IContext container)
         {
             var ret = new GenusEditor();
-            ret.DataContext = new GeneraEditorViewModel(Res<IDataEntryViewProvider>("genus"), Res<IDialogService>(), ret);
+            ret.DataContext = new GeneraEditorViewModel(container.GetInstance<IDataEntryViewProvider>("genus"), container.GetInstance<IDialogService>(), ret);
             return ret;
         }
 
-        private TaxonEditor CreateTaxonEditor()
+        private TaxonEditor CreateTaxonEditor(IContext container)
         {
             var ret = new TaxonEditor();
-            ret.DataContext = new TaxonEditorViewModel(Res<IDataEntryViewProvider>("taxon"), Res<INavigationService>(), Res<IDialogService>(), ret, Res<EventAggregator>());
+            ret.DataContext = new TaxonEditorViewModel(container.GetInstance<IDataEntryViewProvider>("taxon"), container.GetInstance<INavigationService>(), container.GetInstance<IDialogService>(), ret, container.GetInstance<EventAggregator>());
             return ret;
         }
 
-        private SupplierEditor CreateSupplierEditor()
+        private SupplierEditor CreateSupplierEditor(IContext container)
         {
             var ret = new SupplierEditor();
-            ret.DataContext = new SupplierEditorViewModel(Res<IDataEntryViewProvider>("supplier"), Res<IDialogService>(), ret);
+            ret.DataContext = new SupplierEditorViewModel(container.GetInstance<IDataEntryViewProvider>("supplier"), container.GetInstance<IDialogService>(), ret);
             return ret;
         }
 
-        private CollectorEditor CreateCollectorEditor()
+        private CollectorEditor CreateCollectorEditor(IContext container)
         {
             var ret = new CollectorEditor();
-            ret.DataContext = new CollectorEditorViewModel(Res<IDataEntryViewProvider>("collector"), Res<IDialogService>(), ret);
+            ret.DataContext = new CollectorEditorViewModel(container.GetInstance<IDataEntryViewProvider>("collector"), container.GetInstance<IDialogService>(), ret);
             return ret;
         }
 
-        private ImageGallary CreateImageGallary()
+        private ImageGallary CreateImageGallary(IContext container)
         {
             var ret = new ImageGallary();
-            ret.DataContext = new ImageGallaryEditorViewModel(Res<IImageGalleryViewProvider>(),
-                Res<IDialogService>(),
-                new ImageItemViewModelFactory(Res<IFormatter<DateTime>>("monthName")),
-                Res<INavigationService>());
+            ret.DataContext = new ImageGallaryEditorViewModel(container.GetInstance<IImageGalleryViewProvider>(),
+                container.GetInstance<IDialogService>(),
+                new ImageItemViewModelFactory(container.GetInstance<IFormatter<DateTime>>("monthName")),
+                container.GetInstance<INavigationService>());
             return ret;
         }
 
-        private CollectionItemEditor CreateCollectionItemInserter()
+        private CollectionItemEditor CreateCollectionItemInserter(IContext container)
         {
             var ret = new CollectionItemEditor();
-            ret.DataContext = new CollectionItemEditorViewModel(Res<ICollectionItemViewProvider>(), Res<IDialogService>(), Res<INavigationService>(), ret, Res<EventAggregator>());
+            ret.DataContext = new CollectionItemEditorViewModel(container.GetInstance<ICollectionItemViewProvider>(), container.GetInstance<IDialogService>(), container.GetInstance<INavigationService>(), ret, container.GetInstance<EventAggregator>());
             return ret;
         }
 
-        private CollectionItemEditor CreateCollectionItemUpdater()
+        private CollectionItemEditor CreateCollectionItemUpdater(IContext container)
         {
             var ret = new CollectionItemEditor();
-            ret.DataContext = new CollectionItemEditorViewModel(Res<ICollectionItemViewProvider>(), Res<IDialogService>(), Res<INavigationService>(), ret, Res<EventAggregator>());
+            ret.DataContext = new CollectionItemEditorViewModel(container.GetInstance<ICollectionItemViewProvider>(), container.GetInstance<IDialogService>(), container.GetInstance<INavigationService>(), ret, container.GetInstance<EventAggregator>());
             return ret;
         }
 
-        private CollectionItemList CreateCollectionItemList()
+        private CollectionItemList CreateCollectionItemList(IContext container)
         {
             var ret = new CollectionItemList();
-            ret.DataContext = new CollectionItemListViewModel(Res<ICollectionItemListViewProvider>(), Res<INavigationService>(), Res<IDialogService>(), Res<EventAggregator>());
+            ret.DataContext = new CollectionItemListViewModel(container.GetInstance<ICollectionItemListViewProvider>(), container.GetInstance<INavigationService>(), container.GetInstance<IDialogService>(), container.GetInstance<EventAggregator>());
             return ret;
         }
 
-        private ImageList CreateImageList()
+        private ImageList CreateImageList(IContext container)
         {
             var ret = new ImageList();
-            ret.DataContext = new ImageListViewModel(Res<IImageListViewProvider>(), new ImageViewModelFactory(Res<IFormatter<DateTime>>("monthName")), Res<IDialogService>());
+            ret.DataContext = new ImageListViewModel(container.GetInstance<IImageListViewProvider>(), new ImageViewModelFactory(container.GetInstance<IFormatter<DateTime>>("monthName")), container.GetInstance<IDialogService>());
             return ret;
         }
 
-        private LabelPrint CreateLabelPrint()
+        private LabelPrint CreateLabelPrint(IContext container)
         {
             var ret = new LabelPrint();
-            ret.DataContext = new CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint.LabelPrintEditorViewModel(Res<ILabelPrintViewProvider>(),
-                Res<INavigationService>(),
-                Res<IDialogService>(),
-                Res<IPrintService>(),
-                Res<EventAggregator>());
+            ret.DataContext = new CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint.LabelPrintEditorViewModel(container.GetInstance<ILabelPrintViewProvider>(),
+                container.GetInstance<INavigationService>(),
+                container.GetInstance<IDialogService>(),
+                container.GetInstance<IPrintService>(),
+                container.GetInstance<EventAggregator>());
             return ret;
         }
 
