@@ -70,25 +70,25 @@ namespace CactusGuru.Domain.Test.Greenhouse
         [TestMethod]
         public void FormatGenusAndTaxon()
         {
-            Assert.AreEqual("LOBIVIA ferox", Lobivia().ToString("{GENUS} {taxon}"));
+            Assert.AreEqual("LOBIVIA ferox", Lobivia().Format("{GENUS} {taxon}"));
         }
 
         [TestMethod]
         public void FormatOnlyGenus()
         {
-            Assert.AreEqual("Lobivia", Lobivia().ToString("{Genus}"));
+            Assert.AreEqual("Lobivia", Lobivia().Format("{Genus}"));
         }
 
         [TestMethod]
         public void FormatOnlyTaxon()
         {
-            Assert.AreEqual("ferox", Lobivia().ToString("{taxon}"));
+            Assert.AreEqual("ferox", Lobivia().Format("{taxon}"));
         }
 
         [TestMethod]
         public void FormatCultivatedTaxon()
         {
-            Assert.AreEqual("ASTROPHYTUM asterias cv. Superkabuto", Superkubato().ToString("{GENUS} {taxon}"));
+            Assert.AreEqual("ASTROPHYTUM asterias cv. Superkabuto", Superkubato().Format("{GENUS} {taxon}"));
         }
 
         private Taxon Lobivia()

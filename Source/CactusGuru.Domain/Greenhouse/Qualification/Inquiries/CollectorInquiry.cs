@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CactusGuru.Domain.Greenhouse.Formatting;
-using CactusGuru.Domain.Persistance.Repositories;
+﻿using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
 {
     public class CollectorInquiry : InquiryBase<Collector>
     {
-        public CollectorInquiry(IUnitOfWork unitOfWork, IFormatter<CollectionItem> formatter)
+        public CollectorInquiry(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _formatter = formatter;
         }
 
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IFormatter<CollectionItem> _formatter;
 
         protected override ErrorCollection InquiryImp(Guid id)
         {
@@ -34,7 +31,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
             var collectionItems = _unitOfWork.CreateRepository<ICollectionItemRepository>().GetByCollectorId(collectorId);
             if (!collectionItems.Any()) return Error.Empty;
             foreach (var item in collectionItems)
-                taxonTitles.Add(_formatter.Format(item));
+                taxonTitles.Add(item.Format("{code} - {GENUS} {taxon}"));
             return new Error($"کلکتور مورد نظر در تعریف اقلام های ذیل در مجموعه استفاده شده است: {Environment.NewLine}{string.Join(Environment.NewLine, taxonTitles)}");
         }
     }

@@ -1,10 +1,9 @@
-﻿using CactusGuru.Domain.Greenhouse.Formatting;
-using System;
+﻿using System;
 using System.Globalization;
 
 namespace CactusGuru.Presentation.ViewModel.Utils
 {
-    public class MonthNumberDateFormatter : IFormatter<DateTime>
+    public class MonthNumberDateFormatter  
     {
         public MonthNumberDateFormatter()
         {

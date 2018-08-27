@@ -82,6 +82,7 @@
     <Compile Include="Utils\ArgumentChecker.cs" />
     <Compile Include="Utils\DateUtil.cs" />
     <Compile Include="Utils\FactoryArgumentChecker.cs" />
+    <Compile Include="Utils\StringFormatting.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

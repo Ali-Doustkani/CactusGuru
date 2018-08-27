@@ -52,16 +52,6 @@
     <Compile Include="Greenhouse\Factories\CollectionItemFactory.cs" />
     <Compile Include="Greenhouse\Factories\CollectionItemImageFactory.cs" />
     <Compile Include="Greenhouse\Factories\CollectionItemImageFactoryArg.cs" />
-    <Compile Include="Greenhouse\Formatting\AcronymFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\CodeFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\TaxonFieldFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectorFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\CollectionItemFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\RefCollectionItemFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\LabelFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\IFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\NullFormatter.cs" />
-    <Compile Include="Greenhouse\Formatting\SupplierFormatter.cs" />
     <Compile Include="Greenhouse\Genus.cs" />
     <Compile Include="Greenhouse\IHaveAcronym.cs" />
     <Compile Include="Greenhouse\Qualification\Validators\CollectionItemImageValidator.cs" />

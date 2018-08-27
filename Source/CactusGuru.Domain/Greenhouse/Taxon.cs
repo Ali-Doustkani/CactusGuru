@@ -1,6 +1,6 @@
-﻿using System;
-using System.Text.RegularExpressions;
-using CactusGuru.Infrastructure;
+﻿using CactusGuru.Infrastructure;
+using CactusGuru.Infrastructure.Utils;
+using System;
 
 namespace CactusGuru.Domain.Greenhouse
 {
@@ -76,40 +76,36 @@ namespace CactusGuru.Domain.Greenhouse
             return String.Format($"{Genus} {Species}");
         }
 
-        public virtual string ToString(string format)
+        public virtual string Format(string format)
         {
-            var reg = new Regex(@"{\w+}");
-            var matches = reg.Matches(format);
-            var result = format;
-            foreach (Match match in matches)
-            {
-                var tokenFormat = RemoveBraces(match.Value);
-                var formattedStr = string.Empty;
-                if (IsGenus(tokenFormat))
-                    formattedStr = Genus.ToString(tokenFormat);
-                else if (IsTaxon(tokenFormat))
-                    formattedStr = FormatTaxon(tokenFormat);
-                result = result.Replace(match.Value, formattedStr);
-            }
-            return result;
+            return StringFormatting.Tokenize(format, token => FormatByToken(token));
         }
 
-        public static string RemoveBraces(string token)
+        public string FormatByToken(string token)
         {
-            return token.Replace("{", string.Empty).Replace("}", string.Empty);
+            if (IsGenus(token))
+                return Genus.Format(token);
+            else if (IsTaxon(token))
+                return FormatTaxon();
+            throw new Exception("Invalid token");
         }
 
-        private bool IsGenus(string token)
+        public static bool IsMyToken(string token)
+        {
+            return IsGenus(token) || IsTaxon(token);
+        }
+
+        private static bool IsGenus(string token)
         {
             return token.ToLower() == "genus";
         }
 
-        private bool IsTaxon(string token)
+        private static bool IsTaxon(string token)
         {
             return token.ToLower() == "taxon";
         }
 
-        private string FormatTaxon(string format)
+        private string FormatTaxon()
         {
             var displayName = Species.Trim().ToLower();
             return ConcatToSubSpecies(displayName);
@@ -191,6 +187,11 @@ namespace CactusGuru.Domain.Greenhouse
             public override string ToString()
             {
                 return "EMPTY TAXON";
+            }
+
+            public override string Format(string format)
+            {
+                return string.Empty;
             }
         }
 

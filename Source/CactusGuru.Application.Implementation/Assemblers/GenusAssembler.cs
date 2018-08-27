@@ -7,7 +7,7 @@ namespace CactusGuru.Application.Implementation.Assemblers
     {
         protected override void FillDataTransferEntityImp(GenusDto transferEntity, Genus domainEntity)
         {
-            transferEntity.Name = domainEntity.ToString("Genus");
+            transferEntity.Name = domainEntity.Format("Genus");
         }
 
         protected override void FillDomainEntityImp(Genus domainEntity, GenusDto dataTransferentity)

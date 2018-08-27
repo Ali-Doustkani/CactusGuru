@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure;
@@ -8,7 +7,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
 {

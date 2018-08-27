@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure;
@@ -26,7 +25,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
             _uow.DefaultValue = DefaultValue.Mock;
             _collector = new Collector();
             _collector.Id = Guid.NewGuid();
-            _inq = new CollectorInquiry(_uow.Object, Mock.Of<IFormatter<CollectionItem>>());
+            _inq = new CollectorInquiry(_uow.Object);
         }
 
         [TestMethod]

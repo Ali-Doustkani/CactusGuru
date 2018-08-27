@@ -1,19 +1,19 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageList;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Utils;
 using System;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 {
     public class ImageViewModel : BaseViewModel
     {
-        public ImageViewModel(ImageDto imageDto, IFormatter<DateTime> dateFormatter)
+        public ImageViewModel(ImageDto imageDto)
         {
             InnerObject = imageDto;
-            _dateFormatter = dateFormatter;
+            _dateFormatter = new MonthNameDateFormatter();
         }
 
-        private readonly IFormatter<DateTime> _dateFormatter;
+        private readonly MonthNameDateFormatter _dateFormatter;
 
         internal ImageDto InnerObject { get; }
 

@@ -31,7 +31,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
             var taxa = _uow.CreateRepository<ITaxonRepository>().GetByGeneraId(genusId);
             if (!taxa.Any()) return Error.Empty;
             foreach (var taxon in taxa)
-                taxonTitles.Add(taxon.ToString("{GENUS} {taxon}"));
+                taxonTitles.Add(taxon.Format("{GENUS} {taxon}"));
             return new Error(string.Format("جنس مورد نظر در تعریف تاکسون های ذیل استفاده شده است: {0}{1}",
                 Environment.NewLine,
                 string.Join(Environment.NewLine, taxonTitles)));

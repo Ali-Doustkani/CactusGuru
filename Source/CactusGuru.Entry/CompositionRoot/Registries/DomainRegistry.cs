@@ -1,8 +1,5 @@
 ﻿using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Greenhouse.CodeGenerating;
-using CactusGuru.Domain.Greenhouse.Formatting;
-using CactusGuru.Domain.Greenhouse.Formatting.CollectionItems;
-using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Greenhouse.Qualification.Validators;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.ObjectCreation;
@@ -17,15 +14,6 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         public DomainRegistry()
         {
             For<ICollectionItemCodeGenerator>().Use<SequentialCodeGenerator>();
-
-            For<IFormatter<CollectionItem>>().Use<CollectionItemFormatter>();
-            For<IFormatter<CollectionItem>>().Add<CodeFormatter>().Named("codeFormatter");
-            For<IFormatter<CollectionItem>>().Add<RefCollectionItemFormatter>().Named("labelPrintRef");
-            //For<IFormatter<CollectionItem>>().Use(CollectionItemLabelFormatter).Named("labelPrintSpec");
-            //    return new LabelFormatter(new TaxonFormatter(new NullFormatter<Genus>()));
-           
-            For<IFormatter<CollectionItem>>().Add<TaxonFieldFormatter>().Named("taxonField");
-         
 
             // Factories
             For<IFactory<Genus>>().Use<SimpleFactory<Genus>>();
@@ -55,12 +43,6 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<ValidatorBase<CollectionItem>>().Use(ctx => new CollectionItemValidator(ctx.GetInstance<EmptySpecification>()));
 
             // Inquiries
-            // For<InquiryBase<Collector>>().Use(CollectorInquiry);
-            For<InquiryBase<Collector>>().Use<CollectorInquiry>().Ctor<IFormatter<CollectionItem>>().IsNamedInstance("codeFormatter");
-            //For<InquiryBase<Supplier>>().Use(SupplierInquiry);
-            For<InquiryBase<Supplier>>().Use<SupplierInquiry>().Ctor<IFormatter<CollectionItem>>().IsNamedInstance("codeFormatter");
-            //For<InquiryBase<Taxon>>().Use(TaxonInquiry);
-            For<InquiryBase<Taxon>>().Use<TaxonInquiry>().Ctor<IFormatter<CollectionItem>>().IsNamedInstance("codeFormatter");
             For<InquiryBase<CollectionItemImage>>().Use(() => new NullInquiry<CollectionItemImage>());
         }
 
@@ -69,25 +51,5 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         {
             return new SimilaritySpec(ctx.GetInstance<TRepo>(), ctx.GetInstance<IDomainDictionary>());
         }
-
-        //private InquiryBase<Collector> CollectorInquiry(IContext ctx)
-        //{
-        //    return new CollectorInquiry(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<IFormatter<CollectionItem>>("codeFormatter"));
-        //}
-
-        //private InquiryBase<Supplier> SupplierInquiry(IContext ctx)
-        //{
-        //    return new SupplierInquiry(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<IFormatter<CollectionItem>>("codeFormatter"));
-        //}
-
-        //private InquiryBase<Taxon> TaxonInquiry(IContext ctx)
-        //{
-        //    return new TaxonInquiry(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<IFormatter<CollectionItem>>("codeFormatter"));
-        //}
-
-        //private IFormatter<CollectionItem> CollectionItemLabelFormatter()
-        //{
-        //    return new LabelFormatter(new TaxonFormatter(new NullFormatter<Genus>()));
-        //}
     }
 }

@@ -10,20 +10,20 @@ namespace CactusGuru.Domain.Test.Greenhouse
         [TestMethod]
         public void CapitalLetters()
         {
-            Assert.AreEqual("ASTRO", Genus().ToString("GENUS"));
+            Assert.AreEqual("ASTRO", Genus().Format("GENUS"));
         }
 
         [TestMethod]
         public void FirstLetterCapitalized()
         {
-            Assert.AreEqual("Astro", Genus().ToString("Genus"));
+            Assert.AreEqual("Astro", Genus().Format("Genus"));
         }
 
         [TestMethod]
         [ExpectedException(typeof(Exception))]
         public void InvalidFormat_Exception()
         {
-            Genus().ToString("GEnus");
+            Genus().Format("GEnus");
         }
 
         private Genus Genus()

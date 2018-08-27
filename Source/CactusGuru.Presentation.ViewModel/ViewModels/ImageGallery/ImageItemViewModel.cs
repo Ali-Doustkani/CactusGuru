@@ -1,20 +1,20 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Utils;
 using System;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 {
     public class ImageItemViewModel : BaseViewModel
     {
-        public ImageItemViewModel(ImageDto dto, IFormatter<DateTime> dateFormatter)
+        public ImageItemViewModel(ImageDto dto)
         {
             InnerObject = dto;
-            _dateFormatter = dateFormatter;
+            _dateFormatter = new MonthNameDateFormatter ();
             _memento = new ImageItemMemento(dto);
         }
 
-        private readonly IFormatter<DateTime> _dateFormatter;
+        private readonly MonthNameDateFormatter _dateFormatter;
         private readonly ImageItemMemento _memento;
 
         internal ImageDto InnerObject { get; }

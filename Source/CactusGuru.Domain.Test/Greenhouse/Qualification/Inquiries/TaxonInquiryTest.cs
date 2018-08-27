@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure;
@@ -24,7 +23,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
             _taxon = new Taxon { Id = Guid.NewGuid() };
             _uow = new Mock<IUnitOfWork>();
             _uow.DefaultValue = DefaultValue.Mock;
-            _inquiry = new TaxonInquiry(_uow.Object, Mock.Of<IFormatter<CollectionItem>>());
+            _inquiry = new TaxonInquiry(_uow.Object);
         }
 
         [TestMethod]

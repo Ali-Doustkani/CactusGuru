@@ -1,8 +1,7 @@
-﻿using System;
-using CactusGuru.Application.Common;
+﻿using CactusGuru.Application.Common;
 using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Domain.Persistance.Repositories;
+using System;
 
 namespace CactusGuru.Application.Implementation.Assemblers
 {
@@ -21,7 +20,7 @@ namespace CactusGuru.Application.Implementation.Assemblers
 
         protected override void FillDataTransferEntityImp(TaxonDto transferEntity, Taxon domainEntity)
         {
-            transferEntity.Name = domainEntity.ToString("{GENUS} {taxon}");
+            transferEntity.Name = domainEntity.Format("{GENUS} {taxon}");
             transferEntity.Cultivar = domainEntity.Cultivar;
             transferEntity.Forma = domainEntity.Forma;
             transferEntity.Genus = _genusAssembler.ToDataTransferEntity(domainEntity.Genus);

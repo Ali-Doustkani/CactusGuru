@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CactusGuru.Domain.Greenhouse.Formatting;
-using CactusGuru.Domain.Persistance.Repositories;
+﻿using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
 {
     public class SupplierInquiry : InquiryBase<Supplier>
     {
-        public SupplierInquiry(IUnitOfWork unitOfWork, IFormatter<CollectionItem> formatter)
+        public SupplierInquiry(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
-            _formatter = formatter;
         }
 
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IFormatter<CollectionItem> _formatter;
 
         protected override ErrorCollection InquiryImp(Guid supplierId)
         {
@@ -34,7 +31,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
             var items = _unitOfWork.CreateRepository<ICollectionItemRepository>().GetBySupplierId(supplierId);
             if (!items.Any()) return Error.Empty;
             foreach (var collectionItem in items)
-                itemTitles.Add(_formatter.Format(collectionItem));
+                itemTitles.Add(collectionItem.Format("{code} - {GENUS} {taxon}"));
             return new Error($"تامین کننده ی مورد نظر در تعریف آیتم های ذیل استفاده شده است: {Environment.NewLine}{string.Join(Environment.NewLine, itemTitles)}");
         }
     }

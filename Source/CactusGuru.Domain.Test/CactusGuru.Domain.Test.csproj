@@ -56,10 +56,8 @@
   <ItemGroup>
     <Compile Include="Greenhouse\CodeGenerating\SequentialCodeGeneratorTest.cs" />
     <Compile Include="EqualityTest.cs" />
+    <Compile Include="Greenhouse\CollectionItemTest.cs" />
     <Compile Include="Greenhouse\CollectorTest.cs" />
-    <Compile Include="Greenhouse\Formatting\AcronymFormatterTest.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\CollectionItemFormatterTest.cs" />
-    <Compile Include="Greenhouse\Formatting\CollectionItems\RefCollectionItemFormatterTest.cs" />
     <Compile Include="Greenhouse\GenusTest.cs" />
     <Compile Include="Greenhouse\SupplierTest.cs" />
     <Compile Include="Greenhouse\TaxonTest.cs" />

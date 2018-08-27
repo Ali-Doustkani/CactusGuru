@@ -13,7 +13,7 @@ namespace CactusGuru.Domain.Greenhouse
             return Title;
         }
 
-        public virtual string ToString(string format)
+        public virtual string Format(string format)
         {
             if (format == "GENUS")
                 return Title.ToUpper();
@@ -64,7 +64,7 @@ namespace CactusGuru.Domain.Greenhouse
                 return "EMPTY Genera";
             }
 
-            public override string ToString(string format)
+            public override string Format(string format)
             {
                 return string.Empty;
             }

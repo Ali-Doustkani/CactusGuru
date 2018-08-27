@@ -33,6 +33,13 @@ namespace CactusGuru.Domain.Greenhouse
             return FullName;
         }
 
+        public string Format()
+        {
+            if (string.IsNullOrEmpty(Acronym))
+                return FullName;
+            return $"{FullName}({Acronym})";
+        }
+
         #region NULL OBJECT
 
         private static NullCollector _empty;

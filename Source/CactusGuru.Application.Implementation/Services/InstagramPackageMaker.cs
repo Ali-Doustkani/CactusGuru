@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.Utils;
 using System;
@@ -13,21 +12,14 @@ namespace CactusGuru.Application.Implementation.Services
 {
     public class InstagramPackageMaker
     {
-        public InstagramPackageMaker(ICollectionItemImageRepository collectionItemImageRepository,
-            ICollectionItemRepository collectionItemRepository,
-            IFormatter<CollectionItem> collectionItemFormatter,
-            IFormatter<DateTime> dateFormatter)
+        public InstagramPackageMaker(ICollectionItemImageRepository collectionItemImageRepository,ICollectionItemRepository collectionItemRepository)
         {
             _collectionItemImageRepository = collectionItemImageRepository;
             _collectionItemRepository = collectionItemRepository;
-            _collectionItemFormatter = collectionItemFormatter;
-            _dateFormatter = dateFormatter;
         }
 
         private readonly ICollectionItemImageRepository _collectionItemImageRepository;
         private readonly ICollectionItemRepository _collectionItemRepository;
-        private readonly IFormatter<CollectionItem> _collectionItemFormatter;
-        private readonly IFormatter<DateTime> _dateFormatter;
 
         public void SaveToZip(IEnumerable<CollectionItemImage> images, string targetPath)
         {
@@ -65,9 +57,9 @@ namespace CactusGuru.Application.Implementation.Services
             {
                 sb.Append(counter++);
                 sb.AppendLine();
-                sb.Append(_collectionItemFormatter.Format(_collectionItemRepository.Get(image.CollectionItemId)));
+                sb.Append( _collectionItemRepository.Get(image.CollectionItemId).Format("{GENUS} {taxon}"));
                 sb.AppendLine();
-                sb.Append(_dateFormatter.Format(image.DateAdded));
+                sb.Append(image.DateAdded.Year);
                 sb.AppendLine();
                 sb.AppendLine();
                 sb.Append("cactusbaz.ir");

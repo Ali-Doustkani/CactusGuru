@@ -9,9 +9,9 @@ namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
         protected override void FillDataTransferEntityImp(TaxonDto dto, Taxon domainEntity)
         {
             dto.Id = domainEntity.Id;
-            dto.Genus = domainEntity.Genus.ToString("GENUS");
-            dto.Species = domainEntity.ToString("{taxon}");
-            dto.Name = domainEntity.ToString("{GENUS} {taxon}");
+            dto.Genus = domainEntity.Format("{GENUS}");
+            dto.Species = domainEntity.Format("{taxon}");
+            dto.Name = domainEntity.Format("{GENUS} {taxon}");
         }
 
         protected override void FillDomainEntityImp(Taxon domainEntity, TaxonDto dto)

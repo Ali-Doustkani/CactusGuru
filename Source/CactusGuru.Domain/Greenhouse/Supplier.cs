@@ -8,9 +8,11 @@ namespace CactusGuru.Domain.Greenhouse
         public string WebSite { get; set; }
         public string Acronym { get; set; }
 
-        public bool HasAcronym()
+        public string Format()
         {
-            return !string.IsNullOrEmpty(Acronym);
+            if (string.IsNullOrEmpty(Acronym))
+                return FullName;
+            return $"{FullName}({Acronym})";
         }
 
         public override string ToString()

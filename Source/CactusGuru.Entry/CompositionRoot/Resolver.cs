@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.Implementation;
 using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Entry.CompositionRoot.Registries;
 using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
@@ -25,7 +24,6 @@ namespace CactusGuru.Entry.CompositionRoot
                     x.AssembliesFromApplicationBaseDirectory(asm => asm.GetName().Name.StartsWith("CactusGuru."));
                     x.ConnectImplementationsToTypesClosing(typeof(TranslatorBase<,>));
                     x.ConnectImplementationsToTypesClosing(typeof(AssemblerBase<,>));
-                    x.ConnectImplementationsToTypesClosing(typeof(IFormatter<>));
                     x.ConnectImplementationsToTypesClosing(typeof(IFactory<>));
                     x.ConnectImplementationsToTypesClosing(typeof(ITerminator<>));
                     x.ConnectImplementationsToTypesClosing(typeof(ValidatorBase<>));

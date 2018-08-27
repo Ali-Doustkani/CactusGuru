@@ -1,11 +1,8 @@
 ﻿using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Entry.Infrastructure.Logging;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
-using CactusGuru.Persistance;
 using StructureMap;
-using StructureMap.Configuration.DSL;
 
 namespace CactusGuru.Entry.CompositionRoot.Registries
 {
@@ -32,7 +29,5 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         {
             return new Terminator<CollectionItem>(uow, new NullInquiry<CollectionItem>());
         }
-
-      
     }
 }

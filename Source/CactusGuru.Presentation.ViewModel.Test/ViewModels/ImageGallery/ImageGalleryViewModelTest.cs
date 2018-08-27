@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.Utils;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
@@ -24,7 +23,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.ImageGallery
             _dataProvider = new Mock<IImageGalleryViewProvider>();
             _dialogService = new Mock<IDialogService>();
             _windowController = new Mock<IWindowController>();
-            _viewModel = new ImageGallaryEditorViewModel(_dataProvider.Object, _dialogService.Object, new ImageItemViewModelFactory(Mock.Of<IFormatter<DateTime>>()), Mock.Of<INavigationService>());
+            _viewModel = new ImageGallaryEditorViewModel(_dataProvider.Object, _dialogService.Object, new ImageItemViewModelFactory(), Mock.Of<INavigationService>());
         }
 
         [TestMethod]

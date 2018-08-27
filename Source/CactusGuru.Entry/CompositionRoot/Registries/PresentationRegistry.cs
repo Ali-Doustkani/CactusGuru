@@ -4,7 +4,6 @@ using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Application.ViewProviders.ImageList;
 using CactusGuru.Application.ViewProviders.LabelPrinting;
 using CactusGuru.Application.ViewProviders.Main;
-using CactusGuru.Domain.Greenhouse.Formatting;
 using CactusGuru.Entry.Presentation;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.View.NavigationService;
@@ -23,8 +22,6 @@ using CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.TransactionViewModels;
 using StructureMap;
-using StructureMap.Configuration.DSL;
-using System;
 
 namespace CactusGuru.Entry.CompositionRoot.Registries
 {
@@ -46,8 +43,8 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<ImageList>().Use(ctx => CreateImageList(ctx));
             For<LabelPrint>().Use(ctx => CreateLabelPrint(ctx));
             For<TransactionEditor>().Use(ctx => CreateTransactionEditor());
-            For<IFormatter<DateTime>>().Singleton().Use<MonthNameDateFormatter>().Named("monthName");
-            For<IFormatter<DateTime>>().Use<MonthNumberDateFormatter>().Named("monthNumber");
+            For<MonthNameDateFormatter>().Singleton().Use<MonthNameDateFormatter>();
+            For<MonthNumberDateFormatter>().Use<MonthNumberDateFormatter>();
         }
 
         private FirstPage CreateFirstPage(IContext container)
@@ -90,7 +87,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             var ret = new ImageGallary();
             ret.DataContext = new ImageGallaryEditorViewModel(container.GetInstance<IImageGalleryViewProvider>(),
                 container.GetInstance<IDialogService>(),
-                new ImageItemViewModelFactory(container.GetInstance<IFormatter<DateTime>>("monthName")),
+                new ImageItemViewModelFactory( ),
                 container.GetInstance<INavigationService>());
             return ret;
         }
@@ -119,7 +116,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         private ImageList CreateImageList(IContext container)
         {
             var ret = new ImageList();
-            ret.DataContext = new ImageListViewModel(container.GetInstance<IImageListViewProvider>(), new ImageViewModelFactory(container.GetInstance<IFormatter<DateTime>>("monthName")), container.GetInstance<IDialogService>());
+            ret.DataContext = new ImageListViewModel(container.GetInstance<IImageListViewProvider>(), new ImageViewModelFactory( ), container.GetInstance<IDialogService>());
             return ret;
         }
 
