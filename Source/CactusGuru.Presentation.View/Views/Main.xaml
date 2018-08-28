@@ -42,7 +42,7 @@
                                     SuppliersCommand="{Binding SuppliersCommand}"
                                     CollectorsCommand="{Binding CollectorsCommand}"
                                     LabelPrintCommand="{Binding LabelPrintCommand}"
-                                    ImageGalleryCommand="{Binding GotoImageGallaryCommand}"/>
+                                    ImageGalleryCommand="{Binding ImageGalleryCommand}"/>
             <TextBlock Style="{DynamicResource LabelFontStyle}" Foreground="LightGray" Margin="5 20 0 0">منوی اصلی:</TextBlock>
         </StackPanel>
         <dxwui:NavigationFrame Name="navFrame" Grid.Row="1" AnimationType="SlideHorizontal" ContentRendered="navFrame_ContentRendered"/>

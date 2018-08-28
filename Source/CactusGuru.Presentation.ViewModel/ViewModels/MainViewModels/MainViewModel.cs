@@ -17,6 +17,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
             CollectorsCommand = new RelayCommand(_navigationService.GotoCollectors);
             LabelPrintCommand = new RelayCommand(_navigationService.GotoLabelPrint);
             HomeCommand = new RelayCommand(_navigationService.GotoHome);
+            ImageGalleryCommand = new RelayCommand(_navigationService.GotoImageList);
         }
 
         private readonly INavigationService _navigationService;
