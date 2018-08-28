@@ -20,9 +20,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             ICollectionItemViewProvider dataProvider,
             IDialogService dialogService,
             INavigationService navigationService,
-            IWindowController windowController,
             EventAggregator eventAggregator)
-              : base(dataProvider, new CollectionItemViewModelFactory(), dialogService, windowController)
+              : base(dataProvider, new CollectionItemViewModelFactory(), dialogService)
         {
             _dataProvider = dataProvider;
             _navigationService = navigationService;

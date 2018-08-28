@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -15,14 +14,12 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.ImageGallery
         private ImageGallaryEditorViewModel _viewModel;
         private Mock<IImageGalleryViewProvider> _dataProvider;
         private Mock<IDialogService> _dialogService;
-        private Mock<IWindowController> _windowController;
 
         [TestInitialize]
         public void SetUp()
         {
             _dataProvider = new Mock<IImageGalleryViewProvider>();
             _dialogService = new Mock<IDialogService>();
-            _windowController = new Mock<IWindowController>();
             _viewModel = new ImageGallaryEditorViewModel(_dataProvider.Object, _dialogService.Object, new ImageItemViewModelFactory(), Mock.Of<INavigationService>());
         }
 

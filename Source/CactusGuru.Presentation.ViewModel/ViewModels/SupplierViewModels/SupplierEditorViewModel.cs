@@ -2,16 +2,13 @@
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
 {
     public class SupplierEditorViewModel : SimpleEditorViewModel<SupplierViewModel>
     {
-        public SupplierEditorViewModel(IDataEntryViewProvider dataProvider,
-            IDialogService dialogService,
-            IWindowController windowController)
-            : base(dataProvider, new SupplierViewModelFactory(), dialogService, windowController)
+        public SupplierEditorViewModel(IDataEntryViewProvider dataProvider, IDialogService dialogService)
+            : base(dataProvider, new SupplierViewModelFactory(), dialogService)
         {
             ItemSource = new FilterDataSource<SupplierViewModel>();
         }

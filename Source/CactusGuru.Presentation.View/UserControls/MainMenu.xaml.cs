@@ -20,7 +20,6 @@ namespace CactusGuru.Presentation.View.UserControls
         public static DependencyProperty CollectorsCommandProperty = DependencyProperty.Register("CollectorsCommand", typeof(ICommand), typeof(MainMenu));
         public static DependencyProperty SeedListsCommandProperty = DependencyProperty.Register("SeedListsCommand", typeof(ICommand), typeof(MainMenu));
         public static DependencyProperty LabelPrintCommandProperty = DependencyProperty.Register("LabelPrintCommand", typeof(ICommand), typeof(MainMenu));
-        public static DependencyProperty TransactionCommandProperty = DependencyProperty.Register("TransactionCommand", typeof(ICommand), typeof(MainMenu));
         public static DependencyProperty ImageGalleryCommandProperty = DependencyProperty.Register("ImageGalleryCommand", typeof(ICommand), typeof(MainMenu));
 
         public ICommand GeneraCommand
@@ -63,12 +62,6 @@ namespace CactusGuru.Presentation.View.UserControls
         {
             get { return (ICommand)GetValue(LabelPrintCommandProperty); }
             set { SetValue(LabelPrintCommandProperty, value); }
-        }
-
-        public ICommand TransactionCommand
-        {
-            get { return (ICommand)GetValue(TransactionCommandProperty); }
-            set { SetValue(TransactionCommandProperty, value); }
         }
 
         public ICommand ImageGalleryCommand

@@ -6,6 +6,7 @@
     xmlns:dxwui="http://schemas.devexpress.com/winfx/2008/xaml/windowsui"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:userControls="clr-namespace:CactusGuru.Presentation.View.UserControls"
+    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
     Title="Cactus Guru" Height="700" Width="1100"
     SnapsToDevicePixels="True" UseLayoutRounding="True"
     WindowStartupLocation="CenterScreen">
@@ -14,8 +15,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+            <local:ViewModelLocator x:Key="vmLocator"/>
         </ResourceDictionary>
     </dxr:DXRibbonWindow.Resources>
+    <dxr:DXRibbonWindow.DataContext>
+        <Binding Source="{StaticResource vmLocator}" Path="MainViewModel"/>
+    </dxr:DXRibbonWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
@@ -37,7 +42,6 @@
                                     SuppliersCommand="{Binding SuppliersCommand}"
                                     CollectorsCommand="{Binding CollectorsCommand}"
                                     LabelPrintCommand="{Binding LabelPrintCommand}"
-                                    TransactionCommand="{Binding TransactionCommand}"
                                     ImageGalleryCommand="{Binding GotoImageGallaryCommand}"/>
             <TextBlock Style="{DynamicResource LabelFontStyle}" Foreground="LightGray" Margin="5 20 0 0">منوی اصلی:</TextBlock>
         </StackPanel>

@@ -18,7 +18,6 @@ namespace CactusGuru.Presentation.ViewModel.NavigationService
         Image SelectImage();
         void CloseCurrentView();
         void GotoLabelPrint();
-        void GotoTransaction();
         DialogResult<int> GetNumberFromUser();
         DialogResult<DateTime> GetDateFromUser();
     }

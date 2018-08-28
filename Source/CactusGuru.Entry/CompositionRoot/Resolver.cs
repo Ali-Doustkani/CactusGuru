@@ -4,15 +4,17 @@ using CactusGuru.Entry.CompositionRoot.Registries;
 using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
+using CactusGuru.Presentation.View.Views;
+using CactusGuru.Presentation.ViewModel.Framework;
 using StructureMap;
 
 namespace CactusGuru.Entry.CompositionRoot
 {
-    public class Resolver
+    public class Resolver : IViewModelResolver
     {
         private Container _container;
 
-        public Resolver()
+        private Resolver()
         {
             _container = new Container();
             _container.Configure(cfg =>
@@ -42,6 +44,22 @@ namespace CactusGuru.Entry.CompositionRoot
         public T GetInstance<T>()
         {
             return _container.GetInstance<T>();
+        }
+
+        public T Resolve<T>() where T : BaseViewModel
+        {
+            return _container.GetInstance<T>();
+        }
+
+        private static Resolver _instance;
+        public static Resolver Instance
+        {
+            get
+            {
+                if (_instance == null)
+                    _instance = new Resolver();
+                return _instance;
+            }
         }
     }
 }

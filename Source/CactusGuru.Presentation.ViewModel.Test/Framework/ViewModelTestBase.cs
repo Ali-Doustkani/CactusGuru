@@ -1,10 +1,7 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
-using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Language.Flow;
@@ -24,14 +21,12 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         {
             dataProvider = new Mock<TProvider>();
             navigationService = new Mock<INavigationService>();
-            windowController = new Mock<IWindowController>();
             dialogService = new Mock<IDialogService>();
         }
 
         protected TSut viewModel;
         protected readonly Mock<TProvider> dataProvider;
         protected readonly Mock<INavigationService> navigationService;
-        protected readonly Mock<IWindowController> windowController;
         protected readonly Mock<IDialogService> dialogService;
 
         [TestInitialize]
@@ -47,8 +42,6 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
                     parameters.Add(dialogService.Object);
                 else if (p.ParameterType == typeof(INavigationService))
                     parameters.Add(navigationService.Object);
-                else if (p.ParameterType == typeof(IWindowController))
-                    parameters.Add(windowController.Object);
                 else if (p.ParameterType == typeof(EventAggregator))
                     parameters.Add(new EventAggregator());
             }

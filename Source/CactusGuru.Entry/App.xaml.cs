@@ -9,18 +9,16 @@ namespace CactusGuru.Entry
 {
     public partial class App
     {
-        private Resolver _resolver;
-
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            _resolver = new Resolver();
-            CactusGuru.Presentation.View.Main.Start(_resolver.GetInstance<MainViewModel>(), _resolver.GetInstance<INavigationService>());
+            CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = Resolver.Instance;
+            CactusGuru.Presentation.View.Main.Start(Resolver.Instance.GetInstance<MainViewModel>(), Resolver.Instance.GetInstance<INavigationService>());
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var log = _resolver.GetInstance<ILogger>();
+            var log = Resolver.Instance.GetInstance<ILogger>();
             var ex = e.ExceptionObject as Exception;
             log.Fatal(ex.Message, ex);
         }

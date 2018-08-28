@@ -1,12 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using CactusGuru.Presentation.View.Utils;
-using CactusGuru.Presentation.ViewModel.Utils;
+﻿using CactusGuru.Presentation.View.Utils;
 using System;
+using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Views
 {
-    public partial class SupplierEditor : IWindowController, IUserControlView
+    public partial class SupplierEditor : IUserControlView
     {
         public SupplierEditor()
         {
@@ -21,21 +19,6 @@ namespace CactusGuru.Presentation.View.Views
         private readonly TabIndexController _tabController;
 
         public event EventHandler Save = delegate { };
-
-        private void SupplierEditor_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            listBox.Focus();
-        }
-
-        public void FocusFirstControl()
-        {
-            txtTitle.Focus();
-        }
-
-        public void FocusOnSearch()
-        {
-            txtSearch.Focus();
-        }
 
         private void UIElement_OnKeyUp(object sender, KeyEventArgs e)
         {

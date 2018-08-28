@@ -41,6 +41,8 @@ namespace CactusGuru.Domain.Greenhouse
 
         public static string CapitalizeFirstLetter(string title)
         {
+            if (string.IsNullOrEmpty(title))
+                return string.Empty;
             return title.First().ToString().ToUpper() + title.Substring(1).ToLower();
         }
 

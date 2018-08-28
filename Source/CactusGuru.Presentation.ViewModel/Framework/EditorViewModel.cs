@@ -10,36 +10,50 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     public abstract class EditorViewModel<TRowItem> : BaseViewModel
         where TRowItem : WorkingViewModel
     {
-        protected EditorViewModel(
-            IDataEntryViewProvider dataProvider,
-            IWorkingFactory<TRowItem> viewModelFactory,
-            IDialogService dialogService,
-            IWindowController windowController)
+        protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory, IDialogService dialogService)
         {
             _dialogService = dialogService;
             _dataProvider = dataProvider;
             _viewModelFactory = viewModelFactory;
-            _windowController = windowController;
             State = EditorViewModelState.View;
             LoadCommand = new RelayCommand(PrepareForLoad);
             PrepareForAddCommand = new RelayCommand(PrepareForAdd, () => State == EditorViewModelState.View);
             PrepareForEditCommand = new RelayCommand(PrepareForEdit, CanEditOrDelete);
             DeleteCommand = new RelayCommand(AskAndDelete, CanEditOrDelete);
             SaveCommand = new RelayCommand(Save, CanSave);
-            SaveNewCommand = new RelayCommand(SaveNew,  CanSaveNew);
+            SaveNewCommand = new RelayCommand(SaveNew, CanSaveNew);
             CancelCommand = new RelayCommand(Cancel, () => State != EditorViewModelState.View);
         }
 
         private TransferObjectBase _originalItem;
         private TRowItem _workingItem;
+
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
-        private readonly IWindowController _windowController;
         protected readonly IWorkingFactory<TRowItem> _viewModelFactory;
-
         public abstract string Title { get; }
         public bool IsEditorOn => State != EditorViewModelState.View;
-        public EditorViewModelState State { get; private set; }
+
+        private EditorViewModelState _state;
+        public EditorViewModelState State
+        {
+            get { return _state; }
+            private set
+            {
+                _state = value;
+                OnPropertyChanged(nameof(IsEditorOn));
+                if(value== EditorViewModelState.View)
+                {
+                    DefaultControlFocused = true;
+                    OnPropertyChanged(nameof(DefaultControlFocused));
+                }
+                else if (value == EditorViewModelState.Add || value == EditorViewModelState.Edit)
+                {
+                    FirstControlFocused = true;
+                    OnPropertyChanged(nameof(FirstControlFocused));
+                }
+            }
+        }
         public ICommand LoadCommand { get; protected set; }
         public ICommand PrepareForAddCommand { get; private set; }
         public ICommand PrepareForEditCommand { get; private set; }
@@ -59,6 +73,10 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
         }
 
+        public bool FirstControlFocused { get; set; }
+
+        public bool DefaultControlFocused { get; set; }
+
         public abstract void NotifyAllPropertiesChanged();
 
         protected virtual void PrepareForLoad() { }
@@ -66,18 +84,14 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public virtual void PrepareForAdd()
         {
             State = EditorViewModelState.Add;
-            OnPropertyChanged(nameof(IsEditorOn));
             WorkingItem = _viewModelFactory.Create(_dataProvider.Build());
             OnPropertyChanged(nameof(WorkingItem));
-            _windowController.FocusFirstControl();
         }
 
         public virtual void PrepareForEdit()
         {
             State = EditorViewModelState.Edit;
-            OnPropertyChanged(nameof(IsEditorOn));
             _originalItem = _dataProvider.Copy(WorkingItem.InnerObject);
-            _windowController.FocusFirstControl();
         }
 
         public bool ItemIsSelected()
@@ -147,7 +161,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             if (State == EditorViewModelState.Edit)
                 CancelEdit();
             State = EditorViewModelState.View;
-            OnPropertyChanged(nameof(IsEditorOn));
             NotifyAllPropertiesChanged();
         }
 
@@ -155,7 +168,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         {
             if (!CheckForSave()) return;
             State = EditorViewModelState.View;
-            OnPropertyChanged(nameof(IsEditorOn));
         }
 
         private bool CheckForSave()

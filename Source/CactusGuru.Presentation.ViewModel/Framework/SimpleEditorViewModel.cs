@@ -18,14 +18,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     {
         protected SimpleEditorViewModel(IDataEntryViewProvider dataProvider,
             IWorkingFactory<TRowItem> viewModelFactory,
-            IDialogService dialogService,
-            IWindowController windowController)
-            : base(dataProvider, viewModelFactory, dialogService, windowController)
+            IDialogService dialogService)
+            : base(dataProvider, viewModelFactory, dialogService)
         {
             _dataProvider = dataProvider;
             _dialogService = dialogService;
             LoadCommand = new RelayCommand(Load);
-            FocusOnSearchCommand = new RelayCommand(windowController.FocusOnSearch);
+          //  FocusOnSearchCommand = new RelayCommand(windowController.FocusOnSearch);
         }
 
         private readonly IDataEntryViewProvider _dataProvider;

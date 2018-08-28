@@ -1,11 +1,9 @@
-﻿using System;
-using System.Windows;
-using CactusGuru.Presentation.View.Utils;
-using CactusGuru.Presentation.ViewModel.Utils;
+﻿using CactusGuru.Presentation.View.Utils;
+using System;
 
 namespace CactusGuru.Presentation.View.Views
 {
-    public partial class CollectionItemEditor : IWindowController, IUserControlView
+    public partial class CollectionItemEditor : IUserControlView
     {
         public CollectionItemEditor()
         {
@@ -17,7 +15,6 @@ namespace CactusGuru.Presentation.View.Views
             controller.AddControl(cmbCollectors);
             controller.AddControl(txtFieldNumber);
             controller.AddControl(txtLocality);
-            //controller.AddControl(chkHasDate);
             controller.AddControl(txtDate);
             controller.AddControl(cmbIncomeTypes);
             controller.AddControl(cmbSuppliers);

@@ -111,6 +111,7 @@
     <Compile Include="UserControls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\FocusManager.cs" />
     <Compile Include="Utils\InputBindingsManager.cs" />
     <Compile Include="Utils\FocusUtil.cs" />
     <Compile Include="Utils\InverseBooleanConverter.cs" />
@@ -165,10 +166,8 @@
     <Compile Include="Views\GenusEditor.xaml.cs">
       <DependentUpon>GenusEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\TransactionEditor.xaml.cs">
-      <DependentUpon>TransactionEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\BooleanVisibilityConverter.cs" />
+    <Compile Include="Views\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -282,10 +281,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\GenusEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TransactionEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

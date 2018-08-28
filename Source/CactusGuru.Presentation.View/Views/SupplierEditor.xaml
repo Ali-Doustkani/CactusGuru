@@ -3,11 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dxe="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-             FlowDirection="RightToLeft"
-             Loaded="SupplierEditor_OnLoaded">
+             xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
+             FlowDirection="RightToLeft">
     <UserControl.Resources>
         <utils:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
+        <local:ViewModelLocator x:Key="vmLocator"/>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource vmLocator}" Path="SupplierEditorViewModel"/>
+    </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="100"/>
@@ -26,19 +30,50 @@
             </Grid.ColumnDefinitions>
             <!-- FullName -->
             <TextBlock Grid.Row="0" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="عنوان" IsEnabled="{Binding IsEditorOn}"/>
-            <TextBox Name="txtTitle" Grid.Row="0" Grid.Column="1" Margin="0 2" Text="{Binding SelectedSupplierFullName, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+            <TextBox 
+                Name="txtTitle"
+                Grid.Row="0" 
+                Grid.Column="1" 
+                Margin="0 2" 
+                utils:FocusManager.HasFocus="{Binding FirstControlFocused}" 
+                Text="{Binding SelectedSupplierFullName, UpdateSourceTrigger=PropertyChanged}" 
+                FlowDirection="LeftToRight" 
+                IsEnabled="{Binding IsEditorOn}"/>
 
             <!-- Acronym -->
             <TextBlock Grid.Row="1" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="اختصار" IsEnabled="{Binding IsEditorOn}"/>
-            <TextBox Name="txtAcronym" Grid.Row="1" Grid.Column="1" Margin="0 2" Text="{Binding SelectedSupplierAcronym, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+            <TextBox 
+                Name="txtAcronym" 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                Margin="0 2" 
+                Text="{Binding SelectedSupplierAcronym, UpdateSourceTrigger=PropertyChanged}" 
+                FlowDirection="LeftToRight" 
+                IsEnabled="{Binding IsEditorOn}"/>
 
             <!-- Website -->
             <TextBlock Grid.Row="2" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="وب سایت" IsEnabled="{Binding IsEditorOn}"/>
-            <TextBox Name="txtWebSite" Grid.Row="2" Grid.Column="1" Margin="0 2" Text="{Binding SelectedSupplierWebsite, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+            <TextBox
+                Name="txtWebSite" 
+                Grid.Row="2" 
+                Grid.Column="1" 
+                Margin="0 2" 
+                Text="{Binding SelectedSupplierWebsite, UpdateSourceTrigger=PropertyChanged}" 
+                FlowDirection="LeftToRight" 
+                IsEnabled="{Binding IsEditorOn}"/>
         </Grid>
 
         <!-- Filter -->
-        <dxe:ButtonEdit Name="txtSearch" Grid.Row="1" AllowDefaultButton="False" NullText="برای جست و جو متن خود را در این قسمت وارد کنید" Margin="0 0 0 5" FlowDirection="LeftToRight" Text="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}" KeyUp="UIElement_OnKeyUp">
+        <dxe:ButtonEdit 
+            Name="txtSearch" 
+            Grid.Row="1"
+            AllowDefaultButton="False"
+            NullText="برای جست و جو متن خود را در این قسمت وارد کنید" 
+            Margin="0 0 0 5" 
+            FlowDirection="LeftToRight" 
+            Text="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"
+            utils:FocusManager.HasFocus="{Binding DefaultControlFocused}"
+            KeyUp="UIElement_OnKeyUp">
             <dxe:ButtonEdit.Buttons>
                 <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearFilterTextCommand}"/>
             </dxe:ButtonEdit.Buttons>

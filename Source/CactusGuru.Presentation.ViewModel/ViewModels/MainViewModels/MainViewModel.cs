@@ -16,7 +16,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
             SuppliersCommand = new RelayCommand(_navigationService.GotoSuppliers);
             CollectorsCommand = new RelayCommand(_navigationService.GotoCollectors);
             LabelPrintCommand = new RelayCommand(_navigationService.GotoLabelPrint);
-            TransactionCommand = new RelayCommand(_navigationService.GotoTransaction);
             HomeCommand = new RelayCommand(_navigationService.GotoHome);
         }
 
@@ -27,9 +26,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
         public ICommand AddCollectionItemCommand { get; }
         public ICommand SuppliersCommand { get; }
         public ICommand CollectorsCommand { get; }
-        public ICommand SeedListsCommand { get; }
         public ICommand LabelPrintCommand { get; }
-        public ICommand TransactionCommand { get; }
         public ICommand ImageGalleryCommand { get; }
         public ICommand HomeCommand { get; }
 

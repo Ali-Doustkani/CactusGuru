@@ -2,16 +2,14 @@
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
 {
-    public class GeneraEditorViewModel : SimpleEditorViewModel<GenusViewModel>
+    public class GenusEditorViewModel : SimpleEditorViewModel<GenusViewModel>
     {
-        public GeneraEditorViewModel(IDataEntryViewProvider dataProvider,
-            IDialogService dialogService,
-            IWindowController windowController)
-            : base(dataProvider, new GenusViewModelFactory(), dialogService, windowController)
+        public GenusEditorViewModel(IDataEntryViewProvider dataProvider,
+            IDialogService dialogService)
+            : base(dataProvider, new GenusViewModelFactory(), dialogService)
         {
             ItemSource = new FilterDataSource<GenusViewModel>();
         }

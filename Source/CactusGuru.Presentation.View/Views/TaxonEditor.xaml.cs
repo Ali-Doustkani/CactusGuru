@@ -1,12 +1,10 @@
-﻿using System.Windows;
-using System.Windows.Input;
-using CactusGuru.Presentation.View.Utils;
-using CactusGuru.Presentation.ViewModel.Utils;
+﻿using CactusGuru.Presentation.View.Utils;
 using System;
+using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Views
 {
-    public partial class TaxonEditor : IWindowController,IUserControlView
+    public partial class TaxonEditor : IUserControlView
     {
         public TaxonEditor()
         {
@@ -25,24 +23,9 @@ namespace CactusGuru.Presentation.View.Views
 
         public event EventHandler Save = delegate { };
 
-        private void TaxonEditor_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            listBox.Focus();
-        }
-
         private void UIElement_OnKeyUp(object sender, KeyEventArgs e)
         {
             FocusUtil.GotoNextItem(listBox, e);
-        }
-
-        public void FocusFirstControl()
-        {
-            Genera.Focus();
-        }
-
-        public void FocusOnSearch()
-        {
-            txtSearch.Focus();
         }
     }
 }

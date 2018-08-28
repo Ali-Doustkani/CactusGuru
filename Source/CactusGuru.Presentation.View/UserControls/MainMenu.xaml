@@ -23,16 +23,16 @@
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="90"/>
             <RowDefinition/>
-            <RowDefinition Height="100"/>
+            <RowDefinition />
         </Grid.RowDefinitions>
 
         <!-- Definitions -->
         <Border Grid.Row="0" Style="{StaticResource MenuSegmentBorder}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="..\Images\DefinitionHeader.png"/>
@@ -47,16 +47,14 @@
         <Border Grid.Row="1" Style="{StaticResource MenuSegmentBorder}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="..\Images\CollectionHeader.png"/>
                 <WrapPanel Grid.Row="1">
                     <Button Style="{StaticResource MainMenuButton}" Content="ثبت گیاه جدید به مجموعه" Command="{Binding ElementName=this, Path=AddCollectionItemCommand}" Click="ButtonClicked"/>
                     <Button Style="{StaticResource MainMenuButton}" Content="چاپ برچسب" Command="{Binding ElementName=this, Path=LabelPrintCommand}" Click="ButtonClicked"/>
-                    <Button Style="{StaticResource MainMenuButton}" Content="لیست های بذر" IsEnabled="False"/>
                     <Button Style="{StaticResource MainMenuButton}" Content="کشت بذر" IsEnabled="False"/>
-                    <Button Style="{StaticResource MainMenuButton}" Content="مدیریت تراکنش ها" Command="{Binding ElementName=this, Path=TransactionCommand}" Click="ButtonClicked"/>
                     <Button Style="{StaticResource MainMenuButton}" Content="گالری تصاویر" Command="{Binding ElementName=this, Path=ImageGalleryCommand}" Click="ButtonClicked"/>
                 </WrapPanel>
             </Grid>
@@ -66,7 +64,7 @@
         <Border Grid.Row="2" Style="{StaticResource MenuSegmentBorder}">
             <Grid>
                 <Grid.RowDefinitions>
-                    <RowDefinition/>
+                    <RowDefinition Height="50"/>
                     <RowDefinition/>
                 </Grid.RowDefinitions>
                 <Image Source="..\Images\PeopleHeader.png"/>

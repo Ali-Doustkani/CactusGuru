@@ -107,6 +107,8 @@ namespace CactusGuru.Domain.Greenhouse
 
         private string FormatTaxon()
         {
+            if (string.IsNullOrEmpty(Species))
+                return string.Empty;
             var displayName = Species.Trim().ToLower();
             return ConcatToSubSpecies(displayName);
         }

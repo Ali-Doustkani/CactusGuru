@@ -83,7 +83,6 @@
                                            CollectorsCommand="{Binding ElementName=this,Path=CollectorsCommand}"
                                            SeedListsCommand="{Binding ElementName=this, Path=SeedListsCommand}" 
                                            LabelPrintCommand="{Binding ElementName=this, Path=LabelPrintCommand}"
-                                           TransactionCommand="{Binding ElementName=this, Path=TransactionCommand}"
                                            ImageGalleryCommand="{Binding ElementName=this, Path=ImageGalleryCommand}"/>
                 </Border>
             </Grid>

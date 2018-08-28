@@ -5,6 +5,7 @@
     xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
     xmlns:dxmvvm="clr-namespace:DevExpress.Mvvm.UI.Interactivity;assembly=DevExpress.Xpf.Core.v15.1"
     xmlns:ui="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v15.1"
+    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
     x:Class="CactusGuru.Presentation.View.Views.CollectionItemEditor"
     Height="340" Width="420"
     FlowDirection="RightToLeft">
@@ -40,7 +41,11 @@
             </dxg:GridControl>
         </ControlTemplate>
         <views:BooleanAndConverter x:Key="txtDateEnableConverter"/>
+        <views:ViewModelLocator x:Key="vmLocator"/>
     </UserControl.Resources>
+    <UserControl.DataContext>
+        <Binding Source="{StaticResource vmLocator}" Path="CollectionItemEditorViewModel"/>
+    </UserControl.DataContext>
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -77,6 +82,7 @@
                         AllowNullInput="False"
                         AutoPopulateColumns="False"
                         FlowDirection="LeftToRight"
+                        utils:FocusManager.HasFocus="{Binding FirstControlFocused}"
                         ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Name" SelectedItem="{Binding Taxon}" IsEnabled="{Binding IsEditorOn}">
             <dxmvvm:Interaction.Behaviors>
                 <ui:FocusBehavior SourceName="btnSave" EventName="Click"/>

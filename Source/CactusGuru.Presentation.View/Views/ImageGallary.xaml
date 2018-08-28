@@ -15,8 +15,12 @@
              WindowStartupLocation="CenterScreen">
     <dx:DXWindow.Resources>
         <views:StringVisibilityConverter x:Key="converter"/>
+        <views:ViewModelLocator x:Key="vmLocator"/>
         <dxg:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
     </dx:DXWindow.Resources>
+    <dx:DXWindow.DataContext>
+        <Binding Source="{StaticResource vmLocator}" Path="CollectorEditorViewModel"/>
+    </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>

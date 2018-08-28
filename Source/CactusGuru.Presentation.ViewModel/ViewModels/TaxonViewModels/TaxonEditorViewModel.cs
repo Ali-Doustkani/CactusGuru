@@ -1,23 +1,18 @@
-﻿using CactusGuru.Application.ViewProviders;
+﻿using CactusGuru.Application.Common;
+using CactusGuru.Application.ViewProviders;
+using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using CactusGuru.Application.Common;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
-using CactusGuru.Infrastructure.EventAggregation;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 {
     public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>
     {
-        public TaxonEditorViewModel(IDataEntryViewProvider dataProvider,
-            INavigationService navigation,
-            IDialogService dialogService,
-            IWindowController windowController,
-            EventAggregator eventAggregator)
-            : base(dataProvider, new TaxonViewModelFactory(), dialogService, windowController)
+        public TaxonEditorViewModel(IDataEntryViewProvider dataProvider, INavigationService navigation, IDialogService dialogService, EventAggregator eventAggregator)
+            : base(dataProvider, new TaxonViewModelFactory(), dialogService)
         {
             _dataProvider = (ITaxonViewProvider)dataProvider;
             _navigation = navigation;

@@ -6,9 +6,16 @@
              xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:dx="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:dxe="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.1"
+             xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
              Title="چاپ برچسب"
              Height="500" Width="700"
              WindowStartupLocation="CenterOwner">
+    <dx:DXWindow.Resources>
+        <local:ViewModelLocator x:Key="vmLocator"/>
+    </dx:DXWindow.Resources>
+    <dx:DXWindow.DataContext>
+        <Binding Source="{StaticResource vmLocator}" Path="LabelPrintEditorViewModel"/>
+    </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>

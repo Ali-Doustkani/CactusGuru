@@ -89,13 +89,6 @@ namespace CactusGuru.Entry.Presentation
             }
         }
 
-        public void GotoTransaction()
-        {
-            var view = _container.GetInstance<TransactionEditor>();
-            view.ResizeMode = ResizeMode.CanResize;
-            ShowDialog(view);
-        }
-
         public DialogResult<int> GetNumberFromUser()
         {
             var view = new LabelPrintCount();
