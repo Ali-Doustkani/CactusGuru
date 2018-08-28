@@ -103,7 +103,6 @@
     <Compile Include="ViewModels\TaxonViewModels\TaxonEditorViewModel.cs" />
     <Compile Include="ViewModels\TaxonViewModels\TaxonViewModel.cs" />
     <Compile Include="ViewModels\TaxonViewModels\TaxonViewModelFactory.cs" />
-    <Compile Include="ViewModels\ViewModelMode.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CactusGuru.Application\CactusGuru.Application.csproj">

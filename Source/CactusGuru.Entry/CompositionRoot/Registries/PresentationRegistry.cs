@@ -18,8 +18,8 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
     {
         public PresentationRegistry()
         {
-            For<INavigationService>().Singleton().Use(ctx => new NavigationService(ctx));
-            For<IDialogService>().Singleton().Use<DialogService>();
+            For<INavigationService>().Use<NavigationService>().Singleton();
+            For<IDialogService>().Use<DialogService>().Singleton();
             For<GenusEditorViewModel>().Use<GenusEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("genus");
             For<CollectorEditorViewModel>().Use<CollectorEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("collector");
             For<SupplierEditorViewModel>().Use<SupplierEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("supplier");

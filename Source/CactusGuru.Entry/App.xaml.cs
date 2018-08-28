@@ -12,13 +12,13 @@ namespace CactusGuru.Entry
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = Resolver.Instance;
-            CactusGuru.Presentation.View.Main.Start(Resolver.Instance.GetInstance<MainViewModel>(), Resolver.Instance.GetInstance<INavigationService>());
+            CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = new ViewModelFactory();
+            CactusGuru.Presentation.View.Main.Start(ObjectFactory.Instance.GetInstance<MainViewModel>(), ObjectFactory.Instance.GetInstance<INavigationService>());
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            var log = Resolver.Instance.GetInstance<ILogger>();
+            var log = ObjectFactory.Instance.GetInstance<ILogger>();
             var ex = e.ExceptionObject as Exception;
             log.Fatal(ex.Message, ex);
         }

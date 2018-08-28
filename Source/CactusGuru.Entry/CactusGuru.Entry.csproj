@@ -99,10 +99,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CompositionRoot\Registries\PresentationRegistry.cs" />
-    <Compile Include="CompositionRoot\Resolver.cs" />
+    <Compile Include="CompositionRoot\ObjectFactory.cs" />
+    <Compile Include="CompositionRoot\TranslatorFactory.cs" />
+    <Compile Include="CompositionRoot\ViewModelFactory.cs" />
     <Compile Include="Infrastructure\DomainDictionary.cs" />
     <Compile Include="Infrastructure\Logging\LogForNet.cs" />
-    <Compile Include="Persistance\UnitOfWork.cs" />
     <Compile Include="Presentation\ImageEditor.cs" />
     <Compile Include="Presentation\NavigationService.cs" />
     <Compile Include="Presentation\PrintService.cs" />

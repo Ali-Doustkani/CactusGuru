@@ -1,9 +1,9 @@
-﻿using CactusGuru.Application.ViewProviders;
+﻿using CactusGuru.Application.Common;
+using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
+using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
 using System.Collections.Generic;
-using CactusGuru.Application.Common;
-using CactusGuru.Infrastructure.ObjectCreation;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {

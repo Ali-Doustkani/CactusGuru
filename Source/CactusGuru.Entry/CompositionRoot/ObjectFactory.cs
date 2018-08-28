@@ -1,25 +1,21 @@
 ﻿using CactusGuru.Application.Implementation;
-using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Entry.CompositionRoot.Registries;
 using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
-using CactusGuru.Presentation.View.Views;
-using CactusGuru.Presentation.ViewModel.Framework;
 using StructureMap;
 
 namespace CactusGuru.Entry.CompositionRoot
 {
-    public class Resolver : IViewModelResolver
+    public class ObjectFactory
     {
         private Container _container;
 
-        private Resolver()
+        private ObjectFactory()
         {
-            _container = new Container();
+             _container = new Container();
             _container.Configure(cfg =>
             {
-                cfg.For<IContext>().Use(ctx => ctx);
                 cfg.Scan(x =>
                 {
                     x.TheCallingAssembly();
@@ -37,8 +33,6 @@ namespace CactusGuru.Entry.CompositionRoot
                 cfg.AddRegistry<ApplicationRegistry>();
                 cfg.AddRegistry<PresentationRegistry>();
             });
-
-            var a = _container.GetInstance<AssemblerBase<Taxon, Application.ViewProviders.LabelPrinting.TaxonDto>>();
         }
 
         public T GetInstance<T>()
@@ -46,18 +40,18 @@ namespace CactusGuru.Entry.CompositionRoot
             return _container.GetInstance<T>();
         }
 
-        public T Resolve<T>() where T : BaseViewModel
+        public T GetInstance<T>(string name)
         {
-            return _container.GetInstance<T>();
+            return _container.GetInstance<T>(name);
         }
 
-        private static Resolver _instance;
-        public static Resolver Instance
+        private static ObjectFactory _instance;
+        public static ObjectFactory Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new Resolver();
+                    _instance = new ObjectFactory();
                 return _instance;
             }
         }

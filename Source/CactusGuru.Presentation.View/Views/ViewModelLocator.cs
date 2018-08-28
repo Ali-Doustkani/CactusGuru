@@ -12,14 +12,14 @@ using CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels;
 
 namespace CactusGuru.Presentation.View.Views
 {
-    public interface IViewModelResolver
+    public interface IViewModelFactory
     {
         T Resolve<T>() where T : BaseViewModel;
     }
 
     public class ViewModelLocator
     {
-        public static IViewModelResolver Resolver { get; set; }
+        public static IViewModelFactory Resolver { get; set; }
 
         public FirstPageViewModel FirstPageViewModel
         {

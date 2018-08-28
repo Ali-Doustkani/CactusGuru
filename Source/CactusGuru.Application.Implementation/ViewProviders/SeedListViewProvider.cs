@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using CactusGuru.Application.ViewProviders;
+﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Domain.Greenhouse;
-using CactusGuru.Domain.Greenhouse.Qualification.Validators;
 using CactusGuru.Domain.Greenhouse.Sales;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Utils;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
