@@ -68,7 +68,15 @@
 
         <!-- Code -->
         <TextBlock Grid.Row="0" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="کد"/>
-        <TextBox x:Name="txtCode" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <TextBox 
+            x:Name="txtCode" 
+            Grid.Row="0" 
+            Grid.Column="1" 
+            Grid.ColumnSpan="2"
+            Margin="0 2"
+            Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"
+            FlowDirection="LeftToRight" 
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Taxon -->
         <TextBlock Grid.Row="1" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تاکسون"/>
@@ -82,8 +90,11 @@
                         AllowNullInput="False"
                         AutoPopulateColumns="False"
                         FlowDirection="LeftToRight"
-                        utils:FocusManager.HasFocus="{Binding FirstControlFocused}"
-                        ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}" DisplayMember="Name" SelectedItem="{Binding Taxon}" IsEnabled="{Binding IsEditorOn}">
+                        utils:FocusManager.HasFocus="{Binding State.FirstControlFocused}"
+                        ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}" 
+                        DisplayMember="Name" 
+                        SelectedItem="{Binding Taxon}" 
+                        IsEnabled="{Binding State.IsNotView}">
             <dxmvvm:Interaction.Behaviors>
                 <ui:FocusBehavior SourceName="btnSave" EventName="Click"/>
             </dxmvvm:Interaction.Behaviors>
@@ -102,24 +113,61 @@
                         AllowNullInput="False"
                         AutoPopulateColumns="False"
                         FlowDirection="LeftToRight"
-                        ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}" DisplayMember="FormattedName" SelectedItem="{Binding Collector}" IsEnabled="{Binding IsEditorOn}"/>
+                        ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}" 
+                        DisplayMember="FormattedName" 
+                        SelectedItem="{Binding Collector}" 
+                        IsEnabled="{Binding State.IsNotView}"/>
         <Button Grid.Row="2" Grid.Column="2" Margin="4 2 0 2" Content="..." Command="{Binding GotoCollectorsCommand}"/>
         
         <!-- Field Number -->
         <TextBlock Grid.Row="3" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="فیلد"/>
-        <TextBox Name="txtFieldNumber" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding FieldNumber, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <TextBox 
+            Name="txtFieldNumber" 
+            Grid.Row="3"
+            Grid.Column="1"
+            Grid.ColumnSpan="2" 
+            Margin="0 2" 
+            Text="{Binding FieldNumber, UpdateSourceTrigger=PropertyChanged}" 
+            FlowDirection="LeftToRight" 
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Locality -->
         <TextBlock Grid.Row="4" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="منطقه ی زیست"/>
-        <TextBox Name="txtLocality" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding Locality, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <TextBox 
+            Name="txtLocality" 
+            Grid.Row="4"
+            Grid.Column="1" 
+            Grid.ColumnSpan="2"
+            Margin="0 2"
+            Text="{Binding Locality, UpdateSourceTrigger=PropertyChanged}" 
+            FlowDirection="LeftToRight" 
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Income Date -->
         <TextBlock Grid.Row="5" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تاریخ ورود"/>
-        <TextBox Name="txtDate" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <TextBox
+            Name="txtDate" 
+            Grid.Row="5" 
+            Grid.Column="1" 
+            Grid.ColumnSpan="2"
+            Margin="0 2"
+            Text="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
+            FlowDirection="LeftToRight" 
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Income Type -->
         <TextBlock Grid.Row="6" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="نوع ورود"/>
-        <ComboBox Name="cmbIncomeTypes" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" ItemsSource="{Binding IncomeTypes}" SelectedItem="{Binding IncomeType, UpdateSourceTrigger=PropertyChanged}"  DisplayMemberPath="Title" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <ComboBox 
+            Name="cmbIncomeTypes" 
+            Grid.Row="6" 
+            Grid.Column="1"
+            Grid.ColumnSpan="2" 
+            Margin="0 2" 
+            ItemsSource="{Binding IncomeTypes}"
+            SelectedItem="{Binding IncomeType, UpdateSourceTrigger=PropertyChanged}"  
+            DisplayMemberPath="Title" 
+            FlowDirection="LeftToRight" 
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Supplier -->
         <TextBlock Grid.Row="7" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تامین کننده"/>
@@ -133,19 +181,47 @@
                         AllowNullInput="False"
                         AutoPopulateColumns="False"
                         FlowDirection="LeftToRight"
-                        ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}" DisplayMember="FormattedName" SelectedItem="{Binding Supplier}" IsEnabled="{Binding IsEditorOn}"/>
+                        ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}" 
+                        DisplayMember="FormattedName" 
+                        SelectedItem="{Binding Supplier}" 
+                        IsEnabled="{Binding State.IsNotView}"/>
         <Button Grid.Row="7" Grid.Column="2" Margin="4 2 0 2" Content="..." Command="{Binding GotoSuppliersCommand}"/>
 
         <!-- Supplier Code -->
         <TextBlock Grid.Row="8" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="کد تامین کننده"/>
-        <TextBox Name="txtSupplierCode" Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <TextBox 
+            Name="txtSupplierCode" 
+            Grid.Row="8" 
+            Grid.Column="1" 
+            Grid.ColumnSpan="2"
+            Margin="0 2" 
+            Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}" 
+            FlowDirection="LeftToRight" 
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Count -->
         <TextBlock Grid.Row="9" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تعداد"/>
-        <TextBox Name="txtCount" Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" FlowDirection="LeftToRight" IsEnabled="{Binding IsEditorOn}"/>
+        <TextBox 
+            Name="txtCount" 
+            Grid.Row="9" 
+            Grid.Column="1" 
+            Grid.ColumnSpan="2"
+            Margin="0 2" 
+            Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" 
+            FlowDirection="LeftToRight"
+            IsEnabled="{Binding State.IsNotView}"/>
 
         <!-- Description -->
         <TextBlock Grid.Row="10" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="توضیحات"/>
-        <TextBox Name="txtDescription" Grid.Row="10" Grid.Column="1" Grid.ColumnSpan="2" Margin="0 2" Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEditorOn}" TextWrapping="Wrap" AcceptsReturn="True"/>
+        <TextBox 
+            Name="txtDescription" 
+            Grid.Row="10" 
+            Grid.Column="1" 
+            Grid.ColumnSpan="2" 
+            Margin="0 2" 
+            Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" 
+            IsEnabled="{Binding State.IsNotView}" 
+            TextWrapping="Wrap" 
+            AcceptsReturn="True"/>
     </Grid>
 </UserControl>

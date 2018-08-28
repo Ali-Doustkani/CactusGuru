@@ -38,9 +38,9 @@
         </Grid.RowDefinitions>
         <dxb:BarContainerControl>
             <dxb:ToolBarControl GlyphSize="Small" AllowCustomizationMenu="False" AllowQuickCustomization="False" ShowDragWidget="False">
-                <dxb:BarButtonItem Content="ثبت" Glyph="../Images/Icon/EditorViewBasics/add_24.png"  Command="{Binding PrepareForAddCommand}" IsEnabled="{Binding IsAddEnabled}"/>
-                <dxb:BarButtonItem Content="ویرایش" Glyph="../Images/Icon/EditorViewBasics/edit_24.png" Command="{Binding PrepareForEditCommand}" IsEnabled="{Binding IsEditEnabled}"/>
-                <dxb:BarButtonItem Content="حذف" Glyph="../Images/Icon/EditorViewBasics/delete_24.png" Command="{Binding DeleteCommand}" IsEnabled="{Binding IsDeleteEnabled}"/>
+                <dxb:BarButtonItem Content="ثبت" Glyph="../Images/Icon/EditorViewBasics/add_24.png"  Command="{Binding PrepareForAddCommand}"/>
+                <dxb:BarButtonItem Content="ویرایش" Glyph="../Images/Icon/EditorViewBasics/edit_24.png" Command="{Binding PrepareForEditCommand}"/>
+                <dxb:BarButtonItem Content="حذف" Glyph="../Images/Icon/EditorViewBasics/delete_24.png" Command="{Binding DeleteCommand}"/>
                 <dxb:BarItemSeparator/>
                 <dxb:BarButtonItem Name="btnSaveNew" Glyph="../Images/Icon/EditorViewBasics/saveNew_24.png" Content="ذخیره و جدید" Command="{Binding SaveNewCommand}"/>
                 <dxb:BarButtonItem Name="btnSave" Glyph="../Images/Icon/EditorViewBasics/save_24.png" Content="ذخیره" Command="{Binding SaveCommand}"/>

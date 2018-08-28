@@ -29,19 +29,19 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!-- FullName -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="عنوان" IsEnabled="{Binding IsEditorOn}"/>
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="عنوان" IsEnabled="{Binding State.IsNotView}"/>
             <TextBox 
                 Name="txtTitle"
                 Grid.Row="0" 
                 Grid.Column="1" 
                 Margin="0 2" 
-                utils:FocusManager.HasFocus="{Binding FirstControlFocused}" 
+                utils:FocusManager.HasFocus="{Binding State.FirstControlFocused}" 
                 Text="{Binding SelectedSupplierFullName, UpdateSourceTrigger=PropertyChanged}" 
                 FlowDirection="LeftToRight" 
-                IsEnabled="{Binding IsEditorOn}"/>
+                IsEnabled="{Binding State.IsNotView}"/>
 
             <!-- Acronym -->
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="اختصار" IsEnabled="{Binding IsEditorOn}"/>
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="اختصار" IsEnabled="{Binding State.IsNotView}"/>
             <TextBox 
                 Name="txtAcronym" 
                 Grid.Row="1" 
@@ -49,10 +49,10 @@
                 Margin="0 2" 
                 Text="{Binding SelectedSupplierAcronym, UpdateSourceTrigger=PropertyChanged}" 
                 FlowDirection="LeftToRight" 
-                IsEnabled="{Binding IsEditorOn}"/>
+                IsEnabled="{Binding State.IsNotView}"/>
 
             <!-- Website -->
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="وب سایت" IsEnabled="{Binding IsEditorOn}"/>
+            <TextBlock Grid.Row="2" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="وب سایت" IsEnabled="{Binding State.IsNotView}"/>
             <TextBox
                 Name="txtWebSite" 
                 Grid.Row="2" 
@@ -60,7 +60,7 @@
                 Margin="0 2" 
                 Text="{Binding SelectedSupplierWebsite, UpdateSourceTrigger=PropertyChanged}" 
                 FlowDirection="LeftToRight" 
-                IsEnabled="{Binding IsEditorOn}"/>
+                IsEnabled="{Binding State.IsNotView}"/>
         </Grid>
 
         <!-- Filter -->
@@ -72,14 +72,14 @@
             Margin="0 0 0 5" 
             FlowDirection="LeftToRight" 
             Text="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"
-            utils:FocusManager.HasFocus="{Binding DefaultControlFocused}"
+            utils:FocusManager.HasFocus="{Binding State.DefaultControlFocused}"
             KeyUp="UIElement_OnKeyUp">
             <dxe:ButtonEdit.Buttons>
                 <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearFilterTextCommand}"/>
             </dxe:ButtonEdit.Buttons>
         </dxe:ButtonEdit>
 
-        <ListBox Name="listBox" Grid.Row="2" FlowDirection="LeftToRight" ItemsSource="{Binding ItemSource.Source}" SelectedItem="{Binding WorkingItem, Mode=TwoWay}" IsEnabled="{Binding Path=IsEditorOn, Converter={StaticResource InverseBooleanConverter}}">
+        <ListBox Name="listBox" Grid.Row="2" FlowDirection="LeftToRight" ItemsSource="{Binding ItemSource.Source}" SelectedItem="{Binding WorkingItem, Mode=TwoWay}" IsEnabled="{Binding Path=State.IsNotView, Converter={StaticResource InverseBooleanConverter}}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=FormattedName, UpdateSourceTrigger=PropertyChanged}"/>

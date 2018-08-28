@@ -32,38 +32,38 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
         }
 
         [TestMethod]
-        public void OnLoad_IsEditorOn_IsFalse()
+        public void OnLoad_IsNotView_IsFalse()
         {
-            Assert.IsFalse(viewModel.IsEditorOn);
+            Assert.IsFalse(viewModel.State.IsNotView);
         }
 
         [TestMethod]
-        public void IsEditorOn_WhenAdding_True()
+        public void IsNotView_WhenAdding_True()
         {
             dataProvider.Setup(x => x.Build()).Returns(new SupplierDto());
 
             PrepareForAdd();
 
-            Assert.IsTrue(viewModel.IsEditorOn);
+            Assert.IsTrue(viewModel.State.IsNotView);
         }
 
         [TestMethod]
-        public void IsEditorOn_WhenEditing_True()
+        public void IsNotView_WhenEditing_True()
         {
             SetWorking();
 
             PrepareForEdit();
 
-            Assert.IsTrue(viewModel.IsEditorOn);
+            Assert.IsTrue(viewModel.State.IsNotView);
         }
 
         [TestMethod]
-        public void IsEditorOn_AfterAdding_False()
+        public void IsNotView_AfterAdding_False()
         {
             PrepareForAdd();
             Cancel(User.Accepted);
 
-            Assert.IsFalse(viewModel.IsEditorOn);
+            Assert.IsFalse(viewModel.State.IsNotView);
         }
 
         [TestMethod]
