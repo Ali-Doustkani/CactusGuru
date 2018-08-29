@@ -24,6 +24,8 @@ namespace CactusGuru.Entry.Infrastructure
                 return "اختصار";
             if (name == nameof(Collector.FullName))
                 return "نام";
+            if (name == nameof(Genus.Title))
+                return "عنوان";
             throw new InvalidOperationException("Domain Dictionary lacks your finding word.");
         }
     }

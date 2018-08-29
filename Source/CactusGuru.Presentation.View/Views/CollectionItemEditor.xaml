@@ -10,42 +10,44 @@
     Height="340" Width="420"
     FlowDirection="RightToLeft">
     <UserControl.Resources>
-        <ControlTemplate x:Key="collectorLookUpEditTemplate">
-            <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right" >
-                <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="FormattedName" Header="نام کلکتور"/>
-                </dxg:GridControl.Columns>
-                <dxg:GridControl.View>
-                    <dxg:TableView AutoWidth="True" ShowColumnHeaders="False"/>
-                </dxg:GridControl.View>
-            </dxg:GridControl>
-        </ControlTemplate>
-        <ControlTemplate x:Key="supplierLookUpEditTemplate">
-            <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right" >
-                <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="FormattedName" Header="نام تامین کننده"/>
-                </dxg:GridControl.Columns>
-                <dxg:GridControl.View>
-                    <dxg:TableView AutoWidth="True" ShowColumnHeaders="False"/>
-                </dxg:GridControl.View>
-            </dxg:GridControl>
-        </ControlTemplate>
-        <ControlTemplate x:Key="taxonLookupEditTemplate">
-            <dxg:GridControl Name="PART_GridControl">
-                <dxg:GridControl.Columns>
-                    <dxg:GridColumn FieldName="Name"/>
-                </dxg:GridControl.Columns>
-                <dxg:GridControl.View>
-                    <dxg:TableView AutoWidth="True" ShowIndicator="False" ShowColumnHeaders="False"/>
-                </dxg:GridControl.View>
-            </dxg:GridControl>
-        </ControlTemplate>
-        <views:BooleanAndConverter x:Key="txtDateEnableConverter"/>
-        <views:ViewModelLocator x:Key="vmLocator"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <ControlTemplate x:Key="collectorLookUpEditTemplate">
+                <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right" >
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="FormattedName" Header="نام کلکتور"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView AutoWidth="True" ShowColumnHeaders="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </ControlTemplate>
+            <ControlTemplate x:Key="supplierLookUpEditTemplate">
+                <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right" >
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="FormattedName" Header="نام تامین کننده"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView AutoWidth="True" ShowColumnHeaders="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </ControlTemplate>
+            <ControlTemplate x:Key="taxonLookupEditTemplate">
+                <dxg:GridControl Name="PART_GridControl">
+                    <dxg:GridControl.Columns>
+                        <dxg:GridColumn FieldName="Name"/>
+                    </dxg:GridControl.Columns>
+                    <dxg:GridControl.View>
+                        <dxg:TableView AutoWidth="True" ShowIndicator="False" ShowColumnHeaders="False"/>
+                    </dxg:GridControl.View>
+                </dxg:GridControl>
+            </ControlTemplate>
+            <views:BooleanAndConverter x:Key="txtDateEnableConverter"/>
+        </ResourceDictionary>
     </UserControl.Resources>
-    <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="CollectionItemEditorViewModel"/>
-    </UserControl.DataContext>
+
     <Grid Margin="10">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"/>
@@ -67,160 +69,120 @@
         </Grid.RowDefinitions>
 
         <!-- Code -->
-        <TextBlock Grid.Row="0" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="کد"/>
+        <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="کد"/>
         <TextBox 
             x:Name="txtCode" 
             Grid.Row="0" 
-            Grid.Column="1" 
-            Grid.ColumnSpan="2"
-            Margin="0 2"
-            Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"
-            FlowDirection="LeftToRight" 
-            IsEnabled="{Binding State.IsNotView}"/>
+            Style="{StaticResource EntryStyle}" 
+            Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Taxon -->
-        <TextBlock Grid.Row="1" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تاکسون"/>
-        <dxg:LookUpEdit Name="cmbTaxa" Grid.Row="1" Grid.Column="1" Margin="0 2"
-                        AutoComplete="False" 
-                        ImmediatePopup="True"
-                        FilterCondition="Contains"
-                        ValidateOnTextInput="False"
-                        PopupContentTemplate="{StaticResource taxonLookupEditTemplate}" 
-                        IncrementalFiltering="True"
-                        AllowNullInput="False"
-                        AutoPopulateColumns="False"
-                        FlowDirection="LeftToRight"
-                        utils:FocusManager.HasFocus="{Binding State.FirstControlFocused}"
-                        ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}" 
-                        DisplayMember="Name" 
-                        SelectedItem="{Binding Taxon}" 
-                        IsEnabled="{Binding State.IsNotView}">
+        <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="تاکسون"/>
+        <dxg:LookUpEdit 
+            Name="cmbTaxa" 
+            Grid.Row="1" Grid.ColumnSpan="1"
+            Style="{StaticResource EntryStyle}"
+            PopupContentTemplate="{StaticResource taxonLookupEditTemplate}" 
+            utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+            ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}" 
+            DisplayMember="Name" 
+            SelectedItem="{Binding Taxon}">
             <dxmvvm:Interaction.Behaviors>
                 <ui:FocusBehavior SourceName="btnSave" EventName="Click"/>
             </dxmvvm:Interaction.Behaviors>
         </dxg:LookUpEdit>
-        <Button Grid.Row="1" Grid.Column="2" Margin="4 2 0 2" Content="..." Command="{Binding GotoTaxaCommand}"/>
-        
+        <Button 
+            Grid.Row="1" 
+            Style="{StaticResource ReferenceStyle}"
+            Command="{Binding GotoTaxaCommand}"/>
+
         <!-- Collector -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="کلکتور"/>
-        <dxg:LookUpEdit Name="cmbCollectors" Grid.Row="2" Grid.Column="1" Margin="0 2"
-                        AutoComplete="False" 
-                        ImmediatePopup="True"
-                        FilterCondition="Contains"
-                        ValidateOnTextInput="False"
-                        PopupContentTemplate="{StaticResource collectorLookUpEditTemplate}" 
-                        IncrementalFiltering="True"
-                        AllowNullInput="False"
-                        AutoPopulateColumns="False"
-                        FlowDirection="LeftToRight"
-                        ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}" 
-                        DisplayMember="FormattedName" 
-                        SelectedItem="{Binding Collector}" 
-                        IsEnabled="{Binding State.IsNotView}"/>
-        <Button Grid.Row="2" Grid.Column="2" Margin="4 2 0 2" Content="..." Command="{Binding GotoCollectorsCommand}"/>
-        
+        <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="کلکتور"/>
+        <dxg:LookUpEdit 
+            Name="cmbCollectors" 
+            Grid.Row="2" Grid.ColumnSpan="1"
+            Style="{StaticResource EntryStyle}"
+            PopupContentTemplate="{StaticResource collectorLookUpEditTemplate}" 
+            ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}" 
+            DisplayMember="FormattedName" 
+            SelectedItem="{Binding Collector}"/>
+        <Button 
+            Grid.Row="2" 
+            Style="{StaticResource ReferenceStyle}"
+            Command="{Binding GotoCollectorsCommand}"/>
+
         <!-- Field Number -->
-        <TextBlock Grid.Row="3" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="فیلد"/>
+        <TextBlock Grid.Row="3" Style="{StaticResource LabelStyle}" Text="فیلد"/>
         <TextBox 
             Name="txtFieldNumber" 
-            Grid.Row="3"
-            Grid.Column="1"
-            Grid.ColumnSpan="2" 
-            Margin="0 2" 
-            Text="{Binding FieldNumber, UpdateSourceTrigger=PropertyChanged}" 
-            FlowDirection="LeftToRight" 
-            IsEnabled="{Binding State.IsNotView}"/>
+            Grid.Row="3" 
+            Style="{StaticResource EntryStyle}" 
+            Text="{Binding FieldNumber, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Locality -->
-        <TextBlock Grid.Row="4" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="منطقه ی زیست"/>
+        <TextBlock Grid.Row="4" Style="{StaticResource LabelStyle}" Text="منطقه ی زیست"/>
         <TextBox 
             Name="txtLocality" 
-            Grid.Row="4"
-            Grid.Column="1" 
-            Grid.ColumnSpan="2"
-            Margin="0 2"
-            Text="{Binding Locality, UpdateSourceTrigger=PropertyChanged}" 
-            FlowDirection="LeftToRight" 
-            IsEnabled="{Binding State.IsNotView}"/>
+            Grid.Row="4" 
+            Style="{StaticResource EntryStyle}" 
+            Text="{Binding Locality, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Income Date -->
-        <TextBlock Grid.Row="5" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تاریخ ورود"/>
-        <TextBox
+        <TextBlock Grid.Row="5" Style="{StaticResource LabelStyle}" Text="تاریخ ورود"/>
+        <TextBox 
             Name="txtDate" 
-            Grid.Row="5" 
-            Grid.Column="1" 
-            Grid.ColumnSpan="2"
-            Margin="0 2"
-            Text="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"
-            FlowDirection="LeftToRight" 
-            IsEnabled="{Binding State.IsNotView}"/>
+            Grid.Row="5"
+            Style="{StaticResource EntryStyle}" 
+            Text="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
 
         <!-- Income Type -->
-        <TextBlock Grid.Row="6" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="نوع ورود"/>
+        <TextBlock Grid.Row="6" Style="{StaticResource LabelStyle}" Text="نوع ورود"/>
         <ComboBox 
             Name="cmbIncomeTypes" 
             Grid.Row="6" 
-            Grid.Column="1"
-            Grid.ColumnSpan="2" 
-            Margin="0 2" 
+            Style="{StaticResource EntryStyle}"
             ItemsSource="{Binding IncomeTypes}"
             SelectedItem="{Binding IncomeType, UpdateSourceTrigger=PropertyChanged}"  
-            DisplayMemberPath="Title" 
-            FlowDirection="LeftToRight" 
-            IsEnabled="{Binding State.IsNotView}"/>
+            DisplayMemberPath="Title"/>
 
         <!-- Supplier -->
-        <TextBlock Grid.Row="7" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تامین کننده"/>
-        <dxg:LookUpEdit Name="cmbSuppliers" Grid.Row="7" Grid.Column="1" Margin="0 2"
-                        AutoComplete="False" 
-                        ImmediatePopup="True"
-                        FilterCondition="Contains"
-                        ValidateOnTextInput="False"
-                        PopupContentTemplate="{StaticResource supplierLookUpEditTemplate}" 
-                        IncrementalFiltering="True"
-                        AllowNullInput="False"
-                        AutoPopulateColumns="False"
-                        FlowDirection="LeftToRight"
-                        ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}" 
-                        DisplayMember="FormattedName" 
-                        SelectedItem="{Binding Supplier}" 
-                        IsEnabled="{Binding State.IsNotView}"/>
-        <Button Grid.Row="7" Grid.Column="2" Margin="4 2 0 2" Content="..." Command="{Binding GotoSuppliersCommand}"/>
+        <TextBlock Grid.Row="7" Style="{StaticResource LabelStyle}" Text="تامین کننده"/>
+        <dxg:LookUpEdit 
+            Name="cmbSuppliers" 
+            Grid.Row="7" Grid.ColumnSpan="1"
+            Style="{StaticResource EntryStyle}"
+            PopupContentTemplate="{StaticResource supplierLookUpEditTemplate}" 
+            ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
+            DisplayMember="FormattedName" 
+            SelectedItem="{Binding Supplier}"/>
+        <Button 
+            Grid.Row="7" 
+            Style="{StaticResource ReferenceStyle}"
+            Command="{Binding GotoSuppliersCommand}"/>
 
         <!-- Supplier Code -->
-        <TextBlock Grid.Row="8" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="کد تامین کننده"/>
+        <TextBlock Grid.Row="8" Style="{StaticResource LabelStyle}" Text="کد تامین کننده"/>
         <TextBox 
             Name="txtSupplierCode" 
             Grid.Row="8" 
-            Grid.Column="1" 
-            Grid.ColumnSpan="2"
-            Margin="0 2" 
-            Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}" 
-            FlowDirection="LeftToRight" 
-            IsEnabled="{Binding State.IsNotView}"/>
+            Style="{StaticResource EntryStyle}" 
+            Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}"/>
 
         <!-- Count -->
-        <TextBlock Grid.Row="9" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="تعداد"/>
-        <TextBox 
+        <TextBlock Grid.Row="9" Style="{StaticResource LabelStyle}" Text="تعداد"/>
+        <TextBox
             Name="txtCount" 
-            Grid.Row="9" 
-            Grid.Column="1" 
-            Grid.ColumnSpan="2"
-            Margin="0 2" 
-            Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" 
-            FlowDirection="LeftToRight"
-            IsEnabled="{Binding State.IsNotView}"/>
+            Grid.Row="9"
+            Style="{StaticResource EntryStyle}" 
+            Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
 
         <!-- Description -->
-        <TextBlock Grid.Row="10" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="توضیحات"/>
+        <TextBlock Grid.Row="10" Style="{StaticResource LabelStyle}" Text="توضیحات"/>
         <TextBox 
             Name="txtDescription" 
             Grid.Row="10" 
-            Grid.Column="1" 
-            Grid.ColumnSpan="2" 
-            Margin="0 2" 
+            Style="{StaticResource EntryStyle}" 
             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" 
-            IsEnabled="{Binding State.IsNotView}" 
             TextWrapping="Wrap" 
             AcceptsReturn="True"/>
     </Grid>

@@ -18,8 +18,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
 
         public string SelectedGenusName
         {
-            get { return GetStringProperty(nameof(WorkingItem.Name)); }
-            set { WorkingItem.Name = value; }
+            get { return GetStringProperty(nameof(WorkingItem.FormattedName)); }
+            set { WorkingItem.FormattedName = value; }
         }
 
         public override void NotifyAllPropertiesChanged()

@@ -9,17 +9,17 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
             : base(genus)
         {}
 
-        public string Name
+        public string FormattedName
         {
             get { return Inner<GenusDto>().Name; }
             set { Inner<GenusDto>().Name = value; }
         }
 
-        public override string FilterTarget => Name;
+        public override string FilterTarget => FormattedName;
 
         protected override void NotifyAll()
         {
-            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(FormattedName));
         }
     }
 }

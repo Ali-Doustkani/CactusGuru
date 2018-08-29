@@ -9,8 +9,12 @@
              mc:Ignorable="d"  
              FlowDirection="RightToLeft">
     <UserControl.Resources>
-        <utils:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-        <local:ViewModelLocator x:Key="vmLocator"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <local:ViewModelLocator x:Key="vmLocator"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="CollectorEditorViewModel"/>
@@ -32,60 +36,31 @@
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <!-- FullName -->
-            <TextBlock Grid.Row="0" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="عنوان" IsEnabled="{Binding State.IsNotView}"/>
+            <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="عنوان"/>
             <TextBox 
                 Name="txtTitle" 
                 Grid.Row="0" 
-                Grid.Column="1" 
-                Margin="0 2" 
-                utils:FocusManager.HasFocus="{Binding State.FirstControlFocused}" 
-                Text="{Binding SelectedCollectorFullName, UpdateSourceTrigger=PropertyChanged}" 
-                FlowDirection="LeftToRight"
-                IsEnabled="{Binding State.IsNotView}"/>
+                Style="{StaticResource EntryStyle}"
+                utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" 
+                Text="{Binding SelectedCollectorFullName, UpdateSourceTrigger=PropertyChanged}"/>
             <!-- Acronym -->
-            <TextBlock Grid.Row="1" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="اختصار" IsEnabled="{Binding State.IsNotView}"/>
+            <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="اختصار"/>
             <TextBox 
                 Name="txtAcronym" 
                 Grid.Row="1" 
-                Grid.Column="1" 
-                Margin="0 2" 
-                Text="{Binding SelectedCollectorAcronym, UpdateSourceTrigger=PropertyChanged}" 
-                FlowDirection="LeftToRight" 
-                IsEnabled="{Binding State.IsNotView}"/>
+                Style="{StaticResource EntryStyle}"
+                Text="{Binding SelectedCollectorAcronym, UpdateSourceTrigger=PropertyChanged}"/>
             <!-- Website -->
-            <TextBlock Grid.Row="2" Grid.Column="0" Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="وب سایت" IsEnabled="{Binding State.IsNotView}"/>
+            <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="وب سایت"/>
             <TextBox 
                 Name="txtWebsite" 
                 Grid.Row="2" 
-                Grid.Column="1" 
-                Margin="0 2" 
-                Text="{Binding SelectedCollectorWebsite, UpdateSourceTrigger=PropertyChanged}" 
-                FlowDirection="LeftToRight" 
-                IsEnabled="{Binding State.IsNotView}"/>
+                Style="{StaticResource EntryStyle}"
+                Text="{Binding SelectedCollectorWebsite, UpdateSourceTrigger=PropertyChanged}"/>
         </Grid>
 
         <!-- Filter -->
-        <dxe:ButtonEdit 
-            Name="txtSearch" 
-            Grid.Row="1" 
-            AllowDefaultButton="False" 
-            NullText="برای جست و جو متن خود را در این قسمت وارد کنید" 
-            Margin="0 0 0 5" 
-            FlowDirection="LeftToRight" 
-            Text="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}" 
-            utils:FocusManager.HasFocus="{Binding State.DefaultControlFocused}"
-            KeyUp="UIElement_OnKeyUp">
-            <dxe:ButtonEdit.Buttons>
-                <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearFilterTextCommand}"/>
-            </dxe:ButtonEdit.Buttons>
-        </dxe:ButtonEdit>
-
-        <ListBox Name="listBox" Grid.Row="2" FlowDirection="LeftToRight" ItemsSource="{Binding ItemSource.Source}" SelectedItem="{Binding WorkingItem, Mode=TwoWay}" IsEnabled="{Binding Path=State.IsNotView, Converter={StaticResource InverseBooleanConverter}}">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Path=FormattedName, UpdateSourceTrigger=PropertyChanged}"/>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
+        <dxe:ButtonEdit Style="{StaticResource FilterEntryStyle}" KeyUp="UIElement_OnKeyUp"/>
+        <ListBox Name="listBox" Style="{StaticResource FilterListStyle}"/>
     </Grid>
 </UserControl>

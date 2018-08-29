@@ -111,9 +111,8 @@
     <Compile Include="UserControls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\FocusManager.cs" />
+    <Compile Include="Utils\FocusHandler.cs" />
     <Compile Include="Utils\InputBindingsManager.cs" />
-    <Compile Include="Utils\FocusUtil.cs" />
     <Compile Include="Utils\InverseBooleanConverter.cs" />
     <Compile Include="Utils\PriceTextBox.cs" />
     <Compile Include="Utils\TabIndexController.cs" />
@@ -200,15 +199,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Skins\MainSkin.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Skins\MenuSegmentBorder.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Skins\ToolbarButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

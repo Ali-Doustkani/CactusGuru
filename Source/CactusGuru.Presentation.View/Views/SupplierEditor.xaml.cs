@@ -22,7 +22,7 @@ namespace CactusGuru.Presentation.View.Views
 
         private void UIElement_OnKeyUp(object sender, KeyEventArgs e)
         {
-            FocusUtil.GotoNextItem(listBox, e);
+            FocusHandler.NavigateListboxItems(listBox, e);
         }
     }
 }

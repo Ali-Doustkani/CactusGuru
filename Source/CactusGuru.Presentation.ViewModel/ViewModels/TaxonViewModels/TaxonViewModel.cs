@@ -9,7 +9,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             : base(dto)
         { }
 
-        public string Name => Inner<TaxonDto>().Name;
+        public string FormattedName => Inner<TaxonDto>().Name;
 
         public GenusDto Genus
         {
@@ -51,7 +51,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 
         protected override void NotifyAll()
         {
-            OnPropertyChanged(nameof(Name));
+            OnPropertyChanged(nameof(FormattedName));
             OnPropertyChanged(nameof(Genus));
             OnPropertyChanged(nameof(Species));
             OnPropertyChanged(nameof(Forma));

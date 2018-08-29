@@ -16,20 +16,13 @@
             <intr:InvokeCommandAction Command="{Binding LoadCommand}"/>
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
-    <dx:DXWindow.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="..\Skins\ToolbarButton.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </dx:DXWindow.Resources>
     <dx:DXWindow.InputBindings>
         <KeyBinding Key="F1" Command="{Binding PrepareForAddCommand}"/>
         <KeyBinding Key="F2" Command="{Binding PrepareForEditCommand}"/>
         <KeyBinding Key="F3" Command="{Binding DeleteCommand}"/>
         <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
         <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
-        <KeyBinding Command="{Binding FocusOnSearchCommand}" Key="F" Modifiers="Control"/>
+        <KeyBinding Key="F" Modifiers="Control" Command="{Binding FocusOnSearchCommand}"/>
     </dx:DXWindow.InputBindings>
     <Grid Margin="10">
         <Grid.RowDefinitions>

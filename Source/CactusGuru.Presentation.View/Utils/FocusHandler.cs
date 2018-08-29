@@ -1,17 +1,19 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Utils
 {
-    public static class FocusManager
+    public static class FocusHandler
     {
         private static readonly DependencyProperty IsEventSetProperty = DependencyProperty.RegisterAttached("IsEventSet",
             typeof(bool),
-            typeof(FocusManager),
+            typeof(FocusHandler),
             new PropertyMetadata(false));
 
         public static readonly DependencyProperty HasFocusProperty = DependencyProperty.RegisterAttached("HasFocus",
             typeof(bool),
-            typeof(FocusManager),
+            typeof(FocusHandler),
             new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HasFocusChanged));
 
         public static bool GetHasFocus(UIElement obj)
@@ -40,6 +42,26 @@ namespace CactusGuru.Presentation.View.Utils
                 ((DependencyObject)sender).SetValue(HasFocusProperty, false);
             });
             obj.SetValue(IsEventSetProperty, true);
+        }
+
+        public static void GotoNextControl(object sender, KeyEventArgs e)
+        {
+            if (e.Key != Key.Enter)
+                return;
+            var keyboardFocus = sender as UIElement;
+            if (keyboardFocus != null)
+            {
+                var tRequest = new TraversalRequest(FocusNavigationDirection.Next);
+                keyboardFocus.MoveFocus(tRequest);
+            }
+        }
+
+        public static void NavigateListboxItems(ListBox listBox, KeyEventArgs e)
+        {
+            if (e.Key == Key.Down && listBox.SelectedIndex < listBox.Items.Count)
+                listBox.SelectedIndex++;
+            else if (e.Key == Key.Up && listBox.SelectedIndex > 0)
+                listBox.SelectedIndex--;
         }
     }
 }
