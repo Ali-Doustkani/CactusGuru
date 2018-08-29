@@ -3,7 +3,7 @@
              xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
-             FlowDirection="RightToLeft"             >
+             FlowDirection="RightToLeft">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

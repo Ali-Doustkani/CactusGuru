@@ -2,7 +2,6 @@
 {
     public interface INavigationViewModel
     {
-        bool IsFormBusy { get; }
         void Load();
     }
 }

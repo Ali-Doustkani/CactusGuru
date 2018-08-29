@@ -50,6 +50,7 @@
     <Compile Include="Framework\DataSourceManagement\FilterDataSource.cs" />
     <Compile Include="Framework\EditorState.cs" />
     <Compile Include="Framework\INavigationViewModel.cs" />
+    <Compile Include="Framework\LoaderState.cs" />
     <Compile Include="Framework\OperationFailedException.cs" />
     <Compile Include="Framework\WorkingViewModel.cs" />
     <Compile Include="Framework\SimpleEditorViewModel.cs" />

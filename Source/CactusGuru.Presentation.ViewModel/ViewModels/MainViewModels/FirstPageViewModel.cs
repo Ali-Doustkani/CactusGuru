@@ -13,7 +13,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
             _navigationService = navigationService;
             CollectionListCommand = new RelayCommand(GotoCollectionList);
             ImageListCommand = new RelayCommand(GotoImageList);
-            IsFormBusy = true;
         }
 
         private readonly IFirstPageViewProvider _viewProvider;
@@ -23,8 +22,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
         public ICommand ImageListCommand { get; }
 
         public int ItemsCount { get; private set; }
-
-        public bool IsFormBusy { get; private set; }
 
         private void GotoCollectionList()
         {

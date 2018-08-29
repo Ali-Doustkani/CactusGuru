@@ -33,7 +33,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             EditCurrentCollectionItemCommand = new RelayCommand(() => _navigationService.GotoCollectionItemUpdater(SelectedCollectionItem.InnerObject.Id));
             DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
             CopyNameCommand = new RelayCommand(CopyNameToClipboard);
-            IsFormBusy = true;
+            State = new LoaderState();
         }
 
         private readonly ICollectionItemListViewProvider _viewProvider;
@@ -47,7 +47,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public ICommand EditCurrentCollectionItemCommand { get; private set; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public ObservableCollection<CollectionItemViewModel> CollectionItems { get; }
-        public bool IsFormBusy { get; private set; }
+        public LoaderState State { get;   }
 
         public void Load()
         {
@@ -75,8 +75,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
 
         private void _loaderWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            IsFormBusy = false;
-            OnPropertyChanged(nameof(IsFormBusy));
+            State.ToIdle();
         }
 
         private void DeleteCurrentCollectionItem()

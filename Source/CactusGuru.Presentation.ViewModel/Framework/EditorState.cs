@@ -36,8 +36,10 @@
 
         private void Set(EditorViewModelState value)
         {
+            if (_state == value) return;
             _state = value;
             OnPropertyChanged(nameof(IsNotView));
+            OnPropertyChanged(nameof(IsView));
             if (IsView)
             {
                 DefaultControlFocused = true;

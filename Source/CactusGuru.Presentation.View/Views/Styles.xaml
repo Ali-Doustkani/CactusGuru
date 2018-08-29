@@ -13,8 +13,6 @@
 
 
 
-    <utils:InverseBooleanConverter x:Key="InverseBooleanConverter"/>
-
     <Style x:Key="LabelStyle">
         <Setter Property="TextBlock.Margin" Value="10 2"/>
         <Setter Property="TextBlock.HorizontalAlignment" Value="Right"/>
@@ -64,7 +62,7 @@
         <Setter Property="Control.FlowDirection" Value="LeftToRight"/>
         <Setter Property="ListBox.ItemsSource" Value="{Binding ItemSource.Source}"/>
         <Setter Property="ListBox.SelectedItem" Value="{Binding WorkingItem, Mode=TwoWay}"/>
-        <Setter Property="Control.IsEnabled" Value="{Binding Path=State.IsNotView, Converter={StaticResource InverseBooleanConverter}}"/>
+        <Setter Property="Control.IsEnabled" Value="{Binding State.IsView}"/>
         <Setter Property="ListBox.ItemTemplate">
             <Setter.Value>
                 <DataTemplate>

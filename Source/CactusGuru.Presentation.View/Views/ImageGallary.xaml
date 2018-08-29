@@ -16,10 +16,9 @@
     <dx:DXWindow.Resources>
         <views:StringVisibilityConverter x:Key="converter"/>
         <views:ViewModelLocator x:Key="vmLocator"/>
-        <dxg:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
     </dx:DXWindow.Resources>
     <dx:DXWindow.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="CollectorEditorViewModel"/>
+        <Binding Source="{StaticResource vmLocator}" Path="ImageGallaryEditorViewModel"/>
     </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -68,7 +67,7 @@
             </dxb:BarContainerControl>
         </Grid>
 
-        <dxg:GridControl Name="grid" Grid.Row="1" ShowLoadingPanel="{Binding IsFormBusy}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" IsEnabled="{Binding IsFormBusy, Converter={StaticResource inverseBooleanConverter}}">
+        <dxg:GridControl Name="grid" Grid.Row="1" ShowLoadingPanel="{Binding State.IsBusy}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" IsEnabled="{Binding State.IsIdle}">
             <dxg:GridControl.View>
                 <dxg:CardView AllowEditing="True" 
                               ShowGroupedColumns="True" 

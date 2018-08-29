@@ -113,7 +113,6 @@
     </Compile>
     <Compile Include="Utils\FocusHandler.cs" />
     <Compile Include="Utils\InputBindingsManager.cs" />
-    <Compile Include="Utils\InverseBooleanConverter.cs" />
     <Compile Include="Utils\PriceTextBox.cs" />
     <Compile Include="Utils\TabIndexController.cs" />
     <Compile Include="Views\BaseEditorWindow.xaml.cs">

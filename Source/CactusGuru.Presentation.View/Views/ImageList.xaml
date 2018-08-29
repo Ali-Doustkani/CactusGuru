@@ -10,7 +10,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
-        <dxg:InverseBooleanConverter x:Key="inverseBooleanConverter"/>
         <local:ViewModelLocator x:Key="vmLocator"/>
     </UserControl.Resources>
     <UserControl.DataContext>
@@ -29,7 +28,7 @@
                 <dxb:BarItemSeparator/>
             </dxb:ToolBarControl>
         </dxb:BarContainerControl>
-        <dxg:GridControl Name="grid" Grid.Row="1" ShowLoadingPanel="{Binding IsFormBusy}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" IsEnabled="{Binding IsFormBusy, Converter={StaticResource inverseBooleanConverter}}">
+        <dxg:GridControl Name="grid" Grid.Row="1" ShowLoadingPanel="{Binding State.IsBusy}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" IsEnabled="{Binding State.IsIdle}">
             <dxg:GridControl.View>
                 <dxg:CardView AllowEditing="True" 
                               ShowGroupedColumns="True" 

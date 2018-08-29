@@ -26,7 +26,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
             DeSelectAllCommand = new RelayCommand(DeSelectAll);
             SaveForInstagramCommand = new RelayCommand(SaveForInstagram, CanSave);
             Images = new ObservableCollection<ImageViewModel>();
-            IsFormBusy = true;
+            State = new LoaderState();
         }
 
         private readonly IImageListViewProvider _viewProvider;
@@ -38,7 +38,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
         public ICommand SaveForInstagramCommand { get; }
         public ObservableCollection<ImageViewModel> Images { get; private set; }
 
-        public bool IsFormBusy { get; private set; }
+        public LoaderState State { get; }
 
         public ImageViewModel SelectedImage { get; set; }
 
@@ -67,8 +67,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 
         private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            IsFormBusy = false;
-            OnPropertyChanged(nameof(IsFormBusy));
+            State.ToIdle();
         }
 
         public void Select()
