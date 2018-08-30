@@ -25,9 +25,9 @@
         <!-- Title -->
         <TextBlock Style="{StaticResource LabelStyle}" Text="عنوان"/>
         <TextBox
-                Style="{StaticResource LastEntryStyle}"
-                Text="{Binding SelectedGenusName, UpdateSourceTrigger=PropertyChanged}" 
-                utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"/>
+            Style="{StaticResource LastEntryStyle}"
+            Text="{Binding SelectedGenusName, UpdateSourceTrigger=PropertyChanged}" 
+            utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"/>
         <!-- Filter -->
         <local:SourceBox Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>

@@ -11,12 +11,10 @@
             <Setter Property="dxe:ButtonEdit.AllowDefaultButton" Value="False"/>
             <Setter Property="dxe:ButtonEdit.NullText" Value="برای جست و جو متن خود را در این قسمت وارد کنید"/>
             <Setter Property="Control.Margin" Value="0 0 0 5"/>
-            <!--<Setter Property="Control.FlowDirection" Value="LeftToRight"/>-->
             <Setter Property="dxe:ButtonEdit.Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
             <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}"/>
         </Style>
         <Style TargetType="ListBox">
-            <!--<Setter Property="Control.FlowDirection" Value="LeftToRight"/>-->
             <Setter Property="ListBox.ItemsSource" Value="{Binding ItemSource.Source}"/>
             <Setter Property="ListBox.SelectedItem" Value="{Binding WorkingItem, Mode=TwoWay}"/>
         </Style>
@@ -37,7 +35,7 @@
                 <KeyBinding Key="Down" Command="{Binding SelectNextCommand}"/>
             </local:FilterButtonEdit.InputBindings>
         </local:FilterButtonEdit>
-        <ListBox Grid.Row="1">
+        <ListBox Name="listbox" Grid.Row="1" SelectionChanged="ListBox_SelectionChanged">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Path=FormattedName, UpdateSourceTrigger=PropertyChanged}"/>
