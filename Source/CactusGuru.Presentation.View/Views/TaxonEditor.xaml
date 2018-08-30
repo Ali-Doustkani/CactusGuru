@@ -12,7 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <local:ViewModelLocator x:Key="vmLocator"/>
             <ControlTemplate x:Key="GeneraLookupEditTemplate">
                 <grid:GridControl Name="PART_GridControl">
                     <grid:GridControl.Columns>
@@ -55,6 +54,7 @@
             <dxg:LookUpEdit
                 Name="Genera" 
                 Grid.Row="0" 
+                Grid.ColumnSpan="1"
                 Style="{StaticResource EntryStyle}"
                 AllowDefaultButton="True"  
                 PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}" 

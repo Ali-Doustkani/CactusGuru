@@ -2,7 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
                     xmlns:dxe="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.1"
-                    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils">
+                    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
     <Style x:Key="LabelFontStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Tahoma"/>
         <Setter Property="FlowDirection" Value="RightToLeft"/>
@@ -10,8 +11,19 @@
     </Style>
 
 
+    
 
+    <local:ViewModelLocator x:Key="vmLocator"/>
 
+    <Style x:Key="CardViewStyle">
+        <Setter Property="dxg:CardView.AllowEditing" Value="True"/>
+        <Setter Property="dxg:CardView.ShowGroupedColumns" Value="True"/>
+        <Setter Property="dxg:CardView.ShowCardExpandButton" Value="False"/>
+        <Setter Property="dxg:CardView.ShowGroupPanel" Value="False"/>
+        <Setter Property="dxg:CardView.ShowColumnHeaders" Value="False"/>
+        <Setter Property="dxg:CardView.NavigationStyle" Value="Cell"/>
+        <Setter Property="dxg:CardView.CardLayout" Value="Rows"/>
+    </Style>
 
     <Style x:Key="LabelStyle">
         <Setter Property="TextBlock.Margin" Value="10 2"/>

@@ -3,14 +3,14 @@
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
-             mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
     <UserControl.Resources>
-        <local:ViewModelLocator x:Key="vmLocator"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="ImageListViewModel"/>
@@ -28,17 +28,16 @@
                 <dxb:BarItemSeparator/>
             </dxb:ToolBarControl>
         </dxb:BarContainerControl>
-        <dxg:GridControl Name="grid" Grid.Row="1" ShowLoadingPanel="{Binding State.IsBusy}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" IsEnabled="{Binding State.IsIdle}">
+        <dxg:GridControl
+            Grid.Row="1" 
+            ShowLoadingPanel="{Binding State.IsBusy}" 
+            ItemsSource="{Binding Images}" 
+            SelectedItem="{Binding SelectedImage}"
+            IsEnabled="{Binding State.IsIdle}">
             <dxg:GridControl.View>
-                <dxg:CardView AllowEditing="True" 
-                              ShowGroupedColumns="True" 
-                              ShowCardExpandButton="False" 
-                              ShowGroupPanel="False" 
-                              ShowColumnHeaders="False" 
-                              NavigationStyle="Cell" 
-                              Name="view" 
-                              CardLayout="Rows" 
-                              CardHeaderBinding="{Binding Path=Data.DateAddedTitle, RelativeSource={RelativeSource Self}}">
+                <dxg:CardView 
+                    Style="{StaticResource CardViewStyle}"
+                    CardHeaderBinding="{Binding Path=Data.DateAddedTitle, RelativeSource={RelativeSource Self}}">
                     <dxg:CardView.CardTemplate>
                         <DataTemplate>
                             <Grid Width="150" Height="170">
@@ -50,8 +49,8 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="40"/>
                                 </Grid.ColumnDefinitions>
-                                <dxe:ImageEdit Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" IsReadOnly="True" EditValue="{Binding Row.Picture}" Stretch="Uniform"/>
-                                <Border Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2">
+                                <dxe:ImageEdit Grid.ColumnSpan="3" IsReadOnly="True" EditValue="{Binding Row.Picture}" Stretch="Uniform"/>
+                                <Border Grid.ColumnSpan="2">
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Style.Triggers>

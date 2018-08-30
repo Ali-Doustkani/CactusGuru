@@ -9,7 +9,7 @@ namespace CactusGuru.Presentation.View.Views
         public LabelPrint()
         {
             InitializeComponent();
-            txtSourceSearch.Focus();
+           // txtSourceSearch.Focus();
         }
 
         private const int COLLECTION_ITEMS = 0;
