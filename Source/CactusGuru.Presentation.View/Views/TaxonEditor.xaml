@@ -43,52 +43,46 @@
         <!-- Genera -->
         <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="جنس"/>
         <dxg:LookUpEdit
-                Name="Genera" 
-                Grid.Row="0" 
-                Grid.ColumnSpan="1"
-                Style="{StaticResource EntryStyle}"
-                AllowDefaultButton="True"  
-                PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}" 
-                utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
-                ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}" 
-                DisplayMember="Name" 
-                SelectedItem="{Binding SelectedTaxonGenus}"/>
+            Grid.Row="0" 
+            Grid.ColumnSpan="1"
+            Style="{StaticResource EntryStyle}"
+            AllowDefaultButton="True"  
+            PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}" 
+            utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+            ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}" 
+            DisplayMember="Name" 
+            SelectedItem="{Binding SelectedTaxonGenus}"/>
         <Button Grid.Row="0" Style="{StaticResource ReferenceStyle}" Command="{Binding GotoGeneraCommand}"/>
         <!-- Species -->
         <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="گونه"/>
         <TextBox 
-                Name="species" 
-                Grid.Row="1" 
-                Style="{StaticResource EntryStyle}"
-                Text="{Binding SelectedTaxonSpecies, UpdateSourceTrigger=PropertyChanged}"/>
+            Grid.Row="1" 
+            Style="{StaticResource EntryStyle}"
+            Text="{Binding SelectedTaxonSpecies, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Variety -->
         <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="واریته"/>
         <TextBox
-                Name="variety" 
-                Grid.Row="2"
-                Style="{StaticResource EntryStyle}"
-                Text="{Binding SelectedTaxonVariety, UpdateSourceTrigger=PropertyChanged}"/>
+            Grid.Row="2"
+            Style="{StaticResource EntryStyle}"
+            Text="{Binding SelectedTaxonVariety, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- SubSpecies -->
         <TextBlock Grid.Row="3" Style="{StaticResource LabelStyle}" Text="زیرگونه"/>
         <TextBox 
-                Name="subspecies" 
-                Grid.Row="3" 
-                Style="{StaticResource EntryStyle}"
-                Text="{Binding SelectedTaxonSubSpecies, UpdateSourceTrigger=PropertyChanged}"/>
+            Grid.Row="3" 
+            Style="{StaticResource EntryStyle}"
+            Text="{Binding SelectedTaxonSubSpecies, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Forma -->
         <TextBlock Grid.Row="4" Style="{StaticResource LabelStyle}" Text="فرم"/>
         <TextBox 
-                Name="forma" 
-                Grid.Row="4" 
-                Style="{StaticResource EntryStyle}"
-                Text="{Binding SelectedTaxonForma, UpdateSourceTrigger=PropertyChanged}"/>
+            Grid.Row="4" 
+            Style="{StaticResource EntryStyle}"
+            Text="{Binding SelectedTaxonForma, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Cultivar -->
         <TextBlock Grid.Row="5" Style="{StaticResource LabelStyle}" Text="کالتیوار"/>
-        <TextBox 
-                Name="cultivar" 
-                Grid.Row="5"
-                Style="{StaticResource EntryStyle}"
-                Text="{Binding SelectedTaxonCultivar, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBox
+            Grid.Row="5"
+            Style="{StaticResource LastEntryStyle}"
+            Text="{Binding SelectedTaxonCultivar, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Filter -->
         <local:SourceBox Grid.Row="6" Grid.ColumnSpan="3"/>
     </Grid>

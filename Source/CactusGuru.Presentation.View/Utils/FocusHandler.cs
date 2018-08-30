@@ -1,4 +1,7 @@
-﻿using System.Windows;
+﻿using DevExpress.Xpf.Editors;
+using DevExpress.Xpf.Grid.LookUp;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Utils
@@ -15,6 +18,11 @@ namespace CactusGuru.Presentation.View.Utils
             typeof(FocusHandler),
             new FrameworkPropertyMetadata(false, FrameworkPropertyMetadataOptions.BindsTwoWayByDefault, HasFocusChanged));
 
+        public static readonly DependencyProperty TraverseOnEnterProperty = DependencyProperty.RegisterAttached("TraverseOnEnter",
+            typeof(bool),
+            typeof(FocusHandler),
+            new PropertyMetadata(TraverseOnEnterChanged));
+
         public static bool GetHasFocus(UIElement obj)
         {
             return (bool)obj.GetValue(HasFocusProperty);
@@ -23,6 +31,16 @@ namespace CactusGuru.Presentation.View.Utils
         public static void SetHasFocus(UIElement obj, bool value)
         {
             obj.SetValue(HasFocusProperty, value);
+        }
+
+        public static bool GetTraverseOnEnter(UIElement obj)
+        {
+            return (bool)obj.GetValue(TraverseOnEnterProperty);
+        }
+
+        public static void SetTraverseOnEnter(UIElement obj, bool value)
+        {
+            obj.SetValue(TraverseOnEnterProperty, value);
         }
 
         private static void HasFocusChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
@@ -36,23 +54,61 @@ namespace CactusGuru.Presentation.View.Utils
         {
             if ((bool)obj.GetValue(IsEventSetProperty))
                 return;
-            System.Windows.Input.FocusManager.AddLostFocusHandler(obj, (sender, e) =>
+            FocusManager.AddLostFocusHandler(obj, (sender, e) =>
             {
                 ((DependencyObject)sender).SetValue(HasFocusProperty, false);
             });
             obj.SetValue(IsEventSetProperty, true);
         }
 
-        public static void GotoNextControl(object sender, KeyEventArgs e)
+        private static void TraverseOnEnterChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
-            if (e.Key != Key.Enter)
-                return;
-            var keyboardFocus = sender as UIElement;
-            if (keyboardFocus != null)
-            {
-                var tRequest = new TraversalRequest(FocusNavigationDirection.Next);
-                keyboardFocus.MoveFocus(tRequest);
-            }
+            if (e.NewValue.Equals(true))
+                TabIndexController2.AddControl((FrameworkElement)obj);
+            else
+                TabIndexController2.RemoveControl((FrameworkElement)obj);
+        }
+    }
+
+
+    public static class TabIndexController2
+    {
+        public static void AddControl(FrameworkElement ctrl)
+        {
+            if (ctrl is LookUpEdit)
+                (ctrl as LookUpEdit).PopupClosed += TabIndexController_PopupClosed;
+            ctrl.PreviewKeyUp += ctrl_PreviewKeyUp;
+            ctrl.Unloaded += Ctrl_Unloaded;
+        }
+
+        public static void RemoveControl(FrameworkElement element)
+        {
+            if (element is LookUpEdit)
+                (element as LookUpEdit).PopupClosed += TabIndexController_PopupClosed;
+            element.PreviewKeyUp += ctrl_PreviewKeyUp;
+            element.Unloaded += Ctrl_Unloaded;
+        }
+
+        private static void Ctrl_Unloaded(object sender, RoutedEventArgs e)
+        {
+            RemoveControl((FrameworkElement)sender);
+        }
+
+        private static void TabIndexController_PopupClosed(object sender, ClosePopupEventArgs e)
+        {
+            if (e.CloseMode == PopupCloseMode.Normal)
+                GotoNextControl(sender);
+        }
+
+        private static void ctrl_PreviewKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+                GotoNextControl(sender);
+        }
+
+        private static void GotoNextControl(object ctrl)
+        {
+            ((UIElement)ctrl).MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
     }
 }

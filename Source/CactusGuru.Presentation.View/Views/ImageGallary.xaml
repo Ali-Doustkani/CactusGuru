@@ -49,8 +49,7 @@
                     HorizontalAlignment="Right" 
                     VerticalAlignment="Center" 
                     BorderThickness="0" 
-                    Text="{Binding Code}"  
-                    utils:InputBindingsManager.UpdatePropertySourceWhenEnterPressed="TextBox.Text"/>
+                    Text="{Binding Code}"/>
                 <Border Grid.Column="1" Background="LightSlateGray" Margin="0 3"/>
                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
                     <TextBlock 

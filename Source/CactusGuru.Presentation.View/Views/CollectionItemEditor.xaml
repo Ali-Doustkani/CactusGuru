@@ -70,7 +70,6 @@
         <!-- Code -->
         <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="کد"/>
         <TextBox 
-            x:Name="txtCode" 
             Grid.Row="0" 
             Style="{StaticResource EntryStyle}" 
             Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}"/>
@@ -78,7 +77,6 @@
         <!-- Taxon -->
         <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="تاکسون"/>
         <dxg:LookUpEdit 
-            Name="cmbTaxa" 
             Grid.Row="1" Grid.ColumnSpan="1"
             Style="{StaticResource EntryStyle}"
             PopupContentTemplate="{StaticResource taxonLookupEditTemplate}" 
@@ -98,7 +96,6 @@
         <!-- Collector -->
         <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="کلکتور"/>
         <dxg:LookUpEdit 
-            Name="cmbCollectors" 
             Grid.Row="2" Grid.ColumnSpan="1"
             Style="{StaticResource EntryStyle}"
             PopupContentTemplate="{StaticResource collectorLookUpEditTemplate}" 
@@ -113,7 +110,6 @@
         <!-- Field Number -->
         <TextBlock Grid.Row="3" Style="{StaticResource LabelStyle}" Text="فیلد"/>
         <TextBox 
-            Name="txtFieldNumber" 
             Grid.Row="3" 
             Style="{StaticResource EntryStyle}" 
             Text="{Binding FieldNumber, UpdateSourceTrigger=PropertyChanged}"/>
@@ -121,7 +117,6 @@
         <!-- Locality -->
         <TextBlock Grid.Row="4" Style="{StaticResource LabelStyle}" Text="منطقه ی زیست"/>
         <TextBox 
-            Name="txtLocality" 
             Grid.Row="4" 
             Style="{StaticResource EntryStyle}" 
             Text="{Binding Locality, UpdateSourceTrigger=PropertyChanged}"/>
@@ -129,7 +124,6 @@
         <!-- Income Date -->
         <TextBlock Grid.Row="5" Style="{StaticResource LabelStyle}" Text="تاریخ ورود"/>
         <TextBox 
-            Name="txtDate" 
             Grid.Row="5"
             Style="{StaticResource EntryStyle}" 
             Text="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
@@ -137,7 +131,6 @@
         <!-- Income Type -->
         <TextBlock Grid.Row="6" Style="{StaticResource LabelStyle}" Text="نوع ورود"/>
         <ComboBox 
-            Name="cmbIncomeTypes" 
             Grid.Row="6" 
             Style="{StaticResource EntryStyle}"
             ItemsSource="{Binding IncomeTypes}"
@@ -147,7 +140,6 @@
         <!-- Supplier -->
         <TextBlock Grid.Row="7" Style="{StaticResource LabelStyle}" Text="تامین کننده"/>
         <dxg:LookUpEdit 
-            Name="cmbSuppliers" 
             Grid.Row="7" Grid.ColumnSpan="1"
             Style="{StaticResource EntryStyle}"
             PopupContentTemplate="{StaticResource supplierLookUpEditTemplate}" 
@@ -162,7 +154,6 @@
         <!-- Supplier Code -->
         <TextBlock Grid.Row="8" Style="{StaticResource LabelStyle}" Text="کد تامین کننده"/>
         <TextBox 
-            Name="txtSupplierCode" 
             Grid.Row="8" 
             Style="{StaticResource EntryStyle}" 
             Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}"/>
@@ -170,7 +161,6 @@
         <!-- Count -->
         <TextBlock Grid.Row="9" Style="{StaticResource LabelStyle}" Text="تعداد"/>
         <TextBox
-            Name="txtCount" 
             Grid.Row="9"
             Style="{StaticResource EntryStyle}" 
             Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
@@ -178,9 +168,8 @@
         <!-- Description -->
         <TextBlock Grid.Row="10" Style="{StaticResource LabelStyle}" Text="توضیحات"/>
         <TextBox 
-            Name="txtDescription" 
             Grid.Row="10" 
-            Style="{StaticResource EntryStyle}" 
+            Style="{StaticResource LastEntryStyle}" 
             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}" 
             TextWrapping="Wrap" 
             AcceptsReturn="True"/>

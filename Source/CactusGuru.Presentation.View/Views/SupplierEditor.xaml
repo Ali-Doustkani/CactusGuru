@@ -25,24 +25,20 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!-- FullName -->
-        <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="عنوان"/>
+        <TextBlock Style="{StaticResource LabelStyle}" Text="عنوان"/>
         <TextBox 
-                Name="txtTitle"
-                Grid.Row="0" 
                 Style="{StaticResource EntryStyle}"
                 utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" 
                 Text="{Binding SelectedSupplierFullName, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Acronym -->
         <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="اختصار"/>
         <TextBox 
-                Name="txtAcronym" 
                 Grid.Row="1" 
                 Style="{StaticResource EntryStyle}" 
                 Text="{Binding SelectedSupplierAcronym, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Website -->
         <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="وب سایت"/>
         <TextBox
-                Name="txtWebSite" 
                 Grid.Row="2" 
                 Style="{StaticResource EntryStyle}" 
                 Text="{Binding SelectedSupplierWebsite, UpdateSourceTrigger=PropertyChanged}"/>

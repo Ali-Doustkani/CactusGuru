@@ -23,17 +23,11 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!-- Title -->
-        <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="عنوان"/>
+        <TextBlock Style="{StaticResource LabelStyle}" Text="عنوان"/>
         <TextBox
-                Name="txtTitle"
-                Grid.Row="0" 
-                Style="{StaticResource EntryStyle}"
+                Style="{StaticResource LastEntryStyle}"
                 Text="{Binding SelectedGenusName, UpdateSourceTrigger=PropertyChanged}" 
-                utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}">
-            <TextBox.InputBindings>
-                <KeyBinding Key="Enter" Command="{Binding SaveCommand}"/>
-            </TextBox.InputBindings>
-        </TextBox>
+                utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"/>
         <!-- Filter -->
         <local:SourceBox Grid.Row="1" Grid.ColumnSpan="2"/>
     </Grid>

@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
+    
     <Style x:Key="LabelFontStyle" TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily" Value="Tahoma"/>
         <Setter Property="FlowDirection" Value="RightToLeft"/>
@@ -42,12 +44,23 @@
         <Setter Property="dxg:LookUpEdit.IncrementalFiltering" Value="True"/>
         <Setter Property="dxg:LookUpEdit.AllowNullInput" Value="False"/>
         <Setter Property="dxg:LookUpEdit.AutoPopulateColumns" Value="False"/>
+        <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="True"/>
+    </Style>
+
+    <Style x:Key="LastEntryStyle" BasedOn="{StaticResource EntryStyle}">
+        <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="False"/>
+        <Setter Property="utils:EnterKeyAttach.EnterKey">
+            <Setter.Value>
+                <KeyBinding Key="Enter" Command="{Binding SaveCommand}"/>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="ReferenceStyle">
         <Setter Property="Grid.Column" Value="2"/>
         <Setter Property="Button.Margin" Value="4 2 0 2"/>
         <Setter Property="Button.Content" Value="..."/>
+        <Setter Property="Button.IsTabStop" Value="False"/>
     </Style>
 
     

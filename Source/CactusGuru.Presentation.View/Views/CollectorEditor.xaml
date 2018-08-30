@@ -25,26 +25,22 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <!-- FullName -->
-        <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="عنوان"/>
+        <TextBlock Style="{StaticResource LabelStyle}" Text="عنوان"/>
         <TextBox 
-                Name="txtTitle" 
-                Grid.Row="0" 
                 Style="{StaticResource EntryStyle}"
                 utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" 
                 Text="{Binding SelectedCollectorFullName, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Acronym -->
         <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="اختصار"/>
         <TextBox 
-                Name="txtAcronym" 
                 Grid.Row="1" 
                 Style="{StaticResource EntryStyle}"
                 Text="{Binding SelectedCollectorAcronym, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Website -->
         <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="وب سایت"/>
         <TextBox 
-                Name="txtWebsite" 
                 Grid.Row="2" 
-                Style="{StaticResource EntryStyle}"
+                Style="{StaticResource LastEntryStyle}"
                 Text="{Binding SelectedCollectorWebsite, UpdateSourceTrigger=PropertyChanged}"/>
         <!-- Filter -->
         <local:SourceBox Grid.Row="3" Grid.ColumnSpan="2"/>
