@@ -2,13 +2,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
     xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
     xmlns:dxmvvm="clr-namespace:DevExpress.Mvvm.UI.Interactivity;assembly=DevExpress.Xpf.Core.v15.1"
     xmlns:ui="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v15.1"
-    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
     x:Class="CactusGuru.Presentation.View.Views.CollectionItemEditor"
-    Height="340" Width="420"
-    FlowDirection="RightToLeft">
+    Height="340" Width="420">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

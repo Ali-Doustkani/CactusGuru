@@ -4,8 +4,7 @@
              xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
              xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid.LookUp;assembly=DevExpress.Xpf.Grid.v15.1"
-             xmlns:grid="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v15.1"
-             FlowDirection="RightToLeft">
+             xmlns:grid="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v15.1">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
