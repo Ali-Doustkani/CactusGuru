@@ -111,6 +111,9 @@
     <Compile Include="UserControls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\SourceBox.xaml.cs">
+      <DependentUpon>SourceBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\FocusHandler.cs" />
     <Compile Include="Utils\InputBindingsManager.cs" />
     <Compile Include="Utils\PriceTextBox.cs" />
@@ -143,7 +146,6 @@
     <Compile Include="Views\ImageList.xaml.cs">
       <DependentUpon>ImageList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\IUserControlView.cs" />
     <Compile Include="Views\LabelPrint.xaml.cs">
       <DependentUpon>LabelPrint.xaml</DependentUpon>
     </Compile>
@@ -153,6 +155,7 @@
     <Compile Include="Views\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\FilterButtonEdit.cs" />
     <Compile Include="Views\MyDXMessageBoxLocalizer.cs" />
     <Compile Include="Views\StringVisibilityConverter.cs" />
     <Compile Include="Views\SupplierEditor.xaml.cs">
@@ -207,6 +210,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PopupMainMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SourceBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

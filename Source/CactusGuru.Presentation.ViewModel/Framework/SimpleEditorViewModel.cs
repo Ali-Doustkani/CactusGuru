@@ -3,7 +3,6 @@ using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
@@ -24,11 +23,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             _dataProvider = dataProvider;
             _dialogService = dialogService;
             LoadCommand = new RelayCommand(Load);
-          //  FocusOnSearchCommand = new RelayCommand(windowController.FocusOnSearch);
+            SelectNextCommand = new RelayCommand(() => Goto(_index + 1));
+            SelectPreviousCommand = new RelayCommand(() => Goto(_index - 1));
         }
 
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
+        private int _index = -1;
 
         private IDataSource<TRowItem> _itemSource;
         public IDataSource<TRowItem> ItemSource
@@ -43,7 +44,9 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         }
 
         public ICommand ClearFilterTextCommand { get; private set; }
-        public ICommand FocusOnSearchCommand { get; private set; }
+        public ICommand FocusOnSearchCommand { get; }
+        public ICommand SelectNextCommand { get; }
+        public ICommand SelectPreviousCommand { get; }
 
         private void Load()
         {
@@ -91,6 +94,20 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             {
                 _dialogService.Error(ex.Message);
             }
+        }
+
+        protected override void OnWorkingItemChanged()
+        {
+            _index = ItemSource.ToList().IndexOf(WorkingItem);
+            base.OnWorkingItemChanged();
+        }
+
+        private void Goto(int newIndex)
+        {
+            if (newIndex < 0 || newIndex >= ItemSource.Count()) return;
+            _index = newIndex;
+            WorkingItem = ItemSource.ElementAt(_index);
+            OnPropertyChanged(nameof(WorkingItem));
         }
     }
 }

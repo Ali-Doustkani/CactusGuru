@@ -1,15 +1,14 @@
 ﻿using CactusGuru.Presentation.View.Utils;
-using System;
 
 namespace CactusGuru.Presentation.View.Views
 {
-    public partial class CollectionItemEditor : IUserControlView
+    public partial class CollectionItemEditor
     {
         public CollectionItemEditor()
         {
             InitializeComponent();
             var controller = new TabIndexController();
-            controller.ReachedToLastField += (a, b) => Save(this, EventArgs.Empty);
+            //controller.ReachedToLastField += (a, b) => Save(this, EventArgs.Empty);
             controller.AddControl(txtCode);
             controller.AddControl(cmbTaxa);
             controller.AddControl(cmbCollectors);
@@ -27,12 +26,5 @@ namespace CactusGuru.Presentation.View.Views
         {
             cmbTaxa.Focus();
         }
-
-        public void FocusOnSearch()
-        {
-
-        }
-
-        public event EventHandler Save = delegate { };
     }
 }

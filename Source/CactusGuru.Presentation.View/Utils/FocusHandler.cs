@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Utils
@@ -54,14 +53,6 @@ namespace CactusGuru.Presentation.View.Utils
                 var tRequest = new TraversalRequest(FocusNavigationDirection.Next);
                 keyboardFocus.MoveFocus(tRequest);
             }
-        }
-
-        public static void NavigateListboxItems(ListBox listBox, KeyEventArgs e)
-        {
-            if (e.Key == Key.Down && listBox.SelectedIndex < listBox.Items.Count)
-                listBox.SelectedIndex++;
-            else if (e.Key == Key.Up && listBox.SelectedIndex > 0)
-                listBox.SelectedIndex--;
         }
     }
 }

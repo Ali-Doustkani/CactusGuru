@@ -45,9 +45,14 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             set
             {
                 _workingItem = value;
-                if (value != null)
-                    NotifyAllPropertiesChanged();
+                OnWorkingItemChanged();
             }
+        }
+
+        protected virtual void OnWorkingItemChanged()
+        {
+            if (_workingItem != null)
+                NotifyAllPropertiesChanged();
         }
 
         public abstract void NotifyAllPropertiesChanged();

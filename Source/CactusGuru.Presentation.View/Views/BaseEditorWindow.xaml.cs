@@ -1,4 +1,6 @@
-﻿namespace CactusGuru.Presentation.View.Views
+﻿using System.Windows.Controls;
+
+namespace CactusGuru.Presentation.View.Views
 {
     public partial class BaseEditorWindow
     {
@@ -7,15 +9,9 @@
             InitializeComponent();
         }
 
-        public void SetUserControl(IUserControlView view)
+        public void SetUserControl(UserControl view)
         {
             ContentControl.Content = view;
-            view.Save += view_Save;
-        }
-
-        private void view_Save(object sender, System.EventArgs e)
-        {
-            btnSave.Command.Execute(null);
         }
     }
 }

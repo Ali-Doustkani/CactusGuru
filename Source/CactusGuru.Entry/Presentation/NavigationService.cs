@@ -119,7 +119,7 @@ namespace CactusGuru.Entry.Presentation
                 activeWindow.Close();
         }
 
-        private void OpenUserControl(IUserControlView view, double width = 420, double height = 480)
+        private void OpenUserControl(System.Windows.Controls.UserControl view, double width = 420, double height = 480)
         {
             var window = new BaseEditorWindow();
             window.DataContext = view.DataContext;
