@@ -13,8 +13,8 @@
     <dx:DXWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml" />
-                <ResourceDictionary Source="ImageGallary.styles.xaml"/>
+                <ResourceDictionary Source="..\Styles.xaml" />
+                <ResourceDictionary Source="Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </dx:DXWindow.Resources>
@@ -48,24 +48,24 @@
             <!-- Toolbar -->
             <dxb:BarContainerControl Grid.Column="1" Style="{StaticResource ToolbarContainerStyle}">
                 <dxb:ToolBarControl Style="{StaticResource ToolbarControlStyle}">
-                    <dxb:BarButtonItem Content="ذخیره" Glyph="../Images/Icon/EditorViewBasics/save_24.png" Command="{Binding SaveCommand}" />
-                    <dxb:BarButtonItem Content="لغو" Glyph="../Images/Icon/EditorViewBasics/cancel_24.png" Command="{Binding CancelCommand}" />
+                    <dxb:BarButtonItem Content="ذخیره" Glyph="{StaticResource Save}" Command="{Binding SaveCommand}" />
+                    <dxb:BarButtonItem Content="لغو" Glyph="{StaticResource Cancel}" Command="{Binding CancelCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="حذف" Glyph="../Images/Icon/EditorViewBasics/delete_24.png" Command="{Binding DeleteImageCommand}" />
-                    <dxb:BarButtonItem Content="درج تصویر" Glyph="../Images/Icon/ImageGallery/addImage_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding AddImageCommand}" />
+                    <dxb:BarButtonItem Content="حذف" Glyph="{StaticResource Delete}" Command="{Binding DeleteImageCommand}" />
+                    <dxb:BarButtonItem Content="درج تصویر" Glyph="{StaticResource Add}" BarItemDisplayMode="ContentAndGlyph" Command="{Binding AddImageCommand}" />
                     <dxb:BarItemSeparator />
                     <dxb:BarButtonItem Content="انتخاب" BarItemDisplayMode="Content" Command="{Binding SelectAllCommand}" />
                     <dxb:BarButtonItem Content="عدم انتخاب" BarItemDisplayMode="Content" Command="{Binding DeSelectAllCommand}" />
-                    <dxb:BarButtonItem Content="پشیمان شدم" Glyph="../Images/Icon/ImageGallery/undo_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding UndoCommand}" />
+                    <dxb:BarButtonItem Content="پشیمان شدم" Glyph="{StaticResource Undo}" BarItemDisplayMode="ContentAndGlyph" Command="{Binding UndoCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="ذیخره ی فایل" Glyph="../Images/Icon/ImageGallery/jpeg_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding SaveToFilesCommand}" />
+                    <dxb:BarButtonItem Content="ذیخره ی فایل" Glyph="{StaticResource Jpeg}" BarItemDisplayMode="ContentAndGlyph" Command="{Binding SaveToFilesCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="ذخیره برای اینستاگرام" Glyph="../Images/Icon/ImageList/instagram_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding SaveForInstagramCommand}" />
+                    <dxb:BarButtonItem Content="ذخیره برای اینستاگرام" Glyph="{StaticResource Instagram}" BarItemDisplayMode="ContentAndGlyph" Command="{Binding SaveForInstagramCommand}" />
                 </dxb:ToolBarControl>
             </dxb:BarContainerControl>
         </Grid>
         <!-- Content -->
-        <dxg:GridControl Name="grid" Grid.Row="1" Style="{StaticResource GridStyle}">
+        <dxg:GridControl Name="grid" Grid.Row="1" Style="{StaticResource GridStyle}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}">
             <dxg:GridControl.View>
                 <dxg:CardView Style="{StaticResource CardViewStyle}"
                               FixedSize="280"
@@ -87,7 +87,7 @@
                                 <Border Grid.ColumnSpan="4" Style="{StaticResource SelectedBorderStyle}"/>
                                 <dxe:MemoEdit Grid.Row="1" Grid.Column="0" Text="{Binding Row.Description}" Style="{StaticResource MemoStyle}" />
                                 <Button Grid.Row="1" Grid.Column="1" Margin="3 3 0 0" Click="DeleteButton_OnClick">
-                                    <Image Source="../Images/Icon/ImageGallery/select_24.png" />
+                                    <Image Source="{StaticResource Select}"/>
                                 </Button>
                                 <Button Grid.Row="1" Grid.Column="2" Margin="3 3 0 0" Click="ChangeDateButton_Click">D</Button>
                                 <CheckBox Grid.Row="1" Grid.Column="3" Margin="3 3 0 0" IsChecked="{Binding Row.SharedOnInstagram}">Insta</CheckBox>

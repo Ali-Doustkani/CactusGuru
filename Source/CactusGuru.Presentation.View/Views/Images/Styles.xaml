@@ -4,6 +4,16 @@
                     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
+    <!-- Images -->
+    <ImageSource x:Key="Instagram">../../Images/Icon/ImageList/instagram_24.png</ImageSource>
+    <ImageSource x:Key="Jpeg">../../Images/Icon/ImageGallery/jpeg_24.png</ImageSource>
+    <ImageSource x:Key="Undo">../../Images/Icon/ImageGallery/undo_24.png</ImageSource>
+    <ImageSource x:Key="Add">../../Images/Icon/ImageGallery/addImage_24.png</ImageSource>
+    <ImageSource x:Key="Delete">../../Images/Icon/EditorViewBasics/delete_24.png</ImageSource>
+    <ImageSource x:Key="Cancel">../../Images/Icon/EditorViewBasics/cancel_24.png</ImageSource>
+    <ImageSource x:Key="Save">../../Images/Icon/EditorViewBasics/save_24.png</ImageSource>
+    <ImageSource x:Key="Select">../../Images/Icon/ImageGallery/select_24.png</ImageSource>
+    
     <!-- Label Styles -->
     <Style x:Key="LabelStyleBase">
         <Setter Property="Control.Margin" Value="5 0" />
@@ -52,8 +62,6 @@
     <!-- Content Styles -->
     <Style x:Key="GridStyle">
         <Setter Property="dxg:GridControl.ShowLoadingPanel" Value="{Binding State.IsBusy}"/>
-        <Setter Property="dxg:GridControl.ItemsSource" Value="{Binding Images}"/>
-        <Setter Property="dxg:GridControl.SelectedItem" Value="{Binding SelectedImage}"/>
         <Setter Property="dxg:GridControl.IsEnabled" Value="{Binding State.IsIdle}"/>
     </Style>
     <Style x:Key="SelectedBorderStyle">

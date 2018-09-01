@@ -135,13 +135,13 @@
     <Compile Include="Views\FirstPage.xaml.cs">
       <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ImageGallary.xaml.cs">
+    <Compile Include="Views\Images\ImageGallary.xaml.cs">
       <DependentUpon>ImageGallary.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ImageGallaryDate.xaml.cs">
+    <Compile Include="Views\Images\ImageGallaryDate.xaml.cs">
       <DependentUpon>ImageGallaryDate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\ImageList.xaml.cs">
+    <Compile Include="Views\Images\ImageList.xaml.cs">
       <DependentUpon>ImageList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LabelPrint.xaml.cs">
@@ -239,20 +239,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ImageGallary.styles.xaml">
-      <DependentUpon>ImageGallary.xaml</DependentUpon>
+    <Page Include="Views\Images\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\ImageGallary.xaml">
+    <Page Include="Views\Images\ImageGallary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ImageGallaryDate.xaml">
+    <Page Include="Views\Images\ImageGallaryDate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\ImageList.xaml">
+    <Page Include="Views\Images\ImageList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
