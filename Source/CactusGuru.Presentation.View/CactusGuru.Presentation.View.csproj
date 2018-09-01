@@ -103,7 +103,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="NavigationService\DialogService.cs" />
     <Compile Include="UserControls\MainMenu.xaml.cs">
       <DependentUpon>MainMenu.xaml</DependentUpon>
@@ -119,7 +119,6 @@
     <Compile Include="Views\BaseEditorWindow.xaml.cs">
       <DependentUpon>BaseEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BooleanAndConverter.cs" />
     <Compile Include="Views\CollectionItemEditor.xaml.cs">
       <DependentUpon>CollectionItemEditor.xaml</DependentUpon>
     </Compile>
@@ -132,7 +131,7 @@
     <Compile Include="UserControls\ImageContainer.xaml.cs">
       <DependentUpon>ImageContainer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FirstPage.xaml.cs">
+    <Compile Include="Views\Main\FirstPage.xaml.cs">
       <DependentUpon>FirstPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Images\ImageGallary.xaml.cs">
@@ -144,13 +143,13 @@
     <Compile Include="Views\Images\ImageList.xaml.cs">
       <DependentUpon>ImageList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LabelPrint.xaml.cs">
+    <Compile Include="Views\Print\LabelPrint.xaml.cs">
       <DependentUpon>LabelPrint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\LabelPrintCount.xaml.cs">
+    <Compile Include="Views\Print\LabelPrintCount.xaml.cs">
       <DependentUpon>LabelPrintCount.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Main.xaml.cs">
+    <Compile Include="Views\Main\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\FilterButtonEdit.cs" />
@@ -165,7 +164,6 @@
     <Compile Include="Views\GenusEditor.xaml.cs">
       <DependentUpon>GenusEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\BooleanVisibilityConverter.cs" />
     <Compile Include="Views\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -235,7 +233,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FirstPage.xaml">
+    <Page Include="Views\Main\FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -255,15 +253,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LabelPrint.xaml">
+    <Page Include="Views\Print\LabelPrint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\LabelPrintCount.xaml">
+    <Page Include="Views\Print\LabelPrintCount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Main.xaml">
+    <Page Include="Views\Main\Main.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

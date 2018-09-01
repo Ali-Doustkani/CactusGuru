@@ -14,29 +14,20 @@
     <dx:DXWindow.Resources>
         <local:ViewModelLocator x:Key="vmLocator" />
         <Style TargetType="dxe:ButtonEdit">
-            <Setter Property="Control.Margin"
-                    Value="10 5" />
-            <Setter Property="dxe:ButtonEdit.AllowDefaultButton"
-                    Value="False" />
-            <Setter Property="Control.FlowDirection"
-                    Value="LeftToRight" />
+            <Setter Property="Control.Margin" Value="10 5" />
+            <Setter Property="dxe:ButtonEdit.AllowDefaultButton" Value="False" />
+            <Setter Property="Control.FlowDirection" Value="LeftToRight" />
         </Style>
         <Style TargetType="dxg:TableView">
-            <Setter Property="AutoWidth"
-                    Value="True" />
-            <Setter Property="AllowPerPixelScrolling"
-                    Value="True" />
-            <Setter Property="ShowTotalSummary"
-                    Value="False" />
-            <Setter Property="ShowGroupPanel"
-                    Value="False" />
-            <Setter Property="ShowIndicator"
-                    Value="False" />
+            <Setter Property="AutoWidth" Value="True" />
+            <Setter Property="AllowPerPixelScrolling" Value="True" />
+            <Setter Property="ShowTotalSummary" Value="False" />
+            <Setter Property="ShowGroupPanel" Value="False" />
+            <Setter Property="ShowIndicator" Value="False" />
         </Style>
     </dx:DXWindow.Resources>
     <dx:DXWindow.DataContext>
-        <Binding Source="{StaticResource vmLocator}"
-                 Path="LabelPrintEditorViewModel" />
+        <Binding Source="{StaticResource vmLocator}" Path="LabelPrintEditorViewModel" />
     </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -54,19 +45,15 @@
                         NullText="{Binding SourceFilterNullText}"
                         Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}"
                         PreviewKeyDown="txtSourceSearch_PreviewKeyDown">
-            <dxe:ButtonInfo GlyphKind="Cancel"
-                            Command="{Binding ClearCollectionItemsFilterCommand}" />
+            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearCollectionItemsFilterCommand}" />
         </dxe:ButtonEdit>
-        <dxe:ButtonEdit Grid.Row="0"
-                        Grid.Column="2"
+        <dxe:ButtonEdit Grid.Column="2"
                         NullText="جست و جو در برچسب ها"
                         Text="{Binding PrintItems.FilterText, UpdateSourceTrigger=PropertyChanged}">
-            <dxe:ButtonInfo GlyphKind="Cancel"
-                            Command="{Binding ClearPrintItemsFilterCommand}" />
+            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearPrintItemsFilterCommand}" />
         </dxe:ButtonEdit>
         <dx:DXTabControl Name="tab"
                          Grid.Row="1"
-                         Grid.Column="0"
                          Margin="10 5 10 10"
                          FlowDirection="LeftToRight"
                          SelectedIndex="{Binding SelectedPage}"
@@ -81,7 +68,7 @@
                         <dxg:TableView />
                     </dxg:GridControl.View>
                     <dxg:GridControl.Columns>
-                        <dxg:GridColumn Header="کد"
+                        <dxg:GridColumn Header="کد" 
                                         FieldName="Code"
                                         Width="30"
                                         AllowEditing="False" />
@@ -154,14 +141,11 @@
             </dxg:GridControl.Columns>
         </dxg:GridControl>
         <Button Grid.Row="2"
-                Grid.Column="0"
                 Grid.ColumnSpan="3"
                 Margin="10 2"
                 Content="چاپ"
                 Command="{Binding PrintCommand}" />
-        <dxr:RibbonStatusBarControl Grid.Row="3"
-                                    Grid.ColumnSpan="3"
-                                    IsSizeGripVisible="False">
+        <dxr:RibbonStatusBarControl Grid.Row="3" Grid.ColumnSpan="3" IsSizeGripVisible="False">
             <dxr:RibbonStatusBarControl.RightItems>
                 <dxb:BarStaticItem Content="{Binding LabelCount}" />
             </dxr:RibbonStatusBarControl.RightItems>

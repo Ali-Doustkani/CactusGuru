@@ -5,11 +5,6 @@ namespace CactusGuru.Presentation.View.Views
 {
     public partial class Main
     {
-        static Main()
-        {
-            MyDXMessageBoxLocalizer.Active = new MyDXMessageBoxLocalizer();
-        }
-
         public Main()
         {
             InitializeComponent(); 

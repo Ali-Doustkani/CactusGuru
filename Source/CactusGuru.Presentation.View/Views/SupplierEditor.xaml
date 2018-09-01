@@ -11,8 +11,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}"
-                 Path="SupplierEditorViewModel" />
+        <Binding Source="{StaticResource vmLocator}" Path="SupplierEditorViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>

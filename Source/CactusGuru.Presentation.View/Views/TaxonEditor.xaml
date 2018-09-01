@@ -44,11 +44,9 @@
             <ColumnDefinition Width="26" />
         </Grid.ColumnDefinitions>
         <!-- Genera -->
-        <TextBlock Grid.Row="0"
-                   Style="{StaticResource LabelStyle}"
+        <TextBlock Style="{StaticResource LabelStyle}"
                    Text="جنس" />
-        <dxg:LookUpEdit Grid.Row="0"
-                        Grid.ColumnSpan="1"
+        <dxg:LookUpEdit Grid.ColumnSpan="1"
                         Style="{StaticResource EntryStyle}"
                         AllowDefaultButton="True"
                         PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}"
@@ -56,8 +54,7 @@
                         ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
                         DisplayMember="Name"
                         SelectedItem="{Binding SelectedTaxonGenus}" />
-        <Button Grid.Row="0"
-                Style="{StaticResource ReferenceStyle}"
+        <Button Style="{StaticResource ReferenceStyle}"
                 Command="{Binding GotoGeneraCommand}" />
         <!-- Species -->
         <TextBlock Grid.Row="1"

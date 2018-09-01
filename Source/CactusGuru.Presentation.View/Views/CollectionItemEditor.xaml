@@ -51,7 +51,6 @@
                     </dxg:GridControl.View>
                 </dxg:GridControl>
             </ControlTemplate>
-            <views:BooleanAndConverter x:Key="txtDateEnableConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 

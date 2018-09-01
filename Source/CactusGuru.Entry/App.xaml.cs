@@ -13,7 +13,7 @@ namespace CactusGuru.Entry
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = new ViewModelFactory();
-            CactusGuru.Presentation.View.Main.Start(ObjectFactory.Instance.GetInstance<MainViewModel>(), ObjectFactory.Instance.GetInstance<INavigationService>());
+            CactusGuru.Presentation.View.Program.Start(ObjectFactory.Instance.GetInstance<MainViewModel>(), ObjectFactory.Instance.GetInstance<INavigationService>());
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
@@ -26,7 +26,7 @@ namespace CactusGuru.Entry
         protected override void OnExit(ExitEventArgs e)
         {
             base.OnExit(e);
-            CactusGuru.Presentation.View.Main.Exit();
+            CactusGuru.Presentation.View.Program.Exit();
         }
     }
 }
