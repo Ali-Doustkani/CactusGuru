@@ -20,6 +20,8 @@
 
         public void ToIdle() => Set(State.Idle);
 
+        public void ToBusy() => Set(State.Busy);
+
         private void Set(State state)
         {
             if (state == _state) return;

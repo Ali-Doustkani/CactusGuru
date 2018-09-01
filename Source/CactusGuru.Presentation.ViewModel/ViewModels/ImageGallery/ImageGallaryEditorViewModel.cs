@@ -21,6 +21,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             _imageItemFactory = imageItemFactory;
             _navigationService = navigationService;
             _dataProvider = dataProvider;
+            State = new LoaderState();
             _imageLoaderWorker = new BackgroundWorker();
             _imageLoaderWorker.WorkerReportsProgress = true;
             _imageLoaderWorker.DoWork += _backgroundWorker_DoWork;
@@ -38,8 +39,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             _imageSaveWorker.RunWorkerCompleted += _imageSaveWorker_RunWorkerCompleted1;
 
             SaveCommand = new RelayCommand(Save, CanUndo);
-            CancelCommand = new RelayCommand(_navigationService.CloseCurrentView, () => !IsFormBusy);
-            AddImageCommand = new RelayCommand(AddImage, () => !IsFormBusy);
+            CancelCommand = new RelayCommand(_navigationService.CloseCurrentView, () => State.IsIdle);
+            AddImageCommand = new RelayCommand(AddImage, () => State.IsIdle);
             DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
             UndoCommand = new RelayCommand(Undo, CanUndo);
             SelectAllCommand = new RelayCommand(SelectAll);
@@ -57,9 +58,11 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         private readonly BackgroundWorker _imageAdderWorker;
         private readonly BackgroundWorker _imageSaveWorker;
         private Guid _collectionItemId;
-        private bool _isFormBusy;
+    
         private GalleryMemento _memento;
         private string _code;
+        private string _title;
+        private string _locality;
 
         public ICommand SaveCommand { get; }
         public ICommand CancelCommand { get; }
@@ -72,6 +75,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         public ICommand SaveForInstagramCommand { get; }
         public ObservableCollection<ImageItemViewModel> Images { get; private set; }
         public ImageItemViewModel SelectedImage { get; set; }
+        private LoaderState State { get; }
 
         public string Code
         {
@@ -82,19 +86,27 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
                 if (!_dataProvider.CollectionItemCodeExists(value)) return;
                 LoadByCode(value);
                 _code = value;
+                OnPropertyChanged(nameof(Code));
             }
         }
 
-        public string Title { get; private set; }
-        public string Locality { get; private set; }
-
-        public bool IsFormBusy
+        public string Title
         {
-            get { return _isFormBusy; }
-            set
+            get { return _title; }
+            private set
             {
-                _isFormBusy = value;
-                OnPropertyChanged(nameof(IsFormBusy));
+                _title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+
+        public string Locality
+        {
+            get { return _locality; }
+            private set
+            {
+                _locality = value;
+                OnPropertyChanged(nameof(Locality));
             }
         }
 
@@ -177,11 +189,11 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         public void Load(Guid collectionItemId)
         {
-            IsFormBusy = true;
             Images.Clear();
             _collectionItemId = collectionItemId;
             var collectionItem = _dataProvider.GetCollectionItem(collectionItemId);
             _code = collectionItem.Code;
+            OnPropertyChanged(nameof(Code));
             Title = collectionItem.Title;
             Locality = collectionItem.Locality;
             _imageLoaderWorker.RunWorkerAsync();
@@ -206,7 +218,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _memento = new GalleryMemento(Images);
-            IsFormBusy = false;
+            State.ToIdle();
         }
 
         #endregion
@@ -217,7 +229,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         {
             var dialogResult = _dialogService.OpenImageFileDialog();
             if (!dialogResult.Result) return;
-            IsFormBusy = true;
+            State.ToBusy();
             _imageAdderWorker.RunWorkerAsync(dialogResult.Value);
         }
 
@@ -242,7 +254,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         private void _imageAdderWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             System.Threading.Thread.Sleep(500);
-            IsFormBusy = false;
+            State.ToIdle();
         }
 
         #endregion
@@ -251,7 +263,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         private void Save()
         {
-            IsFormBusy = true;
+            State.ToBusy();
             _imageSaveWorker.RunWorkerAsync();
         }
 
@@ -266,7 +278,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         private void _imageSaveWorker_RunWorkerCompleted1(object sender, RunWorkerCompletedEventArgs e)
         {
-            IsFormBusy = false;
+            State.ToIdle();
             _navigationService.CloseCurrentView();
         }
 

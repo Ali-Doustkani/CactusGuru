@@ -5,7 +5,6 @@
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
              Title="گالری تصاویر"
              Height="600"
              Width="980"
@@ -15,123 +14,65 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml" />
+                <ResourceDictionary Source="ImageGallary.styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <local:StringVisibilityConverter x:Key="converter" />
         </ResourceDictionary>
     </dx:DXWindow.Resources>
     <dx:DXWindow.DataContext>
-        <Binding Source="{StaticResource vmLocator}"
-                 Path="ImageGallaryEditorViewModel" />
+        <Binding Source="{StaticResource vmLocator}" Path="ImageGallaryEditorViewModel" />
     </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50" />
             <RowDefinition />
         </Grid.RowDefinitions>
-
         <Grid FlowDirection="LeftToRight">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-
-            <!-- Collection Item -->
-            <Grid Grid.Column="0"
-                  Margin="10 0">
+            <!-- Label -->
+            <Grid Margin="10 0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="1" />
                     <ColumnDefinition />
                 </Grid.ColumnDefinitions>
-                <TextBox Grid.ColumnSpan="2"
-                         Margin="5 0"
-                         FontSize="25"
-                         FontWeight="Bold"
-                         Foreground="LightSlateGray"
-                         HorizontalAlignment="Right"
-                         VerticalAlignment="Center"
-                         BorderThickness="0"
-                         Text="{Binding Code}" />
-                <Border Grid.Column="1"
-                        Background="LightSlateGray"
-                        Margin="0 3" />
-                <StackPanel Grid.Column="2"
-                            VerticalAlignment="Center">
-                    <TextBlock Margin="5 0"
-                               FontSize="17"
-                               FontWeight="Bold"
-                               Foreground="LightSlateGray"
-                               Text="{Binding Title}" />
-                    <TextBlock Margin="5 0"
-                               Foreground="LightSlateGray"
-                               Text="{Binding Locality}"
-                               Visibility="{Binding RelativeSource={RelativeSource Self}, Path=Text, Converter={StaticResource converter}}" />
+                <TextBox Grid.ColumnSpan="2" Style="{StaticResource CodeStyle}" Text="{Binding Code}" />
+                <Border Grid.Column="1" Style="{StaticResource SeparatorStyle}"/>
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding Title}" />
+                    <TextBlock Style="{StaticResource LocalityStyle}" Text="{Binding Locality}" />
                 </StackPanel>
             </Grid>
-
             <!-- Toolbar -->
-            <dxb:BarContainerControl Grid.Column="1"
-                                     Margin="10 0"
-                                     HorizontalAlignment="Right"
-                                     VerticalAlignment="Center"
-                                     FlowDirection="RightToLeft">
-                <dxb:ToolBarControl GlyphSize="Small"
-                                    AllowCustomizationMenu="False"
-                                    AllowQuickCustomization="False"
-                                    ShowDragWidget="False">
-                    <dxb:BarButtonItem Content="ذخیره"
-                                       Glyph="../Images/Icon/EditorViewBasics/save_24.png"
-                                       Command="{Binding SaveCommand}" />
-                    <dxb:BarButtonItem Content="لغو"
-                                       Glyph="../Images/Icon/EditorViewBasics/cancel_24.png"
-                                       Command="{Binding CancelCommand}" />
+            <dxb:BarContainerControl Grid.Column="1" Style="{StaticResource ToolbarContainerStyle}">
+                <dxb:ToolBarControl Style="{StaticResource ToolbarControlStyle}">
+                    <dxb:BarButtonItem Content="ذخیره" Glyph="../Images/Icon/EditorViewBasics/save_24.png" Command="{Binding SaveCommand}" />
+                    <dxb:BarButtonItem Content="لغو" Glyph="../Images/Icon/EditorViewBasics/cancel_24.png" Command="{Binding CancelCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="حذف"
-                                       Glyph="../Images/Icon/EditorViewBasics/delete_24.png"
-                                       Command="{Binding DeleteImageCommand}" />
-                    <dxb:BarButtonItem Content="درج تصویر"
-                                       Glyph="../Images/Icon/ImageGallery/addImage_24.png"
-                                       BarItemDisplayMode="ContentAndGlyph"
-                                       Command="{Binding AddImageCommand}" />
+                    <dxb:BarButtonItem Content="حذف" Glyph="../Images/Icon/EditorViewBasics/delete_24.png" Command="{Binding DeleteImageCommand}" />
+                    <dxb:BarButtonItem Content="درج تصویر" Glyph="../Images/Icon/ImageGallery/addImage_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding AddImageCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="انتخاب"
-                                       BarItemDisplayMode="Content"
-                                       Command="{Binding SelectAllCommand}" />
-                    <dxb:BarButtonItem Content="عدم انتخاب"
-                                       BarItemDisplayMode="Content"
-                                       Command="{Binding DeSelectAllCommand}" />
-                    <dxb:BarButtonItem Content="پشیمان شدم"
-                                       Glyph="../Images/Icon/ImageGallery/undo_24.png"
-                                       BarItemDisplayMode="ContentAndGlyph"
-                                       Command="{Binding UndoCommand}" />
+                    <dxb:BarButtonItem Content="انتخاب" BarItemDisplayMode="Content" Command="{Binding SelectAllCommand}" />
+                    <dxb:BarButtonItem Content="عدم انتخاب" BarItemDisplayMode="Content" Command="{Binding DeSelectAllCommand}" />
+                    <dxb:BarButtonItem Content="پشیمان شدم" Glyph="../Images/Icon/ImageGallery/undo_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding UndoCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="ذیخره ی فایل"
-                                       Glyph="../Images/Icon/ImageGallery/jpeg_24.png"
-                                       BarItemDisplayMode="ContentAndGlyph"
-                                       Command="{Binding SaveToFilesCommand}" />
+                    <dxb:BarButtonItem Content="ذیخره ی فایل" Glyph="../Images/Icon/ImageGallery/jpeg_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding SaveToFilesCommand}" />
                     <dxb:BarItemSeparator />
-                    <dxb:BarButtonItem Content="ذخیره برای اینستاگرام"
-                                       Glyph="../Images/Icon/ImageList/instagram_24.png"
-                                       BarItemDisplayMode="ContentAndGlyph"
-                                       Command="{Binding SaveForInstagramCommand}" />
+                    <dxb:BarButtonItem Content="ذخیره برای اینستاگرام" Glyph="../Images/Icon/ImageList/instagram_24.png" BarItemDisplayMode="ContentAndGlyph" Command="{Binding SaveForInstagramCommand}" />
                 </dxb:ToolBarControl>
             </dxb:BarContainerControl>
         </Grid>
-
-        <dxg:GridControl Name="grid"
-                         Grid.Row="1"
-                         ShowLoadingPanel="{Binding State.IsBusy}"
-                         ItemsSource="{Binding Images}"
-                         SelectedItem="{Binding SelectedImage}"
-                         IsEnabled="{Binding State.IsIdle}">
+        <!-- Content -->
+        <dxg:GridControl Name="grid" Grid.Row="1" Style="{StaticResource GridStyle}">
             <dxg:GridControl.View>
                 <dxg:CardView Style="{StaticResource CardViewStyle}"
                               FixedSize="280"
                               CardHeaderBinding="{Binding Path=Data.DateAddedTitle, RelativeSource={RelativeSource Self}}">
                     <dxg:CardView.CardTemplate>
                         <DataTemplate>
-                            <Grid Width="200"
-                                  Height="225">
+                            <Grid Width="200" Height="225">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="200" />
                                     <RowDefinition />
@@ -142,50 +83,14 @@
                                     <ColumnDefinition Width="30" />
                                     <ColumnDefinition Width="40" />
                                 </Grid.ColumnDefinitions>
-                                <dxe:ImageEdit Grid.ColumnSpan="4"
-                                               IsReadOnly="True"
-                                               EditValue="{Binding Row.Picture}"
-                                               Stretch="Uniform" />
-                                <Border Grid.ColumnSpan="4">
-                                    <Border.Style>
-                                        <Style TargetType="Border">
-                                            <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Row.IsSelected}"
-                                                             Value="True">
-                                                    <Setter Property="Background">
-                                                        <Setter.Value>
-                                                            <SolidColorBrush Color="White"
-                                                                             Opacity="0.4" />
-                                                        </Setter.Value>
-                                                    </Setter>
-                                                </DataTrigger>
-                                            </Style.Triggers>
-                                        </Style>
-                                    </Border.Style>
-                                </Border>
-                                <dxe:MemoEdit Grid.Row="1"
-                                              Grid.Column="0"
-                                              Margin="0 3 0 0"
-                                              Text="{Binding Row.Description}"
-                                              ShowIcon="False"
-                                              PopupWidth="500"
-                                              PopupHeight="300"
-                                              MemoTextWrapping="Wrap"
-                                              MemoVerticalScrollBarVisibility="Auto" />
-                                <Button Grid.Row="1"
-                                        Grid.Column="1"
-                                        Margin="3 3 0 0"
-                                        Click="DeleteButton_OnClick">
+                                <dxe:ImageEdit Grid.ColumnSpan="4" IsReadOnly="True" EditValue="{Binding Row.Picture}" Stretch="Uniform" />
+                                <Border Grid.ColumnSpan="4" Style="{StaticResource SelectedBorderStyle}"/>
+                                <dxe:MemoEdit Grid.Row="1" Grid.Column="0" Text="{Binding Row.Description}" Style="{StaticResource MemoStyle}" />
+                                <Button Grid.Row="1" Grid.Column="1" Margin="3 3 0 0" Click="DeleteButton_OnClick">
                                     <Image Source="../Images/Icon/ImageGallery/select_24.png" />
                                 </Button>
-                                <Button Grid.Row="1"
-                                        Grid.Column="2"
-                                        Margin="3 3 0 0"
-                                        Click="ChangeDateButton_Click">D</Button>
-                                <CheckBox Grid.Row="1"
-                                          Grid.Column="3"
-                                          Margin="3 3 0 0"
-                                          IsChecked="{Binding Row.SharedOnInstagram}">Insta</CheckBox>
+                                <Button Grid.Row="1" Grid.Column="2" Margin="3 3 0 0" Click="ChangeDateButton_Click">D</Button>
+                                <CheckBox Grid.Row="1" Grid.Column="3" Margin="3 3 0 0" IsChecked="{Binding Row.SharedOnInstagram}">Insta</CheckBox>
                             </Grid>
                         </DataTemplate>
                     </dxg:CardView.CardTemplate>

@@ -239,6 +239,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ImageGallary.styles.xaml">
+      <DependentUpon>ImageGallary.xaml</DependentUpon>
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ImageGallary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
