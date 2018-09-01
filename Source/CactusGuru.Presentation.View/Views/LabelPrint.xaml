@@ -8,132 +8,162 @@
              xmlns:dxe="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
              Title="چاپ برچسب"
-             Height="500" Width="700"
+             Height="500"
+             Width="700"
              WindowStartupLocation="CenterOwner">
     <dx:DXWindow.Resources>
-        <local:ViewModelLocator x:Key="vmLocator"/>
+        <local:ViewModelLocator x:Key="vmLocator" />
         <Style TargetType="dxe:ButtonEdit">
-            <Setter Property="Control.Margin" Value="10 5"/>
-            <Setter Property="dxe:ButtonEdit.AllowDefaultButton" Value="False"/>
-            <Setter Property="Control.FlowDirection" Value="LeftToRight"/>
+            <Setter Property="Control.Margin"
+                    Value="10 5" />
+            <Setter Property="dxe:ButtonEdit.AllowDefaultButton"
+                    Value="False" />
+            <Setter Property="Control.FlowDirection"
+                    Value="LeftToRight" />
         </Style>
         <Style TargetType="dxg:TableView">
-            <Setter Property="AutoWidth" Value="True"/>
-            <Setter Property="AllowPerPixelScrolling" Value="True"/>
-            <Setter Property="ShowTotalSummary" Value="False"/>
-            <Setter Property="ShowGroupPanel" Value="False"/>
-            <Setter Property="ShowIndicator" Value="False"/>
+            <Setter Property="AutoWidth"
+                    Value="True" />
+            <Setter Property="AllowPerPixelScrolling"
+                    Value="True" />
+            <Setter Property="ShowTotalSummary"
+                    Value="False" />
+            <Setter Property="ShowGroupPanel"
+                    Value="False" />
+            <Setter Property="ShowIndicator"
+                    Value="False" />
         </Style>
     </dx:DXWindow.Resources>
     <dx:DXWindow.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="LabelPrintEditorViewModel"/>
+        <Binding Source="{StaticResource vmLocator}"
+                 Path="LabelPrintEditorViewModel" />
     </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="35" />
             <RowDefinition />
-            <RowDefinition Height="40"/>
-            <RowDefinition Height="20"/>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="20" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="30"/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition Width="30" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-
-        <dxe:ButtonEdit 
-            Name="txtSourceSearch"
-            NullText="{Binding SourceFilterNullText}"
-            Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}" 
-            PreviewKeyDown="txtSourceSearch_PreviewKeyDown">
-            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearCollectionItemsFilterCommand}"/>
+        <dxe:ButtonEdit Name="txtSourceSearch"
+                        NullText="{Binding SourceFilterNullText}"
+                        Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}"
+                        PreviewKeyDown="txtSourceSearch_PreviewKeyDown">
+            <dxe:ButtonInfo GlyphKind="Cancel"
+                            Command="{Binding ClearCollectionItemsFilterCommand}" />
         </dxe:ButtonEdit>
-
-        <dxe:ButtonEdit 
-            Grid.Row="0" 
-            Grid.Column="2"
-            NullText="جست و جو در برچسب ها" 
-            Text="{Binding PrintItems.FilterText, UpdateSourceTrigger=PropertyChanged}">
-            <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearPrintItemsFilterCommand}"/>
+        <dxe:ButtonEdit Grid.Row="0"
+                        Grid.Column="2"
+                        NullText="جست و جو در برچسب ها"
+                        Text="{Binding PrintItems.FilterText, UpdateSourceTrigger=PropertyChanged}">
+            <dxe:ButtonInfo GlyphKind="Cancel"
+                            Command="{Binding ClearPrintItemsFilterCommand}" />
         </dxe:ButtonEdit>
-
-        <dx:DXTabControl
-            Name="tab" 
-            Grid.Row="1" 
-            Grid.Column="0" 
-            Margin="10 5 10 10" 
-            FlowDirection="LeftToRight" 
-            SelectedIndex="{Binding SelectedPage}" 
-            PreviewKeyDown="tab_PreviewKeyDown">
+        <dx:DXTabControl Name="tab"
+                         Grid.Row="1"
+                         Grid.Column="0"
+                         Margin="10 5 10 10"
+                         FlowDirection="LeftToRight"
+                         SelectedIndex="{Binding SelectedPage}"
+                         PreviewKeyDown="tab_PreviewKeyDown">
             <dx:DXTabItem Header="مجموعه">
-                <dxg:GridControl 
-                    Name="listCollectionItems" 
-                    ItemsSource="{Binding CollectionItems.Source}"
-                    SelectedItem="{Binding SelectedCollectionItem, Mode=TwoWay}" 
-                    PreviewKeyDown="listCollectionItems_PreviewKeyDown"
-                    MouseDoubleClick="listCollectionItems_MouseDoubleClick">
+                <dxg:GridControl Name="listCollectionItems"
+                                 ItemsSource="{Binding CollectionItems.Source}"
+                                 SelectedItem="{Binding SelectedCollectionItem, Mode=TwoWay}"
+                                 PreviewKeyDown="listCollectionItems_PreviewKeyDown"
+                                 MouseDoubleClick="listCollectionItems_MouseDoubleClick">
                     <dxg:GridControl.View>
-                        <dxg:TableView/>
+                        <dxg:TableView />
                     </dxg:GridControl.View>
                     <dxg:GridControl.Columns>
-                        <dxg:GridColumn Header="کد" FieldName="Code" Width="30" AllowEditing="False"/>
-                        <dxg:GridColumn Header="نام" FieldName="Name" AllowEditing="False"/>
+                        <dxg:GridColumn Header="کد"
+                                        FieldName="Code"
+                                        Width="30"
+                                        AllowEditing="False" />
+                        <dxg:GridColumn Header="نام"
+                                        FieldName="Name"
+                                        AllowEditing="False" />
                     </dxg:GridControl.Columns>
                 </dxg:GridControl>
             </dx:DXTabItem>
             <dx:DXTabItem Header="تاکسون">
-                <dxg:GridControl 
-                    Name="listTaxa" 
-                    ItemsSource="{Binding Taxa.Source}" 
-                    SelectedItem="{Binding SelectedTaxon, Mode=TwoWay}"
-                    PreviewKeyDown="listCollectionItems_PreviewKeyDown" 
-                    MouseDoubleClick="listCollectionItems_MouseDoubleClick">
+                <dxg:GridControl Name="listTaxa"
+                                 ItemsSource="{Binding Taxa.Source}"
+                                 SelectedItem="{Binding SelectedTaxon, Mode=TwoWay}"
+                                 PreviewKeyDown="listCollectionItems_PreviewKeyDown"
+                                 MouseDoubleClick="listCollectionItems_MouseDoubleClick">
                     <dxg:GridControl.View>
-                        <dxg:TableView/>
+                        <dxg:TableView />
                     </dxg:GridControl.View>
                     <dxg:GridControl.Columns>
-                        <dxg:GridColumn Header="نام" FieldName="Name" AllowEditing="False"/>
+                        <dxg:GridColumn Header="نام"
+                                        FieldName="Name"
+                                        AllowEditing="False" />
                     </dxg:GridControl.Columns>
                 </dxg:GridControl>
             </dx:DXTabItem>
             <dx:DXTabItem Header="تنظیمات">
                 <Grid FlowDirection="RightToLeft">
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="45"/>
+                        <RowDefinition Height="45" />
                     </Grid.RowDefinitions>
-                    <TextBlock Margin="10 2" HorizontalAlignment="Right" VerticalAlignment="Center" Text="کاغذ"/>
-                    <dxe:ComboBoxEdit Grid.Column="1" Margin="10" ItemsSource="{Binding PaperTypes}" SelectedItem="{Binding SelectedPaperType, Mode=TwoWay}" DisplayMember="Title"/>
+                    <TextBlock Margin="10 2"
+                               HorizontalAlignment="Right"
+                               VerticalAlignment="Center"
+                               Text="کاغذ" />
+                    <dxe:ComboBoxEdit Grid.Column="1"
+                                      Margin="10"
+                                      ItemsSource="{Binding PaperTypes}"
+                                      SelectedItem="{Binding SelectedPaperType, Mode=TwoWay}"
+                                      DisplayMember="Title" />
                 </Grid>
             </dx:DXTabItem>
         </dx:DXTabControl>
-
-        <Button Name="btnAddToPrint" Grid.Row="1" Grid.Column="1" Content="&gt;&gt;" Height="40" Command="{Binding AddToPrintCommand}"/>
-
-        <dxg:GridControl 
-            Grid.Row="1"
-            Grid.Column="2"
-            Margin="10 5 10 10"
-            ItemsSource="{Binding PrintItems.Source}" 
-            SelectedItem="{Binding SelectedPrintItem, Mode=TwoWay}" 
-            PreviewKeyDown="GridControl_PreviewKeyDown">
+        <Button Name="btnAddToPrint"
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="&gt;&gt;"
+                Height="40"
+                Command="{Binding AddToPrintCommand}" />
+        <dxg:GridControl Grid.Row="1"
+                         Grid.Column="2"
+                         Margin="10 5 10 10"
+                         ItemsSource="{Binding PrintItems.Source}"
+                         SelectedItem="{Binding SelectedPrintItem, Mode=TwoWay}"
+                         PreviewKeyDown="GridControl_PreviewKeyDown">
             <dxg:GridControl.View>
-                <dxg:TableView/>
+                <dxg:TableView />
             </dxg:GridControl.View>
             <dxg:GridControl.Columns>
-                <dxg:GridColumn Header="مشخصات" FieldName="Name" AllowEditing="False"/>
-                <dxg:GridColumn Header="تعداد" FieldName="Count" Width="30" AllowEditing="True"/>
+                <dxg:GridColumn Header="مشخصات"
+                                FieldName="Name"
+                                AllowEditing="False" />
+                <dxg:GridColumn Header="تعداد"
+                                FieldName="Count"
+                                Width="30"
+                                AllowEditing="True" />
             </dxg:GridControl.Columns>
         </dxg:GridControl>
-
-        <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Margin="10 2" Content="چاپ" Command="{Binding PrintCommand}"/>
-
-        <dxr:RibbonStatusBarControl Grid.Row="3" Grid.ColumnSpan="3" IsSizeGripVisible="False">
+        <Button Grid.Row="2"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="10 2"
+                Content="چاپ"
+                Command="{Binding PrintCommand}" />
+        <dxr:RibbonStatusBarControl Grid.Row="3"
+                                    Grid.ColumnSpan="3"
+                                    IsSizeGripVisible="False">
             <dxr:RibbonStatusBarControl.RightItems>
-                <dxb:BarStaticItem Content="{Binding LabelCount}"/>
+                <dxb:BarStaticItem Content="{Binding LabelCount}" />
             </dxr:RibbonStatusBarControl.RightItems>
         </dxr:RibbonStatusBarControl>
     </Grid>

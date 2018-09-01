@@ -8,37 +8,51 @@
              FlowDirection="LeftToRight">
     <UserControl.Resources>
         <Style TargetType="local:FilterButtonEdit">
-            <Setter Property="dxe:ButtonEdit.AllowDefaultButton" Value="False"/>
-            <Setter Property="dxe:ButtonEdit.NullText" Value="برای جست و جو متن خود را در این قسمت وارد کنید"/>
-            <Setter Property="Control.Margin" Value="0 0 0 5"/>
-            <Setter Property="dxe:ButtonEdit.Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
-            <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}"/>
+            <Setter Property="dxe:ButtonEdit.AllowDefaultButton"
+                    Value="False" />
+            <Setter Property="dxe:ButtonEdit.NullText"
+                    Value="برای جست و جو متن خود را در این قسمت وارد کنید" />
+            <Setter Property="Control.Margin"
+                    Value="0 0 0 5" />
+            <Setter Property="dxe:ButtonEdit.Text"
+                    Value="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
+            <Setter Property="utils:FocusHandler.HasFocus"
+                    Value="{Binding State.DefaultControlFocused}" />
         </Style>
         <Style TargetType="ListBox">
-            <Setter Property="ListBox.ItemsSource" Value="{Binding ItemSource.Source}"/>
-            <Setter Property="ListBox.SelectedItem" Value="{Binding WorkingItem, Mode=TwoWay}"/>
+            <Setter Property="ListBox.ItemsSource"
+                    Value="{Binding ItemSource}" />
+            <Setter Property="ListBox.SelectedItem"
+                    Value="{Binding WorkingItem, Mode=TwoWay}" />
         </Style>
     </UserControl.Resources>
     <Grid Margin="0 20 0 0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
+            <RowDefinition Height="30" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <local:FilterButtonEdit Grid.Row="0">
+        <local:FilterButtonEdit x:Name="buttonEdit">
             <local:FilterButtonEdit.Buttons>
                 <dxe:ButtonInfoCollection>
-                    <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearFilterTextCommand}"/>
+                    <dxe:ButtonInfo GlyphKind="Cancel"
+                                    Command="{Binding ClearFilterCommand}" />
                 </dxe:ButtonInfoCollection>
             </local:FilterButtonEdit.Buttons>
             <local:FilterButtonEdit.InputBindings>
-                <KeyBinding Key="Up" Command="{Binding SelectPreviousCommand}"/>
-                <KeyBinding Key="Down" Command="{Binding SelectNextCommand}"/>
+                <KeyBinding Key="Up"
+                            Command="{Binding SelectPreviousCommand}" />
+                <KeyBinding Key="Down"
+                            Command="{Binding SelectNextCommand}" />
             </local:FilterButtonEdit.InputBindings>
         </local:FilterButtonEdit>
-        <ListBox Name="listbox" Grid.Row="1" SelectionChanged="ListBox_SelectionChanged">
+        <ListBox Name="listbox"
+                 Grid.Row="1"
+                 SelectionChanged="ListBox_SelectionChanged"
+                 PreviewMouseLeftButtonUp="listbox_Click"
+                 IsTabStop="False">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Path=FormattedName, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="{Binding Path=FormattedName, UpdateSourceTrigger=PropertyChanged}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

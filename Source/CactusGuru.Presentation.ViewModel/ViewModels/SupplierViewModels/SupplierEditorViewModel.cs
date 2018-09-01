@@ -9,9 +9,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
     {
         public SupplierEditorViewModel(IDataEntryViewProvider dataProvider, IDialogService dialogService)
             : base(dataProvider, new SupplierViewModelFactory(), dialogService)
-        {
-            ItemSource = new FilterDataSource<SupplierViewModel>();
-        }
+        {        }
 
         public override string Title => "تامین کنندگان";
 

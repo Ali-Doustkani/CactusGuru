@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
@@ -10,9 +9,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
         public GenusEditorViewModel(IDataEntryViewProvider dataProvider,
             IDialogService dialogService)
             : base(dataProvider, new GenusViewModelFactory(), dialogService)
-        {
-            ItemSource = new FilterDataSource<GenusViewModel>();
-        }
+        {        }
 
         public override string Title => "جنس ها";
 

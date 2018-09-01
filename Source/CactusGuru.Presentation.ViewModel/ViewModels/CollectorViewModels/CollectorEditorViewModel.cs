@@ -9,9 +9,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
     {
         public CollectorEditorViewModel(IDataEntryViewProvider dataProvider, IDialogService dialogService)
             : base(dataProvider, new CollectorViewModelFactory(), dialogService)
-        {
-            ItemSource = new FilterDataSource<CollectorViewModel>();
-        }
+        {        }
 
         public override string Title => "کلکتور ها";
 

@@ -8,82 +8,94 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <ControlTemplate x:Key="GeneraLookupEditTemplate">
                 <grid:GridControl Name="PART_GridControl">
                     <grid:GridControl.Columns>
-                        <grid:GridColumn FieldName="Name"/>
+                        <grid:GridColumn FieldName="Name" />
                     </grid:GridControl.Columns>
                     <grid:GridControl.View>
-                        <grid:TableView AutoWidth="True" ShowIndicator="False" ShowColumnHeaders="False"/>
+                        <grid:TableView AutoWidth="True"
+                                        ShowIndicator="False"
+                                        ShowColumnHeaders="False" />
                     </grid:GridControl.View>
                 </grid:GridControl>
             </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="TaxonEditorViewModel"/>
+        <Binding Source="{StaticResource vmLocator}"
+                 Path="TaxonEditorViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition/>
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
-            <ColumnDefinition Width="26"/>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition />
+            <ColumnDefinition Width="26" />
         </Grid.ColumnDefinitions>
         <!-- Genera -->
-        <TextBlock Grid.Row="0" Style="{StaticResource LabelStyle}" Text="جنس"/>
-        <dxg:LookUpEdit
-            Grid.Row="0" 
-            Grid.ColumnSpan="1"
-            Style="{StaticResource EntryStyle}"
-            AllowDefaultButton="True"  
-            PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}" 
-            utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
-            ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}" 
-            DisplayMember="Name" 
-            SelectedItem="{Binding SelectedTaxonGenus}"/>
-        <Button Grid.Row="0" Style="{StaticResource ReferenceStyle}" Command="{Binding GotoGeneraCommand}"/>
+        <TextBlock Grid.Row="0"
+                   Style="{StaticResource LabelStyle}"
+                   Text="جنس" />
+        <dxg:LookUpEdit Grid.Row="0"
+                        Grid.ColumnSpan="1"
+                        Style="{StaticResource EntryStyle}"
+                        AllowDefaultButton="True"
+                        PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}"
+                        utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+                        ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
+                        DisplayMember="Name"
+                        SelectedItem="{Binding SelectedTaxonGenus}" />
+        <Button Grid.Row="0"
+                Style="{StaticResource ReferenceStyle}"
+                Command="{Binding GotoGeneraCommand}" />
         <!-- Species -->
-        <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="گونه"/>
-        <TextBox 
-            Grid.Row="1" 
-            Style="{StaticResource EntryStyle}"
-            Text="{Binding SelectedTaxonSpecies, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="1"
+                   Style="{StaticResource LabelStyle}"
+                   Text="گونه" />
+        <TextBox Grid.Row="1"
+                 Style="{StaticResource EntryStyle}"
+                 Text="{Binding SelectedTaxonSpecies, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Variety -->
-        <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="واریته"/>
-        <TextBox
-            Grid.Row="2"
-            Style="{StaticResource EntryStyle}"
-            Text="{Binding SelectedTaxonVariety, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="2"
+                   Style="{StaticResource LabelStyle}"
+                   Text="واریته" />
+        <TextBox Grid.Row="2"
+                 Style="{StaticResource EntryStyle}"
+                 Text="{Binding SelectedTaxonVariety, UpdateSourceTrigger=PropertyChanged}" />
         <!-- SubSpecies -->
-        <TextBlock Grid.Row="3" Style="{StaticResource LabelStyle}" Text="زیرگونه"/>
-        <TextBox 
-            Grid.Row="3" 
-            Style="{StaticResource EntryStyle}"
-            Text="{Binding SelectedTaxonSubSpecies, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="3"
+                   Style="{StaticResource LabelStyle}"
+                   Text="زیرگونه" />
+        <TextBox Grid.Row="3"
+                 Style="{StaticResource EntryStyle}"
+                 Text="{Binding SelectedTaxonSubSpecies, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Forma -->
-        <TextBlock Grid.Row="4" Style="{StaticResource LabelStyle}" Text="فرم"/>
-        <TextBox 
-            Grid.Row="4" 
-            Style="{StaticResource EntryStyle}"
-            Text="{Binding SelectedTaxonForma, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="4"
+                   Style="{StaticResource LabelStyle}"
+                   Text="فرم" />
+        <TextBox Grid.Row="4"
+                 Style="{StaticResource EntryStyle}"
+                 Text="{Binding SelectedTaxonForma, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Cultivar -->
-        <TextBlock Grid.Row="5" Style="{StaticResource LabelStyle}" Text="کالتیوار"/>
-        <TextBox
-            Grid.Row="5"
-            Style="{StaticResource LastEntryStyle}"
-            Text="{Binding SelectedTaxonCultivar, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="5"
+                   Style="{StaticResource LabelStyle}"
+                   Text="کالتیوار" />
+        <TextBox Grid.Row="5"
+                 Style="{StaticResource LastEntryStyle}"
+                 Text="{Binding SelectedTaxonCultivar, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Filter -->
-        <local:SourceBox Grid.Row="6" Grid.ColumnSpan="3"/>
+        <local:SourceBox Grid.Row="6"
+                         Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>

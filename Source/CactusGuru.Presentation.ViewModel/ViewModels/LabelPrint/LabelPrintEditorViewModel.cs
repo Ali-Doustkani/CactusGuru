@@ -50,9 +50,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         public ICommand ClearPrintItemsFilterCommand { get; }
         public ICommand DeleteCurrentPrintItemCommand { get; }
         public ICommand PrintCommand { get; }
-        public IDataSource<CollectionItemViewModel> CollectionItems { get; }
-        public IDataSource<TaxonViewModel> Taxa { get; }
-        public IDataSource<LabelPrintViewModel> PrintItems { get; }
+        public DataSourceBase<CollectionItemViewModel> CollectionItems { get; }
+        public DataSourceBase<TaxonViewModel> Taxa { get; }
+        public DataSourceBase<LabelPrintViewModel> PrintItems { get; }
         public IEnumerable<PaperRowItem> PaperTypes { get; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public TaxonViewModel SelectedTaxon { get; set; }

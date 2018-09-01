@@ -1,9 +1,8 @@
 ﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
-using CactusGuru.Infrastructure.Utils;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -23,27 +22,44 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             _dataProvider = dataProvider;
             _dialogService = dialogService;
             LoadCommand = new RelayCommand(Load);
-            SelectNextCommand = new RelayCommand(() => Goto(_index + 1));
-            SelectPreviousCommand = new RelayCommand(() => Goto(_index - 1));
+            SelectNextCommand = new RelayCommand(() => Goto( 1));
+            SelectPreviousCommand = new RelayCommand(() => Goto(-1));
         }
 
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
-        private int _index = -1;
 
-        private IDataSource<TRowItem> _itemSource;
-        public IDataSource<TRowItem> ItemSource
+        private string _filterText;
+        private List<TRowItem> _originalSource;
+        public ObservableCollection<TRowItem> ItemSource { get; set; }
+        public ICommand ClearFilterCommand { get; }
+        public void ClearTextFilter()
         {
-            get { return _itemSource; }
+            FilterText = string.Empty;
+            OnPropertyChanged(nameof(FilterText));
+        }
+        public string FilterText
+        {
+            get { return _filterText; }
             set
             {
-                ArgumentChecker.CheckNull(value);
-                _itemSource = value;
-                ClearFilterTextCommand = new RelayCommand(ItemSource.ClearTextFilter);
+                if (string.IsNullOrEmpty(value))
+                    ItemSource = new ObservableCollection<TRowItem>(_originalSource);
+                else
+                    ItemSource = new ObservableCollection<TRowItem>(Search(value));
+                OnPropertyChanged(nameof(ItemSource));
+                SelectFirstItem();
+                _filterText = value;
             }
         }
+        private IEnumerable<TRowItem> Search(string value)
+        {
+            return _originalSource.Where(x => x.FilterTarget.ToLower().Contains(value.ToLower()));
+        }
 
-        public ICommand ClearFilterTextCommand { get; private set; }
+
+
+
         public ICommand FocusOnSearchCommand { get; }
         public ICommand SelectNextCommand { get; }
         public ICommand SelectPreviousCommand { get; }
@@ -51,17 +67,20 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         private void Load()
         {
             PrepareForLoad();
-            var items = new List<TRowItem>();
+            _originalSource = new List<TRowItem>();
             foreach (var item in _dataProvider.GetList())
-                items.Add(_viewModelFactory.Create(item));
-            ItemSource.Load(items);
+                _originalSource.Add(_viewModelFactory.Create(item));
+            ItemSource = new ObservableCollection<TRowItem>(_originalSource);
+            OnPropertyChanged(nameof(ItemSource));
             SelectFirstItem();
         }
 
-        protected void SelectFirstItem()
+        private void SelectFirstItem()
         {
-            if (!ItemSource.Any()) return;
-            WorkingItem = ItemSource.First();
+            if (!ItemSource.Any())
+                WorkingItem = null;
+            else
+                WorkingItem = ItemSource.First();
             OnPropertyChanged(nameof(WorkingItem));
         }
 
@@ -71,6 +90,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             {
                 var processedObject = _dataProvider.Add(WorkingItem.InnerObject);
                 var newItem = _viewModelFactory.Create(processedObject);
+                _originalSource.Add(newItem);
                 ItemSource.Add(newItem);
                 WorkingItem = newItem;
                 OnPropertyChanged(nameof(WorkingItem));
@@ -88,6 +108,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             {
                 var itemToDelete = WorkingItem;
                 _dataProvider.Delete(itemToDelete.InnerObject);
+                _originalSource.Remove(itemToDelete);
                 ItemSource.Remove(itemToDelete);
             }
             catch (ErrorHappenedException ex)
@@ -96,17 +117,12 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
         }
 
-        protected override void OnWorkingItemChanged()
+        private void Goto(int nextValue)
         {
-            _index = ItemSource.ToList().IndexOf(WorkingItem);
-            base.OnWorkingItemChanged();
-        }
-
-        private void Goto(int newIndex)
-        {
+            var currentIndex = ItemSource.ToList().IndexOf(WorkingItem);
+            var newIndex = currentIndex + nextValue;
             if (newIndex < 0 || newIndex >= ItemSource.Count()) return;
-            _index = newIndex;
-            WorkingItem = ItemSource.ElementAt(_index);
+            WorkingItem = ItemSource.ElementAt(newIndex);
             OnPropertyChanged(nameof(WorkingItem));
         }
     }

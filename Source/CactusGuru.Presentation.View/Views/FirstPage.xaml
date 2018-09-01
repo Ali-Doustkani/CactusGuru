@@ -6,29 +6,46 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type lc:Tile}">
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="Background" Value="#1a1f33"/>
-                <Setter Property="VerticalContentAlignment" Value="Center"/>
-                <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                <Setter Property="Cursor"
+                        Value="Hand" />
+                <Setter Property="Background"
+                        Value="#1a1f33" />
+                <Setter Property="VerticalContentAlignment"
+                        Value="Center" />
+                <Setter Property="HorizontalContentAlignment"
+                        Value="Center" />
             </Style>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="FirstPageViewModel"/>
+        <Binding Source="{StaticResource vmLocator}"
+                 Path="FirstPageViewModel" />
     </UserControl.DataContext>
     <Grid>
         <lc:TileLayoutControl>
-            <lc:Tile Size="Small" Command="{Binding CollectionListCommand}">
+            <lc:Tile Size="Small"
+                     Command="{Binding CollectionListCommand}">
                 <StackPanel>
-                    <TextBlock Style="{DynamicResource LabelFontStyle}" Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
-                    <TextBlock Name="lblItemsCount" FontSize="55" VerticalAlignment="Top" Text="{Binding ItemsCount, StringFormat='{}D4'}" FontWeight="Bold" Foreground="#d0ba3a" LineStackingStrategy="BlockLineHeight" LineHeight="52"/>
+                    <TextBlock Style="{DynamicResource LabelFontStyle}"
+                               Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
+                    <TextBlock Name="lblItemsCount"
+                               FontSize="55"
+                               VerticalAlignment="Top"
+                               Text="{Binding ItemsCount, StringFormat='{}D4'}"
+                               FontWeight="Bold"
+                               Foreground="#d0ba3a"
+                               LineStackingStrategy="BlockLineHeight"
+                               LineHeight="52" />
                 </StackPanel>
             </lc:Tile>
-            <lc:Tile Size="Small" Command="{Binding ImageListCommand}">
-                <TextBlock FontFamily="B Titr" FontSize="50" Foreground="#fff8e7">گالری</TextBlock>
+            <lc:Tile Size="Small"
+                     Command="{Binding ImageListCommand}">
+                <TextBlock FontFamily="B Titr"
+                           FontSize="50"
+                           Foreground="#fff8e7">گالری</TextBlock>
             </lc:Tile>
         </lc:TileLayoutControl>
     </Grid>

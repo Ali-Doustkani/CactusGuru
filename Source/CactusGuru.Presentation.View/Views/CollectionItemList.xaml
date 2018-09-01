@@ -6,45 +6,55 @@
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
              xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1">
     <UserControl.Resources>
-        <local:ViewModelLocator x:Key="vmLocator"/>
+        <local:ViewModelLocator x:Key="vmLocator" />
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="CollectionItemListViewModel"/>
+        <Binding Source="{StaticResource vmLocator}"
+                 Path="CollectionItemListViewModel" />
     </UserControl.DataContext>
     <DockPanel>
         <dxd:DockLayoutManager>
-            <dxd:LayoutGroup Orientation="Vertical" ItemWidth="3*">
+            <dxd:LayoutGroup Orientation="Vertical"
+                             ItemWidth="3*">
                 <dxd:DocumentPanel ItemHeight="3*">
-                    <dxg:GridControl 
-                            Name="grid" 
-                            ShowBorder="False"
-                            ItemsSource="{Binding CollectionItems}"
-                            SelectedItem="{Binding SelectedCollectionItem}"
-                            ShowLoadingPanel="{Binding State.IsBusy}" 
-                            IsEnabled="{Binding State.IsIdle}">
+                    <dxg:GridControl Name="grid"
+                                     ShowBorder="False"
+                                     ItemsSource="{Binding CollectionItems}"
+                                     SelectedItem="{Binding SelectedCollectionItem}"
+                                     ShowLoadingPanel="{Binding State.IsBusy}"
+                                     IsEnabled="{Binding State.IsIdle}">
                         <dxg:GridControl.View>
-                            <dxg:TableView AutoWidth="True"  
-                                               EditorButtonShowMode="ShowForFocusedRow"
-                                               RowMinHeight="20"
-                                               FlowDirection="LeftToRight" 
-                                               ShowSearchPanelMode="Always" 
-                                               SearchPanelHorizontalAlignment="Left" 
-                                               SearchPanelNullText="جست و جو بین گیاهان مجموعه" 
-                                               NavigationStyle="Row"
-                                               ShowGroupPanel="False">
+                            <dxg:TableView AutoWidth="True"
+                                           EditorButtonShowMode="ShowForFocusedRow"
+                                           RowMinHeight="20"
+                                           FlowDirection="LeftToRight"
+                                           ShowSearchPanelMode="Always"
+                                           SearchPanelHorizontalAlignment="Left"
+                                           SearchPanelNullText="جست و جو بین گیاهان مجموعه"
+                                           NavigationStyle="Row"
+                                           ShowGroupPanel="False">
                                 <dxg:TableView.RowCellMenuCustomizations>
-                                    <dxb:BarButtonItem Content="حذف" ItemClick="Delete_OnClick"/>
-                                    <dxb:BarButtonItem Content="ویرایش" ItemClick="Edit_OnClick"/>
-                                    <dxb:BarItemSeparator/>
-                                    <dxb:BarButtonItem Content="کپی نام" ItemClick="Copy_OnItemClick" />
-                                    <dxb:BarItemSeparator/>
-                                    <dxb:BarButtonItem Content="گالری تصاویر" ItemClick="GotoImageGallery_OnItemClick" />
+                                    <dxb:BarButtonItem Content="حذف"
+                                                       ItemClick="Delete_OnClick" />
+                                    <dxb:BarButtonItem Content="ویرایش"
+                                                       ItemClick="Edit_OnClick" />
+                                    <dxb:BarItemSeparator />
+                                    <dxb:BarButtonItem Content="کپی نام"
+                                                       ItemClick="Copy_OnItemClick" />
+                                    <dxb:BarItemSeparator />
+                                    <dxb:BarButtonItem Content="گالری تصاویر"
+                                                       ItemClick="GotoImageGallery_OnItemClick" />
                                 </dxg:TableView.RowCellMenuCustomizations>
                             </dxg:TableView>
                         </dxg:GridControl.View>
                         <dxg:GridControl.Columns>
-                            <dxg:GridColumn Header="کد" FieldName="Code" Width="20" AllowMoving="False"/>
-                            <dxg:GridColumn Header="نام" AllowMoving="False" FieldName="Name"/>
+                            <dxg:GridColumn Header="کد"
+                                            FieldName="Code"
+                                            Width="20"
+                                            AllowMoving="False" />
+                            <dxg:GridColumn Header="نام"
+                                            AllowMoving="False"
+                                            FieldName="Name" />
                         </dxg:GridControl.Columns>
                     </dxg:GridControl>
                 </dxd:DocumentPanel>

@@ -6,43 +6,47 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="CollectorEditorViewModel"/>
+        <Binding Source="{StaticResource vmLocator}"
+                 Path="CollectorEditorViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition Height="26"/>
-            <RowDefinition/>
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition Height="26" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <!-- FullName -->
-        <TextBlock Style="{StaticResource LabelStyle}" Text="عنوان"/>
-        <TextBox 
-                Style="{StaticResource EntryStyle}"
-                utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" 
-                Text="{Binding SelectedCollectorFullName, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Style="{StaticResource LabelStyle}"
+                   Text="عنوان" />
+        <TextBox Style="{StaticResource EntryStyle}"
+                 utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+                 Text="{Binding SelectedCollectorFullName, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Acronym -->
-        <TextBlock Grid.Row="1" Style="{StaticResource LabelStyle}" Text="اختصار"/>
-        <TextBox 
-                Grid.Row="1" 
-                Style="{StaticResource EntryStyle}"
-                Text="{Binding SelectedCollectorAcronym, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="1"
+                   Style="{StaticResource LabelStyle}"
+                   Text="اختصار" />
+        <TextBox Grid.Row="1"
+                 Style="{StaticResource EntryStyle}"
+                 Text="{Binding SelectedCollectorAcronym, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Website -->
-        <TextBlock Grid.Row="2" Style="{StaticResource LabelStyle}" Text="وب سایت"/>
-        <TextBox 
-                Grid.Row="2" 
-                Style="{StaticResource LastEntryStyle}"
-                Text="{Binding SelectedCollectorWebsite, UpdateSourceTrigger=PropertyChanged}"/>
+        <TextBlock Grid.Row="2"
+                   Style="{StaticResource LabelStyle}"
+                   Text="وب سایت" />
+        <TextBox Grid.Row="2"
+                 Style="{StaticResource LastEntryStyle}"
+                 Text="{Binding SelectedCollectorWebsite, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Filter -->
-        <local:SourceBox Grid.Row="3" Grid.ColumnSpan="2"/>
+        <local:SourceBox Grid.Row="3"
+                         Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>

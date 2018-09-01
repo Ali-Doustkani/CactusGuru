@@ -44,7 +44,6 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Framework\DataSourceManagement\IDataSource.cs" />
     <Compile Include="Framework\DataSourceManagement\DataSourceBase.cs" />
     <Compile Include="Framework\DataSourceManagement\DataSource.cs" />
     <Compile Include="Framework\DataSourceManagement\FilterDataSource.cs" />

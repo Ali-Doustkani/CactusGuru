@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement
 {
-    public abstract class DataSourceBase<T> : BaseViewModel, IDataSource<T>
+    public abstract class DataSourceBase<T> : BaseViewModel, IEnumerable<T>
     {
         protected DataSourceBase()
         {
             Source = new ObservableCollection<T>();
+            ClearFilterCommand = new RelayCommand(ClearTextFilter);
             _originalSource = new List<T>();
         }
 
@@ -16,6 +18,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement
         protected List<T> _originalSource;
 
         public ObservableCollection<T> Source { get; set; }
+
+        public ICommand ClearFilterCommand { get; }
 
         public void ClearTextFilter()
         {

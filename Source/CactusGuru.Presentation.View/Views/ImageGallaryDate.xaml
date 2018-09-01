@@ -13,36 +13,41 @@
              Loaded="DXDialog_Loaded">
     <Grid FlowDirection="RightToLeft">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
+            <ColumnDefinition />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <dxe:ComboBoxEdit Name="cmbMonth" Grid.Column="0" Margin="10" PopupClosed="cmbMonth_PopupClosed">
+        <dxe:ComboBoxEdit Name="cmbMonth"
+                          Grid.Column="0"
+                          Margin="10"
+                          PopupClosed="cmbMonth_PopupClosed">
             <dxe:ComboBoxEdit.Items>
-                <dxe:ComboBoxEditItem Content="فروردین"/>
-                <dxe:ComboBoxEditItem Content="اردیبهشت"/>
-                <dxe:ComboBoxEditItem Content="خرداد"/>
-                <dxe:ComboBoxEditItem Content="تیر"/>
-                <dxe:ComboBoxEditItem Content="مرداد"/>
-                <dxe:ComboBoxEditItem Content="شهریور"/>
-                <dxe:ComboBoxEditItem Content="مهر"/>
-                <dxe:ComboBoxEditItem Content="آبان"/>
-                <dxe:ComboBoxEditItem Content="آذر"/>
-                <dxe:ComboBoxEditItem Content="دی"/>
-                <dxe:ComboBoxEditItem Content="بهمن"/>
-                <dxe:ComboBoxEditItem Content="اسفند"/>
+                <dxe:ComboBoxEditItem Content="فروردین" />
+                <dxe:ComboBoxEditItem Content="اردیبهشت" />
+                <dxe:ComboBoxEditItem Content="خرداد" />
+                <dxe:ComboBoxEditItem Content="تیر" />
+                <dxe:ComboBoxEditItem Content="مرداد" />
+                <dxe:ComboBoxEditItem Content="شهریور" />
+                <dxe:ComboBoxEditItem Content="مهر" />
+                <dxe:ComboBoxEditItem Content="آبان" />
+                <dxe:ComboBoxEditItem Content="آذر" />
+                <dxe:ComboBoxEditItem Content="دی" />
+                <dxe:ComboBoxEditItem Content="بهمن" />
+                <dxe:ComboBoxEditItem Content="اسفند" />
             </dxe:ComboBoxEdit.Items>
         </dxe:ComboBoxEdit>
-        <dxe:ComboBoxEdit Name="cmbYear" Grid.Column="1" Margin="10">
+        <dxe:ComboBoxEdit Name="cmbYear"
+                          Grid.Column="1"
+                          Margin="10">
             <dxe:ComboBoxEdit.Items>
-                <dxe:ComboBoxEditItem Content="1390"/>
-                <dxe:ComboBoxEditItem Content="1391"/>
-                <dxe:ComboBoxEditItem Content="1392"/>
-                <dxe:ComboBoxEditItem Content="1393"/>
-                <dxe:ComboBoxEditItem Content="1394"/>
-                <dxe:ComboBoxEditItem Content="1395"/>
-                <dxe:ComboBoxEditItem Content="1396"/>
-                <dxe:ComboBoxEditItem Content="1397"/>
-                <dxe:ComboBoxEditItem Content="1398"/>
+                <dxe:ComboBoxEditItem Content="1390" />
+                <dxe:ComboBoxEditItem Content="1391" />
+                <dxe:ComboBoxEditItem Content="1392" />
+                <dxe:ComboBoxEditItem Content="1393" />
+                <dxe:ComboBoxEditItem Content="1394" />
+                <dxe:ComboBoxEditItem Content="1395" />
+                <dxe:ComboBoxEditItem Content="1396" />
+                <dxe:ComboBoxEditItem Content="1397" />
+                <dxe:ComboBoxEditItem Content="1398" />
             </dxe:ComboBoxEdit.Items>
         </dxe:ComboBoxEdit>
     </Grid>

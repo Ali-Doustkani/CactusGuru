@@ -3,61 +3,78 @@
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="ImageListViewModel"/>
+        <Binding Source="{StaticResource vmLocator}"
+                 Path="ImageListViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition/>
+            <RowDefinition Height="50" />
+            <RowDefinition />
         </Grid.RowDefinitions>
-        <dxb:BarContainerControl Grid.Row="0" Margin="10 0" HorizontalAlignment="Right" VerticalAlignment="Center" FlowDirection="RightToLeft">
-            <dxb:ToolBarControl GlyphSize="Small" AllowCustomizationMenu="False" AllowQuickCustomization="False" ShowDragWidget="False">
-                <dxb:BarButtonItem Name="btnSaveInstagramGallary" BarItemDisplayMode="ContentAndGlyph" Content="ذخیره برای اینستاگرام" Glyph="../Images/Icon/ImageList/instagram_24.png" Command="{Binding SaveForInstagramCommand}"/>
-                <dxb:BarItemSeparator/>
-                <dxb:BarButtonItem Content="عدم انتخاب" BarItemDisplayMode="Content" Command="{Binding DeSelectAllCommand}"/>
-                <dxb:BarItemSeparator/>
+        <dxb:BarContainerControl Grid.Row="0"
+                                 Margin="10 0"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Center"
+                                 FlowDirection="RightToLeft">
+            <dxb:ToolBarControl GlyphSize="Small"
+                                AllowCustomizationMenu="False"
+                                AllowQuickCustomization="False"
+                                ShowDragWidget="False">
+                <dxb:BarButtonItem Name="btnSaveInstagramGallary"
+                                   BarItemDisplayMode="ContentAndGlyph"
+                                   Content="ذخیره برای اینستاگرام"
+                                   Glyph="../Images/Icon/ImageList/instagram_24.png"
+                                   Command="{Binding SaveForInstagramCommand}" />
+                <dxb:BarItemSeparator />
+                <dxb:BarButtonItem Content="عدم انتخاب"
+                                   BarItemDisplayMode="Content"
+                                   Command="{Binding DeSelectAllCommand}" />
+                <dxb:BarItemSeparator />
             </dxb:ToolBarControl>
         </dxb:BarContainerControl>
-        <dxg:GridControl
-            Grid.Row="1" 
-            ShowLoadingPanel="{Binding State.IsBusy}" 
-            ItemsSource="{Binding Images}" 
-            SelectedItem="{Binding SelectedImage}"
-            IsEnabled="{Binding State.IsIdle}">
+        <dxg:GridControl Grid.Row="1"
+                         ShowLoadingPanel="{Binding State.IsBusy}"
+                         ItemsSource="{Binding Images}"
+                         SelectedItem="{Binding SelectedImage}"
+                         IsEnabled="{Binding State.IsIdle}">
             <dxg:GridControl.View>
-                <dxg:CardView 
-                    Style="{StaticResource CardViewStyle}"
-                    CardHeaderBinding="{Binding Path=Data.DateAddedTitle, RelativeSource={RelativeSource Self}}">
+                <dxg:CardView Style="{StaticResource CardViewStyle}"
+                              CardHeaderBinding="{Binding Path=Data.DateAddedTitle, RelativeSource={RelativeSource Self}}">
                     <dxg:CardView.CardTemplate>
                         <DataTemplate>
-                            <Grid Width="150" Height="170">
+                            <Grid Width="150"
+                                  Height="170">
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="150"/>
-                                    <RowDefinition/>
+                                    <RowDefinition Height="150" />
+                                    <RowDefinition />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition Width="40"/>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="40" />
                                 </Grid.ColumnDefinitions>
-                                <dxe:ImageEdit Grid.ColumnSpan="3" IsReadOnly="True" EditValue="{Binding Row.Picture}" Stretch="Uniform"/>
+                                <dxe:ImageEdit Grid.ColumnSpan="3"
+                                               IsReadOnly="True"
+                                               EditValue="{Binding Row.Picture}"
+                                               Stretch="Uniform" />
                                 <Border Grid.ColumnSpan="2">
                                     <Border.Style>
                                         <Style TargetType="Border">
                                             <Style.Triggers>
-                                                <DataTrigger Binding="{Binding Row.IsSelected}" Value="True">
+                                                <DataTrigger Binding="{Binding Row.IsSelected}"
+                                                             Value="True">
                                                     <Setter Property="Background">
                                                         <Setter.Value>
-                                                            <SolidColorBrush Color="White" Opacity="0.4" />
+                                                            <SolidColorBrush Color="White"
+                                                                             Opacity="0.4" />
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>
@@ -65,9 +82,15 @@
                                         </Style>
                                     </Border.Style>
                                 </Border>
-                                <TextBlock Grid.Row="1" Grid.Column="0" Margin="0 3 0 0" Text="{Binding Row.Title}"/>
-                                <Button Grid.Row="1" Grid.Column="1" Margin="3 3 0 0" Click="SelectButton_Click">
-                                    <Image Source="../Images/Icon/ImageGallery/select_24.png"/>
+                                <TextBlock Grid.Row="1"
+                                           Grid.Column="0"
+                                           Margin="0 3 0 0"
+                                           Text="{Binding Row.Title}" />
+                                <Button Grid.Row="1"
+                                        Grid.Column="1"
+                                        Margin="3 3 0 0"
+                                        Click="SelectButton_Click">
+                                    <Image Source="../Images/Icon/ImageGallery/select_24.png" />
                                 </Button>
                             </Grid>
                         </DataTemplate>
@@ -75,7 +98,7 @@
                 </dxg:CardView>
             </dxg:GridControl.View>
             <dxg:GridControl.SortInfo>
-                <dxg:GridSortInfo FieldName="DateAdded"/>
+                <dxg:GridSortInfo FieldName="DateAdded" />
             </dxg:GridControl.SortInfo>
         </dxg:GridControl>
     </Grid>

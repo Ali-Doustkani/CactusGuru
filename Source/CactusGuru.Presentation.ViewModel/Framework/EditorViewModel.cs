@@ -42,17 +42,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public TRowItem WorkingItem
         {
             get { return _workingItem; }
-            set
-            {
-                _workingItem = value;
-                OnWorkingItemChanged();
-            }
-        }
-
-        protected virtual void OnWorkingItemChanged()
-        {
-            if (_workingItem != null)
-                NotifyAllPropertiesChanged();
+            set { _workingItem = value; }
         }
 
         public abstract void NotifyAllPropertiesChanged();

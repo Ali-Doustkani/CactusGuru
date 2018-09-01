@@ -18,7 +18,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             _navigation = navigation;
             _eventAggregator = eventAggregator;
             GotoGeneraCommand = new RelayCommand(GotoGenera);
-            ItemSource = new FilterDataSource<TaxonViewModel>();
         }
 
         private readonly ITaxonViewProvider _dataProvider;

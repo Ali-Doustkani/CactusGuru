@@ -3,43 +3,70 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dx="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1"
-             xmlns:intr="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" 
+             xmlns:intr="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
              Title="{Binding Title}"
              ResizeMode="NoResize"
-             Height="480" Width="420"
+             Height="480"
+             Width="420"
              ShowIcon="False"
              WindowStartupLocation="CenterOwner"
              ShowInTaskbar="False"
              FlowDirection="RightToLeft">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
-            <intr:InvokeCommandAction Command="{Binding LoadCommand}"/>
+            <intr:InvokeCommandAction Command="{Binding LoadCommand}" />
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <dx:DXWindow.InputBindings>
-        <KeyBinding Key="F1" Command="{Binding PrepareForAddCommand}"/>
-        <KeyBinding Key="F2" Command="{Binding PrepareForEditCommand}"/>
-        <KeyBinding Key="F3" Command="{Binding DeleteCommand}"/>
-        <KeyBinding Key="Delete" Command="{Binding DeleteCommand}"/>
-        <KeyBinding Key="Escape" Command="{Binding CancelCommand}"/>
-        <KeyBinding Key="F" Modifiers="Control" Command="{Binding FocusOnSearchCommand}"/>
+        <KeyBinding Key="F1"
+                    Command="{Binding PrepareForAddCommand}" />
+        <KeyBinding Key="F2"
+                    Command="{Binding PrepareForEditCommand}" />
+        <KeyBinding Key="F3"
+                    Command="{Binding DeleteCommand}" />
+        <KeyBinding Key="Delete"
+                    Command="{Binding DeleteCommand}" />
+        <KeyBinding Key="Escape"
+                    Command="{Binding CancelCommand}" />
+        <KeyBinding Key="F"
+                    Modifiers="Control"
+                    Command="{Binding FocusOnSearchCommand}" />
     </dx:DXWindow.InputBindings>
     <Grid Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30"/>
-            <RowDefinition/>
+            <RowDefinition Height="30" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <dxb:BarContainerControl>
-            <dxb:ToolBarControl GlyphSize="Small" AllowCustomizationMenu="False" AllowQuickCustomization="False" ShowDragWidget="False">
-                <dxb:BarButtonItem Content="ثبت" Glyph="../Images/Icon/EditorViewBasics/add_24.png"  Command="{Binding PrepareForAddCommand}"/>
-                <dxb:BarButtonItem Content="ویرایش" Glyph="../Images/Icon/EditorViewBasics/edit_24.png" Command="{Binding PrepareForEditCommand}"/>
-                <dxb:BarButtonItem Content="حذف" Glyph="../Images/Icon/EditorViewBasics/delete_24.png" Command="{Binding DeleteCommand}"/>
-                <dxb:BarItemSeparator/>
-                <dxb:BarButtonItem Name="btnSaveNew" Glyph="../Images/Icon/EditorViewBasics/saveNew_24.png" Content="ذخیره و جدید" Command="{Binding SaveNewCommand}"/>
-                <dxb:BarButtonItem Name="btnSave" Glyph="../Images/Icon/EditorViewBasics/save_24.png" Content="ذخیره" Command="{Binding SaveCommand}"/>
-                <dxb:BarButtonItem Glyph="../Images/Icon/EditorViewBasics/cancel_24.png" Content="لغو" Command="{Binding CancelCommand}"/>
+            <dxb:ToolBarControl GlyphSize="Small"
+                                AllowCustomizationMenu="False"
+                                AllowQuickCustomization="False"
+                                ShowDragWidget="False">
+                <dxb:BarButtonItem Content="ثبت"
+                                   Glyph="../Images/Icon/EditorViewBasics/add_24.png"
+                                   Command="{Binding PrepareForAddCommand}" />
+                <dxb:BarButtonItem Content="ویرایش"
+                                   Glyph="../Images/Icon/EditorViewBasics/edit_24.png"
+                                   Command="{Binding PrepareForEditCommand}" />
+                <dxb:BarButtonItem Content="حذف"
+                                   Glyph="../Images/Icon/EditorViewBasics/delete_24.png"
+                                   Command="{Binding DeleteCommand}" />
+                <dxb:BarItemSeparator />
+                <dxb:BarButtonItem Name="btnSaveNew"
+                                   Glyph="../Images/Icon/EditorViewBasics/saveNew_24.png"
+                                   Content="ذخیره و جدید"
+                                   Command="{Binding SaveNewCommand}" />
+                <dxb:BarButtonItem Name="btnSave"
+                                   Glyph="../Images/Icon/EditorViewBasics/save_24.png"
+                                   Content="ذخیره"
+                                   Command="{Binding SaveCommand}" />
+                <dxb:BarButtonItem Glyph="../Images/Icon/EditorViewBasics/cancel_24.png"
+                                   Content="لغو"
+                                   Command="{Binding CancelCommand}" />
             </dxb:ToolBarControl>
         </dxb:BarContainerControl>
-        <ContentControl x:FieldModifier="private" Name="ContentControl" Grid.Row="1"/>
+        <ContentControl x:FieldModifier="private"
+                        Name="ContentControl"
+                        Grid.Row="1" />
     </Grid>
 </dx:DXWindow>

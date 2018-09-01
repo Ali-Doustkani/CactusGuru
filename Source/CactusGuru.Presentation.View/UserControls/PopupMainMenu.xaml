@@ -1,89 +1,152 @@
 ﻿<UserControl x:Class="CactusGuru.Presentation.View.UserControls.PopupMainMenu"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:userControls="clr-namespace:CactusGuru.Presentation.View.UserControls"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              Cursor="Hand"
-             d:DesignHeight="300" d:DesignWidth="300" x:Name="this">
+             d:DesignHeight="300"
+             d:DesignWidth="300"
+             x:Name="this">
     <UserControl.Resources>
-        <Style x:Key="EntryStyle" TargetType="Border">
-            <Setter Property="Background" Value="#374c61"/>
-            <Setter Property="Margin" Value="1"/>
+        <Style x:Key="EntryStyle"
+               TargetType="Border">
+            <Setter Property="Background"
+                    Value="#374c61" />
+            <Setter Property="Margin"
+                    Value="1" />
         </Style>
     </UserControl.Resources>
 
-
     <Grid RenderTransformOrigin="0.504,0.501">
         <Grid.RowDefinitions>
-            <RowDefinition Height="42*"/>
-            <RowDefinition Height="317*"/>
+            <RowDefinition Height="42*" />
+            <RowDefinition Height="317*" />
         </Grid.RowDefinitions>
 
-        <ToggleButton Grid.Row="0" Name="toggleButton"  Width="30" Height="30">
+        <ToggleButton Grid.Row="0"
+                      Name="toggleButton"
+                      Width="30"
+                      Height="30">
             <ToggleButton.Template>
                 <ControlTemplate TargetType="{x:Type ToggleButton}">
 
                     <Grid Background="White">
                         <Grid.RowDefinitions>
                             <RowDefinition />
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition />
+                            <RowDefinition />
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
-                            <ColumnDefinition/>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                            <ColumnDefinition />
                         </Grid.ColumnDefinitions>
-                        <Border Name="border1" Grid.Row="0" Grid.Column="0" Style="{StaticResource EntryStyle}" />
-                        <Border Name="border2" Grid.Row="0" Grid.Column="1" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border3" Grid.Row="0" Grid.Column="2" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border4" Grid.Row="1" Grid.Column="0" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border5" Grid.Row="1" Grid.Column="1" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border6" Grid.Row="1" Grid.Column="2" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border7" Grid.Row="2" Grid.Column="0" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border8" Grid.Row="2" Grid.Column="1" Style="{StaticResource EntryStyle}"/>
-                        <Border Name="border9" Grid.Row="2" Grid.Column="2" Style="{StaticResource EntryStyle}"/>
+                        <Border Name="border1"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border2"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border3"
+                                Grid.Row="0"
+                                Grid.Column="2"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border4"
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border5"
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border6"
+                                Grid.Row="1"
+                                Grid.Column="2"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border7"
+                                Grid.Row="2"
+                                Grid.Column="0"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border8"
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                Style="{StaticResource EntryStyle}" />
+                        <Border Name="border9"
+                                Grid.Row="2"
+                                Grid.Column="2"
+                                Style="{StaticResource EntryStyle}" />
                     </Grid>
 
                     <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="border1" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border2" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border3" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border4" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border5" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border6" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border7" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border8" Property="Background" Value="Tomato"/>
-                            <Setter TargetName="border9" Property="Background" Value="Tomato"/>
+                        <Trigger Property="IsChecked"
+                                 Value="True">
+                            <Setter TargetName="border1"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border2"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border3"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border4"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border5"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border6"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border7"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border8"
+                                    Property="Background"
+                                    Value="Tomato" />
+                            <Setter TargetName="border9"
+                                    Property="Background"
+                                    Value="Tomato" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
             </ToggleButton.Template>
         </ToggleButton>
 
-        <Popup Name="popup"  Grid.Row="1" PlacementTarget="{Binding ElementName=toggleButton}" Placement="Left" VerticalOffset="20" StaysOpen="False"
-                           AllowsTransparency="True" 
+        <Popup Name="popup"
+               Grid.Row="1"
+               PlacementTarget="{Binding ElementName=toggleButton}"
+               Placement="Left"
+               VerticalOffset="20"
+               StaysOpen="False"
+               AllowsTransparency="True"
                IsOpen="{Binding ElementName=toggleButton, Path=IsChecked}"
-                           Focusable="True" 
-                           PopupAnimation="Fade">
+               Focusable="True"
+               PopupAnimation="Fade">
             <Grid>
-                <Border Margin="10" Background="White" BorderThickness="1" BorderBrush="DarkGray">
+                <Border Margin="10"
+                        Background="White"
+                        BorderThickness="1"
+                        BorderBrush="DarkGray">
                     <Border.Effect>
-                        <DropShadowEffect BlurRadius="10" Opacity="0.2"/>
+                        <DropShadowEffect BlurRadius="10"
+                                          Opacity="0.2" />
                     </Border.Effect>
-                    <userControls:MainMenu Width="240" Height="400" 
+                    <userControls:MainMenu Width="240"
+                                           Height="400"
                                            MenuItemClicked="PopupMainMenu_OnMenuItemClicked"
                                            GeneraCommand="{Binding ElementName=this, Path=GeneraCommand}"
                                            AddCollectionItemCommand="{Binding ElementName=this, Path=AddCollectionItemCommand}"
                                            TaxaCommand="{Binding ElementName=this, Path=TaxaCommand}"
                                            SuppliersCommand="{Binding ElementName=this,Path=SuppliersCommand}"
                                            CollectorsCommand="{Binding ElementName=this,Path=CollectorsCommand}"
-                                           SeedListsCommand="{Binding ElementName=this, Path=SeedListsCommand}" 
+                                           SeedListsCommand="{Binding ElementName=this, Path=SeedListsCommand}"
                                            LabelPrintCommand="{Binding ElementName=this, Path=LabelPrintCommand}"
-                                           ImageGalleryCommand="{Binding ElementName=this, Path=ImageGalleryCommand}"/>
+                                           ImageGalleryCommand="{Binding ElementName=this, Path=ImageGalleryCommand}" />
                 </Border>
             </Grid>
         </Popup>

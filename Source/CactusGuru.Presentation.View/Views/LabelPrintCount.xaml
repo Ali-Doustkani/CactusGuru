@@ -11,6 +11,10 @@
              WindowStartupLocation="CenterOwner"
              ShowIcon="False">
     <Grid>
-        <dxe:TextEdit Name="txtCount" Margin="10" MaskType="RegEx" Mask="\d+" Text="1"/>
+        <dxe:TextEdit Name="txtCount"
+                      Margin="10"
+                      MaskType="RegEx"
+                      Mask="\d+"
+                      Text="1" />
     </Grid>
 </dx:DXDialog>

@@ -6,29 +6,31 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml"/>
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Path="GenusEditorViewModel" Source="{StaticResource vmLocator}"/>
+        <Binding Path="GenusEditorViewModel"
+                 Source="{StaticResource vmLocator}" />
     </UserControl.DataContext>
     <Grid Grid.Row="0">
         <Grid.RowDefinitions>
-            <RowDefinition Height="26"/>
-            <RowDefinition/>
+            <RowDefinition Height="26" />
+            <RowDefinition />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition />
         </Grid.ColumnDefinitions>
         <!-- Title -->
-        <TextBlock Style="{StaticResource LabelStyle}" Text="عنوان"/>
-        <TextBox
-            Style="{StaticResource LastEntryStyle}"
-            Text="{Binding SelectedGenusName, UpdateSourceTrigger=PropertyChanged}" 
-            utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"/>
+        <TextBlock Style="{StaticResource LabelStyle}"
+                   Text="عنوان" />
+        <TextBox Style="{StaticResource LastEntryStyle}"
+                 Text="{Binding SelectedGenusName, UpdateSourceTrigger=PropertyChanged}"
+                 utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" />
         <!-- Filter -->
-        <local:SourceBox Grid.Row="1" Grid.ColumnSpan="2"/>
+        <local:SourceBox Grid.Row="1"
+                         Grid.ColumnSpan="2" />
     </Grid>
 </UserControl>
