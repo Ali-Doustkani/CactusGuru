@@ -1,32 +1,18 @@
 ﻿<UserControl x:Class="CactusGuru.Presentation.View.Views.TaxonEditor"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
-             xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid.LookUp;assembly=DevExpress.Xpf.Grid.v15.1"
-             xmlns:grid="clr-namespace:DevExpress.Xpf.Grid;assembly=DevExpress.Xpf.Grid.v15.1">
+             xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+             xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid.LookUp;assembly=DevExpress.Xpf.Grid.v15.1">
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <ControlTemplate x:Key="GeneraLookupEditTemplate">
-                <grid:GridControl Name="PART_GridControl">
-                    <grid:GridControl.Columns>
-                        <grid:GridColumn FieldName="Name" />
-                    </grid:GridControl.Columns>
-                    <grid:GridControl.View>
-                        <grid:TableView AutoWidth="True"
-                                        ShowIndicator="False"
-                                        ShowColumnHeaders="False" />
-                    </grid:GridControl.View>
-                </grid:GridControl>
-            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
     <UserControl.DataContext>
-        <Binding Source="{StaticResource vmLocator}"
-                 Path="TaxonEditorViewModel" />
+        <Binding Source="{StaticResource vmLocator}" Path="TaxonEditorViewModel" />
     </UserControl.DataContext>
     <Grid>
         <Grid.RowDefinitions>
@@ -49,7 +35,6 @@
         <dxg:LookUpEdit Grid.ColumnSpan="1"
                         Style="{StaticResource EntryStyle}"
                         AllowDefaultButton="True"
-                        PopupContentTemplate="{StaticResource GeneraLookupEditTemplate}"
                         utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
                         ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
                         DisplayMember="Name"
@@ -92,7 +77,6 @@
                  Style="{StaticResource LastEntryStyle}"
                  Text="{Binding SelectedTaxonCultivar, UpdateSourceTrigger=PropertyChanged}" />
         <!-- Filter -->
-        <local:SourceBox Grid.Row="6"
-                         Grid.ColumnSpan="3" />
+        <local:SourceBox Grid.Row="6" Grid.ColumnSpan="3" />
     </Grid>
 </UserControl>

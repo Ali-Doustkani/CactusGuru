@@ -2,7 +2,6 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-             xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
              xmlns:dxmvvm="clr-namespace:DevExpress.Mvvm.UI.Interactivity;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:ui="clr-namespace:DevExpress.Mvvm.UI;assembly=DevExpress.Xpf.Core.v15.1"
              x:Class="CactusGuru.Presentation.View.Views.CollectionItemEditor"
@@ -13,44 +12,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <ControlTemplate x:Key="collectorLookUpEditTemplate">
-                <dxg:GridControl Name="PART_GridControl"
-                                 HorizontalAlignment="Right">
-                    <dxg:GridControl.Columns>
-                        <dxg:GridColumn FieldName="FormattedName"
-                                        Header="نام کلکتور" />
-                    </dxg:GridControl.Columns>
-                    <dxg:GridControl.View>
-                        <dxg:TableView AutoWidth="True"
-                                       ShowColumnHeaders="False" />
-                    </dxg:GridControl.View>
-                </dxg:GridControl>
-            </ControlTemplate>
-            <ControlTemplate x:Key="supplierLookUpEditTemplate">
-                <dxg:GridControl Name="PART_GridControl"
-                                 HorizontalAlignment="Right">
-                    <dxg:GridControl.Columns>
-                        <dxg:GridColumn FieldName="FormattedName"
-                                        Header="نام تامین کننده" />
-                    </dxg:GridControl.Columns>
-                    <dxg:GridControl.View>
-                        <dxg:TableView AutoWidth="True"
-                                       ShowColumnHeaders="False" />
-                    </dxg:GridControl.View>
-                </dxg:GridControl>
-            </ControlTemplate>
-            <ControlTemplate x:Key="taxonLookupEditTemplate">
-                <dxg:GridControl Name="PART_GridControl">
-                    <dxg:GridControl.Columns>
-                        <dxg:GridColumn FieldName="Name" />
-                    </dxg:GridControl.Columns>
-                    <dxg:GridControl.View>
-                        <dxg:TableView AutoWidth="True"
-                                       ShowIndicator="False"
-                                       ShowColumnHeaders="False" />
-                    </dxg:GridControl.View>
-                </dxg:GridControl>
-            </ControlTemplate>
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -89,14 +50,12 @@
         <dxg:LookUpEdit Grid.Row="1"
                         Grid.ColumnSpan="1"
                         Style="{StaticResource EntryStyle}"
-                        PopupContentTemplate="{StaticResource taxonLookupEditTemplate}"
                         utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
                         ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}"
                         DisplayMember="Name"
                         SelectedItem="{Binding Taxon}">
             <dxmvvm:Interaction.Behaviors>
-                <ui:FocusBehavior SourceName="btnSave"
-                                  EventName="Click" />
+                <ui:FocusBehavior SourceName="btnSave" EventName="Click" />
             </dxmvvm:Interaction.Behaviors>
         </dxg:LookUpEdit>
         <Button Grid.Row="1"
@@ -110,7 +69,6 @@
         <dxg:LookUpEdit Grid.Row="2"
                         Grid.ColumnSpan="1"
                         Style="{StaticResource EntryStyle}"
-                        PopupContentTemplate="{StaticResource collectorLookUpEditTemplate}"
                         ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}"
                         DisplayMember="FormattedName"
                         SelectedItem="{Binding Collector}" />
@@ -159,7 +117,6 @@
         <dxg:LookUpEdit Grid.Row="7"
                         Grid.ColumnSpan="1"
                         Style="{StaticResource EntryStyle}"
-                        PopupContentTemplate="{StaticResource supplierLookUpEditTemplate}"
                         ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
                         DisplayMember="FormattedName"
                         SelectedItem="{Binding Supplier}" />

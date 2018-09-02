@@ -4,6 +4,17 @@
                     xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
 
+    <ControlTemplate x:Key="LookUpEditTemplate">
+        <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:LookUpEdit}}, Path=DisplayMember}"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AutoWidth="True" ShowColumnHeaders="False" ShowIndicator="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </ControlTemplate>
+
     <Style x:Key="LabelFontStyle"
            TargetType="{x:Type TextBlock}">
         <Setter Property="FontFamily"
@@ -69,6 +80,8 @@
                 Value="False" />
         <Setter Property="utils:FocusHandler.TraverseOnEnter"
                 Value="True" />
+        <Setter Property="dxg:LookUpEdit.PopupContentTemplate" 
+                Value="{StaticResource LookUpEditTemplate}"/>
     </Style>
 
     <Style x:Key="LastEntryStyle"
