@@ -20,7 +20,7 @@
         <Binding Source="{StaticResource vmLocator}" Path="FirstPageViewModel" />
     </UserControl.DataContext>
     <Grid>
-        <!--<lc:TileLayoutControl>
+        <lc:TileLayoutControl>
             <lc:Tile Size="Small" Command="{Binding CollectionListCommand}">
                 <StackPanel>
                     <TextBlock Style="{DynamicResource LabelFontStyle}"
@@ -40,6 +40,6 @@
                            FontSize="50"
                            Foreground="#fff8e7">گالری</TextBlock>
             </lc:Tile>
-        </lc:TileLayoutControl>-->
+        </lc:TileLayoutControl>
     </Grid>
 </UserControl>
