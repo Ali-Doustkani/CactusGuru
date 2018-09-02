@@ -144,6 +144,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
         [TestMethod]
         public void DeleteSelectedItem()
         {
+            Load();
             SetWorking();
 
             Delete(User.Accepted);
@@ -173,6 +174,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
         [TestMethod]
         public void Delete_RemoveFromSuppliersToo()
         {
+            Load();
             var suppViewModel = SetWorking();
             viewModel.WorkingItem = suppViewModel;
             viewModel.ItemSource.Add(suppViewModel);

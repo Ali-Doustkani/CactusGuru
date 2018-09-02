@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CactusGuru.Presentation.View.UserControls
 {
@@ -9,68 +12,46 @@ namespace CactusGuru.Presentation.View.UserControls
         public PopupMainMenu()
         {
             InitializeComponent();
+            popup.Loaded += PopupMainMenu_Loaded;
         }
 
-        public static DependencyProperty GeneraCommandProperty = DependencyProperty.Register("GeneraCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty TaxaCommandProperty = DependencyProperty.Register("TaxaCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty AddCollectionItemCommandProperty = DependencyProperty.Register("AddCollectionItemCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty SuppliersCommandProperty = DependencyProperty.Register("SuppliersCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty CollectorsCommandProperty = DependencyProperty.Register("CollectorsCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty SeedListsCommandProperty = DependencyProperty.Register("SeedListsCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty LabelPrintCommandProperty = DependencyProperty.Register("LabelPrintCommand", typeof(ICommand), typeof(PopupMainMenu));
-        public static DependencyProperty ImageGalleryCommandProperty = DependencyProperty.Register("ImageGalleryCommand", typeof(ICommand), typeof(PopupMainMenu));
-
-        public ICommand GeneraCommand
+        private void PopupMainMenu_Loaded(object sender, RoutedEventArgs e)
         {
-            get { return (ICommand)GetValue(GeneraCommandProperty); }
-            set { SetValue(GeneraCommandProperty, value); }
+            var buttons = new List<Button>();
+            Action<DependencyObject> findButtons = null;
+            findButtons = delegate (DependencyObject depObj)
+             {
+                 var contentCtrl = depObj as ContentControl;
+                 if (contentCtrl?.Content is DependencyObject)
+                     findButtons((DependencyObject)contentCtrl.Content);
+                 for (int i = 0; i < VisualTreeHelper.GetChildrenCount(depObj); i++)
+                 {
+                     var child = VisualTreeHelper.GetChild(depObj, i);
+                     if (child != null && child is Button)
+                         buttons.Add((Button)child);
+                     findButtons(child);
+                 }
+             };
+            findButtons(buttonGrid);
+
+            foreach (var btn in buttons)
+                btn.Click += OnButtonClicked;
         }
 
-        public ICommand TaxaCommand
-        {
-            get { return (ICommand)GetValue(TaxaCommandProperty); }
-            set { SetValue(TaxaCommandProperty, value); }
-        }
-
-        public ICommand AddCollectionItemCommand
-        {
-            get { return (ICommand)GetValue(AddCollectionItemCommandProperty); }
-            set { SetValue(AddCollectionItemCommandProperty, value); }
-        }
-
-        public ICommand SuppliersCommand
-        {
-            get { return (ICommand)GetValue(SuppliersCommandProperty); }
-            set { SetValue(SuppliersCommandProperty, value); }
-        }
-
-        public ICommand CollectorsCommand
-        {
-            get { return (ICommand)GetValue(CollectorsCommandProperty); }
-            set { SetValue(CollectorsCommandProperty, value); }
-        }
-
-        public ICommand SeedListsCommand
-        {
-            get { return (ICommand)GetValue(SeedListsCommandProperty); }
-            set { SetValue(SeedListsCommandProperty, value); }
-        }
-
-        public ICommand LabelPrintCommand
-        {
-            get { return (ICommand)GetValue(LabelPrintCommandProperty); }
-            set { SetValue(LabelPrintCommandProperty, value); }
-        }
-
-        public ICommand ImageGalleryCommand
-        {
-            get { return (ICommand)GetValue(ImageGalleryCommandProperty); }
-            set { SetValue(ImageGalleryCommandProperty, value); }
-        }
-
-        private void PopupMainMenu_OnMenuItemClicked(object sender, EventArgs e)
+        private void OnButtonClicked(object sender, RoutedEventArgs e)
         {
             popup.IsOpen = false;
+        }
+
+        public static DependencyProperty MenuItemCommandProperty = DependencyProperty.Register("MenuItemCommand",
+            typeof(ICommand),
+            typeof(PopupMainMenu));
+
+
+        public ICommand MenuItemCommand
+        {
+            get { return (ICommand)GetValue(MenuItemCommandProperty); }
+            set { SetValue(MenuItemCommandProperty, value); }
         }
     }
 }

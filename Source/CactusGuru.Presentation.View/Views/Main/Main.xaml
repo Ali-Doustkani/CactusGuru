@@ -22,7 +22,7 @@
     </dx:DXWindow.DataContext>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="60" />
+            <RowDefinition Height="70" />
             <RowDefinition />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal">
@@ -44,17 +44,12 @@
                     Height="30"
                     Background="LightGray"
                     Margin="10 0" />
-            <userControls:PopupMainMenu Height="500"
-                                        AddCollectionItemCommand="{Binding AddCollectionItemCommand}"
-                                        TaxaCommand="{Binding TaxaCommand}"
-                                        GeneraCommand="{Binding GeneraCommand}"
-                                        SuppliersCommand="{Binding SuppliersCommand}"
-                                        CollectorsCommand="{Binding CollectorsCommand}"
-                                        LabelPrintCommand="{Binding LabelPrintCommand}"
-                                        ImageGalleryCommand="{Binding ImageGalleryCommand}" />
+            <userControls:PopupMainMenu VerticalAlignment="Center"
+                                        MenuItemCommand="{Binding MenuItemCommand}"/>
             <TextBlock Style="{DynamicResource LabelFontStyle}"
                        Foreground="LightGray"
-                       Margin="5 20 0 0">منوی اصلی:</TextBlock>
+                       VerticalAlignment="Center"
+                       Margin="5 0">منوی اصلی:</TextBlock>
         </StackPanel>
         <dxwui:NavigationFrame Name="navFrame"
                                Grid.Row="1"

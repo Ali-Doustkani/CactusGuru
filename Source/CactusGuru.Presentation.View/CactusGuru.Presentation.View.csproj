@@ -105,9 +105,6 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="NavigationService\DialogService.cs" />
-    <Compile Include="UserControls\MainMenu.xaml.cs">
-      <DependentUpon>MainMenu.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
@@ -116,6 +113,7 @@
     </Compile>
     <Compile Include="Utils\EnterKeyAttach.cs" />
     <Compile Include="Utils\FocusHandler.cs" />
+    <Compile Include="Utils\ImageConverter.cs" />
     <Compile Include="Views\BaseEditorWindow.xaml.cs">
       <DependentUpon>BaseEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -193,17 +191,10 @@
     <Resource Include="Fonts\Bebas.TTF" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Skins\MainMenuButton.xaml">
+    <Page Include="UserControls\PopupMainMenu.Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Skins\MenuSegmentBorder.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\MainMenu.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Page>
     <Page Include="UserControls\PopupMainMenu.xaml">
       <SubType>Designer</SubType>

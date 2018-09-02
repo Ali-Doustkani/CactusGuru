@@ -12,6 +12,7 @@ namespace CactusGuru.Presentation.ViewModel
         }
 
         private readonly Action _methodToExecute;
+        private readonly Action<object> _methodToExecuteWithParam;
         private readonly Func<bool> _canExecuteEvaluator;
 
         public RelayCommand(Action methodToExecute, Func<bool> canExecuteEvaluator)
@@ -24,6 +25,11 @@ namespace CactusGuru.Presentation.ViewModel
             : this(methodToExecute, null)
         { }
 
+        public RelayCommand(Action<object> methodToExecute)
+        {
+            _methodToExecuteWithParam = methodToExecute;
+        }
+
         public bool CanExecute(object parameter)
         {
             if (_canExecuteEvaluator == null)
@@ -33,7 +39,10 @@ namespace CactusGuru.Presentation.ViewModel
 
         public void Execute(object parameter)
         {
-            _methodToExecute.Invoke();
+            if (_methodToExecute != null)
+                _methodToExecute.Invoke();
+            else
+                _methodToExecuteWithParam.Invoke(parameter);
         }
     }
 }

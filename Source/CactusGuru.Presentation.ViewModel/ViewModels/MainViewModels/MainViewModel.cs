@@ -7,33 +7,28 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(INavigationService navigationService, EventAggregator eventAggregator)
+        public MainViewModel(INavigationService navigationService)
         {
-            _navigationService = navigationService;
-            GeneraCommand = new RelayCommand(_navigationService.GotoGenera);
-            TaxaCommand = new RelayCommand(_navigationService.GotoTaxa);
-            AddCollectionItemCommand = new RelayCommand(AddCollectionItem);
-            SuppliersCommand = new RelayCommand(_navigationService.GotoSuppliers);
-            CollectorsCommand = new RelayCommand(_navigationService.GotoCollectors);
-            LabelPrintCommand = new RelayCommand(_navigationService.GotoLabelPrint);
-            HomeCommand = new RelayCommand(_navigationService.GotoHome);
-            ImageGalleryCommand = new RelayCommand(_navigationService.GotoImageList);
+            MenuItemCommand = new RelayCommand(destination =>
+            {
+                var cmd = destination.ToString().ToLower();
+                if (cmd == "genus")
+                    navigationService.GotoGenera();
+                else if (cmd == "taxon")
+                    navigationService.GotoTaxa();
+                else if (cmd == "collectionitem")
+                    navigationService.GotoCollectionItemInserter();
+                else if (cmd == "supplier")
+                    navigationService.GotoSuppliers();
+                else if (cmd == "collector")
+                    navigationService.GotoCollectors();
+                else if (cmd == "printlabel")
+                    navigationService.GotoLabelPrint();
+                else if (cmd == "gallary")
+                    navigationService.GotoImageList();
+            });
         }
 
-        private readonly INavigationService _navigationService;
-
-        public ICommand GeneraCommand { get; }
-        public ICommand TaxaCommand { get; }
-        public ICommand AddCollectionItemCommand { get; }
-        public ICommand SuppliersCommand { get; }
-        public ICommand CollectorsCommand { get; }
-        public ICommand LabelPrintCommand { get; }
-        public ICommand ImageGalleryCommand { get; }
-        public ICommand HomeCommand { get; }
-
-        private void AddCollectionItem()
-        {
-            _navigationService.GotoCollectionItemInserter();
-        }
+        public ICommand MenuItemCommand { get; }
     }
 }
