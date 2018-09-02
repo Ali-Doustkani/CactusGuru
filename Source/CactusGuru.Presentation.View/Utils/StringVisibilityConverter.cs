@@ -2,7 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 
-namespace CactusGuru.Presentation.View.Views
+namespace CactusGuru.Presentation.View.Utils
 {
     public class StringVisibilityConverter : IValueConverter
     {

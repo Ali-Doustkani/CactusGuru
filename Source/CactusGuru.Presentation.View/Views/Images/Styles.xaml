@@ -3,7 +3,7 @@
                     xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
                     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
+                    xmlns:util="clr-namespace:CactusGuru.Presentation.View.Utils">
     <!-- Images -->
     <ImageSource x:Key="Instagram">../../Images/Icon/ImageList/instagram_24.png</ImageSource>
     <ImageSource x:Key="Jpeg">../../Images/Icon/ImageGallery/jpeg_24.png</ImageSource>
@@ -35,7 +35,7 @@
             <Setter.Value>
                 <Binding Source="{RelativeSource Self}" Path="Text">
                     <Binding.Converter>
-                        <local:StringVisibilityConverter/>
+                        <util:StringVisibilityConverter/>
                     </Binding.Converter>
                 </Binding>
             </Setter.Value>

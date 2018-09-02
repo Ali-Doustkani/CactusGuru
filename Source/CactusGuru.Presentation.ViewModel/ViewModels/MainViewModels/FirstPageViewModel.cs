@@ -35,7 +35,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
 
         public void Load()
         {
-           //ItemsCount = _viewProvider.GetItemsCount();
+            ItemsCount = _viewProvider.GetItemsCount();
             OnPropertyChanged(nameof(ItemsCount));
         }
     }

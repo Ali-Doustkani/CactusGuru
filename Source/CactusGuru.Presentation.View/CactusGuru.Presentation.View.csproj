@@ -152,7 +152,7 @@
     </Compile>
     <Compile Include="UserControls\FilterButtonEdit.cs" />
     <Compile Include="Views\MyDXMessageBoxLocalizer.cs" />
-    <Compile Include="Views\StringVisibilityConverter.cs" />
+    <Compile Include="Utils\StringVisibilityConverter.cs" />
     <Compile Include="Views\SupplierEditor.xaml.cs">
       <DependentUpon>SupplierEditor.xaml</DependentUpon>
     </Compile>
