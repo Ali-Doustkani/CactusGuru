@@ -4,7 +4,6 @@ using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -182,25 +181,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         {
             get { return WorkingItem?.Description; }
             set { WorkingItem.Description = value; }
-        }
-
-        public override void NotifyAllPropertiesChanged()
-        {
-            OnPropertyChanged(nameof(Taxa));
-            OnPropertyChanged(nameof(Taxon));
-            OnPropertyChanged(nameof(Suppliers));
-            OnPropertyChanged(nameof(Supplier));
-            OnPropertyChanged(nameof(Collectors));
-            OnPropertyChanged(nameof(Collector));
-            OnPropertyChanged(nameof(Code));
-            OnPropertyChanged(nameof(Count));
-            OnPropertyChanged(nameof(FieldNumber));
-            OnPropertyChanged(nameof(SupplierCode));
-            OnPropertyChanged(nameof(Locality));
-            OnPropertyChanged(nameof(IncomeDate));
-            OnPropertyChanged(nameof(IncomeTypes));
-            OnPropertyChanged(nameof(IncomeType));
-            OnPropertyChanged(nameof(Description));
         }
 
         #endregion

@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
@@ -29,13 +28,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
         {
             get { return GetStringProperty(nameof(WorkingItem.Website)); }
             set { WorkingItem.Website = value; }
-        }
-
-        public override void NotifyAllPropertiesChanged()
-        {
-            OnPropertyChanged(nameof(SelectedCollectorFullName));
-            OnPropertyChanged(nameof(SelectedCollectorAcronym));
-            OnPropertyChanged(nameof(SelectedCollectorWebsite));
         }
     }
 }

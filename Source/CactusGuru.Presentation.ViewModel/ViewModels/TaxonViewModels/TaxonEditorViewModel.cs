@@ -2,7 +2,6 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
@@ -84,16 +83,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Delete);
         }
 
-        public override void NotifyAllPropertiesChanged()
-        {
-            OnPropertyChanged(nameof(SelectedTaxonGenus));
-            OnPropertyChanged(nameof(SelectedTaxonSpecies));
-            OnPropertyChanged(nameof(SelectedTaxonCultivar));
-            OnPropertyChanged(nameof(SelectedTaxonForma));
-            OnPropertyChanged(nameof(SelectedTaxonSubSpecies));
-            OnPropertyChanged(nameof(SelectedTaxonVariety));
-        }
-
         protected override void PrepareForLoad()
         {
             LoadGenera();
@@ -110,6 +99,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             _navigation.GotoGenera();
             LoadGenera();
         }
-
     }
 }

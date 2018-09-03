@@ -55,7 +55,7 @@ namespace CactusGuru.Persistance.Repositories
         public bool HasSimilar(DomainEntity domainEntity)
         {
             var supplier = (Supplier)domainEntity;
-            return _context.tblSupplier.Any(x => x.Id != supplier.Id && (x.Title == supplier.FullName || x.Acronym == x.Acronym));
+            return _context.tblSupplier.Any(x => x.Id != supplier.Id && (x.Title == supplier.FullName || x.Acronym == supplier.Acronym));
         }
     }
 }

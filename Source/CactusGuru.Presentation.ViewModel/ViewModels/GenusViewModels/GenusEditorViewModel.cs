@@ -9,7 +9,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
         public GenusEditorViewModel(IDataEntryViewProvider dataProvider,
             IDialogService dialogService)
             : base(dataProvider, new GenusViewModelFactory(), dialogService)
-        {        }
+        { }
 
         public override string Title => "جنس ها";
 
@@ -17,11 +17,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
         {
             get { return GetStringProperty(nameof(WorkingItem.FormattedName)); }
             set { WorkingItem.FormattedName = value; }
-        }
-
-        public override void NotifyAllPropertiesChanged()
-        {
-            OnPropertyChanged(nameof(SelectedGenusName));
         }
     }
 }

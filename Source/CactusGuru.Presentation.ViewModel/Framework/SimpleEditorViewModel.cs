@@ -28,16 +28,15 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
-
         private string _filterText;
         private List<TRowItem> _originalSource;
-        public ObservableCollection<TRowItem> ItemSource { get; set; }
+     
+        public ObservableCollection<TRowItem> ItemSource { get; private set; }
+        public ICommand FocusOnSearchCommand { get; }
+        public ICommand SelectNextCommand { get; }
+        public ICommand SelectPreviousCommand { get; }
         public ICommand ClearFilterCommand { get; }
-        public void ClearTextFilter()
-        {
-            FilterText = string.Empty;
-            OnPropertyChanged(nameof(FilterText));
-        }
+
         public string FilterText
         {
             get { return _filterText; }
@@ -52,17 +51,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 _filterText = value;
             }
         }
-        private IEnumerable<TRowItem> Search(string value)
-        {
-            return _originalSource.Where(x => x.FilterTarget.ToLower().Contains(value.ToLower()));
-        }
-
-
-
-
-        public ICommand FocusOnSearchCommand { get; }
-        public ICommand SelectNextCommand { get; }
-        public ICommand SelectPreviousCommand { get; }
 
         private void Load()
         {
@@ -81,7 +69,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 WorkingItem = null;
             else
                 WorkingItem = ItemSource.First();
-            OnPropertyChanged(nameof(WorkingItem));
         }
 
         protected override void AddImp()
@@ -124,6 +111,11 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             if (newIndex < 0 || newIndex >= ItemSource.Count()) return;
             WorkingItem = ItemSource.ElementAt(newIndex);
             OnPropertyChanged(nameof(WorkingItem));
+        }
+
+        private IEnumerable<TRowItem> Search(string value)
+        {
+            return _originalSource.Where(x => x.FilterTarget.ToLower().Contains(value.ToLower()));
         }
     }
 }

@@ -42,10 +42,12 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public TRowItem WorkingItem
         {
             get { return _workingItem; }
-            set { _workingItem = value; }
+            set
+            {
+                _workingItem = value;
+                OnPropertyChanged(string.Empty);
+            }
         }
-
-        public abstract void NotifyAllPropertiesChanged();
 
         protected virtual void PrepareForLoad() { }
 
@@ -124,7 +126,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             if (State.IsEdit)
                 CancelEdit();
             State.ToView();
-            NotifyAllPropertiesChanged();
+            OnPropertyChanged(string.Empty);
         }
 
         private void Save()

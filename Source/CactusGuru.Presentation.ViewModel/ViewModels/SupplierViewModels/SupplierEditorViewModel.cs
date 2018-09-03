@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
@@ -31,11 +30,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
             set { WorkingItem.Website = value; }
         }
 
-        public override void NotifyAllPropertiesChanged()
-        {
-            OnPropertyChanged(nameof(SelectedSupplierFullName));
-            OnPropertyChanged(nameof(SelectedSupplierAcronym));
-            OnPropertyChanged(nameof(SelectedSupplierWebsite));
-        }
     }
 }
