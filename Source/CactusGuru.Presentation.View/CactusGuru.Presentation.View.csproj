@@ -114,20 +114,26 @@
     <Compile Include="Utils\EnterKeyAttach.cs" />
     <Compile Include="Utils\FocusHandler.cs" />
     <Compile Include="Utils\ImageConverter.cs" />
-    <Compile Include="Views\BaseEditorWindow.xaml.cs">
+    <Compile Include="Views\DataEntries\BaseEditorWindow.xaml.cs">
       <DependentUpon>BaseEditorWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\CollectionItemEditor.xaml.cs">
-      <DependentUpon>CollectionItemEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\CollectionItemList.xaml.cs">
       <DependentUpon>CollectionItemList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\CollectorEditor.xaml.cs">
+    <Compile Include="Views\DataEntries\CollectionItemEditor.xaml.cs">
+      <DependentUpon>CollectionItemEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntries\CollectorEditor.xaml.cs">
       <DependentUpon>CollectorEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ImageContainer.xaml.cs">
-      <DependentUpon>ImageContainer.xaml</DependentUpon>
+    <Compile Include="Views\DataEntries\GenusEditor.xaml.cs">
+      <DependentUpon>GenusEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntries\SupplierEditor.xaml.cs">
+      <DependentUpon>SupplierEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DataEntries\TaxonEditor.xaml.cs">
+      <DependentUpon>TaxonEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Main\FirstPage.xaml.cs">
       <DependentUpon>FirstPage.xaml</DependentUpon>
@@ -153,15 +159,6 @@
     <Compile Include="UserControls\FilterButtonEdit.cs" />
     <Compile Include="Views\MyDXMessageBoxLocalizer.cs" />
     <Compile Include="Utils\StringVisibilityConverter.cs" />
-    <Compile Include="Views\SupplierEditor.xaml.cs">
-      <DependentUpon>SupplierEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\TaxonEditor.xaml.cs">
-      <DependentUpon>TaxonEditor.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GenusEditor.xaml.cs">
-      <DependentUpon>GenusEditor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,11 +201,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\BaseEditorWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\CollectionItemEditor.xaml">
+    <Page Include="Views\DataEntries\BaseEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -216,13 +209,29 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\CollectorEditor.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\DataEntries\CollectionItemEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\ImageContainer.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Views\DataEntries\CollectorEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataEntries\GenusEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataEntries\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataEntries\SupplierEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\DataEntries\TaxonEditor.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Main\FirstPage.xaml">
       <SubType>Designer</SubType>
@@ -244,6 +253,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Main\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Print\LabelPrint.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -253,22 +266,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Main\Main.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SupplierEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\TaxonEditor.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\GenusEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -316,6 +313,7 @@
   <ItemGroup>
     <Resource Include="Images\Icon\home.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -26,23 +26,20 @@
                     Value="{Binding WorkingItem, Mode=TwoWay}" />
         </Style>
     </UserControl.Resources>
-    <Grid Margin="0 20 0 0">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition />
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <local:FilterButtonEdit x:Name="buttonEdit">
+        <local:FilterButtonEdit x:Name="buttonEdit" Margin="0 20 0 5">
             <local:FilterButtonEdit.Buttons>
                 <dxe:ButtonInfoCollection>
-                    <dxe:ButtonInfo GlyphKind="Cancel"
-                                    Command="{Binding ClearFilterCommand}" />
+                    <dxe:ButtonInfo GlyphKind="Cancel" Command="{Binding ClearFilterCommand}" />
                 </dxe:ButtonInfoCollection>
             </local:FilterButtonEdit.Buttons>
             <local:FilterButtonEdit.InputBindings>
-                <KeyBinding Key="Up"
-                            Command="{Binding SelectPreviousCommand}" />
-                <KeyBinding Key="Down"
-                            Command="{Binding SelectNextCommand}" />
+                <KeyBinding Key="Up" Command="{Binding SelectPreviousCommand}" />
+                <KeyBinding Key="Down" Command="{Binding SelectNextCommand}" />
             </local:FilterButtonEdit.InputBindings>
         </local:FilterButtonEdit>
         <ListBox Name="listbox"

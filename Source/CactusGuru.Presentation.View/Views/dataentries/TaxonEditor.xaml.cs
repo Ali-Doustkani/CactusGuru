@@ -1,4 +1,4 @@
-﻿namespace CactusGuru.Presentation.View.Views
+﻿namespace CactusGuru.Presentation.View.Views.DataEntries
 {
     public partial class TaxonEditor
     {

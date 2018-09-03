@@ -2,7 +2,7 @@
 using CactusGuru.Entry.Presentation;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.View.NavigationService;
-using CactusGuru.Presentation.View.Views;
+using CactusGuru.Presentation.View.Views.DataEntries;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.Utils;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;

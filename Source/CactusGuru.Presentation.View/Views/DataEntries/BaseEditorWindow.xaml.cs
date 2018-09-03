@@ -9,7 +9,7 @@ namespace CactusGuru.Presentation.View.Views
             InitializeComponent();
         }
 
-        public void SetUserControl(UserControl view)
+        public void SetUserControl(Grid view)
         {
             ContentControl.Content = view;
         }

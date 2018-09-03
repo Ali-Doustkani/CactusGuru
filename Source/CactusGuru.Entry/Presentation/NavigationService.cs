@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Entry.CompositionRoot;
 using CactusGuru.Presentation.View.Views;
+using CactusGuru.Presentation.View.Views.DataEntries;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
@@ -119,7 +120,7 @@ namespace CactusGuru.Entry.Presentation
                 activeWindow.Close();
         }
 
-        private void OpenUserControl(System.Windows.Controls.UserControl view, double width = 420, double height = 480)
+        private void OpenUserControl(System.Windows.Controls.Grid view, double width = 420, double height = 480)
         {
             var window = new BaseEditorWindow();
             window.DataContext = view.DataContext;

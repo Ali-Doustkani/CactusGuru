@@ -13,7 +13,7 @@
     <dx:DXWindow.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles.xaml" />
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </dx:DXWindow.Resources>
@@ -46,7 +46,7 @@
                     Margin="10 0" />
             <userControls:PopupMainMenu VerticalAlignment="Center"
                                         MenuItemCommand="{Binding MenuItemCommand}"/>
-            <TextBlock Style="{DynamicResource LabelFontStyle}"
+            <TextBlock Style="{StaticResource LabelFontStyle}"
                        Foreground="LightGray"
                        VerticalAlignment="Center"
                        Margin="5 0">منوی اصلی:</TextBlock>

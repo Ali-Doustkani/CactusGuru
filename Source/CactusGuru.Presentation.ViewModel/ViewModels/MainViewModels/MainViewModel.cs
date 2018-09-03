@@ -1,5 +1,4 @@
-﻿using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Presentation.ViewModel.Framework;
+﻿using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Windows.Input;
 
@@ -27,8 +26,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
                 else if (cmd == "gallary")
                     navigationService.GotoImageList();
             });
+            HomeCommand = new RelayCommand(navigationService.GotoHome);
         }
 
         public ICommand MenuItemCommand { get; }
+        public ICommand HomeCommand { get; }
     }
 }

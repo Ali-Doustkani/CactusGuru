@@ -6,7 +6,7 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="../Styles.xaml" />
+                <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="{x:Type lc:Tile}">
                 <Setter Property="Cursor" Value="Hand" />
@@ -23,7 +23,7 @@
         <lc:TileLayoutControl>
             <lc:Tile Size="Small" Command="{Binding CollectionListCommand}">
                 <StackPanel>
-                    <TextBlock Style="{DynamicResource LabelFontStyle}"
+                    <TextBlock Style="{StaticResource LabelFontStyle}"
                                Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
                     <TextBlock Name="lblItemsCount"
                                FontSize="55"

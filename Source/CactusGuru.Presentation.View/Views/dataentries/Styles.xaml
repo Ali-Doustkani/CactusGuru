@@ -1,0 +1,80 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+                    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
+
+    <local:ViewModelLocator x:Key="vmLocator" />
+    
+    <ControlTemplate x:Key="_LookUpEditTemplate">
+        <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:LookUpEdit}}, Path=DisplayMember}"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView AutoWidth="True" ShowColumnHeaders="False" ShowIndicator="False"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </ControlTemplate>
+
+    <Style TargetType="RowDefinition">
+        <Setter Property="Height" Value="auto"/>
+    </Style>
+
+    <Style x:Key="CardViewStyle">
+        <Setter Property="dxg:CardView.AllowEditing" Value="True" />
+        <Setter Property="dxg:CardView.ShowGroupedColumns" Value="True" />
+        <Setter Property="dxg:CardView.ShowCardExpandButton" Value="False" />
+        <Setter Property="dxg:CardView.ShowGroupPanel" Value="False" />
+        <Setter Property="dxg:CardView.ShowColumnHeaders" Value="False" />
+        <Setter Property="dxg:CardView.NavigationStyle" Value="Cell" />
+        <Setter Property="dxg:CardView.CardLayout" Value="Rows" />
+    </Style>
+
+    <Style TargetType="TextBlock">
+        <Setter Property="TextBlock.Margin" Value="10 2" />
+        <Setter Property="TextBlock.HorizontalAlignment" Value="Right" />
+        <Setter Property="TextBlock.VerticalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="_EntryStyle">
+        <Setter Property="Grid.Column" Value="1" />
+        <Setter Property="Grid.ColumnSpan" Value="2" />
+        <Setter Property="Control.Margin" Value="0 2" />
+        <Setter Property="Control.FlowDirection" Value="LeftToRight" />
+        <Setter Property="Control.IsEnabled" Value="{Binding State.IsNotView}" />
+        <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="True" />
+    </Style>
+
+    <Style TargetType="TextBox" BasedOn="{StaticResource _EntryStyle}"/>
+
+    <Style TargetType="ComboBox" BasedOn="{StaticResource _EntryStyle}"/>
+
+    <Style TargetType="dxg:LookUpEdit" BasedOn="{StaticResource _EntryStyle}">
+        <Setter Property="AutoComplete" Value="False" />
+        <Setter Property="ImmediatePopup" Value="True" />
+        <Setter Property="FilterCondition" Value="Contains" />
+        <Setter Property="ValidateOnTextInput" Value="False" />
+        <Setter Property="IncrementalFiltering" Value="True" />
+        <Setter Property="AllowNullInput" Value="False" />
+        <Setter Property="AutoPopulateColumns" Value="False" />
+        <Setter Property="PopupContentTemplate" Value="{StaticResource _LookUpEditTemplate}"/>
+    </Style>
+
+    <Style x:Key="LastEntryStyle" BasedOn="{StaticResource _EntryStyle}">
+        <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="False" />
+        <Setter Property="utils:EnterKeyAttach.EnterKey">
+            <Setter.Value>
+                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="Grid.Column" Value="2" />
+        <Setter Property="Margin" Value="4 2 0 2" />
+        <Setter Property="Content" Value="..." />
+        <Setter Property="IsTabStop" Value="False" />
+    </Style>
+
+</ResourceDictionary>
