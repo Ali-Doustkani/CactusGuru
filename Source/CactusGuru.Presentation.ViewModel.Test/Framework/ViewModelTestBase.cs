@@ -1,6 +1,4 @@
 ﻿using CactusGuru.Application.Common;
-using CactusGuru.Application.ViewProviders;
-using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -14,7 +12,7 @@ using System.Windows.Input;
 namespace CactusGuru.Presentation.ViewModel.Test.Framework
 {
     [TestClass]
-    public abstract class ViewModelTestBase<TSut, TProvider>
+    public abstract class ViewModelTestBase<TEditor, TProvider>
         where TProvider : class
     {
         public ViewModelTestBase()
@@ -24,7 +22,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
             dialogService = new Mock<IDialogService>();
         }
 
-        protected TSut viewModel;
+        protected TEditor viewModel;
         protected readonly Mock<TProvider> dataProvider;
         protected readonly Mock<INavigationService> navigationService;
         protected readonly Mock<IDialogService> dialogService;
@@ -32,22 +30,10 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         [TestInitialize]
         public void SetUp()
         {
-            var ctor = typeof(TSut).GetConstructors()[0];
-            var parameters = new List<object>();
-            foreach (var p in ctor.GetParameters())
-            {
-                if (p.ParameterType == typeof(TProvider) || p.ParameterType == typeof(IDataEntryViewProvider))
-                    parameters.Add(dataProvider.Object);
-                else if (p.ParameterType == typeof(IDialogService))
-                    parameters.Add(dialogService.Object);
-                else if (p.ParameterType == typeof(INavigationService))
-                    parameters.Add(navigationService.Object);
-                else if (p.ParameterType == typeof(EventAggregator))
-                    parameters.Add(new EventAggregator());
-            }
-
-            viewModel = (TSut)Activator.CreateInstance(typeof(TSut), parameters.ToArray());
+            viewModel = Make();
         }
+
+        protected abstract TEditor Make();
 
         protected Result<TResult> The<TResult>(Expression<Func<TProvider, IEnumerable<TResult>>> exp)
                where TResult : new()

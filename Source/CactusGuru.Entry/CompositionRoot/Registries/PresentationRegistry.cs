@@ -3,6 +3,7 @@ using CactusGuru.Entry.Presentation;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.View.NavigationService;
 using CactusGuru.Presentation.View.Views.DataEntries;
+using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.Utils;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
@@ -20,9 +21,18 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         {
             For<INavigationService>().Use<NavigationService>().Singleton();
             For<IDialogService>().Use<DialogService>().Singleton();
-            For<GenusEditorViewModel>().Use<GenusEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("genus");
-            For<CollectorEditorViewModel>().Use<CollectorEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("collector");
-            For<SupplierEditorViewModel>().Use<SupplierEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("supplier");
+            For<SimpleEditorViewModel<GenusViewModel>>().Use<SimpleEditorViewModel<GenusViewModel>>()
+                .Ctor<string>().Is("جنس ها")
+                .Ctor<IWorkingFactory<GenusViewModel>>().Is<GenusViewModelFactory>()
+                .Ctor<IDataEntryViewProvider>().IsNamedInstance("genus");
+            For<SimpleEditorViewModel<SupplierViewModel>>().Use<SimpleEditorViewModel<SupplierViewModel>>()
+                .Ctor<string>().Is("تامین کنندگان")
+                .Ctor<IWorkingFactory<SupplierViewModel>>().Is<SupplierViewModelFactory>()
+                .Ctor<IDataEntryViewProvider>().IsNamedInstance("supplier");
+            For<SimpleEditorViewModel<CollectorViewModel>>().Use<SimpleEditorViewModel<CollectorViewModel>>()
+                .Ctor<string>().Is("کلکتور ها")
+                .Ctor<IWorkingFactory<CollectorViewModel>>().Is<CollectorViewModelFactory>()
+                .Ctor<IDataEntryViewProvider>().IsNamedInstance("collector");
             For<TaxonEditorViewModel>().Use<TaxonEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("taxon");
             For<CollectionItemEditor>().Use(ctx => CreateCollectionItemInserter(ctx)).Named("forInsert");
             For<CollectionItemEditor>().Use(ctx => CreateCollectionItemUpdater(ctx)).Named("forUpdate");
@@ -36,7 +46,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             ret.DataContext = new CollectionItemEditorViewModel(container.GetInstance<ICollectionItemViewProvider>(),
                 container.GetInstance<IDialogService>(),
                 container.GetInstance<INavigationService>(),
-              
+
                 container.GetInstance<EventAggregator>());
             return ret;
         }
@@ -45,7 +55,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         {
             var ret = new CollectionItemEditor();
             ret.DataContext = new CollectionItemEditorViewModel(container.GetInstance<ICollectionItemViewProvider>(),
-                container.GetInstance<IDialogService>(), 
+                container.GetInstance<IDialogService>(),
                 container.GetInstance<INavigationService>(), container.GetInstance<EventAggregator>());
             return ret;
         }

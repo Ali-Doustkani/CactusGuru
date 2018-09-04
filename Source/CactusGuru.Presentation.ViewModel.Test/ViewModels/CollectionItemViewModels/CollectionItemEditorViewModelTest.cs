@@ -10,6 +10,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
     [TestClass]
     public class CollectionItemEditorViewModelTest : ViewModelTestBase<CollectionItemEditorViewModel, ICollectionItemViewProvider>
     {
+        protected override CollectionItemEditorViewModel Make()
+        {
+            return new CollectionItemEditorViewModel(dataProvider.Object, dialogService.Object, navigationService.Object, new EventAggregator());
+        }
+
         [TestMethod]
         public void Load_Taxa()
         {

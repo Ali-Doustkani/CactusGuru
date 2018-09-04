@@ -35,29 +35,29 @@
                         utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
                         ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
                         DisplayMember="Name"
-                        SelectedItem="{Binding SelectedTaxonGenus}" />
+                        SelectedItem="{Binding WorkingItem.Genus}" />
     <Button Command="{Binding GotoGeneraCommand}" />
     <!-- Species -->
     <TextBlock Grid.Row="1" Text="گونه" />
     <TextBox Grid.Row="1"
-                 Text="{Binding SelectedTaxonSpecies, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.Species, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Variety -->
     <TextBlock Grid.Row="2" Text="واریته" />
     <TextBox Grid.Row="2"
-                 Text="{Binding SelectedTaxonVariety, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.Variety, UpdateSourceTrigger=PropertyChanged}" />
     <!-- SubSpecies -->
     <TextBlock Grid.Row="3" Text="زیرگونه" />
     <TextBox Grid.Row="3"
-                 Text="{Binding SelectedTaxonSubSpecies, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.SubSpecies, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Forma -->
     <TextBlock Grid.Row="4" Text="فرم" />
     <TextBox Grid.Row="4"
-                 Text="{Binding SelectedTaxonForma, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.Forma, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Cultivar -->
     <TextBlock Grid.Row="5" Text="کالتیوار" />
     <TextBox Grid.Row="5"
-                 Style="{StaticResource LastEntryStyle}"
-                 Text="{Binding SelectedTaxonCultivar, UpdateSourceTrigger=PropertyChanged}" />
+             Style="{StaticResource LastEntryStyle}"
+             Text="{Binding WorkingItem.Cultivar, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Filter -->
     <local:SourceBox Grid.Row="6" Grid.ColumnSpan="3" />
 </Grid>

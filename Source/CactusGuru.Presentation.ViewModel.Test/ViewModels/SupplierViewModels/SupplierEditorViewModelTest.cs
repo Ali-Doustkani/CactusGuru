@@ -1,6 +1,7 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
+using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Test.Framework;
 using CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,8 +11,13 @@ using System.Linq;
 namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
 {
     [TestClass]
-    public class SupplierEditorViewModelTest : ViewModelTestBase<SupplierEditorViewModel, IDataEntryViewProvider>
+    public class SupplierEditorViewModelTest : ViewModelTestBase<SimpleEditorViewModel<SupplierViewModel>, IDataEntryViewProvider>
     {
+        protected override SimpleEditorViewModel<SupplierViewModel> Make()
+        {
+            return new SimpleEditorViewModel<SupplierViewModel>(dataProvider.Object, new SupplierViewModelFactory(), dialogService.Object, "Suppliers");
+        }
+
         [TestMethod]
         public void Load_LoadSuppliers()
         {

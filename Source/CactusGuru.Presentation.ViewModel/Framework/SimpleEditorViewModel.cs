@@ -11,31 +11,34 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     /// <summary>
     /// For simple objects that are managed with a list in the same window.
     /// </summary>
-    public abstract class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
+    public class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
          where TRowItem : WorkingViewModel
     {
-        protected SimpleEditorViewModel(IDataEntryViewProvider dataProvider,
+        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider,
             IWorkingFactory<TRowItem> viewModelFactory,
-            IDialogService dialogService)
+            IDialogService dialogService,
+            string title)
             : base(dataProvider, viewModelFactory, dialogService)
         {
             _dataProvider = dataProvider;
             _dialogService = dialogService;
+            Title = title;
             LoadCommand = new RelayCommand(Load);
-            SelectNextCommand = new RelayCommand(() => Goto( 1));
-            SelectPreviousCommand = new RelayCommand(() => Goto(-1));
+            SelectNextCommand = new RelayCommand(() => MoveTo(1));
+            SelectPreviousCommand = new RelayCommand(() => MoveTo(-1));
         }
 
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
         private string _filterText;
         private List<TRowItem> _originalSource;
-     
+
         public ObservableCollection<TRowItem> ItemSource { get; private set; }
         public ICommand FocusOnSearchCommand { get; }
         public ICommand SelectNextCommand { get; }
         public ICommand SelectPreviousCommand { get; }
         public ICommand ClearFilterCommand { get; }
+        public override string Title { get; }
 
         public string FilterText
         {
@@ -89,7 +92,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
         }
 
-        protected override void DeleteImp()
+        protected override TRowItem DeleteImp()
         {
             try
             {
@@ -97,14 +100,16 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 _dataProvider.Delete(itemToDelete.InnerObject);
                 _originalSource.Remove(itemToDelete);
                 ItemSource.Remove(itemToDelete);
+                return itemToDelete;
             }
             catch (ErrorHappenedException ex)
             {
                 _dialogService.Error(ex.Message);
+                return null;
             }
         }
 
-        private void Goto(int nextValue)
+        private void MoveTo(int nextValue)
         {
             var currentIndex = ItemSource.ToList().IndexOf(WorkingItem);
             var newIndex = currentIndex + nextValue;

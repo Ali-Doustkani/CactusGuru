@@ -1,8 +1,8 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.GenusEditor"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-             xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+      xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,7 +24,7 @@
     <!-- Title -->
     <TextBlock Text="عنوان" />
     <TextBox Style="{StaticResource LastEntryStyle}"
-             Text="{Binding SelectedGenusName, UpdateSourceTrigger=PropertyChanged}"
+             Text="{Binding WorkingItem.FormattedName, UpdateSourceTrigger=PropertyChanged}"
              utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" />
     <!-- Filter -->
     <local:SourceBox Grid.Row="1" Grid.ColumnSpan="2" />

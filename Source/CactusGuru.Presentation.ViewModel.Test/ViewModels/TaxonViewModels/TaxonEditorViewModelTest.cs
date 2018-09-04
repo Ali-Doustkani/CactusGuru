@@ -10,6 +10,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.TaxonViewModels
     [TestClass]
     public class TaxonEditorViewModelTest : ViewModelTestBase<TaxonEditorViewModel, ITaxonViewProvider>
     {
+        protected override TaxonEditorViewModel Make()
+        {
+            return new TaxonEditorViewModel(dataProvider.Object, navigationService.Object, dialogService.Object, new Infrastructure.EventAggregation.EventAggregator());
+        }
+
         [TestMethod]
         public void Load_LoadTaxa()
         {

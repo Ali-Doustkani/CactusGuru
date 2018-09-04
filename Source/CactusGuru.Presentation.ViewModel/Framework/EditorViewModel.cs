@@ -95,16 +95,18 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
         }
 
-        protected virtual void DeleteImp()
+        protected virtual TRowItem DeleteImp()
         {
             try
             {
                 var itemToDelete = WorkingItem;
                 _dataProvider.Delete(itemToDelete.InnerObject);
+                return itemToDelete;
             }
             catch (ErrorHappenedException ex)
             {
                 _dialogService.Error(ex.Message);
+                return null;
             }
         }
 

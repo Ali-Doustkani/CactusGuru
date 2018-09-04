@@ -10,8 +10,11 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 {
     public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>
     {
-        public TaxonEditorViewModel(IDataEntryViewProvider dataProvider, INavigationService navigation, IDialogService dialogService, EventAggregator eventAggregator)
-            : base(dataProvider, new TaxonViewModelFactory(), dialogService)
+        public TaxonEditorViewModel(IDataEntryViewProvider dataProvider,
+            INavigationService navigation,
+            IDialogService dialogService,
+            EventAggregator eventAggregator)
+            : base(dataProvider, new TaxonViewModelFactory(), dialogService, "تاکسون ها")
         {
             _dataProvider = (ITaxonViewProvider)dataProvider;
             _navigation = navigation;
@@ -25,45 +28,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 
         public ICommand GotoGeneraCommand { get; private set; }
 
-        public override string Title => "تاکسون ها";
-
         public ObservableCollection<GenusDto> Genera { get; set; }
-
-        public GenusDto SelectedTaxonGenus
-        {
-            get { return WorkingItem?.Genus; }
-            set { WorkingItem.Genus = value; }
-        }
-
-        public string SelectedTaxonSpecies
-        {
-            get { return GetStringProperty(nameof(WorkingItem.Species)); }
-            set { WorkingItem.Species = value; }
-        }
-
-        public string SelectedTaxonCultivar
-        {
-            get { return GetStringProperty(nameof(WorkingItem.Cultivar)); }
-            set { WorkingItem.Cultivar = value; }
-        }
-
-        public string SelectedTaxonForma
-        {
-            get { return GetStringProperty(nameof(WorkingItem.Forma)); }
-            set { WorkingItem.Forma = value; }
-        }
-
-        public string SelectedTaxonSubSpecies
-        {
-            get { return GetStringProperty(nameof(WorkingItem.SubSpecies)); }
-            set { WorkingItem.SubSpecies = value; }
-        }
-
-        public string SelectedTaxonVariety
-        {
-            get { return GetStringProperty(nameof(WorkingItem.Variety)); }
-            set { WorkingItem.Variety = value; }
-        }
 
         protected override void AddImp()
         {
@@ -77,10 +42,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
         }
 
-        protected override void DeleteImp()
+        protected override TaxonViewModel DeleteImp()
         {
-            base.DeleteImp();
-            _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Delete);
+            var deletedItem = base.DeleteImp();
+            if (deletedItem != null)
+                _eventAggregator.NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
+            return deletedItem;
         }
 
         protected override void PrepareForLoad()

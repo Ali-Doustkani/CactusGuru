@@ -126,36 +126,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             set { WorkingItem.Collector = value?.Id; }
         }
 
-        public string Code
-        {
-            get { return WorkingItem?.Code; }
-            set { WorkingItem.Code = value; }
-        }
-
-        public int? Count
-        {
-            get { return WorkingItem?.Count; }
-            set { WorkingItem.Count = value; }
-        }
-
-        public string FieldNumber
-        {
-            get { return WorkingItem?.FieldNumber; }
-            set { WorkingItem.FieldNumber = value; }
-        }
-
-        public string SupplierCode
-        {
-            get { return WorkingItem?.SupplierCode; }
-            set { WorkingItem.SupplierCode = value; }
-        }
-
-        public string Locality
-        {
-            get { return WorkingItem?.Locality; }
-            set { WorkingItem.Locality = value; }
-        }
-
         public string IncomeDate { get; set; }
 
         public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; set; }
@@ -175,12 +145,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
                 else
                     WorkingItem.IncomeType = IncomeTypeDto.Seed;
             }
-        }
-
-        public string Description
-        {
-            get { return WorkingItem?.Description; }
-            set { WorkingItem.Description = value; }
         }
 
         #endregion
@@ -258,11 +222,15 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
         }
 
-        protected override void DeleteImp()
+        protected override CollectionItemViewModel DeleteImp()
         {
-            base.DeleteImp();
-            _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Delete);
-            _navigationService.CloseCurrentView();
+            var deletedItem = base.DeleteImp();
+            if (deletedItem != null)
+            {
+                _eventAggregator.NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
+                _navigationService.CloseCurrentView();
+            }
+            return deletedItem;
         }
 
         protected override bool CanSave()

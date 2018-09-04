@@ -26,16 +26,16 @@
     <!-- FullName -->
     <TextBlock Text="عنوان" />
     <TextBox utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
-                 Text="{Binding SelectedCollectorFullName, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.FullName, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Acronym -->
     <TextBlock Grid.Row="1" Text="اختصار" />
     <TextBox Grid.Row="1"
-                 Text="{Binding SelectedCollectorAcronym, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.Acronym, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Website -->
     <TextBlock Grid.Row="2" Text="وب سایت" />
     <TextBox Grid.Row="2"
-                 Style="{StaticResource LastEntryStyle}"
-                 Text="{Binding SelectedCollectorWebsite, UpdateSourceTrigger=PropertyChanged}" />
+             Style="{StaticResource LastEntryStyle}"
+             Text="{Binding WorkingItem.Website, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Filter -->
     <local:SourceBox Grid.Row="3" Grid.ColumnSpan="2" />
 </Grid>

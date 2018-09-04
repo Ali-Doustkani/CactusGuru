@@ -26,9 +26,9 @@ namespace CactusGuru.Presentation.View.Views
             get { return Resolver.Resolve<FirstPageViewModel>(); }
         }
 
-        public GenusEditorViewModel GenusEditorViewModel
+        public SimpleEditorViewModel<GenusViewModel> GenusEditorViewModel
         {
-            get { return Resolver.Resolve<GenusEditorViewModel>(); }
+            get { return Resolver.Resolve<SimpleEditorViewModel<GenusViewModel>>(); }
         }
 
         public CollectionItemEditorViewModel CollectionItemEditorViewModel
@@ -46,9 +46,9 @@ namespace CactusGuru.Presentation.View.Views
             get { return Resolver.Resolve<CollectionItemListViewModel>(); }
         }
 
-        public CollectorEditorViewModel CollectorEditorViewModel
+        public SimpleEditorViewModel<CollectorViewModel> CollectorEditorViewModel
         {
-            get { return Resolver.Resolve<CollectorEditorViewModel>(); }
+            get { return Resolver.Resolve<SimpleEditorViewModel<CollectorViewModel>>(); }
         }
 
         public ImageGallaryEditorViewModel ImageGallaryEditorViewModel
@@ -66,9 +66,9 @@ namespace CactusGuru.Presentation.View.Views
             get { return Resolver.Resolve<LabelPrintEditorViewModel>(); }
         }
 
-        public SupplierEditorViewModel SupplierEditorViewModel
+        public SimpleEditorViewModel<SupplierViewModel> SupplierEditorViewModel
         {
-            get { return Resolver.Resolve<SupplierEditorViewModel>(); }
+            get { return Resolver.Resolve<SimpleEditorViewModel<SupplierViewModel>>(); }
         }
 
         public MainViewModel MainViewModel

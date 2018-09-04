@@ -30,7 +30,7 @@
     </Grid.RowDefinitions>
     <!-- Code -->
     <TextBlock Text="کد" />
-    <TextBox Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
+    <TextBox Text="{Binding WorkingItem.Code, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Taxon -->
     <TextBlock Grid.Row="1" Text="تاکسون" />
     <dxg:LookUpEdit Grid.Row="1"
@@ -51,11 +51,11 @@
     <!-- Field Number -->
     <TextBlock Grid.Row="3" Text="فیلد" />
     <TextBox Grid.Row="3"
-             Text="{Binding FieldNumber, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.FieldNumber, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Locality -->
     <TextBlock Grid.Row="4" Text="منطقه ی زیست" />
     <TextBox Grid.Row="4"
-             Text="{Binding Locality, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.Locality, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Income Date -->
     <TextBlock Grid.Row="5" Text="تاریخ ورود" />
     <TextBox Grid.Row="5"
@@ -77,15 +77,15 @@
     <!-- Supplier Code -->
     <TextBlock Grid.Row="8" Text="کد تامین کننده" />
     <TextBox Grid.Row="8"
-             Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.SupplierCode, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Count -->
     <TextBlock Grid.Row="9" Text="تعداد" />
     <TextBox Grid.Row="9"
-             Text="{Binding Count, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding WorkingItem.Count, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Description -->
     <TextBlock Grid.Row="10" Text="توضیحات" />
     <TextBox Grid.Row="10"
-             Text="{Binding Description, UpdateSourceTrigger=PropertyChanged}"
+             Text="{Binding WorkingItem.Description, UpdateSourceTrigger=PropertyChanged}"
              Style="{StaticResource LastEntryStyle}"
              TextWrapping="Wrap"
              AcceptsReturn="True" />
