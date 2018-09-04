@@ -23,11 +23,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         {
             get { return Code + Name; }
         }
-
-        protected override void NotifyAll()
-        {
-            OnPropertyChanged(nameof(Code));
-            OnPropertyChanged(nameof(Name));
-        }
     }
 }

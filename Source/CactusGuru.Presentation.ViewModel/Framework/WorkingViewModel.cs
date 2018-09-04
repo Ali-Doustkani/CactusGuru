@@ -17,7 +17,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             set
             {
                 _innerObject = value;
-                NotifyAll();
+                OnPropertyChanged(string.Empty);
             }
         }
 
@@ -27,7 +27,5 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         }
 
         public abstract string FilterTarget { get; }
-
-        protected abstract void NotifyAll();
     }
 }

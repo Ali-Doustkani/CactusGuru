@@ -77,21 +77,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             get { return Inner<CollectionItemDto>().Supplier; }
             set { Inner<CollectionItemDto>().Supplier = value; }
         }
-
-        protected override void NotifyAll()
-        {
-            OnPropertyChanged(nameof(Code));
-            OnPropertyChanged(nameof(Count));
-            OnPropertyChanged(nameof(FieldNumber));
-            OnPropertyChanged(nameof(SupplierCode));
-            OnPropertyChanged(nameof(Locality));
-            OnPropertyChanged(nameof(IncomeDate));
-            OnPropertyChanged(nameof(IncomeType));
-            OnPropertyChanged(nameof(Description));
-            OnPropertyChanged(nameof(Taxon));
-            OnPropertyChanged(nameof(Collector));
-            OnPropertyChanged(nameof(Supplier));
-
-        }
     }
 }

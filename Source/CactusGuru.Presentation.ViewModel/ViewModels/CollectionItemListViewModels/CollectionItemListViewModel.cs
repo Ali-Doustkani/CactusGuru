@@ -129,7 +129,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         {
             var itemToEdit = GetCollectionItem(id);
             itemToEdit.InnerObject = _viewProvider.GetCollectionItem(id);
-            itemToEdit.Notify();
         }
 
         private void ItemDeleted(Guid id)

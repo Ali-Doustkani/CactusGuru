@@ -22,16 +22,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             get { return Inner<CollectionItemDto>().Name; }
             set { Inner<CollectionItemDto>().Name = value; }
         }
-
-        protected override void NotifyAll()
-        {
-            OnPropertyChanged(nameof(Code));
-            OnPropertyChanged(nameof(Name));
-        }
-
-        public void Notify()
-        {
-            NotifyAll();
-        }
     }
 }

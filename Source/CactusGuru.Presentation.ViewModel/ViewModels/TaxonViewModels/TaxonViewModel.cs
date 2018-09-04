@@ -48,15 +48,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
         }
 
         public override string FilterTarget => Genus.Name + Species + Cultivar + Forma + SubSpecies + Variety;
-
-        protected override void NotifyAll()
-        {
-            OnPropertyChanged(nameof(FormattedName));
-            OnPropertyChanged(nameof(Genus));
-            OnPropertyChanged(nameof(Species));
-            OnPropertyChanged(nameof(Forma));
-            OnPropertyChanged(nameof(SubSpecies));
-            OnPropertyChanged(nameof(Variety));
-        }
     }
 }

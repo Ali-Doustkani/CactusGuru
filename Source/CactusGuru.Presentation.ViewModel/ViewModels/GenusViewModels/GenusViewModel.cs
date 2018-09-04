@@ -16,10 +16,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
         }
 
         public override string FilterTarget => FormattedName;
-
-        protected override void NotifyAll()
-        {
-            OnPropertyChanged(nameof(FormattedName));
-        }
     }
 }
