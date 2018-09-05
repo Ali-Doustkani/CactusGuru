@@ -49,12 +49,12 @@ namespace CactusGuru.Entry.Presentation
 
         public void GotoCollectionItemInserter()
         {
-            OpenUserControl(ObjectFactory.Instance.GetInstance<CollectionItemEditor>("forInsert"), 450, 420);
+            OpenUserControl(ObjectFactory.Instance.GetInstance<CollectionItemEditor>(), 450, 420);
         }
 
         public void GotoCollectionItemUpdater(Guid collectionItem)
         {
-            var editor = ObjectFactory.Instance.GetInstance<CollectionItemEditor>("forUpdate");
+            var editor = ObjectFactory.Instance.GetInstance<CollectionItemEditor>();
             ((CollectionItemEditorViewModel)editor.DataContext).PrepareForEdit(collectionItem);
             OpenUserControl(editor, 450, 420);
         }

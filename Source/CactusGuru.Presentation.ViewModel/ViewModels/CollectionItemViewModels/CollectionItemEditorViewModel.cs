@@ -7,13 +7,12 @@ using CactusGuru.Presentation.ViewModel.NavigationService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 {
-    public class CollectionItemEditorViewModel : EditorViewModel<CollectionItemViewModel>, IDataErrorInfo
+    public class CollectionItemEditorViewModel : EditorViewModel<CollectionItemViewModel>
     {
         public CollectionItemEditorViewModel(
             ICollectionItemViewProvider dataProvider,
@@ -25,7 +24,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             _dataProvider = dataProvider;
             _navigationService = navigationService;
             _eventAggregator = eventAggregator;
-
             GotoTaxaCommand = new RelayCommand(GotoTaxa);
             GotoCollectorsCommand = new RelayCommand(GotoCollectors);
             GotoSuppliersCommand = new RelayCommand(GotoSuppliers);
@@ -39,55 +37,21 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         public ICommand GotoTaxaCommand { get; private set; }
         public ICommand GotoCollectorsCommand { get; private set; }
         public ICommand GotoSuppliersCommand { get; private set; }
-
+        public ObservableCollection<TaxonDto> Taxa { get; private set; }
+        public ObservableCollection<SupplierDto> Suppliers { get; private set; }
+        public ObservableCollection<CollectorDto> Collectors { get; set; }
+        public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; private set; }
         public override string Title => "اقلام";
 
-        #region LOADING 
-
-        protected override void PrepareForLoad()
+        public string Code
         {
-            LoadCollectors();
-            LoadTaxa();
-            LoadSuppliers();
-            LoadIncomeTypes();
-
-            if (_itemToEdit == null)
-                PrepareForAdd();
-            else
+            get { return WorkingItem?.Code; }
+            set
             {
-                WorkingItem = _itemToEdit;
-                PrepareForEdit();
+                WorkingItem.Code = value;
+                Rules.Check(nameof(Code), value);
             }
         }
-
-        private void LoadSuppliers()
-        {
-            Suppliers = new ObservableCollection<SupplierDto>(_dataProvider.GetSuppliers());
-        }
-
-        private void LoadTaxa()
-        {
-            Taxa = new ObservableCollection<TaxonDto>(_dataProvider.GetTaxa());
-        }
-
-        private void LoadCollectors()
-        {
-            Collectors = new ObservableCollection<CollectorDto>(_dataProvider.GetCollectors());
-        }
-
-        private void LoadIncomeTypes()
-        {
-            var list = new List<IncomeTypeRowItem>();
-            foreach (var dto in _dataProvider.GetIncomeTypes())
-                list.Add(new IncomeTypeRowItem(dto.Value));
-            IncomeTypes = new ObservableCollection<IncomeTypeRowItem>(list);
-        }
-
-        #endregion
-
-        #region VIEW MODEL
-
-        public ObservableCollection<TaxonDto> Taxa { get; set; }
 
         public TaxonDto Taxon
         {
@@ -100,8 +64,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             set { WorkingItem.Taxon = value?.Id; }
         }
 
-        public ObservableCollection<SupplierDto> Suppliers { get; set; }
-
         public SupplierDto Supplier
         {
             get
@@ -110,10 +72,22 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
                     return null;
                 return Suppliers.Single(x => x.Id.Equals(WorkingItem.Supplier.Value));
             }
-            set { WorkingItem.Supplier = value?.Id; }
+            set
+            {
+                WorkingItem.Supplier = value?.Id;
+                Rules.Check(nameof(Supplier), value);
+            }
         }
 
-        public ObservableCollection<CollectorDto> Collectors { get; set; }
+        public string SupplierCode
+        {
+            get { return WorkingItem?.SupplierCode; }
+            set
+            {
+                WorkingItem.SupplierCode = value;
+                Rules.Check(nameof(SupplierCode), value);
+            }
+        }
 
         public CollectorDto Collector
         {
@@ -128,7 +102,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 
         public string IncomeDate { get; set; }
 
-        public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; set; }
 
         public IncomeTypeRowItem IncomeType
         {
@@ -147,65 +120,31 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             }
         }
 
-        #endregion
-
-        #region NAVIGATIONS
-
-        private void GotoTaxa()
+        public void PrepareForEdit(Guid id)
         {
-            _navigationService.GotoTaxa();
-            LoadTaxa();
-            OnPropertyChanged("Taxa");
+            _itemToEdit = _viewModelFactory.Create(_dataProvider.GetCollectionItem(id));
+            if (_itemToEdit.IncomeDate.HasValue)
+                IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
         }
 
-        private void GotoCollectors()
+        protected override void PrepareForLoad()
         {
-            _navigationService.GotoCollectors();
+            Rules.MakeSure(nameof(Code)).IsNotEmpty().ValidatesForItself(CodeSimilarity);
+            Rules.MakeSure(nameof(Supplier)).ValidatesFor(nameof(SupplierCode), SupplierExistance);
+            Rules.MakeSure(nameof(SupplierCode)).ValidatesForItself(SupplierExistance);
+
             LoadCollectors();
-            OnPropertyChanged(nameof(Collectors));
-        }
-
-        private void GotoSuppliers()
-        {
-            _navigationService.GotoSuppliers();
+            LoadTaxa();
             LoadSuppliers();
-            OnPropertyChanged("Suppliers");
-        }
+            LoadIncomeTypes();
 
-        #endregion
-
-        #region IDataErrorInfo
-
-        public string Error
-        {
-            get { return null; }
-        }
-
-        public string this[string columnName]
-        {
-            get
+            if (_itemToEdit == null)
+                PrepareForAdd();
+            else
             {
-                if (columnName != nameof(IncomeDate)) return null;
-                if (!DateIsValid())
-                    return "تاریخ معتبر نیست.";
-                return null;
+                WorkingItem = _itemToEdit;
+                PrepareForEdit();
             }
-        } 
-
-        #endregion
-
-        private bool DateIsValid()
-        {
-            if (string.IsNullOrEmpty(IncomeDate)) return true;
-            return DateUtil.IsValid(IncomeDate);
-        }
-
-        private void FillDate()
-        {
-            if (DateUtil.IsValid(IncomeDate))
-                WorkingItem.IncomeDate = DateUtil.FromPersianDate(IncomeDate);
-            else if (string.IsNullOrEmpty(IncomeDate))
-                WorkingItem.IncomeDate = null;
         }
 
         protected override void AddImp()
@@ -243,11 +182,78 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             return base.CanSaveNew() && DateIsValid();
         }
 
-        public void PrepareForEdit(Guid id)
+        private void LoadSuppliers()
         {
-            _itemToEdit = _viewModelFactory.Create(_dataProvider.GetCollectionItem(id));
-            if (_itemToEdit.IncomeDate.HasValue)
-                IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
+            Suppliers = new ObservableCollection<SupplierDto>(_dataProvider.GetSuppliers());
+        }
+
+        private void LoadTaxa()
+        {
+            Taxa = new ObservableCollection<TaxonDto>(_dataProvider.GetTaxa());
+        }
+
+        private void LoadCollectors()
+        {
+            Collectors = new ObservableCollection<CollectorDto>(_dataProvider.GetCollectors());
+        }
+
+        private void LoadIncomeTypes()
+        {
+            var list = new List<IncomeTypeRowItem>();
+            foreach (var dto in _dataProvider.GetIncomeTypes())
+                list.Add(new IncomeTypeRowItem(dto.Value));
+            IncomeTypes = new ObservableCollection<IncomeTypeRowItem>(list);
+        }
+
+        private void GotoTaxa()
+        {
+            _navigationService.GotoTaxa();
+            LoadTaxa();
+            OnPropertyChanged("Taxa");
+        }
+
+        private void GotoCollectors()
+        {
+            _navigationService.GotoCollectors();
+            LoadCollectors();
+            OnPropertyChanged(nameof(Collectors));
+        }
+
+        private void GotoSuppliers()
+        {
+            _navigationService.GotoSuppliers();
+            LoadSuppliers();
+            OnPropertyChanged("Suppliers");
+        }
+
+        private bool DateIsValid()
+        {
+            if (string.IsNullOrEmpty(IncomeDate)) return true;
+            return DateUtil.IsValid(IncomeDate);
+        }
+
+        private void FillDate()
+        {
+            if (DateUtil.IsValid(IncomeDate))
+                WorkingItem.IncomeDate = DateUtil.FromPersianDate(IncomeDate);
+            else if (string.IsNullOrEmpty(IncomeDate))
+                WorkingItem.IncomeDate = null;
+        }
+
+        private string CodeSimilarity()
+        {
+            if (_dataProvider.HasSimilarCode(WorkingItem.Code))
+                return "کد تکراری است";
+            return null;
+        }
+
+        private string SupplierExistance()
+        {
+            if (WorkingItem.Supplier.HasValue && string.IsNullOrEmpty(WorkingItem.SupplierCode))
+                return "کد تامین کننده نیز باید مشخص شود";
+            else if (!WorkingItem.Supplier.HasValue && !string.IsNullOrEmpty(WorkingItem.SupplierCode))
+                return "تامین کننده نیز باید مشخص شود";
+            return null;
         }
     }
 }

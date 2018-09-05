@@ -23,14 +23,12 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             AssemblerBase<CollectionItem, CollectionItemDto> collectionItemAssembler)
             : base(uow, assembler, factory, publisher, terminator)
         {
-            _uow = uow;
             _taxonAssembler = taxonAssembler;
             _collectorAssembler = collectorAssembler;
             _supplierAssembler = supplierAssembler;
             _collectionItemAssembler = collectionItemAssembler;
         }
 
-        private readonly IUnitOfWork _uow;
         private readonly AssemblerBase<Taxon, TaxonDto> _taxonAssembler;
         private readonly AssemblerBase<Collector, CollectorDto> _collectorAssembler;
         private readonly AssemblerBase<Supplier, SupplierDto> _supplierAssembler;
@@ -38,25 +36,25 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public CollectionItemDto GetCollectionItem(Guid id)
         {
-            var item = _uow.CreateRepository<ICollectionItemRepository>().Get(id);
+            var item = unitOfWork.CreateRepository<ICollectionItemRepository>().Get(id);
             return _collectionItemAssembler.ToDataTransferEntity(item);
         }
 
         public IEnumerable<TaxonDto> GetTaxa()
         {
-            var taxa = _uow.CreateRepository<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
+            var taxa = unitOfWork.CreateRepository<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
             return _taxonAssembler.ToDataTransferEntities(taxa);
         }
 
         public IEnumerable<CollectorDto> GetCollectors()
         {
-            var collectors = _uow.CreateRepository<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
+            var collectors = unitOfWork.CreateRepository<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
             return _collectorAssembler.ToDataTransferEntities(collectors);
         }
 
         public IEnumerable<SupplierDto> GetSuppliers()
         {
-            var suppliers = _uow.CreateRepository<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
+            var suppliers = unitOfWork.CreateRepository<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
             return _supplierAssembler.ToDataTransferEntities(suppliers);
         }
 
@@ -66,6 +64,11 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             ret.Add(new IncomeTypeDto { Value = (int)IncomeType.Plant });
             ret.Add(new IncomeTypeDto { Value = (int)IncomeType.Seed });
             return ret;
+        }
+
+        public bool HasSimilarCode(string code)
+        {
+            return unitOfWork.CreateRepository<ICollectionItemRepository>().ExistsByCode(code);
         }
     }
 }

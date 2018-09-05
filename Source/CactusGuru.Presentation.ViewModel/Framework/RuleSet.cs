@@ -31,16 +31,28 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 return this;
             }
 
+            public IRuleSet ValidatesForItself(Func<string> action)
+            {
+                _rules.Add(RuleType.Custom, new Tuple<Func<string>, string>(action, PropertyName));
+                return this;
+            }
+
             public IRuleSet ValidatesForWhole(Func<string> action)
             {
                 _rules.Add(RuleType.Custom, new Tuple<Func<string>, string>(action, string.Empty));
                 return this;
             }
 
+            public IRuleSet ValidatesFor(string theOtherProperty, Func<string> action)
+            {
+                _rules.Add(RuleType.Custom, new Tuple<Func<string>, string>(action, theOtherProperty));
+                return this;
+            }
+
             public void Run(Dictionary<string, string> errors, object value, Action<string> eventRaiser)
             {
                 string result = null;
-                var customRan = false;
+                string eventTarget = null;
                 foreach (var rule in _rules)
                 {
                     if (rule.Key == RuleType.Empty)
@@ -52,11 +64,11 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                     {
                         result = rule.Value.Item1();
                         errors[rule.Value.Item2] = result;
-                        customRan = true;
+                        eventTarget = rule.Value.Item2;
                     }
                 }
-                if (customRan)
-                    eventRaiser(string.Empty);
+                if (eventTarget != null)
+                    eventRaiser(eventTarget);
             }
 
             public bool HasAnyCustom()

@@ -106,18 +106,6 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         }
 
         [TestMethod]
-        public void Check_PropertyA_And_Error_PropertyB()
-        {
-            rules.MakeSure("prop1").ValidatesForWhole(() => "Err" );
-
-            rules.Check("prop1", null);
-
-            Assert.AreEqual(0, rules.GetErrors("prop1").Count());
-            Assert.AreEqual(1, rules.GetErrors("").Count());
-            Assert.AreEqual("Err", rules.GetErrors("").First());
-        }
-
-        [TestMethod]
         public void CheckNumberOfRaisedEvents()
         {
             var i = 0;
@@ -133,6 +121,43 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
             rules.Check("p3", null);
 
             Assert.AreEqual(3, i);
+        }
+
+        [TestMethod]
+        public void ValidateSomethingForWhole()
+        {
+            rules.MakeSure("prop1").ValidatesForWhole(() => "Err");
+
+            rules.Check("prop1", null);
+
+            Assert.AreEqual(0, rules.GetErrors("prop1").Count());
+            Assert.AreEqual(1, rules.GetErrors("").Count());
+            Assert.AreEqual("Err", rules.GetErrors("").First());
+        }
+
+        [TestMethod]
+        public void ValidateSomethingForItself()
+        {
+            rules.MakeSure("prop1").ValidatesForItself(() => "ERR");
+
+            rules.Check("prop1", "val");
+
+            Assert.AreEqual(1, rules.GetErrors("prop1").Count());
+            Assert.AreEqual("ERR", rules.GetErrors("prop1").First());
+        }
+
+        [TestMethod]
+        public void ValidatesForOthers_RaiseTheRightEvent()
+        {
+            var prop = string.Empty;
+            rules = new Rules(x => prop = x);
+            rules.MakeSure("p1").ValidatesFor("p2", () => "ERR");
+
+            rules.Check("p1", "val");
+
+            Assert.AreEqual(1, rules.GetErrors("p2").Count());
+            Assert.AreEqual("ERR", rules.GetErrors("p2").First());
+            Assert.AreEqual("p2", prop);
         }
     }
 }

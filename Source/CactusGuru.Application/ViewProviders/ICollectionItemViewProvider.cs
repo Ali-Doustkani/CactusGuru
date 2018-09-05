@@ -11,5 +11,6 @@ namespace CactusGuru.Application.ViewProviders
         IEnumerable<CollectorDto> GetCollectors();
         IEnumerable<SupplierDto> GetSuppliers();
         IEnumerable<IncomeTypeDto> GetIncomeTypes();
+        bool HasSimilarCode(string code);
     }
 }
