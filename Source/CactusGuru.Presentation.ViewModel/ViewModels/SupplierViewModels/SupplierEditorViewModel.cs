@@ -35,16 +35,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
             }
         }
 
-        public string Website
-        {
-            get { return WorkingItem?.Website; }
-            set
-            {
-                WorkingItem.Website = value;
-                Rules.Check(nameof(Website), value);
-            }
-        }
-
         protected override void PrepareForLoad()
         {
             Rules.MakeSure(nameof(FullName)).IsNotEmpty().ValidatesForWhole(Similarity);
