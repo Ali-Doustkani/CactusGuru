@@ -17,6 +17,11 @@ namespace CactusGuru.Persistance.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblTaxon()
         {
+            this.Species = "\"\"";
+            this.Variety = "\"\"";
+            this.SubSpecies = "\"\"";
+            this.Forma = "\"\"";
+            this.Cultivar = "\"\"";
             this.tblCollectionItem = new HashSet<tblCollectionItem>();
             this.tblSeedListItem = new HashSet<tblSeedListItem>();
         }
