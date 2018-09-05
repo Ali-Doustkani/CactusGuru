@@ -367,10 +367,10 @@
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="tblGenusId" Type="Guid" Nullable="false" />
           <Property Name="Species" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="Variety" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="SubSpecies" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Forma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Cultivar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Variety" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SubSpecies" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Forma" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Cultivar" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="tblCollectionItem" Relationship="Self.FK_tblCollectionItem_tblTaxon" FromRole="tblTaxon" ToRole="tblCollectionItem" />
           <NavigationProperty Name="tblGenus" Relationship="Self.FK_tblTaxon_tblGenus" FromRole="tblTaxon" ToRole="tblGenus" />
           <NavigationProperty Name="tblSeedListItem" Relationship="Self.FK_tblSeedListItem_tblTaxon" FromRole="tblTaxon" ToRole="tblSeedListItem" />
