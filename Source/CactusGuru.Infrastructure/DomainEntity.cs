@@ -22,5 +22,13 @@ namespace CactusGuru.Infrastructure
         {
             return Id.GetHashCode();
         }
+
+        protected void SetString(ref string field, string value)
+        {
+            if (value == null)
+                field = string.Empty;
+            else
+                field = value;
+        }
     }
 }

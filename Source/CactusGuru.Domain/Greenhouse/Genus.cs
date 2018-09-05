@@ -46,6 +46,14 @@ namespace CactusGuru.Domain.Greenhouse
             return title.First().ToString().ToUpper() + title.Substring(1).ToLower();
         }
 
+        public static void SetGenus(ref Genus field , Genus value)
+        {
+            if (value == null)
+                field = Empty;
+            else
+                field = value;
+        }
+
         #region NULL OBJECT
 
         private static NullGenera _empty;

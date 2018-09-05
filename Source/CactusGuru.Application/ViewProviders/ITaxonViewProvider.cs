@@ -6,5 +6,6 @@ namespace CactusGuru.Application.ViewProviders
     public interface ITaxonViewProvider : IDataEntryViewProvider
     {
         IEnumerable<GenusDto> GetGenera();
+        bool HasSimilar(TaxonDto taxon);
     }
 }

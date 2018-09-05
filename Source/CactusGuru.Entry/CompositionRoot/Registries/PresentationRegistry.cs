@@ -33,7 +33,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
                 .Ctor<string>().Is("کلکتور ها")
                 .Ctor<IWorkingFactory<CollectorViewModel>>().Is<CollectorViewModelFactory>()
                 .Ctor<IDataEntryViewProvider>().IsNamedInstance("collector");
-            For<TaxonEditorViewModel>().Use<TaxonEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("taxon");
+            For<TaxonEditorViewModel>().Use<TaxonEditorViewModel>().Ctor<IDataEntryViewProvider>().IsNamedInstance("taxon").AlwaysUnique();
             For<CollectionItemEditor>().Use(ctx => CreateCollectionItemInserter(ctx)).Named("forInsert");
             For<CollectionItemEditor>().Use(ctx => CreateCollectionItemUpdater(ctx)).Named("forUpdate");
             For<MonthNameDateFormatter>().Singleton().Use<MonthNameDateFormatter>();

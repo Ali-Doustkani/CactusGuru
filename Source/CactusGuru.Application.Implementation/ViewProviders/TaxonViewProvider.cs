@@ -37,5 +37,21 @@ namespace CactusGuru.Application.Implementation.ViewProviders
                 _genusAssembler.ToDataTransferEntities(
                     _uow.CreateRepository<IGenusRepository>().GetAll().OrderBy(x => x.Title));
         }
+
+        public bool HasSimilar(TaxonDto taxon)
+        {
+            var entity = new Taxon
+            {
+                Id = taxon.Id,
+                Cultivar = taxon.Cultivar,
+                Forma = taxon.Forma,
+                Genus = new Genus { Id = taxon.Genus.Id },
+                Species = taxon.Species,
+                SubSpecies = taxon.SubSpecies,
+                Variety = taxon.Variety
+            };
+
+            return _uow.CreateRepository<ITaxonRepository>().HasSimilar(entity);
+        }
     }
 }

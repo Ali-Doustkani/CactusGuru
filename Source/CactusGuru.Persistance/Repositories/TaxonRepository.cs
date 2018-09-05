@@ -66,7 +66,9 @@ namespace CactusGuru.Persistance.Repositories
             x.Species == taxon.Species &&
             x.SubSpecies == taxon.SubSpecies &&
             x.tblGenusId == taxon.Genus.Id &&
-            x.Variety == taxon.Variety);
+            x.Variety == taxon.Variety &&
+            x.Cultivar == taxon.Cultivar &&
+            x.Forma == taxon.Forma);
         }
 
         private IQueryable<tblTaxon> DefaultQuery()

@@ -6,10 +6,10 @@ namespace CactusGuru.Domain.Greenhouse
 {
     public class Taxon : DomainEntity, IEquatable<Taxon>
     {
-        public static Taxon UnknownSpeciesOf(Genus Genera)
+        public static Taxon UnknownSpeciesOf(Genus genus)
         {
             var ret = new Taxon();
-            ret.Genus = Genera;
+            ret.Genus = genus;
             ret.Species = "spec.";
             return ret;
         }
@@ -17,37 +17,54 @@ namespace CactusGuru.Domain.Greenhouse
         public Taxon()
         {
             Genus = Genus.Empty;
+            _species = string.Empty;
+            _variety = string.Empty;
+            _subSpecies = string.Empty;
+            _forma = string.Empty;
+            _cultivar = string.Empty;
         }
 
-        public virtual string Species { get; set; }
+        private string _species;
+        public virtual string Species
+        {
+            get { return _species; }
+            set { SetString(ref _species, value); }
+        }
 
-        public virtual string Variety { get; set; }
+        private string _variety;
+        public virtual string Variety
+        {
+            get { return _variety; }
+            set { SetString(ref _variety, value); }
+        }
 
-        public virtual string SubSpecies { get; set; }
+        private string _subSpecies;
+        public virtual string SubSpecies
+        {
+            get { return _subSpecies; }
+            set { SetString(ref _subSpecies, value); }
+        }
 
-        public virtual string Forma { get; set; }
+        private string _forma;
+        public virtual string Forma
+        {
+            get { return _forma; }
+            set { SetString(ref _forma, value); }
+        }
 
-        public virtual string Cultivar { get; set; }
+        private string _cultivar;
+        public virtual string Cultivar
+        {
+            get { return _cultivar; }
 
-        public Guid GeneraId { get; set; }
+            set { SetString(ref _cultivar, value); }
+        }
 
         private Genus _genus;
         public virtual Genus Genus
         {
             get { return _genus; }
-            set
-            {
-                if (value == null)
-                {
-                    _genus = Genus.Empty;
-                    GeneraId = Guid.Empty;
-                }
-                else
-                {
-                    _genus = value;
-                    GeneraId = value.Id;
-                }
-            }
+            set { Genus.SetGenus(ref _genus, value); }
         }
 
         public override bool Equals(object obj)
@@ -138,6 +155,7 @@ namespace CactusGuru.Domain.Greenhouse
         #region NULL OBJECT
 
         private static NullTaxon _empty;
+
         public static Taxon Empty
         {
             get { return _empty ?? (_empty = new NullTaxon()); }

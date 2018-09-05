@@ -18,7 +18,7 @@ namespace CactusGuru.Persistance.Translators
         public override void FillDataEntity(tblTaxon dataEntity, Taxon domainEntity)
         {
             dataEntity.Cultivar = domainEntity.Cultivar;
-            dataEntity.tblGenusId = domainEntity.GeneraId;
+            dataEntity.tblGenusId = domainEntity.Genus.Id;
             dataEntity.Id = domainEntity.Id;
             dataEntity.Species = domainEntity.Species;
             dataEntity.SubSpecies = domainEntity.SubSpecies;

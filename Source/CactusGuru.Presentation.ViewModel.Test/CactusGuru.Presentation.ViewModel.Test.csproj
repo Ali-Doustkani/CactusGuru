@@ -55,6 +55,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="Framework\RulesTest.cs" />
     <Compile Include="Framework\TestDto.cs" />
     <Compile Include="Framework\ViewModelTestBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

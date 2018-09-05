@@ -32,10 +32,10 @@
                     Modifiers="Control"
                     Command="{Binding FocusOnSearchCommand}" />
     </dx:DXWindow.InputBindings>
-    <Grid Margin="10">
+    <Grid Name="grid" Margin="10">
         <Grid.RowDefinitions>
-            <RowDefinition Height="30" />
-            <RowDefinition />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <dxb:BarContainerControl>
             <dxb:ToolBarControl GlyphSize="Small"
@@ -44,7 +44,7 @@
                                 ShowDragWidget="False">
                 <dxb:BarButtonItem Content="ثبت"
                                    Glyph="../../Images/Icon/EditorViewBasics/add_24.png"
-                                   Command="{Binding PrepareForAddCommand}" />
+                                   Command="{Binding PrepareForAddCommand}"/>
                 <dxb:BarButtonItem Content="ویرایش"
                                    Glyph="../../Images/Icon/EditorViewBasics/edit_24.png"
                                    Command="{Binding PrepareForEditCommand}" />
@@ -54,19 +54,16 @@
                 <dxb:BarItemSeparator />
                 <dxb:BarButtonItem Name="btnSaveNew"
                                    Glyph="../../Images/Icon/EditorViewBasics/saveNew_24.png"
-                                   Content="ذخیره و جدید"
+                                   
                                    Command="{Binding SaveNewCommand}" />
                 <dxb:BarButtonItem Name="btnSave"
                                    Glyph="../../Images/Icon/EditorViewBasics/save_24.png"
-                                   Content="ذخیره"
+                                  
                                    Command="{Binding SaveCommand}" />
                 <dxb:BarButtonItem Glyph="../../Images/Icon/EditorViewBasics/cancel_24.png"
-                                   Content="لغو"
+                                  
                                    Command="{Binding CancelCommand}" />
             </dxb:ToolBarControl>
         </dxb:BarContainerControl>
-        <ContentControl x:FieldModifier="private"
-                        Name="ContentControl"
-                        Grid.Row="1" />
     </Grid>
 </dx:DXWindow>

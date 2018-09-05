@@ -105,6 +105,9 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="NavigationService\DialogService.cs" />
+    <Compile Include="UserControls\ErrorBox.xaml.cs">
+      <DependentUpon>ErrorBox.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
@@ -188,6 +191,10 @@
     <Resource Include="Fonts\Bebas.TTF" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="UserControls\ErrorBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\PopupMainMenu.Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -313,7 +320,12 @@
   <ItemGroup>
     <Resource Include="Images\Icon\home.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Images\Icon\Error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\Icon\cross.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

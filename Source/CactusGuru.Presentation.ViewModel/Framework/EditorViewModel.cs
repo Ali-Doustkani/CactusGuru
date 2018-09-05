@@ -20,7 +20,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             PrepareForEditCommand = new RelayCommand(PrepareForEdit, CanEditOrDelete);
             DeleteCommand = new RelayCommand(AskAndDelete, CanEditOrDelete);
             SaveCommand = new RelayCommand(Save, CanSave);
-            SaveNewCommand = new RelayCommand(SaveNew, () => State.IsAdd);
+            SaveNewCommand = new RelayCommand(SaveNew, CanSaveNew);
             CancelCommand = new RelayCommand(Cancel, () => State.IsNotView);
         }
 
@@ -122,7 +122,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 PrepareForAdd();
         }
 
-        private void Cancel()
+        protected virtual void Cancel()
         {
             if (!_dialogService.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
             if (State.IsEdit)
