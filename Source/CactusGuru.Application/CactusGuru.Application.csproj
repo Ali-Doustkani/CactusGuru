@@ -63,6 +63,7 @@
     <Compile Include="ViewProviders\ImageGallery\ImageGalleryDto.cs" />
     <Compile Include="ViewProviders\ImageList\ImageDto.cs" />
     <Compile Include="ViewProviders\ImageList\IImageListViewProvider.cs" />
+    <Compile Include="ViewProviders\ISupplierViewProvider.cs" />
     <Compile Include="ViewProviders\LabelPrinting\CollectionItemDto.cs" />
     <Compile Include="ViewProviders\LabelPrinting\ILabelPrintViewProvider.cs" />
     <Compile Include="ViewProviders\ImageGallery\IImageGalleryViewProvider.cs" />

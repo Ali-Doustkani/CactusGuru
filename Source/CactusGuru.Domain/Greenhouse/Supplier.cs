@@ -4,9 +4,33 @@ namespace CactusGuru.Domain.Greenhouse
 {
     public class Supplier : DomainEntity
     {
-        public string FullName { get; set; }
-        public string WebSite { get; set; }
-        public string Acronym { get; set; }
+        public Supplier()
+        {
+            _fullName = string.Empty;
+            _webSite = string.Empty;
+            _acronym = string.Empty;
+        }
+
+        private string _fullName;
+        public string FullName
+        {
+            get { return _fullName; }
+            set { SetString(ref _fullName, value); }
+        }
+
+        private string _webSite;
+        public string WebSite
+        {
+            get { return _webSite; }
+            set { SetString(ref _webSite, value); }
+        }
+
+        private string _acronym;
+        public string Acronym
+        {
+            get { return _acronym; }
+            set { SetString(ref _acronym, value); }
+        }
 
         public string Format()
         {

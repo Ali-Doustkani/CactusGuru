@@ -66,9 +66,9 @@ namespace CactusGuru.Presentation.View.Views
             get { return Resolver.Resolve<LabelPrintEditorViewModel>(); }
         }
 
-        public SimpleEditorViewModel<SupplierViewModel> SupplierEditorViewModel
+        public SupplierEditorViewModel SupplierEditorViewModel
         {
-            get { return Resolver.Resolve<SimpleEditorViewModel<SupplierViewModel>>(); }
+            get { return Resolver.Resolve<SupplierEditorViewModel>(); }
         }
 
         public MainViewModel MainViewModel

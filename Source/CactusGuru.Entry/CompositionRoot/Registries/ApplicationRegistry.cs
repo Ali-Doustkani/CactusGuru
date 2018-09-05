@@ -9,7 +9,6 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         public ApplicationRegistry()
         {
             For<IDataEntryViewProvider>().Use<CollectorViewProvider>().Named("collector");
-            For<IDataEntryViewProvider>().Use<SupplierViewProvider>().Named("supplier");
         }
     }
 }

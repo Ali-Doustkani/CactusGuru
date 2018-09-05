@@ -19,10 +19,6 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         {
             For<INavigationService>().Use<NavigationService>().Singleton();
             For<IDialogService>().Use<DialogService>().Singleton();
-            For<SimpleEditorViewModel<SupplierViewModel>>().Use<SimpleEditorViewModel<SupplierViewModel>>()
-                .Ctor<string>().Is("تامین کنندگان")
-                .Ctor<IWorkingFactory<SupplierViewModel>>().Is<SupplierViewModelFactory>()
-                .Ctor<IDataEntryViewProvider>().IsNamedInstance("supplier");
             For<SimpleEditorViewModel<CollectorViewModel>>().Use<SimpleEditorViewModel<CollectorViewModel>>()
                 .Ctor<string>().Is("کلکتور ها")
                 .Ctor<IWorkingFactory<CollectorViewModel>>().Is<CollectorViewModelFactory>()

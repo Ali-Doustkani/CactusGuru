@@ -99,6 +99,7 @@
     <Compile Include="ViewModels\MainViewModels\MainViewModel.cs" />
     <Compile Include="Framework\EditorViewModel.cs" />
     <Compile Include="Framework\IWorkingFactory.cs" />
+    <Compile Include="ViewModels\SupplierViewModels\SupplierEditorViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModels\SupplierViewModel.cs" />
     <Compile Include="ViewModels\SupplierViewModels\SupplierViewModelFactory.cs" />
     <Compile Include="ViewModels\TaxonViewModels\TaxonEditorViewModel.cs" />
