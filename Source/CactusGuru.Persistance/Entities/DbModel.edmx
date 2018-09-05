@@ -306,8 +306,8 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" />
           <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="FieldAcronym" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
-          <Property Name="WebSite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="FieldAcronym" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" DefaultValue="&quot;&quot;" />
+          <Property Name="WebSite" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" DefaultValue="&quot;&quot;" />
           <NavigationProperty Name="tblCollectionItem" Relationship="Self.FK_tblCollectionItem_tblCollector" FromRole="tblCollector" ToRole="tblCollectionItem" />
         </EntityType>
         <EntityType Name="tblGenus">

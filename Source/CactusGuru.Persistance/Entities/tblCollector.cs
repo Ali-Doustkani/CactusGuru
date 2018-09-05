@@ -17,6 +17,8 @@ namespace CactusGuru.Persistance.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCollector()
         {
+            this.FieldAcronym = "\"\"";
+            this.WebSite = "\"\"";
             this.tblCollectionItem = new HashSet<tblCollectionItem>();
         }
     
