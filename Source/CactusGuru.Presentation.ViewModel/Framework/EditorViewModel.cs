@@ -2,11 +2,14 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
 using CactusGuru.Presentation.ViewModel.NavigationService;
+using System;
+using System.Collections;
+using System.ComponentModel;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.Framework
 {
-    public abstract class EditorViewModel<TRowItem> : BaseViewModel
+    public abstract class EditorViewModel<TRowItem> : BaseViewModel, INotifyDataErrorInfo
         where TRowItem : WorkingViewModel
     {
         protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory, IDialogService dialogService)
@@ -15,6 +18,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             _dataProvider = dataProvider;
             _viewModelFactory = viewModelFactory;
             State = new EditorState();
+            Rules = new Rules(RaiseErrorsChanged);
             LoadCommand = new RelayCommand(PrepareForLoad);
             PrepareForAddCommand = new RelayCommand(PrepareForAdd, () => State.IsView);
             PrepareForEditCommand = new RelayCommand(PrepareForEdit, CanEditOrDelete);
@@ -29,8 +33,12 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
         protected readonly IWorkingFactory<TRowItem> _viewModelFactory;
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
         public abstract string Title { get; }
         public EditorState State { get; }
+        public Rules Rules { get; }
         public ICommand LoadCommand { get; protected set; }
         public ICommand PrepareForAddCommand { get; private set; }
         public ICommand PrepareForEditCommand { get; private set; }
@@ -48,6 +56,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 OnPropertyChanged(string.Empty);
             }
         }
+
+        public bool HasErrors => Rules.AnyError();
 
         protected virtual void PrepareForLoad() { }
 
@@ -68,6 +78,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         {
             return WorkingItem != null;
         }
+
+        public IEnumerable GetErrors(string propertyName) => Rules.GetErrors(propertyName);
 
         protected virtual void AddImp()
         {
@@ -122,12 +134,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 PrepareForAdd();
         }
 
-        protected virtual void Cancel()
+        private void Cancel()
         {
             if (!_dialogService.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
             if (State.IsEdit)
                 CancelEdit();
             State.ToView();
+            Rules.ClearErrors();
             OnPropertyChanged(string.Empty);
         }
 
@@ -153,9 +166,9 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
         }
 
-        protected virtual bool CanSaveNew() => State.IsAdd;
+        protected virtual bool CanSaveNew() => State.IsAdd && !HasErrors;
 
-        protected virtual bool CanSave() => State.IsNotView;
+        protected virtual bool CanSave() => State.IsNotView && !HasErrors;
 
         private void AskAndDelete()
         {
@@ -169,10 +182,9 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             _dataProvider.CopyTo(_originalItem, WorkingItem.InnerObject);
         }
 
-        protected string GetStringProperty(string name)
+        private void RaiseErrorsChanged(string propname)
         {
-            if (WorkingItem == null) return string.Empty;
-            return (string)WorkingItem.GetType().GetProperty(name).GetValue(WorkingItem);
+            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propname));
         }
     }
 }

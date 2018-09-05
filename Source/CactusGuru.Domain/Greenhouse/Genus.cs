@@ -6,7 +6,17 @@ namespace CactusGuru.Domain.Greenhouse
 {
     public class Genus : DomainEntity
     {
-        public string Title { get; set; }
+        public Genus()
+        {
+            _title = string.Empty;
+        }
+
+        private string _title;
+        public string Title
+        {
+            get { return _title; }
+            set { SetString(ref _title, value); }
+        }
 
         public override string ToString()
         {
@@ -46,7 +56,7 @@ namespace CactusGuru.Domain.Greenhouse
             return title.First().ToString().ToUpper() + title.Substring(1).ToLower();
         }
 
-        public static void SetGenus(ref Genus field , Genus value)
+        public static void SetGenus(ref Genus field, Genus value)
         {
             if (value == null)
                 field = Empty;
@@ -57,6 +67,7 @@ namespace CactusGuru.Domain.Greenhouse
         #region NULL OBJECT
 
         private static NullGenera _empty;
+
         public static Genus Empty
         {
             get { return _empty ?? (_empty = new NullGenera()); }

@@ -26,9 +26,9 @@ namespace CactusGuru.Presentation.View.Views
             get { return Resolver.Resolve<FirstPageViewModel>(); }
         }
 
-        public SimpleEditorViewModel<GenusViewModel> GenusEditorViewModel
+        public GenusEditorViewModel GenusEditorViewModel
         {
-            get { return Resolver.Resolve<SimpleEditorViewModel<GenusViewModel>>(); }
+            get { return Resolver.Resolve<GenusEditorViewModel>(); }
         }
 
         public CollectionItemEditorViewModel CollectionItemEditorViewModel

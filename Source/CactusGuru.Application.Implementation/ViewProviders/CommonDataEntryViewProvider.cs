@@ -18,14 +18,14 @@ namespace CactusGuru.Application.Implementation.ViewProviders
          IPublisher<TDomainEntity> publisher,
          ITerminator<TDomainEntity> terminator)
         {
-            _uow = uow;
+            unitOfWork = uow;
             _assembler = assembler;
             _factory = factory;
             _publisher = publisher;
             _terminator = terminator;
         }
 
-        private readonly IUnitOfWork _uow;
+        protected readonly IUnitOfWork unitOfWork;
         private readonly AssemblerBase<TDomainEntity, TDtoEntity> _assembler;
         private readonly IFactory<TDomainEntity> _factory;
         private readonly IPublisher<TDomainEntity> _publisher;
@@ -35,7 +35,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
         {
             return
                 _assembler.ToDataTransferEntities(
-                    _uow.CreateRepository<TRepository>().GetAll());
+                    unitOfWork.CreateRepository<TRepository>().GetAll());
         }
 
         public virtual TransferObjectBase Build()
@@ -64,7 +64,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public virtual TransferObjectBase Update(TransferObjectBase dto)
         {
-            var domainEntity = _uow.CreateRepository<TRepository>().Get(((TDtoEntity)dto).Id);
+            var domainEntity = unitOfWork.CreateRepository<TRepository>().Get(((TDtoEntity)dto).Id);
             _assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
             _publisher.Update(domainEntity);
             return _assembler.ToDataTransferEntity(domainEntity);

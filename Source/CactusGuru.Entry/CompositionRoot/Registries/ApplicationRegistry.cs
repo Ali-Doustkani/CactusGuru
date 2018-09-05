@@ -8,8 +8,6 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
     {
         public ApplicationRegistry()
         {
-            For<IDataEntryViewProvider>().Use<GenusViewProvider>().Named("genus");
-            For<IDataEntryViewProvider>().Use<TaxonViewProvider>().Named("taxon");
             For<IDataEntryViewProvider>().Use<CollectorViewProvider>().Named("collector");
             For<IDataEntryViewProvider>().Use<SupplierViewProvider>().Named("supplier");
         }

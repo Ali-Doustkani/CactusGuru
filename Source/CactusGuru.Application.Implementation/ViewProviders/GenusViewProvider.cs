@@ -1,4 +1,5 @@
 ﻿using CactusGuru.Application.Common;
+using CactusGuru.Application.ViewProviders;
 using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.ObjectCreation;
@@ -8,7 +9,7 @@ using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
-    public class GenusViewProvider : CommonDataEntryViewProvider<Genus, GenusDto, IGenusRepository>
+    public class GenusViewProvider : CommonDataEntryViewProvider<Genus, GenusDto, IGenusRepository>, IGenusViewProvider
     {
         public GenusViewProvider(IUnitOfWork uow,
             AssemblerBase<Genus, GenusDto> assembler,
@@ -20,6 +21,12 @@ namespace CactusGuru.Application.Implementation.ViewProviders
         public override IEnumerable<TransferObjectBase> GetList()
         {
             return base.GetList().Cast<GenusDto>().OrderBy(x => x.Name);
+        }
+
+        public bool HasSimilar(GenusDto genusDto)
+        {
+            var genus = new Genus { Id = genusDto.Id, Title = genusDto.Name };
+            return unitOfWork.CreateRepository<IGenusRepository>().HasSimilar(genus);
         }
     }
 }

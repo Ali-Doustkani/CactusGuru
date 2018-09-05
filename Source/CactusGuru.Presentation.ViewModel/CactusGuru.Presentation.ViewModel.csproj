@@ -76,6 +76,7 @@
     <Compile Include="ViewModels\CollectionItemViewModels\CollectionItemViewModelFactory.cs" />
     <Compile Include="ViewModels\CollectorViewModels\CollectorViewModel.cs" />
     <Compile Include="ViewModels\CollectorViewModels\CollectorViewModelFactory.cs" />
+    <Compile Include="ViewModels\GenusViewModels\GenusEditorViewModel.cs" />
     <Compile Include="ViewModels\GenusViewModels\GenusViewModel.cs" />
     <Compile Include="ViewModels\GenusViewModels\GenusViewModelFactory.cs" />
     <Compile Include="ViewModels\ImageGallery\GalleryMemento.cs" />

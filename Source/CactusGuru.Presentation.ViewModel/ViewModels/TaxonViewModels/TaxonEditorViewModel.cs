@@ -3,41 +3,28 @@ using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
-using System;
-using System.Collections;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 {
-    public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>, INotifyDataErrorInfo
+    public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>
     {
-        public TaxonEditorViewModel(IDataEntryViewProvider dataProvider,
+        public TaxonEditorViewModel(ITaxonViewProvider dataProvider,
             INavigationService navigation,
             IDialogService dialogService,
             EventAggregator eventAggregator)
             : base(dataProvider, new TaxonViewModelFactory(), dialogService, "تاکسون ها")
         {
-            _dataProvider = (ITaxonViewProvider)dataProvider;
+            _dataProvider = dataProvider;
             _navigation = navigation;
             _eventAggregator = eventAggregator;
-
-            _rules = new Rules(RaiseErrorsChanged);
-            _rules.MakeSure(nameof(Genus)).IsNotEmpty().ValidatesForWhole(Similarity);
-            _rules.MakeSure(nameof(Species)).IsNotEmpty().ValidatesForWhole(Similarity);
-            _rules.MakeSure(nameof(Variety)).ValidatesForWhole(Similarity);
-            _rules.MakeSure(nameof(SubSpecies)).ValidatesForWhole(Similarity);
-            _rules.MakeSure(nameof(Forma)).ValidatesForWhole(Similarity);
-            _rules.MakeSure(nameof(Cultivar)).ValidatesForWhole(Similarity);
-
             GotoGeneraCommand = new RelayCommand(GotoGenera);
         }
 
         private readonly ITaxonViewProvider _dataProvider;
         private readonly INavigationService _navigation;
         private readonly EventAggregator _eventAggregator;
-        private readonly Rules _rules;
 
         public ICommand GotoGeneraCommand { get; private set; }
         public ObservableCollection<GenusDto> Genera { get; private set; }
@@ -64,6 +51,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 
         protected override void PrepareForLoad()
         {
+            Rules.MakeSure(nameof(Genus)).IsNotEmpty().ValidatesForWhole(Similarity);
+            Rules.MakeSure(nameof(Species)).IsNotEmpty().ValidatesForWhole(Similarity);
+            Rules.MakeSure(nameof(Variety)).ValidatesForWhole(Similarity);
+            Rules.MakeSure(nameof(SubSpecies)).ValidatesForWhole(Similarity);
+            Rules.MakeSure(nameof(Forma)).ValidatesForWhole(Similarity);
+            Rules.MakeSure(nameof(Cultivar)).ValidatesForWhole(Similarity);
             LoadGenera();
         }
 
@@ -85,7 +78,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             set
             {
                 WorkingItem.Genus = value;
-                _rules.Check(nameof(Genus), value);
+                Rules.Check(nameof(Genus), value);
             }
         }
 
@@ -95,7 +88,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             set
             {
                 WorkingItem.Species = value;
-                _rules.Check(nameof(Species), value);
+                Rules.Check(nameof(Species), value);
             }
         }
 
@@ -105,7 +98,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             set
             {
                 WorkingItem.Variety = value;
-                _rules.Check(nameof(Variety), value);
+                Rules.Check(nameof(Variety), value);
             }
         }
 
@@ -115,7 +108,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             set
             {
                 WorkingItem.SubSpecies = value;
-                _rules.Check(nameof(SubSpecies), value);
+                Rules.Check(nameof(SubSpecies), value);
             }
         }
 
@@ -125,7 +118,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             set
             {
                 WorkingItem.Forma = value;
-                _rules.Check(nameof(Forma), value);
+                Rules.Check(nameof(Forma), value);
             }
         }
 
@@ -135,7 +128,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             set
             {
                 WorkingItem.Cultivar = value;
-                _rules.Check(nameof(Cultivar), value);
+                Rules.Check(nameof(Cultivar), value);
             }
         }
 
@@ -144,33 +137,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             if (_dataProvider.HasSimilar((TaxonDto)WorkingItem.InnerObject))
                 return "تاکسونی با این مشخصات در سیستم موجود است";
             return null;
-        }
-
-        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
-        private void RaiseErrorsChanged(string propname)
-        {
-            ErrorsChanged?.Invoke(this, new DataErrorsChangedEventArgs(propname));
-        }
-
-        public bool HasErrors => _rules.AnyError();
-
-        public IEnumerable GetErrors(string propertyName) => _rules.GetErrors(propertyName);
-
-        protected override bool CanSave()
-        {
-            return base.CanSave() && !HasErrors;
-        }
-
-        protected override bool CanSaveNew()
-        {
-            return base.CanSaveNew() && !HasErrors;
-        }
-
-        protected override void Cancel()
-        {
-            base.Cancel();
-            _rules.ClearErrors();
         }
     }
 }
