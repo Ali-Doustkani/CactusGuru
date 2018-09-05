@@ -46,9 +46,9 @@ namespace CactusGuru.Presentation.View.Views
             get { return Resolver.Resolve<CollectionItemListViewModel>(); }
         }
 
-        public SimpleEditorViewModel<CollectorViewModel> CollectorEditorViewModel
+        public CollectorEditorViewModel CollectorEditorViewModel
         {
-            get { return Resolver.Resolve<SimpleEditorViewModel<CollectorViewModel>>(); }
+            get { return Resolver.Resolve<CollectorEditorViewModel>(); }
         }
 
         public ImageGallaryEditorViewModel ImageGallaryEditorViewModel

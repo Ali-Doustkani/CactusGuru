@@ -56,6 +56,7 @@
     <Compile Include="ViewProviders\CollectionItems\CollectionItemAsyncDto.cs" />
     <Compile Include="ViewProviders\CollectionItems\ICollectionItemListViewProvider.cs" />
     <Compile Include="ViewProviders\ICollectionItemViewProvider.cs" />
+    <Compile Include="ViewProviders\ICollectorViewProvider.cs" />
     <Compile Include="ViewProviders\IDataEntryViewProvider.cs" />
     <Compile Include="ViewProviders\IGenusViewProvider.cs" />
     <Compile Include="ViewProviders\ImageGallery\CollectionItemDto.cs" />

@@ -5,9 +5,33 @@ namespace CactusGuru.Domain.Greenhouse
 {
     public class Collector : DomainEntity, IEquatable<Collector>
     {
-        public string FullName { get; set; }
-        public string Acronym { get; set; }
-        public string WebSite { get; set; }
+        public Collector()
+        {
+            _fullName = string.Empty;
+            _acronym = string.Empty;
+            _webSite = string.Empty;
+        }
+
+        private string _fullName;
+        public string FullName
+        {
+            get { return _fullName; }
+            set { SetString(ref _fullName, value); }
+        }
+
+        private string _acronym;
+        public string Acronym
+        {
+            get { return _acronym; }
+            set { SetString(ref _acronym, value); }
+        }
+
+        private string _webSite;
+        public string WebSite
+        {
+            get { return _webSite; }
+            set { SetString(ref _webSite, value); }
+        }
 
         public override bool Equals(object obj)
         {

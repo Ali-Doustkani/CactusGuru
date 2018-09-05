@@ -30,7 +30,6 @@ namespace CactusGuru.Entry.CompositionRoot
                 });
                 cfg.AddRegistry<InfrastructureRegistry>();
                 cfg.AddRegistry<DomainRegistry>();
-                cfg.AddRegistry<ApplicationRegistry>();
                 cfg.AddRegistry<PresentationRegistry>();
             });
         }

@@ -93,7 +93,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CompositionRoot\Registries\ApplicationRegistry.cs" />
     <Compile Include="CompositionRoot\Registries\DomainRegistry.cs" />
     <Compile Include="CompositionRoot\Registries\InfrastructureRegistry.cs" />
   </ItemGroup>

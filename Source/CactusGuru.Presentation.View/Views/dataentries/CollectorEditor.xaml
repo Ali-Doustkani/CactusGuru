@@ -1,8 +1,9 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.CollectorEditor"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
-             xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils">
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
+      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+      Validation.ErrorTemplate="{x:Null}">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -14,9 +15,10 @@
         <Binding Source="{StaticResource vmLocator}" Path="CollectorEditorViewModel" />
     </Grid.DataContext>
     <Grid.RowDefinitions>
-        <RowDefinition/>
-        <RowDefinition/>
-        <RowDefinition/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
     <Grid.ColumnDefinitions>
@@ -26,16 +28,18 @@
     <!-- FullName -->
     <TextBlock Text="عنوان" />
     <TextBox utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
-             Text="{Binding WorkingItem.FullName, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Acronym -->
     <TextBlock Grid.Row="1" Text="اختصار" />
     <TextBox Grid.Row="1"
-             Text="{Binding WorkingItem.Acronym, UpdateSourceTrigger=PropertyChanged}" />
+             Text="{Binding Acronym, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Website -->
     <TextBlock Grid.Row="2" Text="وب سایت" />
     <TextBox Grid.Row="2"
              Style="{StaticResource LastEntryStyle}"
              Text="{Binding WorkingItem.Website, UpdateSourceTrigger=PropertyChanged}" />
+    <!-- Errors -->
+    <local:ErrorBox Grid.Row="3" Grid.ColumnSpan="3"/>
     <!-- Filter -->
-    <local:SourceBox Grid.Row="3" Grid.ColumnSpan="2" />
+    <local:SourceBox Grid.Row="4" Grid.ColumnSpan="2" />
 </Grid>

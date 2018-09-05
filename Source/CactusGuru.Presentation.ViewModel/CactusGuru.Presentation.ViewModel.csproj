@@ -74,6 +74,7 @@
     <Compile Include="ViewModels\CollectionItemViewModels\CollectionItemEditorViewModel.cs" />
     <Compile Include="ViewModels\CollectionItemViewModels\CollectionItemViewModel.cs" />
     <Compile Include="ViewModels\CollectionItemViewModels\CollectionItemViewModelFactory.cs" />
+    <Compile Include="ViewModels\CollectorViewModels\CollectorEditorViewModel.cs" />
     <Compile Include="ViewModels\CollectorViewModels\CollectorViewModel.cs" />
     <Compile Include="ViewModels\CollectorViewModels\CollectorViewModelFactory.cs" />
     <Compile Include="ViewModels\GenusViewModels\GenusEditorViewModel.cs" />
