@@ -31,6 +31,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         public void SetUp()
         {
             viewModel = Make();
+            viewModel.GetType().GetProperty("DialogService").SetValue(viewModel, dialogService.Object);
         }
 
         protected abstract TEditor Make();

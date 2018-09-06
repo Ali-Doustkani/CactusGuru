@@ -1,14 +1,13 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
 {
     public class CollectorEditorViewModel : SimpleEditorViewModel<CollectorViewModel>
     {
-        public CollectorEditorViewModel(ICollectorViewProvider dataProvider, IDialogService dialogService)
-            : base(dataProvider, new CollectorViewModelFactory(), dialogService, "کلکتورها")
+        public CollectorEditorViewModel(ICollectorViewProvider dataProvider)
+            : base(dataProvider, new CollectorViewModelFactory(), "کلکتورها")
         {
             _dataProvider = dataProvider;
         }

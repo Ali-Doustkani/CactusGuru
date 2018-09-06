@@ -1,14 +1,13 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
 {
     public class SupplierEditorViewModel : SimpleEditorViewModel<SupplierViewModel>
     {
-        public SupplierEditorViewModel(ISupplierViewProvider dataProvider, IDialogService dialogService)
-            : base(dataProvider, new SupplierViewModelFactory(), dialogService, "تامین کنندگان")
+        public SupplierEditorViewModel(ISupplierViewProvider dataProvider)
+            : base(dataProvider, new SupplierViewModelFactory(), "تامین کنندگان")
         {
             _dataProvider = dataProvider;
         }

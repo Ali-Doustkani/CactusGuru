@@ -10,10 +10,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 {
     public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>
     {
-        public TaxonEditorViewModel(ITaxonViewProvider dataProvider,
-            INavigationService navigation,
-            IDialogService dialogService)
-            : base(dataProvider, new TaxonViewModelFactory(), dialogService, "تاکسون ها")
+        public TaxonEditorViewModel(ITaxonViewProvider dataProvider, INavigationService navigation)
+            : base(dataProvider, new TaxonViewModelFactory(), "تاکسون ها")
         {
             _dataProvider = dataProvider;
             _navigation = navigation;

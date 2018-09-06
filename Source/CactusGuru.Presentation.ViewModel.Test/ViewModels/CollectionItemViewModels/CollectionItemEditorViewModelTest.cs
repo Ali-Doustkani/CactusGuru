@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Application.ViewProviders;
-using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Test.Framework;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -12,7 +11,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
     {
         protected override CollectionItemEditorViewModel Make()
         {
-            return new CollectionItemEditorViewModel(dataProvider.Object, dialogService.Object, navigationService.Object);
+            return new CollectionItemEditorViewModel(dataProvider.Object, navigationService.Object);
         }
 
         [TestMethod]
@@ -53,51 +52,6 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
             Load();
 
             Assert.AreEqual(2, viewModel.IncomeTypes.Count());
-        }
-
-        [TestMethod]
-        public void GotoTaxaCommand()
-        {
-            The(x => x.GetTaxa()).ReturnsEmptyCollection();
-            Load();
-            Assert.AreEqual(0, viewModel.Taxa.Count);
-
-            The(x => x.GetTaxa()).ReturnsCollection();
-
-            viewModel.GotoTaxaCommand.Execute(null);
-
-            MustNavigatedTo(x => x.GotoTaxa());
-            Assert.AreEqual(2, viewModel.Taxa.Count);
-        }
-
-        [TestMethod]
-        public void GotoCollectorsCommand()
-        {
-            The(x => x.GetCollectors()).ReturnsEmptyCollection();
-            Load();
-            Assert.AreEqual(0, viewModel.Collectors.Count);
-
-            The(x => x.GetCollectors()).ReturnsCollection();
-
-            viewModel.GotoCollectorsCommand.Execute(null);
-
-            MustNavigatedTo(x => x.GotoCollectors());
-            Assert.AreEqual(2, viewModel.Collectors.Count);
-        }
-
-        [TestMethod]
-        public void GotoSuppliersCommand()
-        {
-            The(x => x.GetSuppliers()).ReturnsEmptyCollection();
-            Load();
-            Assert.AreEqual(0, viewModel.Suppliers.Count);
-
-            The(x => x.GetSuppliers()).ReturnsCollection();
-
-            viewModel.GotoSuppliersCommand.Execute(null);
-
-            MustNavigatedTo(x => x.GotoSuppliers());
-            Assert.AreEqual(2, viewModel.Suppliers.Count);
         }
     }
 }

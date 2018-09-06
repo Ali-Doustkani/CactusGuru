@@ -16,9 +16,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
     {
         public CollectionItemEditorViewModel(
             ICollectionItemViewProvider dataProvider,
-            IDialogService dialogService,
             INavigationService navigationService)
-              : base(dataProvider, new CollectionItemViewModelFactory(), dialogService)
+              : base(dataProvider, new CollectionItemViewModelFactory())
         {
             _dataProvider = dataProvider;
             _navigationService = navigationService;

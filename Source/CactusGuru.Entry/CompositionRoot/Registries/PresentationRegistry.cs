@@ -11,7 +11,11 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
     {
         public PresentationRegistry()
         {
-            Policies.SetAllProperties(policy => policy.OfType<EventAggregator>());
+            Policies.SetAllProperties(policy =>
+            {
+                policy.OfType<EventAggregator>();
+                policy.OfType<IDialogService>();
+            });
             For<INavigationService>().Use<NavigationService>().Singleton();
             For<IDialogService>().Use<DialogService>().Singleton();
             For<MonthNameDateFormatter>().Singleton().Use<MonthNameDateFormatter>();

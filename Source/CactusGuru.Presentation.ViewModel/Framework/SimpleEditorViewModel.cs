@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,12 +15,10 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     {
         public SimpleEditorViewModel(IDataEntryViewProvider dataProvider, 
             IWorkingFactory<TRowItem> viewModelFactory,
-            IDialogService dialogService,
             string title)
-            : base(dataProvider, viewModelFactory, dialogService)
+            : base(dataProvider, viewModelFactory)
         {
             _dataProvider = dataProvider;
-            _dialogService = dialogService;
             Title = title;
             LoadCommand = new RelayCommand(Load);
             SelectNextCommand = new RelayCommand(() => MoveTo(1));
@@ -29,7 +26,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         }
 
         private readonly IDataEntryViewProvider _dataProvider;
-        private readonly IDialogService _dialogService;
         private string _filterText;
         private List<TRowItem> _originalSource;
 
@@ -87,7 +83,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                _dialogService.Error(ex.Message);
+                DialogService.Error(ex.Message);
                 throw new OperationFailedException();
             }
         }
@@ -104,7 +100,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                _dialogService.Error(ex.Message);
+                DialogService.Error(ex.Message);
                 return null;
             }
         }

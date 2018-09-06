@@ -14,9 +14,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     public abstract class EditorViewModel<TRowItem> : NotifiableViewModel, INotifyDataErrorInfo
         where TRowItem : WorkingViewModel
     {
-        protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory, IDialogService dialogService)
+        protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory)
         {
-            _dialogService = dialogService;
             _dataProvider = dataProvider;
             _viewModelFactory = viewModelFactory;
             _changeableCollections = new List<IChangeableCollection>();
@@ -33,13 +32,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private TransferObjectBase _originalItem;
         private TRowItem _workingItem;
+        private IDialogService _dialogService;
         private readonly List<IChangeableCollection> _changeableCollections;
         private readonly IDataEntryViewProvider _dataProvider;
-        private readonly IDialogService _dialogService;
         protected readonly IWorkingFactory<TRowItem> _viewModelFactory;
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-
+       
         public abstract string Title { get; }
         public EditorState State { get; }
         public Rules Rules { get; }
@@ -50,6 +49,18 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public ICommand SaveCommand { get; private set; }
         public ICommand SaveNewCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
+
+        public IDialogService DialogService
+        {
+            get { return _dialogService; }
+            set
+            {
+                if (_dialogService == null && value != null)
+                    _dialogService = value;
+                else
+                    throw new InvalidOperationException();
+            }
+        }
 
         public TRowItem WorkingItem
         {
@@ -93,7 +104,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                _dialogService.Error(ex.Message);
+                DialogService.Error(ex.Message);
                 throw new OperationFailedException();
             }
         }
@@ -106,7 +117,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                _dialogService.Error(ex.Message);
+                DialogService.Error(ex.Message);
                 throw new OperationFailedException();
             }
         }
@@ -121,7 +132,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                _dialogService.Error(ex.Message);
+                DialogService.Error(ex.Message);
                 return null;
             }
         }
@@ -153,7 +164,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void Cancel()
         {
-            if (!_dialogService.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
+            if (!DialogService.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
             if (State.IsEdit)
                 CancelEdit();
             State.ToView();
@@ -189,7 +200,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void AskAndDelete()
         {
-            if (!_dialogService.Ask("آیا از حذف تامین کننده ی انتخابی اطمینان دارید؟"))
+            if (!DialogService.Ask("آیا از حذف تامین کننده ی انتخابی اطمینان دارید؟"))
                 return;
             DeleteImp();
         }
