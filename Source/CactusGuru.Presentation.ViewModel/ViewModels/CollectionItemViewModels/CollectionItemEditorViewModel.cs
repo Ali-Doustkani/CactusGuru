@@ -29,7 +29,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         public ChangeableObservableCollection<SupplierDto> Suppliers { get; private set; }
         public ChangeableObservableCollection<CollectorDto> Collectors { get; set; }
         public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; private set; }
-        public override string Title => "اقلام";
 
         public string Code
         {

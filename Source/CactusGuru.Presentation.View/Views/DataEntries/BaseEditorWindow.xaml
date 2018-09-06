@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:dx="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v15.1"
-             Title="{Binding Title}"
+             Title="{Binding ElementName=grid.Children[2], Path=Tag}"
              ResizeMode="NoResize"
              Height="480"
              Width="420"

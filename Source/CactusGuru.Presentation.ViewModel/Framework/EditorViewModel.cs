@@ -36,7 +36,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public abstract string Title { get; }
         public EditorState State { get; }
         public Rules Rules { get; }
         public ICommand PrepareForAddCommand { get; private set; }

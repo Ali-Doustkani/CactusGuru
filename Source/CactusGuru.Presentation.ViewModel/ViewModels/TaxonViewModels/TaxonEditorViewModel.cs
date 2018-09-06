@@ -10,7 +10,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
     public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>
     {
         public TaxonEditorViewModel(ITaxonViewProvider dataProvider)
-            : base(dataProvider, new TaxonViewModelFactory(), "تاکسون ها")
+            : base(dataProvider, new TaxonViewModelFactory())
         {
             _dataProvider = dataProvider;
             GotoGeneraCommand = new RelayCommand(GotoGenera);

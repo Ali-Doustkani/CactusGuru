@@ -7,7 +7,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
     public class GenusEditorViewModel : SimpleEditorViewModel<GenusViewModel>
     {
         public GenusEditorViewModel(IGenusViewProvider dataProvider)
-            : base(dataProvider, new GenusViewModelFactory(), "جنس ها")
+            : base(dataProvider, new GenusViewModelFactory())
         {
             _dataProvider = dataProvider;
         }

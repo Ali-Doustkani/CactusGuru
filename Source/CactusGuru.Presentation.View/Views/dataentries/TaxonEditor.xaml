@@ -4,7 +4,8 @@
       xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
       xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid.LookUp;assembly=DevExpress.Xpf.Grid.v15.1"
-      Validation.ErrorTemplate="{x:Null}">
+      Validation.ErrorTemplate="{x:Null}"
+      Tag="تاکسون ها">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

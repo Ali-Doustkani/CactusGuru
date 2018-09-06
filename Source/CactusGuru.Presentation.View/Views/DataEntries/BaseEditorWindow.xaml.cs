@@ -11,6 +11,7 @@ namespace CactusGuru.Presentation.View.Views
 
         public void SetUserControl(Grid view)
         {
+            SetValue(TitleProperty, view.Tag);
             view.SetValue(Grid.RowProperty, 1);
             grid.Children.Add(view);
         }

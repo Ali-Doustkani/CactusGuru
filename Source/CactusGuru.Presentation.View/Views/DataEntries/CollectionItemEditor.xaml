@@ -5,7 +5,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-      Validation.ErrorTemplate="{x:Null}">
+      Validation.ErrorTemplate="{x:Null}"
+      Tag="گیاه">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,14 +17,6 @@
     <Grid.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="CollectionItemEditorViewModel"/>
     </Grid.DataContext>
-    <intr:Interaction.Triggers>
-        <intr:EventTrigger EventName="Loaded">
-            <intr:InvokeCommandAction Command="{Binding LoadCommand}" />
-        </intr:EventTrigger>
-        <intr:EventTrigger EventName="Unloaded">
-            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
-        </intr:EventTrigger>
-    </intr:Interaction.Triggers>
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="100" />
         <ColumnDefinition />

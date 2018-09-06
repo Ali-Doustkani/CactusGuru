@@ -13,13 +13,10 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     public class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
          where TRowItem : WorkingViewModel
     {
-        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider,
-            IWorkingFactory<TRowItem> viewModelFactory,
-            string title)
+        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider,IWorkingFactory<TRowItem> viewModelFactory)
             : base(dataProvider, viewModelFactory)
         {
             _dataProvider = dataProvider;
-            Title = title;
             SelectNextCommand = new RelayCommand(() => MoveTo(1));
             SelectPreviousCommand = new RelayCommand(() => MoveTo(-1));
         }
@@ -33,7 +30,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public ICommand SelectNextCommand { get; }
         public ICommand SelectPreviousCommand { get; }
         public ICommand ClearFilterCommand { get; }
-        public override string Title { get; }
 
         public string FilterText
         {

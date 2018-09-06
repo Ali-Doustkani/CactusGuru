@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
       xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
-      Validation.ErrorTemplate="{x:Null}">
+      Validation.ErrorTemplate="{x:Null}"
+      Tag="تامین کنندگان">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
