@@ -12,19 +12,16 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
     {
         public TaxonEditorViewModel(ITaxonViewProvider dataProvider,
             INavigationService navigation,
-            IDialogService dialogService,
-            EventAggregator eventAggregator)
+            IDialogService dialogService)
             : base(dataProvider, new TaxonViewModelFactory(), dialogService, "تاکسون ها")
         {
             _dataProvider = dataProvider;
             _navigation = navigation;
-            _eventAggregator = eventAggregator;
             GotoGeneraCommand = new RelayCommand(GotoGenera);
         }
 
         private readonly ITaxonViewProvider _dataProvider;
         private readonly INavigationService _navigation;
-        private readonly EventAggregator _eventAggregator;
 
         public ICommand GotoGeneraCommand { get; private set; }
         public ObservableCollection<GenusDto> Genera { get; private set; }
@@ -32,20 +29,20 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
         protected override void AddImp()
         {
             base.AddImp();
-            _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
+            NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
         }
 
         protected override void EditImp()
         {
             base.EditImp();
-            _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
+            NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
         }
 
         protected override TaxonViewModel DeleteImp()
         {
             var deletedItem = base.DeleteImp();
             if (deletedItem != null)
-                _eventAggregator.NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
+                NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
             return deletedItem;
         }
 

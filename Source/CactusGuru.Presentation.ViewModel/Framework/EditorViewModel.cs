@@ -1,15 +1,17 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
+using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.Framework
 {
-    public abstract class EditorViewModel<TRowItem> : BaseViewModel, INotifyDataErrorInfo
+    public abstract class EditorViewModel<TRowItem> : NotifiableViewModel, INotifyDataErrorInfo
         where TRowItem : WorkingViewModel
     {
         protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory, IDialogService dialogService)
@@ -17,6 +19,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             _dialogService = dialogService;
             _dataProvider = dataProvider;
             _viewModelFactory = viewModelFactory;
+            _changeableCollections = new List<IChangeableCollection>();
             State = new EditorState();
             Rules = new Rules(RaiseErrorsChanged);
             LoadCommand = new RelayCommand(PrepareForLoad);
@@ -30,6 +33,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private TransferObjectBase _originalItem;
         private TRowItem _workingItem;
+        private readonly List<IChangeableCollection> _changeableCollections;
         private readonly IDataEntryViewProvider _dataProvider;
         private readonly IDialogService _dialogService;
         protected readonly IWorkingFactory<TRowItem> _viewModelFactory;
@@ -120,6 +124,19 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 _dialogService.Error(ex.Message);
                 return null;
             }
+        }
+
+        protected void AddListener(IChangeableCollection collection)
+        {
+            if (collection == null)
+                throw new ArgumentNullException();
+            _changeableCollections.Add(collection);
+        }
+
+        protected override sealed void OnSomethingHappened(NotificationEventArgs info)
+        {
+            foreach (var col in _changeableCollections)
+                col.Change(info);
         }
 
         private bool CanEditOrDelete()

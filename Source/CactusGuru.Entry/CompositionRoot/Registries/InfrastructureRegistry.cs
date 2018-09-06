@@ -10,7 +10,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
     {
         public InfrastructureRegistry()
         {
-            For<EventAggregator>().Singleton().Use<EventAggregator>();
+            For<EventAggregator>().Use<EventAggregator>().Singleton();
             For<IPublisher<Genus>>().Use<Publisher<Genus>>();
             For<ITerminator<Genus>>().Use<Terminator<Genus>>();
             For<IPublisher<Taxon>>().Use<Publisher<Taxon>>();

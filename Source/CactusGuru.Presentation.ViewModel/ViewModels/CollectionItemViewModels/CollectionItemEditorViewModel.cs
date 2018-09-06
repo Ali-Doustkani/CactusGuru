@@ -17,29 +17,26 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         public CollectionItemEditorViewModel(
             ICollectionItemViewProvider dataProvider,
             IDialogService dialogService,
-            INavigationService navigationService,
-            EventAggregator eventAggregator)
+            INavigationService navigationService)
               : base(dataProvider, new CollectionItemViewModelFactory(), dialogService)
         {
             _dataProvider = dataProvider;
             _navigationService = navigationService;
-            _eventAggregator = eventAggregator;
-            GotoTaxaCommand = new RelayCommand(GotoTaxa);
-            GotoCollectorsCommand = new RelayCommand(GotoCollectors);
-            GotoSuppliersCommand = new RelayCommand(GotoSuppliers);
+            GotoTaxaCommand = new RelayCommand(_navigationService.GotoTaxa);
+            GotoCollectorsCommand = new RelayCommand(_navigationService.GotoCollectors);
+            GotoSuppliersCommand = new RelayCommand(_navigationService.GotoSuppliers);
         }
 
         private readonly ICollectionItemViewProvider _dataProvider;
         private readonly INavigationService _navigationService;
-        private readonly EventAggregator _eventAggregator;
         private CollectionItemViewModel _itemToEdit;
 
         public ICommand GotoTaxaCommand { get; private set; }
         public ICommand GotoCollectorsCommand { get; private set; }
         public ICommand GotoSuppliersCommand { get; private set; }
-        public ObservableCollection<TaxonDto> Taxa { get; private set; }
-        public ObservableCollection<SupplierDto> Suppliers { get; private set; }
-        public ObservableCollection<CollectorDto> Collectors { get; set; }
+        public ChangeableObservableCollection<TaxonDto> Taxa { get; private set; }
+        public ChangeableObservableCollection<SupplierDto> Suppliers { get; private set; }
+        public ChangeableObservableCollection<CollectorDto> Collectors { get; set; }
         public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; private set; }
         public override string Title => "اقلام";
 
@@ -102,7 +99,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 
         public string IncomeDate { get; set; }
 
-
         public IncomeTypeRowItem IncomeType
         {
             get
@@ -129,14 +125,18 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 
         protected override void PrepareForLoad()
         {
+            Taxa = new ChangeableObservableCollection<TaxonDto>(_dataProvider.GetTaxa());
+            Collectors = new ChangeableObservableCollection<CollectorDto>(_dataProvider.GetCollectors());
+            Suppliers = new ChangeableObservableCollection<SupplierDto>(_dataProvider.GetSuppliers());
+            LoadIncomeTypes();
+
+            AddListener(Taxa);
+            AddListener(Collectors);
+            AddListener(Suppliers);
+
             Rules.MakeSure(nameof(Code)).IsNotEmpty().ValidatesForItself(CodeSimilarity);
             Rules.MakeSure(nameof(Supplier)).ValidatesFor(nameof(SupplierCode), SupplierExistance);
             Rules.MakeSure(nameof(SupplierCode)).ValidatesForItself(SupplierExistance);
-
-            LoadCollectors();
-            LoadTaxa();
-            LoadSuppliers();
-            LoadIncomeTypes();
 
             if (_itemToEdit == null)
                 PrepareForAdd();
@@ -151,14 +151,14 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         {
             FillDate();
             base.AddImp();
-            _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
+            NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
         }
 
         protected override void EditImp()
         {
             FillDate();
             base.EditImp();
-            _eventAggregator.NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
+            NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
         }
 
         protected override CollectionItemViewModel DeleteImp()
@@ -166,7 +166,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             var deletedItem = base.DeleteImp();
             if (deletedItem != null)
             {
-                _eventAggregator.NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
+                NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
                 _navigationService.CloseCurrentView();
             }
             return deletedItem;
@@ -182,48 +182,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             return base.CanSaveNew() && DateIsValid();
         }
 
-        private void LoadSuppliers()
-        {
-            Suppliers = new ObservableCollection<SupplierDto>(_dataProvider.GetSuppliers());
-        }
-
-        private void LoadTaxa()
-        {
-            Taxa = new ObservableCollection<TaxonDto>(_dataProvider.GetTaxa());
-        }
-
-        private void LoadCollectors()
-        {
-            Collectors = new ObservableCollection<CollectorDto>(_dataProvider.GetCollectors());
-        }
-
         private void LoadIncomeTypes()
         {
             var list = new List<IncomeTypeRowItem>();
             foreach (var dto in _dataProvider.GetIncomeTypes())
                 list.Add(new IncomeTypeRowItem(dto.Value));
             IncomeTypes = new ObservableCollection<IncomeTypeRowItem>(list);
-        }
-
-        private void GotoTaxa()
-        {
-            _navigationService.GotoTaxa();
-            LoadTaxa();
-            OnPropertyChanged("Taxa");
-        }
-
-        private void GotoCollectors()
-        {
-            _navigationService.GotoCollectors();
-            LoadCollectors();
-            OnPropertyChanged(nameof(Collectors));
-        }
-
-        private void GotoSuppliers()
-        {
-            _navigationService.GotoSuppliers();
-            LoadSuppliers();
-            OnPropertyChanged("Suppliers");
         }
 
         private bool DateIsValid()

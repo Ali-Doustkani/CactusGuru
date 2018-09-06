@@ -46,7 +46,6 @@
     <Compile Include="DomainEntity.cs" />
     <Compile Include="ErrorHappenedException.cs" />
     <Compile Include="EventAggregation\EventAggregator.cs" />
-    <Compile Include="EventAggregation\IListener.cs" />
     <Compile Include="EventAggregation\NotificationEventArgs.cs" />
     <Compile Include="Persistance\ISimilarityRepository.cs" />
     <Compile Include="Persistance\Merging\DelegateMerger.cs" />

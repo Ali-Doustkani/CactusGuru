@@ -44,6 +44,7 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Framework\ChangeableObservableCollection.cs" />
     <Compile Include="Framework\DataSourceManagement\DataSourceBase.cs" />
     <Compile Include="Framework\DataSourceManagement\DataSource.cs" />
     <Compile Include="Framework\DataSourceManagement\FilterDataSource.cs" />
@@ -51,6 +52,7 @@
     <Compile Include="Framework\INavigationViewModel.cs" />
     <Compile Include="Framework\IRuleSet.cs" />
     <Compile Include="Framework\LoaderState.cs" />
+    <Compile Include="Framework\NotifiableViewModel.cs" />
     <Compile Include="Framework\OperationFailedException.cs" />
     <Compile Include="Framework\Rules.cs" />
     <Compile Include="Framework\RuleSet.cs" />

@@ -16,6 +16,9 @@
         <intr:EventTrigger EventName="Loaded">
             <intr:InvokeCommandAction Command="{Binding LoadCommand}" />
         </intr:EventTrigger>
+        <intr:EventTrigger EventName="Unloaded">
+            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
+        </intr:EventTrigger>
     </intr:Interaction.Triggers>
     <dx:DXWindow.InputBindings>
         <KeyBinding Key="F1"

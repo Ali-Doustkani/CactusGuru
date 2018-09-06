@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
+using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 

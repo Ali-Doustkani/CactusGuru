@@ -12,7 +12,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.TaxonViewModels
     {
         protected override TaxonEditorViewModel Make()
         {
-            return new TaxonEditorViewModel(dataProvider.Object, navigationService.Object, dialogService.Object, new Infrastructure.EventAggregation.EventAggregator());
+            return new TaxonEditorViewModel(dataProvider.Object, navigationService.Object, dialogService.Object);
         }
 
         [TestMethod]

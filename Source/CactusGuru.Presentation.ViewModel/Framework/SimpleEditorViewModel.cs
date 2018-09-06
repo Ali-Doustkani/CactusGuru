@@ -14,7 +14,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     public class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
          where TRowItem : WorkingViewModel
     {
-        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider,
+        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider, 
             IWorkingFactory<TRowItem> viewModelFactory,
             IDialogService dialogService,
             string title)

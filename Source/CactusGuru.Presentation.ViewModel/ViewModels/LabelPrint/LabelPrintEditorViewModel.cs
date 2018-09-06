@@ -11,20 +11,18 @@ using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 {
-    public class LabelPrintEditorViewModel : BaseViewModel, IListener
+    public class LabelPrintEditorViewModel : NotifiableViewModel
     {
         public LabelPrintEditorViewModel(
             ILabelPrintViewProvider viewProvider,
             INavigationService navigationService,
             IDialogService dialogService,
-            IPrintService printService,
-            EventAggregator eventAggregator)
+            IPrintService printService)
         {
             _viewProvider = viewProvider;
             _navigationService = navigationService;
             _dialogService = dialogService;
             _printService = printService;
-            eventAggregator.Subscribe(this);
             CollectionItems = new FilterDataSource<CollectionItemViewModel>();
             Taxa = new DataSource<TaxonViewModel>(nameof(TaxonViewModel.Name));
             PrintItems = new DataSource<LabelPrintViewModel>(nameof(LabelPrintViewModel.Name));
@@ -42,8 +40,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         private readonly INavigationService _navigationService;
         private readonly IDialogService _dialogService;
         private readonly IPrintService _printService;
-
-        public event DisposeEventHandler Disposed;
 
         public ICommand AddToPrintCommand { get; }
         public ICommand ClearCollectionItemsFilterCommand { get; }
@@ -208,12 +204,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
                 Taxa.ClearTextFilter();
         }
 
-        #region IListener
-
-        public void Notify(NotificationEventArgs e)
+        protected override void OnSomethingHappened(NotificationEventArgs info)
         {
-            NotifyCollectionItem(e);
-            NotifyTaxa(e);
+            NotifyCollectionItem(info);
+            NotifyTaxa(info);
         }
 
         private void NotifyCollectionItem(NotificationEventArgs e)
@@ -248,12 +242,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             if (printItem != null)
                 printItem.Set(_viewProvider.GetCollectionItem(id));
         }
-
-        public void Dispose()
-        {
-            Disposed(this);
-        }
-
-        #endregion
     }
 }
