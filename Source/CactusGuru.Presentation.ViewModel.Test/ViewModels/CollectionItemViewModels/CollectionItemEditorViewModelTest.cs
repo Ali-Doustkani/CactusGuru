@@ -11,7 +11,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
     {
         protected override CollectionItemEditorViewModel Make()
         {
-            return new CollectionItemEditorViewModel(dataProvider.Object, navigationService.Object);
+            return new CollectionItemEditorViewModel(dataProvider.Object);
         }
 
         [TestMethod]

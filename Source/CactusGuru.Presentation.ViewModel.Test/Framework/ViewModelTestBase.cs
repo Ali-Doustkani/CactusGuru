@@ -1,4 +1,5 @@
 ﻿using CactusGuru.Application.Common;
+using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -31,7 +32,8 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         public void SetUp()
         {
             viewModel = Make();
-            viewModel.GetType().GetProperty("DialogService").SetValue(viewModel, dialogService.Object);
+            viewModel.GetType().GetProperty(nameof(FormViewModel.Dialog)).SetValue(viewModel, dialogService.Object);
+            viewModel.GetType().GetProperty(nameof(FormViewModel.Navigations)).SetValue(viewModel, navigationService.Object);
         }
 
         protected abstract TEditor Make();

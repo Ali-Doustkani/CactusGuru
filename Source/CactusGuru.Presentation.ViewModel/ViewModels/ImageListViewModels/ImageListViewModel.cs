@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageList;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -9,15 +8,12 @@ using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 {
-    public class ImageListViewModel : BaseViewModel, INavigationViewModel
+    public class ImageListViewModel : FormViewModel
     {
-        public ImageListViewModel(IImageListViewProvider viewProvider,
-            ImageViewModelFactory imageViewModelFactory,
-            IDialogService dialogService)
+        public ImageListViewModel(IImageListViewProvider viewProvider, ImageViewModelFactory imageViewModelFactory)
         {
             _viewProvider = viewProvider;
             _imageViewModelFactory = imageViewModelFactory;
-            _dialogService = dialogService;
             _bgWorker = new BackgroundWorker();
             _bgWorker.WorkerReportsProgress = true;
             _bgWorker.DoWork += _bgWorker_DoWork;
@@ -31,18 +27,15 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 
         private readonly IImageListViewProvider _viewProvider;
         private readonly ImageViewModelFactory _imageViewModelFactory;
-        private readonly IDialogService _dialogService;
         private readonly BackgroundWorker _bgWorker;
 
         public ICommand DeSelectAllCommand { get; }
         public ICommand SaveForInstagramCommand { get; }
         public ObservableCollection<ImageViewModel> Images { get; private set; }
-
         public LoaderState State { get; }
-
         public ImageViewModel SelectedImage { get; set; }
 
-        public void Load()
+        protected override void OnLoad()
         {
             _bgWorker.RunWorkerAsync();
         }
@@ -89,12 +82,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 
         private void SaveForInstagram()
         {
-            var dialogResult = _dialogService.OpenDirectorySelector();
+            var dialogResult = Dialog.OpenDirectorySelector();
             if (!dialogResult.Result) return;
             var selectedImages = Images.Where(x => x.IsSelected).Select(x => x.InnerObject);
             _viewProvider.SaveToFiles(selectedImages, dialogResult.Value);
             DeSelectAll();
-            _dialogService.Say("ذخیره با موفقیت انجام شد.");
+            Dialog.Say("ذخیره با موفقیت انجام شد.");
         }
     }
 }

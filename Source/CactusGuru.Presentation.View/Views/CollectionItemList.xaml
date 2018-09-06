@@ -4,13 +4,22 @@
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
-             xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1">
+             xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1"
+             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity">
     <UserControl.Resources>
         <local:ViewModelLocator x:Key="vmLocator" />
     </UserControl.Resources>
     <UserControl.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="CollectionItemListViewModel" />
     </UserControl.DataContext>
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadCommand}"/>
+        </intr:EventTrigger>
+        <intr:EventTrigger EventName="Unloaded">
+            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <DockPanel>
         <dxd:DockLayoutManager>
             <dxd:LayoutGroup Orientation="Vertical" ItemWidth="3*">

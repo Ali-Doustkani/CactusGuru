@@ -34,8 +34,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
             }
         }
 
-        protected override void PrepareForLoad()
+        protected override void OnLoad()
         {
+            base.OnLoad();
             Rules.MakeSure(nameof(FullName)).IsNotEmpty().ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Acronym)).IsNotEmpty().ValidatesForWhole(Similarity);
         }

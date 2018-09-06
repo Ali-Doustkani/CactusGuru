@@ -2,7 +2,6 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 
@@ -10,16 +9,14 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 {
     public class TaxonEditorViewModel : SimpleEditorViewModel<TaxonViewModel>
     {
-        public TaxonEditorViewModel(ITaxonViewProvider dataProvider, INavigationService navigation)
+        public TaxonEditorViewModel(ITaxonViewProvider dataProvider)
             : base(dataProvider, new TaxonViewModelFactory(), "تاکسون ها")
         {
             _dataProvider = dataProvider;
-            _navigation = navigation;
             GotoGeneraCommand = new RelayCommand(GotoGenera);
         }
 
         private readonly ITaxonViewProvider _dataProvider;
-        private readonly INavigationService _navigation;
 
         public ICommand GotoGeneraCommand { get; private set; }
         public ObservableCollection<GenusDto> Genera { get; private set; }
@@ -44,8 +41,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             return deletedItem;
         }
 
-        protected override void PrepareForLoad()
+        protected override void OnLoad()
         {
+            base.OnLoad();
             Rules.MakeSure(nameof(Genus)).IsNotEmpty().ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Species)).IsNotEmpty().ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Variety)).ValidatesForWhole(Similarity);
@@ -63,7 +61,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 
         private void GotoGenera()
         {
-            _navigation.GotoGenera();
+            Navigations.GotoGenera();
             LoadGenera();
         }
 

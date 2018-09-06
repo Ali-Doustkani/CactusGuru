@@ -1,22 +1,19 @@
 ﻿using CactusGuru.Application.ViewProviders.Main;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
 {
-    public class FirstPageViewModel : BaseViewModel, INavigationViewModel
+    public class FirstPageViewModel : FormViewModel
     {
-        public FirstPageViewModel(IFirstPageViewProvider viewProvider, INavigationService navigationService)
+        public FirstPageViewModel(IFirstPageViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            _navigationService = navigationService;
             CollectionListCommand = new RelayCommand(GotoCollectionList);
             ImageListCommand = new RelayCommand(GotoImageList);
         }
 
         private readonly IFirstPageViewProvider _viewProvider;
-        private readonly INavigationService _navigationService;
 
         public ICommand CollectionListCommand { get; }
         public ICommand ImageListCommand { get; }
@@ -25,15 +22,15 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
 
         private void GotoCollectionList()
         {
-            _navigationService.GotoCollectionItemList();
+            Navigations.GotoCollectionItemList();
         }
 
         private void GotoImageList()
         {
-            _navigationService.GotoImageList();
+            Navigations.GotoImageList();
         }
 
-        public void Load()
+        protected override void OnLoad()
         {
             ItemsCount = _viewProvider.GetItemsCount();
             OnPropertyChanged(nameof(ItemsCount));

@@ -14,8 +14,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
 
         private readonly IGenusViewProvider _dataProvider;
 
-        protected override void PrepareForLoad()
+        protected override void OnLoad()
         {
+            base.OnLoad();
             Rules.MakeSure(nameof(FormattedName)).IsNotEmpty().ValidatesForWhole(Similarity);
         }
 

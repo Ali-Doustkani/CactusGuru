@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:userControls="clr-namespace:CactusGuru.Presentation.View.UserControls"
              xmlns:dx="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v15.1"
+             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
              Title="Cactus Guru"
              Height="650"
              Width="1100"
@@ -20,6 +21,14 @@
     <dx:DXWindow.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="MainViewModel" />
     </dx:DXWindow.DataContext>
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadCommand}"/>
+        </intr:EventTrigger>
+        <intr:EventTrigger EventName="Unloaded">
+            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="70" />
@@ -53,7 +62,6 @@
         </StackPanel>
         <dxwui:NavigationFrame Name="navFrame"
                                Grid.Row="1"
-                               AnimationType="SlideHorizontal"
-                               ContentRendered="navFrame_ContentRendered" />
+                               AnimationType="SlideHorizontal" />
     </Grid>
 </dx:DXWindow>

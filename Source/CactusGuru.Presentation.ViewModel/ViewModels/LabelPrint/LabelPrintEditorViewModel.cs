@@ -2,7 +2,6 @@
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.PrintService;
 using System;
 using System.Collections.Generic;
@@ -11,17 +10,11 @@ using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 {
-    public class LabelPrintEditorViewModel : NotifiableViewModel
+    public class LabelPrintEditorViewModel : FormViewModel
     {
-        public LabelPrintEditorViewModel(
-            ILabelPrintViewProvider viewProvider,
-            INavigationService navigationService,
-            IDialogService dialogService,
-            IPrintService printService)
+        public LabelPrintEditorViewModel(ILabelPrintViewProvider viewProvider, IPrintService printService)
         {
             _viewProvider = viewProvider;
-            _navigationService = navigationService;
-            _dialogService = dialogService;
             _printService = printService;
             CollectionItems = new FilterDataSource<CollectionItemViewModel>();
             Taxa = new DataSource<TaxonViewModel>(nameof(TaxonViewModel.Name));
@@ -37,8 +30,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         }
 
         private readonly ILabelPrintViewProvider _viewProvider;
-        private readonly INavigationService _navigationService;
-        private readonly IDialogService _dialogService;
         private readonly IPrintService _printService;
 
         public ICommand AddToPrintCommand { get; }
@@ -123,7 +114,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         private void AddToPrint()
         {
             if (NothingSelected()) return;
-            var count = _navigationService.GetNumberFromUser();
+            var count = Navigations.GetNumberFromUser();
             if (!count.Result) return;
             if (PrintItemExists())
                 GetPrintItem().Count += count.Value;
@@ -166,7 +157,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 
         private void DeleteSelectedPrintItem()
         {
-            if (_dialogService.Ask("آیا از حذف آیتم اطمینان دارید؟"))
+            if (Dialog.Ask("آیا از حذف آیتم اطمینان دارید؟"))
                 PrintItems.Remove(SelectedPrintItem);
         }
 

@@ -1,25 +1,20 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
+using CactusGuru.Presentation.ViewModel.Utils;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
-using CactusGuru.Presentation.ViewModel.Utils;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 {
-    public class ImageGallaryEditorViewModel : BaseViewModel
+    public class ImageGallaryEditorViewModel : FormViewModel
     {
-        public ImageGallaryEditorViewModel(IImageGalleryViewProvider dataProvider,
-            IDialogService dialogService,
-            ImageItemViewModelFactory imageItemFactory, INavigationService navigationService)
+        public ImageGallaryEditorViewModel(IImageGalleryViewProvider dataProvider, ImageItemViewModelFactory imageItemFactory)
         {
-            _dialogService = dialogService;
             _imageItemFactory = imageItemFactory;
-            _navigationService = navigationService;
             _dataProvider = dataProvider;
             State = new LoaderState();
             _imageLoaderWorker = new BackgroundWorker();
@@ -38,41 +33,30 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             _imageSaveWorker.DoWork += _imageSaveWorker_DoWork;
             _imageSaveWorker.RunWorkerCompleted += _imageSaveWorker_RunWorkerCompleted1;
 
-            SaveCommand = new RelayCommand(Save, CanUndo);
-            CancelCommand = new RelayCommand(_navigationService.CloseCurrentView, () => State.IsIdle);
-            AddImageCommand = new RelayCommand(AddImage, () => State.IsIdle);
-            DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
-            UndoCommand = new RelayCommand(Undo, CanUndo);
-            SelectAllCommand = new RelayCommand(SelectAll);
-            DeSelectAllCommand = new RelayCommand(DeSelectAll);
-            SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), () => IsAnythingSelected);
-            SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), () => IsAnythingSelected);
             Images = new ObservableCollection<ImageItemViewModel>();
         }
 
         private readonly IImageGalleryViewProvider _dataProvider;
-        private readonly IDialogService _dialogService;
-        private readonly INavigationService _navigationService;
         private readonly ImageItemViewModelFactory _imageItemFactory;
         private readonly BackgroundWorker _imageLoaderWorker;
         private readonly BackgroundWorker _imageAdderWorker;
         private readonly BackgroundWorker _imageSaveWorker;
         private Guid _collectionItemId;
-    
+
         private GalleryMemento _memento;
         private string _code;
         private string _title;
         private string _locality;
 
-        public ICommand SaveCommand { get; }
-        public ICommand CancelCommand { get; }
-        public ICommand AddImageCommand { get; }
-        public ICommand DeleteImageCommand { get; }
-        public ICommand SelectAllCommand { get; }
-        public ICommand DeSelectAllCommand { get; }
-        public ICommand UndoCommand { get; }
-        public ICommand SaveToFilesCommand { get; }
-        public ICommand SaveForInstagramCommand { get; }
+        public ICommand SaveCommand { get; private set; }
+        public ICommand CancelCommand { get; private set; }
+        public ICommand AddImageCommand { get; private set; }
+        public ICommand DeleteImageCommand { get; private set; }
+        public ICommand SelectAllCommand { get; private set; }
+        public ICommand DeSelectAllCommand { get; private set; }
+        public ICommand UndoCommand { get; private set; }
+        public ICommand SaveToFilesCommand { get; private set; }
+        public ICommand SaveForInstagramCommand { get; private set; }
         public ObservableCollection<ImageItemViewModel> Images { get; private set; }
         public ImageItemViewModel SelectedImage { get; set; }
         private LoaderState State { get; }
@@ -140,7 +124,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         private void SaveToFiles(string param)
         {
-            var dialogResult = _dialogService.OpenDirectorySelector();
+            var dialogResult = Dialog.OpenDirectorySelector();
             if (!dialogResult.Result) return;
             var selectedImages = Images.Where(x => x.IsSelected).Select(x => x.InnerObject);
             if (param == "imageFile")
@@ -148,7 +132,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             else if (param == "zipFile")
                 _dataProvider.SaveToZip(selectedImages, dialogResult.Value);
             DeSelectAll();
-            _dialogService.Say("ذخیره ی تصاویر با موفقیت انجام شد.");
+            Dialog.Say("ذخیره ی تصاویر با موفقیت انجام شد.");
         }
 
         #region UNDO
@@ -182,16 +166,24 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         #region LOADING
 
-        private void LoadByCode(string code)
-        {
-            Load(_dataProvider.GetCollectionItemIdByCode(code));
-        }
+        private void LoadByCode(string code) => Load(_dataProvider.GetCollectionItemIdByCode(code));
 
-        public void Load(Guid collectionItemId)
+        public void Load(Guid collectionItemId) => _collectionItemId = collectionItemId;
+
+        protected override void OnLoad( )
         {
+            SaveCommand = new RelayCommand(Save, CanUndo);
+            CancelCommand = new RelayCommand(Navigations.CloseCurrentView, () => State.IsIdle);
+            AddImageCommand = new RelayCommand(AddImage, () => State.IsIdle);
+            DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
+            UndoCommand = new RelayCommand(Undo, CanUndo);
+            SelectAllCommand = new RelayCommand(SelectAll);
+            DeSelectAllCommand = new RelayCommand(DeSelectAll);
+            SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), () => IsAnythingSelected);
+            SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), () => IsAnythingSelected);
+
             Images.Clear();
-            _collectionItemId = collectionItemId;
-            var collectionItem = _dataProvider.GetCollectionItem(collectionItemId);
+            var collectionItem = _dataProvider.GetCollectionItem(_collectionItemId);
             _code = collectionItem.Code;
             OnPropertyChanged(nameof(Code));
             Title = collectionItem.Title;
@@ -227,7 +219,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         private void AddImage()
         {
-            var dialogResult = _dialogService.OpenImageFileDialog();
+            var dialogResult = Dialog.OpenImageFileDialog();
             if (!dialogResult.Result) return;
             State.ToBusy();
             _imageAdderWorker.RunWorkerAsync(dialogResult.Value);
@@ -279,14 +271,14 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         private void _imageSaveWorker_RunWorkerCompleted1(object sender, RunWorkerCompletedEventArgs e)
         {
             State.ToIdle();
-            _navigationService.CloseCurrentView();
+            Navigations.CloseCurrentView();
         }
 
         #endregion
 
         public void ChangeDate()
         {
-            var result = _navigationService.GetDateFromUser();
+            var result = Navigations.GetDateFromUser();
             if (result.Result)
             {
                 SelectedImage.DateAdded = result.Value;

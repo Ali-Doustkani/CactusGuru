@@ -13,14 +13,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     public class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
          where TRowItem : WorkingViewModel
     {
-        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider, 
+        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider,
             IWorkingFactory<TRowItem> viewModelFactory,
             string title)
             : base(dataProvider, viewModelFactory)
         {
             _dataProvider = dataProvider;
             Title = title;
-            LoadCommand = new RelayCommand(Load);
             SelectNextCommand = new RelayCommand(() => MoveTo(1));
             SelectPreviousCommand = new RelayCommand(() => MoveTo(-1));
         }
@@ -51,9 +50,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
         }
 
-        private void Load()
+        protected override void OnLoad()
         {
-            PrepareForLoad();
             _originalSource = new List<TRowItem>();
             foreach (var item in _dataProvider.GetList())
                 _originalSource.Add(_viewModelFactory.Create(item));
@@ -83,7 +81,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                DialogService.Error(ex.Message);
+                Dialog.Error(ex.Message);
                 throw new OperationFailedException();
             }
         }
@@ -100,7 +98,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                DialogService.Error(ex.Message);
+                Dialog.Error(ex.Message);
                 return null;
             }
         }

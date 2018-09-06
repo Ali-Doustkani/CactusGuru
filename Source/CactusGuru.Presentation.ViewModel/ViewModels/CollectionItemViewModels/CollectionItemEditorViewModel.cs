@@ -3,7 +3,6 @@ using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,20 +13,13 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 {
     public class CollectionItemEditorViewModel : EditorViewModel<CollectionItemViewModel>
     {
-        public CollectionItemEditorViewModel(
-            ICollectionItemViewProvider dataProvider,
-            INavigationService navigationService)
+        public CollectionItemEditorViewModel(ICollectionItemViewProvider dataProvider)
               : base(dataProvider, new CollectionItemViewModelFactory())
         {
             _dataProvider = dataProvider;
-            _navigationService = navigationService;
-            GotoTaxaCommand = new RelayCommand(_navigationService.GotoTaxa);
-            GotoCollectorsCommand = new RelayCommand(_navigationService.GotoCollectors);
-            GotoSuppliersCommand = new RelayCommand(_navigationService.GotoSuppliers);
         }
 
         private readonly ICollectionItemViewProvider _dataProvider;
-        private readonly INavigationService _navigationService;
         private CollectionItemViewModel _itemToEdit;
 
         public ICommand GotoTaxaCommand { get; private set; }
@@ -122,8 +114,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
                 IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
         }
 
-        protected override void PrepareForLoad()
+        protected override void OnLoad()
         {
+            GotoTaxaCommand = new RelayCommand(Navigations.GotoTaxa);
+            GotoCollectorsCommand = new RelayCommand(Navigations.GotoCollectors);
+            GotoSuppliersCommand = new RelayCommand(Navigations.GotoSuppliers);
+
             Taxa = new ChangeableObservableCollection<TaxonDto>(_dataProvider.GetTaxa());
             Collectors = new ChangeableObservableCollection<CollectorDto>(_dataProvider.GetCollectors());
             Suppliers = new ChangeableObservableCollection<SupplierDto>(_dataProvider.GetSuppliers());
@@ -166,7 +162,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             if (deletedItem != null)
             {
                 NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
-                _navigationService.CloseCurrentView();
+                Navigations.CloseCurrentView();
             }
             return deletedItem;
         }

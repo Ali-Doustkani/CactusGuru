@@ -1,7 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.CollectionItems;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,33 +11,25 @@ using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewModels
 {
-    public class CollectionItemListViewModel : BaseViewModel, INavigationViewModel
+    public class CollectionItemListViewModel : FormViewModel
     {
-        public CollectionItemListViewModel(ICollectionItemListViewProvider viewProvider,
-            INavigationService navigationService,
-            IDialogService dialogService,
-            EventAggregator eventAggregator)
+        public CollectionItemListViewModel(ICollectionItemListViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            _navigationService = navigationService;
-            _dialogService = dialogService;
             _loaderWorker = new BackgroundWorker();
             _loaderWorker.WorkerReportsProgress = true;
             _loaderWorker.DoWork += _loaderWorker_DoWork;
             _loaderWorker.RunWorkerCompleted += _loaderWorker_RunWorkerCompleted;
             _loaderWorker.ProgressChanged += _loaderWorker_ProgressChanged;
-            eventAggregator.Notify += EventAggregator_Notify;
-            CollectionItems = new ObservableCollection<CollectionItemViewModel>();
-            GotoImageGallaryCommand = new RelayCommand(GotoImageGallary, CanGotoImageGallery);
-            EditCurrentCollectionItemCommand = new RelayCommand(() => _navigationService.GotoCollectionItemUpdater(SelectedCollectionItem.InnerObject.Id));
+            GotoImageGallaryCommand = new RelayCommand(() => Navigations.GotoCollectionItemImageGallary(SelectedCollectionItem.InnerObject.Id), CanGotoImageGallery);
+            EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItemUpdater(SelectedCollectionItem.InnerObject.Id));
             DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
             CopyNameCommand = new RelayCommand(CopyNameToClipboard);
+            CollectionItems = new ObservableCollection<CollectionItemViewModel>();
             State = new LoaderState();
         }
 
         private readonly ICollectionItemListViewProvider _viewProvider;
-        private readonly INavigationService _navigationService;
-        private readonly IDialogService _dialogService;
         private readonly BackgroundWorker _loaderWorker;
 
         public ICommand GotoImageGallaryCommand { get; private set; }
@@ -47,9 +38,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public ICommand EditCurrentCollectionItemCommand { get; private set; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public ObservableCollection<CollectionItemViewModel> CollectionItems { get; }
-        public LoaderState State { get;   }
+        public LoaderState State { get; }
 
-        public void Load()
+        protected override void OnLoad()
         {
             _loaderWorker.RunWorkerAsync();
         }
@@ -80,7 +71,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
 
         private void DeleteCurrentCollectionItem()
         {
-            if (!_dialogService.Ask("آیا از حذف گیاه خود اطمینان دارید؟"))
+            if (!Dialog.Ask("آیا از حذف گیاه خود اطمینان دارید؟"))
                 return;
             var itemToDelete = SelectedCollectionItem;
             SelectedCollectionItem = CollectionItems.Last();
@@ -94,29 +85,22 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             Clipboard.SetText(SelectedCollectionItem.Name);
         }
 
-        private void GotoImageGallary()
-        {
-            _navigationService.GotoCollectionItemImageGallary(SelectedCollectionItem.InnerObject.Id);
-        }
-
         private bool CanGotoImageGallery()
         {
             return SelectedCollectionItem != null;
         }
 
-        #region NOTIFICATION
-
-        private void EventAggregator_Notify(NotificationEventArgs e)
+        protected override void OnSomethingHappened(NotificationEventArgs info)
         {
-            var collectionItem = e.Object as CollectionItemDto;
+            var collectionItem = info.Object as CollectionItemDto;
             if (collectionItem == null)
                 return;
 
-            if (e.OperationType == OperationType.Add)
+            if (info.OperationType == OperationType.Add)
                 ItemAdded(collectionItem.Id);
-            else if (e.OperationType == OperationType.Update)
+            else if (info.OperationType == OperationType.Update)
                 ItemEdited(collectionItem.Id);
-            else if (e.OperationType == OperationType.Delete)
+            else if (info.OperationType == OperationType.Delete)
                 ItemDeleted(collectionItem.Id);
         }
 
@@ -141,7 +125,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         {
             return CollectionItems.Single(x => x.InnerObject.Id == id);
         }
-
-        #endregion
     }
 }

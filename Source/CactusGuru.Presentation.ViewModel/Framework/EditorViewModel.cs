@@ -2,7 +2,6 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.Framework
 {
-    public abstract class EditorViewModel<TRowItem> : NotifiableViewModel, INotifyDataErrorInfo
+    public abstract class EditorViewModel<TRowItem> : FormViewModel, INotifyDataErrorInfo
         where TRowItem : WorkingViewModel
     {
         protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory)
@@ -21,7 +20,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             _changeableCollections = new List<IChangeableCollection>();
             State = new EditorState();
             Rules = new Rules(RaiseErrorsChanged);
-            LoadCommand = new RelayCommand(PrepareForLoad);
             PrepareForAddCommand = new RelayCommand(PrepareForAdd, () => State.IsView);
             PrepareForEditCommand = new RelayCommand(PrepareForEdit, CanEditOrDelete);
             DeleteCommand = new RelayCommand(AskAndDelete, CanEditOrDelete);
@@ -32,35 +30,21 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private TransferObjectBase _originalItem;
         private TRowItem _workingItem;
-        private IDialogService _dialogService;
         private readonly List<IChangeableCollection> _changeableCollections;
         private readonly IDataEntryViewProvider _dataProvider;
         protected readonly IWorkingFactory<TRowItem> _viewModelFactory;
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
-       
+
         public abstract string Title { get; }
         public EditorState State { get; }
         public Rules Rules { get; }
-        public ICommand LoadCommand { get; protected set; }
         public ICommand PrepareForAddCommand { get; private set; }
         public ICommand PrepareForEditCommand { get; private set; }
         public ICommand DeleteCommand { get; private set; }
         public ICommand SaveCommand { get; private set; }
         public ICommand SaveNewCommand { get; private set; }
         public ICommand CancelCommand { get; private set; }
-
-        public IDialogService DialogService
-        {
-            get { return _dialogService; }
-            set
-            {
-                if (_dialogService == null && value != null)
-                    _dialogService = value;
-                else
-                    throw new InvalidOperationException();
-            }
-        }
 
         public TRowItem WorkingItem
         {
@@ -73,8 +57,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         }
 
         public bool HasErrors => Rules.AnyError();
-
-        protected virtual void PrepareForLoad() { }
 
         public virtual void PrepareForAdd()
         {
@@ -104,7 +86,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                DialogService.Error(ex.Message);
+                Dialog.Error(ex.Message);
                 throw new OperationFailedException();
             }
         }
@@ -117,7 +99,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                DialogService.Error(ex.Message);
+                Dialog.Error(ex.Message);
                 throw new OperationFailedException();
             }
         }
@@ -132,7 +114,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             }
             catch (ErrorHappenedException ex)
             {
-                DialogService.Error(ex.Message);
+                Dialog.Error(ex.Message);
                 return null;
             }
         }
@@ -164,7 +146,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void Cancel()
         {
-            if (!DialogService.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
+            if (!Dialog.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
             if (State.IsEdit)
                 CancelEdit();
             State.ToView();
@@ -200,7 +182,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void AskAndDelete()
         {
-            if (!DialogService.Ask("آیا از حذف تامین کننده ی انتخابی اطمینان دارید؟"))
+            if (!Dialog.Ask("آیا از حذف تامین کننده ی انتخابی اطمینان دارید؟"))
                 return;
             DeleteImp();
         }

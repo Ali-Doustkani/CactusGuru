@@ -1,35 +1,34 @@
 ﻿using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
 {
-    public class MainViewModel : BaseViewModel
+    public class MainViewModel : FormViewModel
     {
-        public MainViewModel(INavigationService navigationService)
+        public MainViewModel()
         {
             MenuItemCommand = new RelayCommand(destination =>
             {
                 var cmd = destination.ToString().ToLower();
                 if (cmd == "genus")
-                    navigationService.GotoGenera();
+                    Navigations.GotoGenera();
                 else if (cmd == "taxon")
-                    navigationService.GotoTaxa();
+                    Navigations.GotoTaxa();
                 else if (cmd == "collectionitem")
-                    navigationService.GotoCollectionItemInserter();
+                    Navigations.GotoCollectionItemInserter();
                 else if (cmd == "supplier")
-                    navigationService.GotoSuppliers();
+                    Navigations.GotoSuppliers();
                 else if (cmd == "collector")
-                    navigationService.GotoCollectors();
+                    Navigations.GotoCollectors();
                 else if (cmd == "printlabel")
-                    navigationService.GotoLabelPrint();
+                    Navigations.GotoLabelPrint();
                 else if (cmd == "gallary")
-                    navigationService.GotoImageList();
+                    Navigations.GotoImageList();
             });
-            HomeCommand = new RelayCommand(navigationService.GotoHome);
+            HomeCommand = new RelayCommand(() => Navigations.GotoHome());
         }
 
-        public ICommand MenuItemCommand { get; }
-        public ICommand HomeCommand { get; }
+        public ICommand MenuItemCommand { get; private set; }
+        public ICommand HomeCommand { get; private set; }
     }
 }
