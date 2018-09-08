@@ -24,6 +24,7 @@ namespace CactusGuru.Entry.CompositionRoot
                     x.ConnectImplementationsToTypesClosing(typeof(AssemblerBase<,>));
                     x.ConnectImplementationsToTypesClosing(typeof(ValidatorBase<>));
                     x.ConnectImplementationsToTypesClosing(typeof(InquiryBase<>));
+                    x.ConnectImplementationsToTypesClosing(typeof(IFactory<>));
                     x.WithDefaultConventions();
                 });
                 cfg.AddRegistry<InfrastructureRegistry>();
