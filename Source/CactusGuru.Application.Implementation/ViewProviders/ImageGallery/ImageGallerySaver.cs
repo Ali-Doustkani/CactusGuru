@@ -14,7 +14,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
         public ImageGallerySaver(AssemblerBase<CollectionItemImage, ImageDto> assembler,
             ICollectionItemImageRepository repository,
             Publisher<CollectionItemImage> publisher,
-            ITerminator<CollectionItemImage> terminator,
+            Terminator<CollectionItemImage> terminator,
             IUnitOfWork unitOfWork)
         {
             _assembler = assembler;
@@ -27,7 +27,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
         private readonly AssemblerBase<CollectionItemImage, ImageDto> _assembler;
         private readonly ICollectionItemImageRepository _repository;
         private readonly Publisher<CollectionItemImage> _publisher;
-        private readonly ITerminator<CollectionItemImage> _terminator;
+        private readonly Terminator<CollectionItemImage> _terminator;
         private readonly IUnitOfWork _unitOfWork;
 
         public void SaveImageGallery(ImageGalleryDto imageGallery)

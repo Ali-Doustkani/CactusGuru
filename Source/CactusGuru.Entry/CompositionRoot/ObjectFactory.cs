@@ -22,8 +22,6 @@ namespace CactusGuru.Entry.CompositionRoot
                     x.AssembliesFromApplicationBaseDirectory(asm => asm.GetName().Name.StartsWith("CactusGuru."));
                     x.ConnectImplementationsToTypesClosing(typeof(TranslatorBase<,>));
                     x.ConnectImplementationsToTypesClosing(typeof(AssemblerBase<,>));
-                    x.ConnectImplementationsToTypesClosing(typeof(IFactory<>));
-                    x.ConnectImplementationsToTypesClosing(typeof(ITerminator<>));
                     x.ConnectImplementationsToTypesClosing(typeof(ValidatorBase<>));
                     x.ConnectImplementationsToTypesClosing(typeof(InquiryBase<>));
                     x.WithDefaultConventions();

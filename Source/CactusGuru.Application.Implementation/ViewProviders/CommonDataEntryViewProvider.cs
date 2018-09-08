@@ -72,7 +72,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
         {
             using (var locator = Begin())
             {
-                var terminator = locator.Get<ITerminator<TDomainEntity>>();
+                var terminator = locator.Get<Terminator<TDomainEntity>>();
                 terminator.Terminate(((TDtoEntity)dto).Id);
             }
         }

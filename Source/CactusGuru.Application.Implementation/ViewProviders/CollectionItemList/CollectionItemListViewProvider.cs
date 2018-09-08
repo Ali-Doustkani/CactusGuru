@@ -15,7 +15,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
         {
             using (var locator = Begin())
             {
-                locator.Get<ITerminator<CollectionItem>>().Terminate(collectionItemId);
+                locator.Get<Terminator<CollectionItem>>().Terminate(collectionItemId);
             }
         }
 

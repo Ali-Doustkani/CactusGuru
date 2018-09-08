@@ -13,7 +13,7 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
     {
         private Publisher<TestDomainEntity> _publisher;
         private Mock<IRepository<TestDomainEntity>> _repo;
-        private Mock<ITerminator<TestDomainEntity>> _terminator;
+        private Terminator<TestDomainEntity> _terminator;
         private Merger<TestDomainEntity> _merger;
 
         [TestInitialize]
@@ -21,8 +21,8 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
         {
             _repo = new Mock<IRepository<TestDomainEntity>>();
             _publisher = new Publisher<TestDomainEntity>(_repo.Object, new Mock<ValidatorBase<TestDomainEntity>>().Object);
-            _terminator = new Mock<ITerminator<TestDomainEntity>>();
-            _merger = new Merger<TestDomainEntity>(_publisher, _terminator.Object);
+            _terminator = new Terminator<TestDomainEntity>(_repo.Object, new Mock<InquiryBase<TestDomainEntity>>().Object);
+            _merger = new Merger<TestDomainEntity>(_publisher, _terminator);
         }
 
         [TestMethod]
@@ -42,7 +42,7 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
 
             _merger.Merge(originals, currentItems);
 
-            _terminator.Verify(x => x.Terminate(item3.Id), Times.Once);
+            _repo.Verify(x => x.Delete(item3.Id), Times.Once);
             _repo.Verify(x => x.Add(It.IsAny<TestDomainEntity>()), Times.Never);
         }
 
@@ -64,7 +64,7 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
             _merger.Merge(originals, currentItems);
 
             _repo.Verify(x => x.Add(item3), Times.Once);
-            _terminator.Verify(x => x.Terminate(It.IsAny<Guid>()), Times.Never);
+            _repo.Verify(x => x.Delete(It.IsAny<Guid>()), Times.Never);
         }
 
         [TestMethod]

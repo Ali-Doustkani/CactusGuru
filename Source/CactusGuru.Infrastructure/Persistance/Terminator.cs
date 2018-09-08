@@ -1,23 +1,26 @@
 ﻿using CactusGuru.Infrastructure.Qualification;
+using CactusGuru.Infrastructure.Utils;
 using System;
 
 namespace CactusGuru.Infrastructure.Persistance
 {
-    public class Terminator<T> : SimpleTerminator<T>
+    public class Terminator<T> 
         where T : DomainEntity
     {
-        public Terminator(IUnitOfWork uow, IRepository<T> repo, InquiryBase<T> inquiry)
-            : base(repo, inquiry)
+        public Terminator(IRepository<T> repo, InquiryBase<T> inquiry)
         {
-            _uow = uow;
+            _repo = ArgumentChecker.CheckUp(repo);
+            _inquiry = ArgumentChecker.CheckUp(inquiry);
         }
 
-        private readonly IUnitOfWork _uow;
+        private readonly IRepository<T> _repo;
+        private readonly InquiryBase<T> _inquiry;
 
-        public override void Terminate(Guid id)
+        public virtual void Terminate(Guid id)
         {
-            base.Terminate(id);
-            _uow.SaveChanges();
+            ArgumentChecker.CheckEmpty(id);
+            _inquiry.Inquiry(id);
+            _repo.Delete(id);
         }
     }
 }
