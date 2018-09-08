@@ -1,7 +1,9 @@
-﻿namespace CactusGuru.Application.ViewProviders.Main
+﻿using System.Threading.Tasks;
+
+namespace CactusGuru.Application.ViewProviders.Main
 {
     public interface IFirstPageViewProvider
     {
-        int GetItemsCount();
+        Task<int> GetItemsCount();
     }
 }

@@ -1,14 +1,18 @@
 ﻿using CactusGuru.Application.ViewProviders.Main;
 using CactusGuru.Domain.Persistance.Repositories;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.Main
 {
     public class FirstPageViewProvider : ViewProviderBase, IFirstPageViewProvider
     {
-        public int GetItemsCount()
+        public Task<int> GetItemsCount()
         {
-            using (var locator = Begin())
-                return locator.Get<ICollectionItemRepository>().GetCount();
+            return Task.Factory.StartNew(() =>
+             {
+                 using (var locator = Begin())
+                     return locator.Get<ICollectionItemRepository>().GetCount();
+             });
         }
     }
 }

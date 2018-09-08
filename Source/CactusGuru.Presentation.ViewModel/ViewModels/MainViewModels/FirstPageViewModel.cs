@@ -9,31 +9,23 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
         public FirstPageViewModel(IFirstPageViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            CollectionListCommand = new RelayCommand(GotoCollectionList);
-            ImageListCommand = new RelayCommand(GotoImageList);
+            LoaderState = new LoaderState();
+            CollectionListCommand = new RelayCommand(() => Navigations.GotoCollectionItemList());
+            ImageListCommand = new RelayCommand(() => Navigations.GotoImageList());
         }
 
         private readonly IFirstPageViewProvider _viewProvider;
 
         public ICommand CollectionListCommand { get; }
         public ICommand ImageListCommand { get; }
-
+        public LoaderState LoaderState { get; private set; }
         public int ItemsCount { get; private set; }
 
-        private void GotoCollectionList()
+        protected override async void OnLoad()
         {
-            Navigations.GotoCollectionItemList();
-        }
-
-        private void GotoImageList()
-        {
-            Navigations.GotoImageList();
-        }
-
-        protected override void OnLoad()
-        {
-            ItemsCount = _viewProvider.GetItemsCount();
+            ItemsCount = await _viewProvider.GetItemsCount();
             OnPropertyChanged(nameof(ItemsCount));
+            LoaderState.ToIdle();
         }
     }
 }

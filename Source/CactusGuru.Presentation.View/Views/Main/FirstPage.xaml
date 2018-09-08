@@ -3,6 +3,7 @@
       xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
       xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:loaders="clr-namespace:Loaders;assembly=MrMitch.Loaders"
       FlowDirection="RightToLeft">
     <Grid.Resources>
         <ResourceDictionary>
@@ -14,7 +15,9 @@
                 <Setter Property="Background" Value="#1a1f33" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
+                <Setter Property="Size" Value="Small" />
             </Style>
+            <BooleanToVisibilityConverter x:Key="visConverter"/>
         </ResourceDictionary>
     </Grid.Resources>
     <Grid.DataContext>
@@ -28,8 +31,12 @@
             <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
-    <lc:TileLayoutControl>
-        <lc:Tile Size="Small" Command="{Binding CollectionListCommand}">
+    <Grid Visibility="{Binding LoaderState.IsBusy, Converter={StaticResource visConverter}}">
+        <loaders:ChromeLoader Thickness="6" Width="80" Height="80" Foreground="#374c61"/>
+        <TextBlock Margin="0 140 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8">در حال بارگزاری</TextBlock>
+    </Grid>
+    <lc:TileLayoutControl Visibility="{Binding LoaderState.IsIdle, Converter={StaticResource visConverter}}">
+        <lc:Tile Command="{Binding CollectionListCommand}">
             <StackPanel>
                 <TextBlock Style="{StaticResource LabelFontStyle}"
                            Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
@@ -43,10 +50,25 @@
                            LineHeight="52" />
             </StackPanel>
         </lc:Tile>
-        <lc:Tile Size="Small" Command="{Binding ImageListCommand}">
+        <lc:Tile Command="{Binding ImageListCommand}">
             <TextBlock FontFamily="B Titr"
                        FontSize="50"
                        Foreground="#fff8e7">گالری</TextBlock>
         </lc:Tile>
+        <lc:TileLayoutControl.Style>
+            <Style TargetType="lc:TileLayoutControl">
+                <Style.Triggers>
+                    <Trigger Property="Visibility" Value="Visible">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.5" From="0" To="1" Storyboard.TargetProperty="Opacity" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </lc:TileLayoutControl.Style>
     </lc:TileLayoutControl>
 </Grid>
