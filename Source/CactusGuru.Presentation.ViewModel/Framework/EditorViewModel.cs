@@ -4,7 +4,6 @@ using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.EventAggregation;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -16,8 +15,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory)
         {
             _dataProvider = dataProvider;
-            _viewModelFactory = viewModelFactory;
-            _changeableCollections = new List<IChangeableCollection>();
+            ViewModelFactory = viewModelFactory;
             State = new EditorState();
             Rules = new Rules(RaiseErrorsChanged);
             PrepareForAddCommand = new RelayCommand(PrepareForAdd, () => State.IsView);
@@ -30,9 +28,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private TransferObjectBase _originalItem;
         private TRowItem _workingItem;
-        private readonly List<IChangeableCollection> _changeableCollections;
         private readonly IDataEntryViewProvider _dataProvider;
-        protected readonly IWorkingFactory<TRowItem> _viewModelFactory;
+        protected readonly IWorkingFactory<TRowItem> ViewModelFactory;
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
@@ -60,7 +57,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public virtual void PrepareForAdd()
         {
             State.ToAdd();
-            WorkingItem = _viewModelFactory.Create(_dataProvider.Build());
+            WorkingItem = ViewModelFactory.Create(_dataProvider.Build());
             OnPropertyChanged(nameof(WorkingItem));
         }
 
@@ -82,6 +79,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             try
             {
                 _dataProvider.Add(WorkingItem.InnerObject);
+                NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
             }
             catch (ErrorHappenedException ex)
             {
@@ -95,6 +93,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             try
             {
                 WorkingItem.InnerObject = _dataProvider.Update(WorkingItem.InnerObject);
+                NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
             }
             catch (ErrorHappenedException ex)
             {
@@ -109,6 +108,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             {
                 var itemToDelete = WorkingItem;
                 _dataProvider.Delete(itemToDelete.InnerObject);
+                NotifyOthers(itemToDelete.InnerObject, OperationType.Delete);
                 return itemToDelete;
             }
             catch (ErrorHappenedException ex)
@@ -116,19 +116,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 Dialog.Error(ex.Message);
                 return null;
             }
-        }
-
-        protected void AddListener(IChangeableCollection collection)
-        {
-            if (collection == null)
-                throw new ArgumentNullException();
-            _changeableCollections.Add(collection);
-        }
-
-        protected override sealed void OnSomethingHappened(NotificationEventArgs info)
-        {
-            foreach (var col in _changeableCollections)
-                col.Change(info);
         }
 
         private bool CanEditOrDelete()

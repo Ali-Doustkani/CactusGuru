@@ -1,8 +1,7 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
-using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
-using System.Collections.ObjectModel;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
@@ -13,33 +12,13 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             : base(dataProvider, new TaxonViewModelFactory())
         {
             _dataProvider = dataProvider;
-            GotoGeneraCommand = new RelayCommand(GotoGenera);
+            GotoGeneraCommand = new RelayCommand(() => Navigations.GotoGenera());
         }
 
         private readonly ITaxonViewProvider _dataProvider;
 
         public ICommand GotoGeneraCommand { get; private set; }
-        public ObservableCollection<GenusDto> Genera { get; private set; }
-
-        protected override void AddImp()
-        {
-            base.AddImp();
-            NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
-        }
-
-        protected override void EditImp()
-        {
-            base.EditImp();
-            NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
-        }
-
-        protected override TaxonViewModel DeleteImp()
-        {
-            var deletedItem = base.DeleteImp();
-            if (deletedItem != null)
-                NotifyOthers(deletedItem.InnerObject, OperationType.Delete);
-            return deletedItem;
-        }
+        public ObservableBag<GenusDto> Genera { get; private set; }
 
         protected override void OnLoad()
         {
@@ -50,19 +29,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             Rules.MakeSure(nameof(SubSpecies)).ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Forma)).ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Cultivar)).ValidatesForWhole(Similarity);
-            LoadGenera();
-        }
-
-        private void LoadGenera()
-        {
-            Genera = new ObservableCollection<GenusDto>(_dataProvider.GetGenera());
+            Genera = Bag.Of<GenusDto>()
+                .WithId(x => x.Id)
+                .WithSource(_dataProvider.GetGenera)
+                .Build();
+            AddListener(Genera);
             OnPropertyChanged(nameof(Genera));
-        }
-
-        private void GotoGenera()
-        {
-            Navigations.GotoGenera();
-            LoadGenera();
         }
 
         public GenusDto Genus

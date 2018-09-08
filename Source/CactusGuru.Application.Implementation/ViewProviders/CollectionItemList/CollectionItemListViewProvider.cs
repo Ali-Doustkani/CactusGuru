@@ -46,5 +46,10 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
             _start = 0;
             return false;
         }
+
+        public CollectionItemDto Convert(Common.CollectionItemDto dto)
+        {
+            return _assembler.ToDataTransferEntity(_repo.Get(dto.Id));
+        }
     }
 }

@@ -3,6 +3,7 @@ using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -25,9 +26,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         public ICommand GotoTaxaCommand { get; private set; }
         public ICommand GotoCollectorsCommand { get; private set; }
         public ICommand GotoSuppliersCommand { get; private set; }
-        public ChangeableObservableCollection<TaxonDto> Taxa { get; private set; }
-        public ChangeableObservableCollection<SupplierDto> Suppliers { get; private set; }
-        public ChangeableObservableCollection<CollectorDto> Collectors { get; set; }
+        public ObservableBag<TaxonDto> Taxa { get; private set; }
+        public ObservableBag<SupplierDto> Suppliers { get; private set; }
+        public ObservableBag<CollectorDto> Collectors { get; set; }
         public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; private set; }
 
         public string Code
@@ -108,7 +109,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 
         public void PrepareForEdit(Guid id)
         {
-            _itemToEdit = _viewModelFactory.Create(_dataProvider.GetCollectionItem(id));
+            _itemToEdit = ViewModelFactory.Create(_dataProvider.GetCollectionItem(id));
             if (_itemToEdit.IncomeDate.HasValue)
                 IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
         }
@@ -119,9 +120,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             GotoCollectorsCommand = new RelayCommand(Navigations.GotoCollectors);
             GotoSuppliersCommand = new RelayCommand(Navigations.GotoSuppliers);
 
-            Taxa = new ChangeableObservableCollection<TaxonDto>(_dataProvider.GetTaxa());
-            Collectors = new ChangeableObservableCollection<CollectorDto>(_dataProvider.GetCollectors());
-            Suppliers = new ChangeableObservableCollection<SupplierDto>(_dataProvider.GetSuppliers());
+            Taxa = Bag.Of<TaxonDto>().WithId(x => x.Id).WithSource(_dataProvider.GetTaxa).Build();
+            Collectors = Bag.Of<CollectorDto>().WithId(x => x.Id).WithSource(_dataProvider.GetCollectors).Build();
+            Suppliers = Bag.Of<SupplierDto>().WithId(x => x.Id).WithSource(_dataProvider.GetSuppliers).Build();
             LoadIncomeTypes();
 
             AddListener(Taxa);
@@ -145,14 +146,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         {
             FillDate();
             base.AddImp();
-            NotifyOthers(WorkingItem.InnerObject, OperationType.Add);
         }
 
         protected override void EditImp()
         {
             FillDate();
             base.EditImp();
-            NotifyOthers(WorkingItem.InnerObject, OperationType.Update);
         }
 
         protected override CollectionItemViewModel DeleteImp()

@@ -138,7 +138,7 @@ namespace CactusGuru.Entry.Presentation
             window.ShowDialog();
         }
 
-        private void SlideTo(System.Windows.Controls.UserControl uc)
+        private void SlideTo(System.Windows.Controls.Panel uc)
         {
             var frame = (DevExpress.Xpf.WindowsUI.NavigationFrame)typeof(Main).GetField("navFrame", System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance).GetValue(System.Windows.Application.Current.MainWindow);
             if (frame.Content != null && uc.GetType() == frame.Content.GetType()) return;

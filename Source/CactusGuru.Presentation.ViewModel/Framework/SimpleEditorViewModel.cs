@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
+using CactusGuru.Infrastructure.EventAggregation;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,7 +14,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     public class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
          where TRowItem : WorkingViewModel
     {
-        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider,IWorkingFactory<TRowItem> viewModelFactory)
+        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory)
             : base(dataProvider, viewModelFactory)
         {
             _dataProvider = dataProvider;
@@ -50,7 +51,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         {
             _originalSource = new List<TRowItem>();
             foreach (var item in _dataProvider.GetList())
-                _originalSource.Add(_viewModelFactory.Create(item));
+                _originalSource.Add(ViewModelFactory.Create(item));
             ItemSource = new ObservableCollection<TRowItem>(_originalSource);
             OnPropertyChanged(nameof(ItemSource));
             SelectFirstItem();
@@ -69,7 +70,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             try
             {
                 var processedObject = _dataProvider.Add(WorkingItem.InnerObject);
-                var newItem = _viewModelFactory.Create(processedObject);
+                var newItem = ViewModelFactory.Create(processedObject);
                 _originalSource.Add(newItem);
                 ItemSource.Add(newItem);
                 WorkingItem = newItem;
@@ -90,6 +91,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 _dataProvider.Delete(itemToDelete.InnerObject);
                 _originalSource.Remove(itemToDelete);
                 ItemSource.Remove(itemToDelete);
+                NotifyOthers(itemToDelete.InnerObject, OperationType.Delete);
                 return itemToDelete;
             }
             catch (ErrorHappenedException ex)

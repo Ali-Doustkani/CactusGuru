@@ -15,7 +15,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
     {
         protected override SimpleEditorViewModel<SupplierViewModel> Make()
         {
-            return new SimpleEditorViewModel<SupplierViewModel>(dataProvider.Object, new SupplierViewModelFactory(), "Suppliers");
+            return new SimpleEditorViewModel<SupplierViewModel>(dataProvider.Object, new SupplierViewModelFactory());
         }
 
         [TestMethod]

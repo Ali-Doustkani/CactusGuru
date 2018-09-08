@@ -1,9 +1,8 @@
 ﻿using CactusGuru.Application.ViewProviders.CollectionItems;
-using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows;
@@ -25,7 +24,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItemUpdater(SelectedCollectionItem.InnerObject.Id));
             DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
             CopyNameCommand = new RelayCommand(CopyNameToClipboard);
-            CollectionItems = new ObservableCollection<CollectionItemViewModel>();
+            CollectionItems = Bag.Of<CollectionItemViewModel>()
+                .WithConvertor((Application.Common.CollectionItemDto dto) => new CollectionItemViewModel(_viewProvider.Convert(dto)))
+                .WithId(x => x.InnerObject.Id)
+                .Build();
             State = new LoaderState();
         }
 
@@ -37,11 +39,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public ICommand CopyNameCommand { get; private set; }
         public ICommand EditCurrentCollectionItemCommand { get; private set; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
-        public ObservableCollection<CollectionItemViewModel> CollectionItems { get; }
+        public ObservableBag<CollectionItemViewModel> CollectionItems { get; }
         public LoaderState State { get; }
 
         protected override void OnLoad()
         {
+            AddListener(CollectionItems);
             _loaderWorker.RunWorkerAsync();
         }
 
@@ -88,37 +91,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         private bool CanGotoImageGallery()
         {
             return SelectedCollectionItem != null;
-        }
-
-        protected override void OnSomethingHappened(NotificationEventArgs info)
-        {
-            var collectionItem = info.Object as CollectionItemDto;
-            if (collectionItem == null)
-                return;
-
-            if (info.OperationType == OperationType.Add)
-                ItemAdded(collectionItem.Id);
-            else if (info.OperationType == OperationType.Update)
-                ItemEdited(collectionItem.Id);
-            else if (info.OperationType == OperationType.Delete)
-                ItemDeleted(collectionItem.Id);
-        }
-
-        private void ItemAdded(Guid id)
-        {
-            CollectionItems.Add(new CollectionItemViewModel(_viewProvider.GetCollectionItem(id)));
-        }
-
-        private void ItemEdited(Guid id)
-        {
-            var itemToEdit = GetCollectionItem(id);
-            itemToEdit.InnerObject = _viewProvider.GetCollectionItem(id);
-        }
-
-        private void ItemDeleted(Guid id)
-        {
-            var itemToDelete = GetCollectionItem(id);
-            CollectionItems.Remove(itemToDelete);
         }
 
         private CollectionItemViewModel GetCollectionItem(Guid id)

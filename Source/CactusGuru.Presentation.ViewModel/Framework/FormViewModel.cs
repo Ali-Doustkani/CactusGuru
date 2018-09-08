@@ -1,6 +1,8 @@
 ﻿using CactusGuru.Infrastructure.EventAggregation;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using System;
+using System.Collections.Generic;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.Framework
@@ -11,11 +13,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         {
             LoadCommand = new RelayCommand(OnLoad);
             UnloadCommand = new RelayCommand(OnUnload);
+            _items = new List<IChangeableCollection>();
         }
 
         private EventAggregator _eventAggregator;
         private IDialogService _dialog;
         private INavigationService _navigations;
+        private readonly List<IChangeableCollection> _items;
 
         public ICommand LoadCommand { get; private set; }
         public ICommand UnloadCommand { get; private set; }
@@ -26,7 +30,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             set
             {
                 SetOnceField(ref _eventAggregator, value);
-                _eventAggregator.Notify += _eventAggregator_Notify;
+                _eventAggregator.Notify += EventAggregatorNotified;
             }
         }
 
@@ -47,17 +51,28 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             EventAggregator.NotifyOthers(value, operationType);
         }
 
-        protected virtual void OnSomethingHappened(NotificationEventArgs info) { }
+        protected virtual void OnSomethingHappened(NotificationEventArgs info)
+        {
+            foreach (var col in _items)
+                col.Change(info);
+        }
 
         protected virtual void OnLoad() { }
+
+        protected void AddListener(IChangeableCollection collection)
+        {
+            if (collection == null)
+                throw new ArgumentNullException();
+            _items.Add(collection);
+        }
 
         private void OnUnload()
         {
             if (EventAggregator == null) return;
-            EventAggregator.Notify -= _eventAggregator_Notify;
+            EventAggregator.Notify -= EventAggregatorNotified;
         }
 
-        private void _eventAggregator_Notify(NotificationEventArgs e)
+        private void EventAggregatorNotified(NotificationEventArgs e)
         {
             OnSomethingHappened(e);
         }

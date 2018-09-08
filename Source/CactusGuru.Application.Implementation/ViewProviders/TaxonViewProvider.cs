@@ -40,6 +40,9 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public bool HasSimilar(TaxonDto taxon)
         {
+            if (taxon.Genus == null)
+                return false;
+
             var entity = new Taxon
             {
                 Id = taxon.Id,

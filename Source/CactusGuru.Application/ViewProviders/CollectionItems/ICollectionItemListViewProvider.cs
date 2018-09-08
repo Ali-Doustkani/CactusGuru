@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace CactusGuru.Application.ViewProviders.CollectionItems
 {
@@ -8,5 +7,6 @@ namespace CactusGuru.Application.ViewProviders.CollectionItems
         void DeleteCollectionItem(Guid collectionItemId);
         bool GetCollectionItemsAsync(Action<CollectionItemAsyncDto> callback);
         CollectionItemDto GetCollectionItem(Guid id);
+        CollectionItemDto Convert(Common.CollectionItemDto dto);
     }
 }
