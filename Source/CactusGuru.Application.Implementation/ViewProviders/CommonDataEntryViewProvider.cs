@@ -7,41 +7,23 @@ using System.Collections.Generic;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
-    public class CommonDataEntryViewProvider<TDomainEntity, TDtoEntity, TRepository> : IDataEntryViewProvider
+    public class CommonDataEntryViewProvider<TDomainEntity, TDtoEntity> : ViewProviderBase, IDataEntryViewProvider
           where TDomainEntity : DomainEntity
           where TDtoEntity : TransferObjectBase, new()
-          where TRepository : IRepository<TDomainEntity>
     {
-        public CommonDataEntryViewProvider(IUnitOfWork uow,
-         AssemblerBase<TDomainEntity, TDtoEntity> assembler,
-         IFactory<TDomainEntity> factory,
-         IPublisher<TDomainEntity> publisher,
-         ITerminator<TDomainEntity> terminator)
-        {
-            unitOfWork = uow;
-            _assembler = assembler;
-            _factory = factory;
-            _publisher = publisher;
-            _terminator = terminator;
-        }
-
-        protected readonly IUnitOfWork unitOfWork;
-        private readonly AssemblerBase<TDomainEntity, TDtoEntity> _assembler;
-        private readonly IFactory<TDomainEntity> _factory;
-        private readonly IPublisher<TDomainEntity> _publisher;
-        private readonly ITerminator<TDomainEntity> _terminator;
-
         public virtual IEnumerable<TransferObjectBase> GetList()
         {
-            return
-                _assembler.ToDataTransferEntities(
-                    unitOfWork.CreateRepository<TRepository>().GetAll());
+            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+            var repo = Get<IRepository<TDomainEntity>>();
+            return assembler.ToDataTransferEntities(repo.GetAll());
         }
 
         public virtual TransferObjectBase Build()
         {
-            var domainEntity = _factory.CreateNew();
-            return _assembler.ToDataTransferEntity(domainEntity);
+            var factory = Get<IFactory<TDomainEntity>>();
+            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+            var domainEntity = factory.CreateNew();
+            return assembler.ToDataTransferEntity(domainEntity);
         }
 
         public virtual TransferObjectBase Copy(TransferObjectBase dto)
@@ -56,23 +38,33 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public virtual TransferObjectBase Add(TransferObjectBase dto)
         {
-            var domainEntity = _factory.CreateNew();
-            _assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
-            _publisher.Add(domainEntity);
-            return _assembler.ToDataTransferEntity(domainEntity);
+            var factory = Get<IFactory<TDomainEntity>>();
+            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+            var publisher = Get<IPublisher<TDomainEntity>>();
+
+            var domainEntity = factory.CreateNew();
+            assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
+            publisher.Add(domainEntity);
+            return assembler.ToDataTransferEntity(domainEntity);
         }
 
         public virtual TransferObjectBase Update(TransferObjectBase dto)
         {
-            var domainEntity = unitOfWork.CreateRepository<TRepository>().Get(((TDtoEntity)dto).Id);
-            _assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
-            _publisher.Update(domainEntity);
-            return _assembler.ToDataTransferEntity(domainEntity);
+            var repo = Get<IRepository<TDomainEntity>>();
+            var factory = Get<IFactory<TDomainEntity>>();
+            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+            var publisher = Get<IPublisher<TDomainEntity>>();
+
+            var domainEntity = repo.Get(((TDtoEntity)dto).Id);
+            assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
+            publisher.Update(domainEntity);
+            return assembler.ToDataTransferEntity(domainEntity);
         }
 
         public virtual void Delete(TransferObjectBase dto)
         {
-            _terminator.Terminate(((TDtoEntity)dto).Id);
+            var terminator = Get<ITerminator<TDomainEntity>>();
+            terminator.Terminate(((TDtoEntity)dto).Id);
         }
     }
 }

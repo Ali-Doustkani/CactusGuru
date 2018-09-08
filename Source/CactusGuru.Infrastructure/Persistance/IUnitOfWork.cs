@@ -2,7 +2,6 @@
 {
     public interface IUnitOfWork
     {
-        T CreateRepository<T>();
         void SaveChanges();
     }
 }

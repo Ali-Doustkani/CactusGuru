@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
 using System;
 using System.Collections.Generic;
@@ -9,12 +8,12 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
 {
     public class TaxonInquiry : InquiryBase<Taxon>
     {
-        public TaxonInquiry(IUnitOfWork uow)
+        public TaxonInquiry(ICollectionItemRepository repo)
         {
-            _uow = uow;
+            _repo = repo;
         }
 
-        private readonly IUnitOfWork _uow;
+        private readonly ICollectionItemRepository _repo;
 
         protected override ErrorCollection InquiryImp(Guid id)
         {
@@ -28,7 +27,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
         private string InquiryCollectionItems(Guid taxonId)
         {
             var itemTitles = new List<string>();
-            var items = _uow.CreateRepository<ICollectionItemRepository>().GetByTaxonId(taxonId);
+            var items = _repo.GetByTaxonId(taxonId);
             if (!items.Any()) return string.Empty;
             foreach (var collectionItem in items)
                 itemTitles.Add( collectionItem.Format("{code} - {GENUS} {taxon}"));

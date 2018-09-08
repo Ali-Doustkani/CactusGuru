@@ -2,30 +2,13 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure.ObjectCreation;
-using CactusGuru.Infrastructure.Persistance;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
-    public class TaxonViewProvider : CommonDataEntryViewProvider<Taxon, TaxonDto, ITaxonRepository>, ITaxonViewProvider
+    public class TaxonViewProvider : CommonDataEntryViewProvider<Taxon, TaxonDto>, ITaxonViewProvider
     {
-        public TaxonViewProvider(IUnitOfWork uow,
-            AssemblerBase<Taxon, TaxonDto> taxonAssembler,
-            AssemblerBase<Genus, GenusDto> genusAssembler,
-            IFactory<Taxon> factory,
-            IPublisher<Taxon> publisher,
-            ITerminator<Taxon> terminator)
-            : base(uow, taxonAssembler, factory, publisher, terminator)
-        {
-            _uow = uow;
-            _genusAssembler = genusAssembler;
-        }
-
-        private readonly IUnitOfWork _uow;
-        private readonly AssemblerBase<Genus, GenusDto> _genusAssembler;
-
         public override IEnumerable<TransferObjectBase> GetList()
         {
             return base.GetList().Cast<TaxonDto>().OrderBy(x => x.Genus.Name);
@@ -33,9 +16,9 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public IEnumerable<GenusDto> GetGenera()
         {
-            return
-                _genusAssembler.ToDataTransferEntities(
-                    _uow.CreateRepository<IGenusRepository>().GetAll().OrderBy(x => x.Title));
+            var assembler = Get<AssemblerBase<Genus, GenusDto>>();
+            var repo = Get<IGenusRepository>();
+            return assembler.ToDataTransferEntities(repo.GetAll().OrderBy(x => x.Title));
         }
 
         public bool HasSimilar(TaxonDto taxon)
@@ -54,7 +37,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
                 Variety = taxon.Variety
             };
 
-            return _uow.CreateRepository<ITaxonRepository>().HasSimilar(entity);
+            return Get<ITaxonRepository>().HasSimilar(entity);
         }
     }
 }

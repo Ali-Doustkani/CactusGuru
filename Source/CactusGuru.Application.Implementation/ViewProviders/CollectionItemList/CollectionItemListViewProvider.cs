@@ -7,36 +7,28 @@ using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
 {
-    public class CollectionItemListViewProvider : ICollectionItemListViewProvider
+    public class CollectionItemListViewProvider : ViewProviderBase, ICollectionItemListViewProvider
     {
-        public CollectionItemListViewProvider(ITerminator<CollectionItem> terminator,
-           ICollectionItemRepository repo,
-           AssemblerBase<CollectionItem, CollectionItemDto> assembler)
-        {
-            _terminator = terminator;
-            _repo = repo;
-            _assembler = assembler;
-        }
-
-        private readonly ITerminator<CollectionItem> _terminator;
-        private readonly ICollectionItemRepository _repo;
-        private readonly AssemblerBase<CollectionItem, CollectionItemDto> _assembler;
         private int _start;
 
         public void DeleteCollectionItem(Guid collectionItemId)
         {
-            _terminator.Terminate(collectionItemId);
+            Get<ITerminator<CollectionItem>>().Terminate(collectionItemId);
         }
 
         public CollectionItemDto GetCollectionItem(Guid id)
         {
-            return _assembler.ToDataTransferEntity(_repo.Get(id));
+            var repo = Get<ICollectionItemRepository>();
+            var assembler = Get<AssemblerBase<CollectionItem, CollectionItemDto>>();
+            return assembler.ToDataTransferEntity(repo.Get(id));
         }
 
         public bool GetCollectionItemsAsync(Action<CollectionItemAsyncDto> callback)
         {
-            var items = _repo.GetByRange(_start, 10);
-            var dtos = _assembler.ToDataTransferEntities(items);
+            var repo = Get<ICollectionItemRepository>();
+            var assembler = Get<AssemblerBase<CollectionItem, CollectionItemDto>>();
+            var items = repo.GetByRange(_start, 10);
+            var dtos = assembler.ToDataTransferEntities(items);
             if (dtos.Any())
             {
                 callback(new CollectionItemAsyncDto(dtos));
@@ -49,7 +41,9 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
 
         public CollectionItemDto Convert(Common.CollectionItemDto dto)
         {
-            return _assembler.ToDataTransferEntity(_repo.Get(dto.Id));
+            var repo = Get<ICollectionItemRepository>();
+            var assembler = Get<AssemblerBase<CollectionItem, CollectionItemDto>>();
+            return assembler.ToDataTransferEntity(repo.Get(dto.Id));
         }
     }
 }

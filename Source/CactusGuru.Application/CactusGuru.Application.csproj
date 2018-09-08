@@ -69,7 +69,6 @@
     <Compile Include="ViewProviders\LabelPrinting\ILabelPrintViewProvider.cs" />
     <Compile Include="ViewProviders\ImageGallery\IImageGalleryViewProvider.cs" />
     <Compile Include="ViewProviders\ISaveViewProvider.cs" />
-    <Compile Include="ViewProviders\ISeedListViewProvider.cs" />
     <Compile Include="ViewProviders\ITaxonViewProvider.cs" />
     <Compile Include="ViewProviders\LabelPrinting\TaxonDto.cs" />
     <Compile Include="ViewProviders\Main\IFirstPageViewProvider.cs" />

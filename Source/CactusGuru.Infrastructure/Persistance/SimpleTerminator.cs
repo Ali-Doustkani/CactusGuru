@@ -7,20 +7,20 @@ namespace CactusGuru.Infrastructure.Persistance
     public class SimpleTerminator<T> : ITerminator<T>
         where T : DomainEntity
     {
-        public SimpleTerminator(IUnitOfWork uow, InquiryBase<T> inquiry)
+        public SimpleTerminator(IRepository<T> repo, InquiryBase<T> inquiry)
         {
-            _uow = ArgumentChecker.CheckUp(uow);
+            _repo = ArgumentChecker.CheckUp(repo);
             _inquiry = ArgumentChecker.CheckUp(inquiry);
         }
 
-        private readonly IUnitOfWork _uow;
+        private readonly IRepository<T> _repo;
         private readonly InquiryBase<T> _inquiry;
 
         public virtual void Terminate(Guid id)
         {
             ArgumentChecker.CheckEmpty(id);
             _inquiry.Inquiry(id);
-            _uow.CreateRepository<IRepository<T>>().Delete(id);
+            _repo.Delete(id);
         }
     }
 }

@@ -5,8 +5,8 @@ namespace CactusGuru.Infrastructure.Persistance
     public class Publisher<T> : SimplePublisher<T>
         where T : DomainEntity
     {
-        public Publisher(IUnitOfWork uow, ValidatorBase<T> validator)
-            : base(uow, validator)
+        public Publisher(IUnitOfWork uow, IRepository<T> repo, ValidatorBase<T> validator)
+            : base(repo, validator)
         {
             _uow = uow;
         }

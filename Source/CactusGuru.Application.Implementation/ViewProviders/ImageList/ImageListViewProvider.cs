@@ -9,29 +9,14 @@ using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.ImageList
 {
-    public class ImageListViewProvider : IImageListViewProvider
+    public class ImageListViewProvider : ViewProviderBase, IImageListViewProvider
     {
-        public ImageListViewProvider(IUnitOfWork uow,
-            ICollectionItemImageRepository repo,
-            AssemblerBase<CollectionItemImage, ImageDto> assembler,
-            InstagramPackageMaker fileSaver)
-        {
-            _uow = uow;
-            _repo = repo;
-            _assembler = assembler;
-            _instagramPackageMaker = fileSaver;
-        }
-
-        private readonly IUnitOfWork _uow;
-        private readonly ICollectionItemImageRepository _repo;
-        private readonly AssemblerBase<CollectionItemImage, ImageDto> _assembler;
-        private readonly InstagramPackageMaker _instagramPackageMaker;
         private int _start;
 
         public bool GetImagesAsync(Action<IEnumerable<ImageDto>> callback)
         {
-            var images = _repo.GetByRange(_start, 10);
-            var dtos = _assembler.ToDataTransferEntities(images);
+            var images = Get<ICollectionItemImageRepository>().GetByRange(_start, 10);
+            var dtos = Get<AssemblerBase<CollectionItemImage, ImageDto>>().ToDataTransferEntities(images);
             if (dtos.Any())
             {
                 callback(dtos);
@@ -45,9 +30,9 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageList
         public void SaveToFiles(IEnumerable<ImageDto> images, string path)
         {
             var domainEntities = ToCollectionItemImages(images);
-            _instagramPackageMaker.SaveToZip(domainEntities, path);
-            _repo.UpdateSharedOnInstagram(images.Select(x => x.Id));
-            _uow.SaveChanges();
+            Get<InstagramPackageMaker>().SaveToZip(domainEntities, path);
+            Get<ICollectionItemImageRepository>().UpdateSharedOnInstagram(images.Select(x => x.Id));
+            Get<IUnitOfWork>().SaveChanges();
         }
 
         private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images)
@@ -56,7 +41,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageList
             foreach (var image in images)
             {
                 var itemImage = new CollectionItemImage();
-                _assembler.FillDomainEntity(itemImage, image);
+                Get<AssemblerBase<CollectionItemImage, ImageDto>>().FillDomainEntity(itemImage, image);
                 domainEntities.Add(itemImage);
             }
             return domainEntities;

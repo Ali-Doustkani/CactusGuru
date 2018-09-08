@@ -6,8 +6,8 @@ namespace CactusGuru.Infrastructure.Persistance
     public class Terminator<T> : SimpleTerminator<T>
         where T : DomainEntity
     {
-        public Terminator(IUnitOfWork uow, InquiryBase<T> inquiry)
-            : base(uow, inquiry)
+        public Terminator(IUnitOfWork uow, IRepository<T> repo, InquiryBase<T> inquiry)
+            : base(repo, inquiry)
         {
             _uow = uow;
         }

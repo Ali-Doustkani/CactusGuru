@@ -2,7 +2,6 @@
 using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure;
-using CactusGuru.Infrastructure.Persistance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -15,22 +14,20 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
     {
         private GeneraInquiry _inq;
         private Genus _Genera;
-        private Mock<IUnitOfWork> _uow;
+        private Mock<ITaxonRepository> _repo;
 
         [TestInitialize]
         public void SetUp()
         {
-            _uow = new Mock<IUnitOfWork>();
-            _uow.DefaultValue = DefaultValue.Mock;
+            _repo = new Mock<ITaxonRepository>();
             _Genera = new Genus();
             _Genera.Id = Guid.NewGuid();
-            _inq = new GeneraInquiry(_uow.Object);
+            _inq = new GeneraInquiry(_repo.Object);
         }
 
         [TestMethod]
         public void Inquiry_CheckTaxa()
         {
-            var repo = Mock.Get(_uow.Object.CreateRepository<ITaxonRepository>());
             var taxa = new List<Taxon>();
             var Genera = new Genus();
             Genera.Title = "Astrophytum";
@@ -40,7 +37,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
                 Species = "myriostigma"
             };
             taxa.Add(t1);
-            repo.Setup(x => x.GetByGeneraId(It.IsAny<Guid>())).Returns(taxa);
+            _repo.Setup(x => x.GetByGeneraId(It.IsAny<Guid>())).Returns(taxa);
 
             try
             {

@@ -99,7 +99,7 @@
   <ItemGroup>
     <Compile Include="CompositionRoot\Registries\PresentationRegistry.cs" />
     <Compile Include="CompositionRoot\ObjectFactory.cs" />
-    <Compile Include="CompositionRoot\TranslatorFactory.cs" />
+    <Compile Include="CompositionRoot\ServiceLocator.cs" />
     <Compile Include="CompositionRoot\ViewModelFactory.cs" />
     <Compile Include="Infrastructure\DomainDictionary.cs" />
     <Compile Include="Infrastructure\Logging\LogForNet.cs" />

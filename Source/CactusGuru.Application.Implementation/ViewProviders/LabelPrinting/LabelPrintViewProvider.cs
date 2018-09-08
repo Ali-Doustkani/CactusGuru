@@ -6,46 +6,30 @@ using System.Collections.Generic;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
 {
-    public class LabelPrintViewProvider : ILabelPrintViewProvider
+    public class LabelPrintViewProvider : ViewProviderBase, ILabelPrintViewProvider
     {
-        public LabelPrintViewProvider(ICollectionItemRepository itemRepo,
-            ITaxonRepository taxonRepo,
-            AssemblerBase<CollectionItem, CollectionItemDto> itemAssembler,
-            AssemblerBase<Taxon, TaxonDto> taxonAssembler)
-        {
-            _itemRepo = itemRepo;
-            _taxonRepo = taxonRepo;
-            _itemAssembler = itemAssembler;
-            _taxonAssembler = taxonAssembler;
-        }
-
-        private readonly ICollectionItemRepository _itemRepo;
-        private readonly ITaxonRepository _taxonRepo;
-        private readonly AssemblerBase<CollectionItem, CollectionItemDto> _itemAssembler;
-        private readonly AssemblerBase<Taxon, TaxonDto> _taxonAssembler;
-
         public CollectionItemDto GetCollectionItem(Guid id)
         {
-            var item = _itemRepo.Get(id);
-            return _itemAssembler.ToDataTransferEntity(item);
+            var item = Get<ICollectionItemRepository>().Get(id);
+            return Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntity(item);
         }
 
         public IEnumerable<CollectionItemDto> GetCollectionItems()
         {
-            var items = _itemRepo.GetAll();
-            return _itemAssembler.ToDataTransferEntities(items);
+            var items = Get<ICollectionItemRepository>().GetAll();
+            return Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(items);
         }
 
         public TaxonDto GetTaxon(Guid id)
         {
-            var item = _taxonRepo.Get(id);
-            return _taxonAssembler.ToDataTransferEntity(item);
+            var item = Get<ITaxonRepository>().Get(id);
+            return Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntity(item);
         }
 
         public IEnumerable<TaxonDto> GetTaxa()
         {
-            var items = _taxonRepo.GetAll();
-            return _taxonAssembler.ToDataTransferEntities(items);
+            var items = Get<ITaxonRepository>().GetAll();
+            return Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(items);
         }
     }
 }

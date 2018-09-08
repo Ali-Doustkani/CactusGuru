@@ -1,4 +1,5 @@
 ﻿using CactusGuru.Domain.Greenhouse;
+using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Qualification;
@@ -20,14 +21,14 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<IPublisher<Supplier>>().Use<Publisher<Supplier>>();
             For<ITerminator<Supplier>>().Use<Terminator<Supplier>>();
             For<IPublisher<CollectionItem>>().Use<Publisher<CollectionItem>>();
-            For<ITerminator<CollectionItem>>().Use(ctx => CollectionItemTerminator(ctx.GetInstance<IUnitOfWork>()));
+            For<ITerminator<CollectionItem>>().Use(ctx => CollectionItemTerminator(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<ICollectionItemRepository>()));
             For<IPublisher<CollectionItemImage>>().Use<SimplePublisher<CollectionItemImage>>();
             For<ITerminator<CollectionItemImage>>().Use<SimpleTerminator<CollectionItemImage>>();
         }
 
-        private ITerminator<CollectionItem> CollectionItemTerminator(IUnitOfWork uow)
+        private ITerminator<CollectionItem> CollectionItemTerminator(IUnitOfWork uow, ICollectionItemRepository repo)
         {
-            return new Terminator<CollectionItem>(uow, new NullInquiry<CollectionItem>());
+            return new Terminator<CollectionItem>(uow, repo, new NullInquiry<CollectionItem>());
         }
     }
 }

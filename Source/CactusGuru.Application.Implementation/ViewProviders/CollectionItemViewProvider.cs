@@ -2,60 +2,36 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure.ObjectCreation;
-using CactusGuru.Infrastructure.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
-    public class CollectionItemViewProvider : CommonDataEntryViewProvider<CollectionItem, CollectionItemDto, ICollectionItemRepository>, ICollectionItemViewProvider
+    public class CollectionItemViewProvider : CommonDataEntryViewProvider<CollectionItem, CollectionItemDto>, ICollectionItemViewProvider
     {
-        public CollectionItemViewProvider(IUnitOfWork uow,
-            AssemblerBase<CollectionItem, CollectionItemDto> assembler,
-            IFactory<CollectionItem> factory,
-            IPublisher<CollectionItem> publisher,
-            ITerminator<CollectionItem> terminator,
-            AssemblerBase<Taxon, TaxonDto> taxonAssembler,
-            AssemblerBase<Collector, CollectorDto> collectorAssembler,
-            AssemblerBase<Supplier, SupplierDto> supplierAssembler,
-            AssemblerBase<CollectionItem, CollectionItemDto> collectionItemAssembler)
-            : base(uow, assembler, factory, publisher, terminator)
-        {
-            _taxonAssembler = taxonAssembler;
-            _collectorAssembler = collectorAssembler;
-            _supplierAssembler = supplierAssembler;
-            _collectionItemAssembler = collectionItemAssembler;
-        }
-
-        private readonly AssemblerBase<Taxon, TaxonDto> _taxonAssembler;
-        private readonly AssemblerBase<Collector, CollectorDto> _collectorAssembler;
-        private readonly AssemblerBase<Supplier, SupplierDto> _supplierAssembler;
-        private readonly AssemblerBase<CollectionItem, CollectionItemDto> _collectionItemAssembler;
-
         public CollectionItemDto GetCollectionItem(Guid id)
         {
-            var item = unitOfWork.CreateRepository<ICollectionItemRepository>().Get(id);
-            return _collectionItemAssembler.ToDataTransferEntity(item);
+            var item = Get<ICollectionItemRepository>().Get(id);
+            return Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntity(item);
         }
 
         public IEnumerable<TaxonDto> GetTaxa()
         {
-            var taxa = unitOfWork.CreateRepository<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
-            return _taxonAssembler.ToDataTransferEntities(taxa);
+            var taxa = Get<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
+            return Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
         }
 
         public IEnumerable<CollectorDto> GetCollectors()
         {
-            var collectors = unitOfWork.CreateRepository<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
-            return _collectorAssembler.ToDataTransferEntities(collectors);
+            var collectors = Get<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
+            return Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
         }
 
         public IEnumerable<SupplierDto> GetSuppliers()
         {
-            var suppliers = unitOfWork.CreateRepository<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
-            return _supplierAssembler.ToDataTransferEntities(suppliers);
+            var suppliers = Get<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
+            return Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
         }
 
         public IEnumerable<IncomeTypeDto> GetIncomeTypes()
@@ -68,7 +44,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public bool HasSimilarCode(string code)
         {
-            return unitOfWork.CreateRepository<ICollectionItemRepository>().ExistsByCode(code);
+            return Get<ICollectionItemRepository>().ExistsByCode(code);
         }
     }
 }

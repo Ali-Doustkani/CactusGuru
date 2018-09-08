@@ -2,7 +2,6 @@
 using CactusGuru.Domain.Greenhouse.Qualification.Inquiries;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure;
-using CactusGuru.Infrastructure.Persistance;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using System;
@@ -15,15 +14,14 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
     {
         private TaxonInquiry _inquiry;
         private Taxon _taxon;
-        private Mock<IUnitOfWork> _uow;
+        private Mock<ICollectionItemRepository> _repo;
 
         [TestInitialize]
         public void SetUp()
         {
             _taxon = new Taxon { Id = Guid.NewGuid() };
-            _uow = new Mock<IUnitOfWork>();
-            _uow.DefaultValue = DefaultValue.Mock;
-            _inquiry = new TaxonInquiry(_uow.Object);
+            _repo = new Mock<ICollectionItemRepository>();
+            _inquiry = new TaxonInquiry(_repo.Object);
         }
 
         [TestMethod]
@@ -38,8 +36,7 @@ namespace CactusGuru.Domain.Test.Greenhouse.Qualification.Inquiries
             item.Object.Taxon = taxon;
             item.Object.Code = "aa";
             items.Add(item.Object);
-            var repo = Mock.Get(_uow.Object.CreateRepository<ICollectionItemRepository>());
-            repo.Setup(x => x.GetByTaxonId(It.IsAny<Guid>())).Returns(items);
+            _repo.Setup(x => x.GetByTaxonId(It.IsAny<Guid>())).Returns(items);
 
             try
             {

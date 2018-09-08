@@ -53,6 +53,7 @@
     <Compile Include="Assemblers\SupplierAssembler.cs" />
     <Compile Include="Assemblers\TaxonAssembler.cs" />
     <Compile Include="Copier.cs" />
+    <Compile Include="ServiceLocatorBase.cs" />
     <Compile Include="ViewProviders\CollectionItemList\CollectionItemListViewProvider.cs" />
     <Compile Include="ViewProviders\CollectionItemViewProvider.cs" />
     <Compile Include="ViewProviders\CollectorViewProvider.cs" />
@@ -71,10 +72,10 @@
     <Compile Include="ViewProviders\LabelPrinting\TaxonAssembler.cs" />
     <Compile Include="ViewProviders\CollectionItemList\CollectionItemAssembler.cs" />
     <Compile Include="ViewProviders\Main\FirstPageViewProvider.cs" />
-    <Compile Include="ViewProviders\SeedListViewProvider.cs" />
     <Compile Include="ViewProviders\SupplierViewProvider.cs" />
     <Compile Include="ViewProviders\TaxonViewProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewProviders\ViewProviderBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CactusGuru.Application\CactusGuru.Application.csproj">
