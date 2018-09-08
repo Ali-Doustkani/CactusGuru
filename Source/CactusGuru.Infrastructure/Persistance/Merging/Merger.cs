@@ -3,13 +3,13 @@
     public class Merger<T> : MergerAlgorithm<T>
          where T : DomainEntity
     {
-        public Merger(IPublisher<T> publisher, ITerminator<T> terminator)
+        public Merger(Publisher<T> publisher, ITerminator<T> terminator)
         {
             _publisher = publisher;
             _terminator = terminator;
         }
 
-        private readonly IPublisher<T> _publisher;
+        private readonly Publisher<T> _publisher;
         private readonly ITerminator<T> _terminator;
 
         protected override void AddImp(T item)

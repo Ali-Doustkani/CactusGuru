@@ -63,13 +63,11 @@
     <Compile Include="Persistance\SimplePublisher.cs" />
     <Compile Include="Persistance\SimpleTerminator.cs" />
     <Compile Include="Persistance\Terminator.cs" />
-    <Compile Include="Persistance\Publisher.cs" />
     <Compile Include="Qualification\NullInquiry.cs" />
     <Compile Include="Qualification\InquiryBase.cs" />
     <Compile Include="Qualification\ErrorCollection.cs" />
     <Compile Include="Qualification\ValidatorBase.cs" />
     <Compile Include="Logging\ILogger.cs" />
-    <Compile Include="Persistance\IPublisher.cs" />
     <Compile Include="Persistance\IRepository.cs" />
     <Compile Include="Persistance\ITerminator.cs" />
     <Compile Include="Persistance\IUnitOfWork.cs" />

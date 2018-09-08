@@ -2,9 +2,9 @@
 {
     public class ViewProviderBase
     {
-        protected T Get<T>()
+        protected IServiceLocator Begin()
         {
-            return ServiceLocatorBase.Instance.GetInstance<T>();
+            return ServiceLocationBase.Instance.Begin();
         }
     }
 }

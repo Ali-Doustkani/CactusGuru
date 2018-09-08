@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CactusGuru.Infrastructure.Persistance;
 using CactusGuru.Infrastructure.Persistance.Merging;
+using CactusGuru.Infrastructure.Qualification;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
@@ -10,16 +11,18 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
     [TestClass]
     public class MergerTest
     {
-        private Mock<IPublisher<TestDomainEntity>> _publisher;
+        private Publisher<TestDomainEntity> _publisher;
+        private Mock<IRepository<TestDomainEntity>> _repo;
         private Mock<ITerminator<TestDomainEntity>> _terminator;
         private Merger<TestDomainEntity> _merger;
 
         [TestInitialize]
         public void Setup()
         {
-            _publisher = new Mock<IPublisher<TestDomainEntity>>();
+            _repo = new Mock<IRepository<TestDomainEntity>>();
+            _publisher = new Publisher<TestDomainEntity>(_repo.Object, new Mock<ValidatorBase<TestDomainEntity>>().Object);
             _terminator = new Mock<ITerminator<TestDomainEntity>>();
-            _merger = new Merger<TestDomainEntity>(_publisher.Object, _terminator.Object);
+            _merger = new Merger<TestDomainEntity>(_publisher, _terminator.Object);
         }
 
         [TestMethod]
@@ -40,7 +43,7 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
             _merger.Merge(originals, currentItems);
 
             _terminator.Verify(x => x.Terminate(item3.Id), Times.Once);
-            _publisher.Verify(x => x.Add(It.IsAny<TestDomainEntity>()), Times.Never);
+            _repo.Verify(x => x.Add(It.IsAny<TestDomainEntity>()), Times.Never);
         }
 
         [TestMethod]
@@ -60,7 +63,7 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
 
             _merger.Merge(originals, currentItems);
 
-            _publisher.Verify(x => x.Add(item3), Times.Once);
+            _repo.Verify(x => x.Add(item3), Times.Once);
             _terminator.Verify(x => x.Terminate(It.IsAny<Guid>()), Times.Never);
         }
 
@@ -82,9 +85,9 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
 
             _merger.Merge(originals, currentItems);
 
-            _publisher.Verify(x => x.Update(item1), Times.Once);
-            _publisher.Verify(x => x.Update(item2), Times.Once);
-            _publisher.Verify(x => x.Update(item3), Times.Once);
+            _repo.Verify(x => x.Update(item1), Times.Once);
+            _repo.Verify(x => x.Update(item2), Times.Once);
+            _repo.Verify(x => x.Update(item3), Times.Once);
         }
     }
 

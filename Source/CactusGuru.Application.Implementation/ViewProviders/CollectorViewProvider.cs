@@ -16,13 +16,16 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public bool HasSimilar(CollectorDto dto)
         {
-            var collector = new Collector
+            using (var locator = Begin())
             {
-                Acronym = dto.Acronym,
-                FullName = dto.FullName,
-                Id = dto.Id
-            };
-            return Get<ICollectorRepository>().HasSimilar(collector);
+                var collector = new Collector
+                {
+                    Acronym = dto.Acronym,
+                    FullName = dto.FullName,
+                    Id = dto.Id
+                };
+                return locator.Get<ICollectorRepository>().HasSimilar(collector);
+            }
         }
     }
 }

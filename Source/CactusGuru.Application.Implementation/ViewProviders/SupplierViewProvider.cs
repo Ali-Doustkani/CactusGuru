@@ -16,14 +16,17 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public bool HasSimilar(SupplierDto supplierDto)
         {
-            var supplier = new Supplier
+            using (var locator = Begin())
             {
-                Acronym = supplierDto.Acronym,
-                FullName = supplierDto.FullName,
-                Id = supplierDto.Id,
-                WebSite = supplierDto.Website
-            };
-            return Get<ISupplierRepository>().HasSimilar(supplier);
+                var supplier = new Supplier
+                {
+                    Acronym = supplierDto.Acronym,
+                    FullName = supplierDto.FullName,
+                    Id = supplierDto.Id,
+                    WebSite = supplierDto.Website
+                };
+                return locator.Get<ISupplierRepository>().HasSimilar(supplier);
+            }
         }
     }
 }

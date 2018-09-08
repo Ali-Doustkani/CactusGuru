@@ -12,26 +12,38 @@ namespace CactusGuru.Application.Implementation.ViewProviders
     {
         public CollectionItemDto GetCollectionItem(Guid id)
         {
-            var item = Get<ICollectionItemRepository>().Get(id);
-            return Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntity(item);
+            using (var locator = Begin())
+            {
+                var item = locator.Get<ICollectionItemRepository>().Get(id);
+                return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntity(item);
+            }
         }
 
         public IEnumerable<TaxonDto> GetTaxa()
         {
-            var taxa = Get<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
-            return Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
+            using (var locator = Begin())
+            {
+                var taxa = locator.Get<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
+                return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
+            }
         }
 
         public IEnumerable<CollectorDto> GetCollectors()
         {
-            var collectors = Get<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
-            return Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
+            using (var locator = Begin())
+            {
+                var collectors = locator.Get<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
+                return locator.Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
+            }
         }
 
         public IEnumerable<SupplierDto> GetSuppliers()
         {
-            var suppliers = Get<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
-            return Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
+            using (var locator = Begin())
+            {
+                var suppliers = locator.Get<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
+                return locator.Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
+            }
         }
 
         public IEnumerable<IncomeTypeDto> GetIncomeTypes()
@@ -44,7 +56,10 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public bool HasSimilarCode(string code)
         {
-            return Get<ICollectionItemRepository>().ExistsByCode(code);
+            using (var locator = Begin())
+            {
+                return locator.Get<ICollectionItemRepository>().ExistsByCode(code);
+            }
         }
     }
 }

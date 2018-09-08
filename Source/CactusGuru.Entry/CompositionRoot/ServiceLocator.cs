@@ -1,12 +1,25 @@
 ﻿using CactusGuru.Application.Implementation;
+using StructureMap;
 
 namespace CactusGuru.Entry.CompositionRoot
 {
-    public class ServiceLocator : ServiceLocatorBase
+    public class ServiceLocator : IServiceLocator
     {
-        public override T GetInstance<T>()
+        public ServiceLocator(IContainer container)
         {
-            return ObjectFactory.Instance.GetInstance<T>();
+            _container = container;
+        }
+
+        private readonly IContainer _container;
+
+        public T Get<T>()
+        {
+            return _container.GetInstance<T>();
+        }
+
+        public void Dispose()
+        {
+            _container.Dispose();
         }
     }
 }

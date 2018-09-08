@@ -7,7 +7,8 @@ namespace CactusGuru.Application.Implementation.ViewProviders.Main
     {
         public int GetItemsCount()
         {
-            return Get<ICollectionItemRepository>().GetCount();
+            using (var locator = Begin())
+                return locator.Get<ICollectionItemRepository>().GetCount();
         }
     }
 }

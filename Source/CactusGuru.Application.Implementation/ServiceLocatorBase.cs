@@ -1,9 +1,16 @@
-﻿namespace CactusGuru.Application.Implementation
-{
-    public abstract class ServiceLocatorBase
-    {
-        public static ServiceLocatorBase Instance { get; set; }
+﻿using System;
 
-        public abstract T GetInstance<T>();
+namespace CactusGuru.Application.Implementation
+{
+    public abstract class ServiceLocationBase
+    {
+        public static ServiceLocationBase Instance { get; set; }
+
+        public abstract IServiceLocator Begin();
+    }
+
+    public interface IServiceLocator : IDisposable
+    {
+        T Get<T>();
     }
 }

@@ -12,17 +12,17 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
         public InfrastructureRegistry()
         {
             For<EventAggregator>().Use<EventAggregator>().Singleton();
-            For<IPublisher<Genus>>().Use<Publisher<Genus>>();
+            //For<IPublisher<Genus>>().Use<Publisher<Genus>>();
             For<ITerminator<Genus>>().Use<Terminator<Genus>>();
-            For<IPublisher<Taxon>>().Use<Publisher<Taxon>>();
+          //  For<IPublisher<Taxon>>().Use<Publisher<Taxon>>();
             For<ITerminator<Taxon>>().Use<Terminator<Taxon>>();
-            For<IPublisher<Collector>>().Use<Publisher<Collector>>();
+          //  For<IPublisher<Collector>>().Use<Publisher<Collector>>();
             For<ITerminator<Collector>>().Use<Terminator<Collector>>();
-            For<IPublisher<Supplier>>().Use<Publisher<Supplier>>();
+           // For<IPublisher<Supplier>>().Use<Publisher<Supplier>>();
             For<ITerminator<Supplier>>().Use<Terminator<Supplier>>();
-            For<IPublisher<CollectionItem>>().Use<Publisher<CollectionItem>>();
+           // For<IPublisher<CollectionItem>>().Use<Publisher<CollectionItem>>();
             For<ITerminator<CollectionItem>>().Use(ctx => CollectionItemTerminator(ctx.GetInstance<IUnitOfWork>(), ctx.GetInstance<ICollectionItemRepository>()));
-            For<IPublisher<CollectionItemImage>>().Use<SimplePublisher<CollectionItemImage>>();
+           // For<IPublisher<CollectionItemImage>>().Use<Publisher<CollectionItemImage>>();
             For<ITerminator<CollectionItemImage>>().Use<SimpleTerminator<CollectionItemImage>>();
         }
 

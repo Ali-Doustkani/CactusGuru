@@ -13,17 +13,23 @@ namespace CactusGuru.Application.Implementation.ViewProviders
     {
         public virtual IEnumerable<TransferObjectBase> GetList()
         {
-            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
-            var repo = Get<IRepository<TDomainEntity>>();
-            return assembler.ToDataTransferEntities(repo.GetAll());
+            using (var locator = Begin())
+            {
+                var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+                var repo = locator.Get<IRepository<TDomainEntity>>();
+                return assembler.ToDataTransferEntities(repo.GetAll());
+            }
         }
 
         public virtual TransferObjectBase Build()
         {
-            var factory = Get<IFactory<TDomainEntity>>();
-            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
-            var domainEntity = factory.CreateNew();
-            return assembler.ToDataTransferEntity(domainEntity);
+            using (var locator = Begin())
+            {
+                var factory = locator.Get<IFactory<TDomainEntity>>();
+                var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+                var domainEntity = factory.CreateNew();
+                return assembler.ToDataTransferEntity(domainEntity);
+            }
         }
 
         public virtual TransferObjectBase Copy(TransferObjectBase dto)
@@ -38,33 +44,37 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public virtual TransferObjectBase Add(TransferObjectBase dto)
         {
-            var factory = Get<IFactory<TDomainEntity>>();
-            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
-            var publisher = Get<IPublisher<TDomainEntity>>();
-
-            var domainEntity = factory.CreateNew();
-            assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
-            publisher.Add(domainEntity);
-            return assembler.ToDataTransferEntity(domainEntity);
+            using (var locator = Begin())
+            {
+                var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+                var domainEntity = locator.Get<IFactory<TDomainEntity>>().CreateNew();
+                assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
+                locator.Get<Publisher<TDomainEntity>>().Add(domainEntity);
+                locator.Get<IUnitOfWork>().SaveChanges();
+                return assembler.ToDataTransferEntity(domainEntity);
+            }
         }
 
         public virtual TransferObjectBase Update(TransferObjectBase dto)
         {
-            var repo = Get<IRepository<TDomainEntity>>();
-            var factory = Get<IFactory<TDomainEntity>>();
-            var assembler = Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
-            var publisher = Get<IPublisher<TDomainEntity>>();
-
-            var domainEntity = repo.Get(((TDtoEntity)dto).Id);
-            assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
-            publisher.Update(domainEntity);
-            return assembler.ToDataTransferEntity(domainEntity);
+            using (var locator = Begin())
+            {
+                var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+                var domainEntity = locator.Get<IRepository<TDomainEntity>>().Get(((TDtoEntity)dto).Id);
+                assembler.FillDomainEntity(domainEntity, (TDtoEntity)dto);
+                locator.Get<Publisher<TDomainEntity>>().Update(domainEntity);
+                locator.Get<IUnitOfWork>().SaveChanges();
+                return assembler.ToDataTransferEntity(domainEntity);
+            }
         }
 
         public virtual void Delete(TransferObjectBase dto)
         {
-            var terminator = Get<ITerminator<TDomainEntity>>();
-            terminator.Terminate(((TDtoEntity)dto).Id);
+            using (var locator = Begin())
+            {
+                var terminator = locator.Get<ITerminator<TDomainEntity>>();
+                terminator.Terminate(((TDtoEntity)dto).Id);
+            }
         }
     }
 }

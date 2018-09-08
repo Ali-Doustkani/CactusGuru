@@ -12,7 +12,7 @@ namespace CactusGuru.Entry
         private void App_OnStartup(object sender, StartupEventArgs e)
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
-            Application.Implementation.ServiceLocatorBase.Instance = new ServiceLocator();
+            Application.Implementation.ServiceLocationBase.Instance = ObjectFactory.Instance;
             CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = new ViewModelFactory();
             CactusGuru.Presentation.View.Program.Start(ObjectFactory.Instance.GetInstance<MainViewModel>(), ObjectFactory.Instance.GetInstance<INavigationService>());
         }

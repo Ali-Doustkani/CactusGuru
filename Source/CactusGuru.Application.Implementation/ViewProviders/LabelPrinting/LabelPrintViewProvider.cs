@@ -10,26 +10,38 @@ namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
     {
         public CollectionItemDto GetCollectionItem(Guid id)
         {
-            var item = Get<ICollectionItemRepository>().Get(id);
-            return Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntity(item);
+            using (var locator = Begin())
+            {
+                var item = locator.Get<ICollectionItemRepository>().Get(id);
+                return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntity(item);
+            }
         }
 
         public IEnumerable<CollectionItemDto> GetCollectionItems()
         {
-            var items = Get<ICollectionItemRepository>().GetAll();
-            return Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(items);
+            using (var locator = Begin())
+            {
+                var items = locator.Get<ICollectionItemRepository>().GetAll();
+                return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(items);
+            }
         }
 
         public TaxonDto GetTaxon(Guid id)
         {
-            var item = Get<ITaxonRepository>().Get(id);
-            return Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntity(item);
+            using (var locator = Begin())
+            {
+                var item = locator.Get<ITaxonRepository>().Get(id);
+                return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntity(item);
+            }
         }
 
         public IEnumerable<TaxonDto> GetTaxa()
         {
-            var items = Get<ITaxonRepository>().GetAll();
-            return Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(items);
+            using (var locator = Begin())
+            {
+                var items = locator.Get<ITaxonRepository>().GetAll();
+                return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(items);
+            }
         }
     }
 }

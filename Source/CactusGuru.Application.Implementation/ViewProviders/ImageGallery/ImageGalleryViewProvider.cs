@@ -15,83 +15,96 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
     {
         public ImageDto Build(string filePath, Guid collectionItemId)
         {
-            var factory = Get<IFactory<CollectionItemImage>>();
-            var arg = new CollectionItemImageFactoryArg(collectionItemId, filePath);
-            var image = factory.CreateNew(arg);
-            return Assembler.ToDataTransferEntity(image);
+            using (var locator = Begin())
+            {
+                var factory = locator.Get<IFactory<CollectionItemImage>>();
+                var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
+                var arg = new CollectionItemImageFactoryArg(collectionItemId, filePath);
+                var image = factory.CreateNew(arg);
+                return assembler.ToDataTransferEntity(image);
+            }
         }
 
         public void SaveImageGallery(ImageGalleryDto imageGallery)
         {
-            Get<ImageGallerySaver>().SaveImageGallery(imageGallery);
+            using (var locator = Begin())
+            {
+                locator.Get<ImageGallerySaver>().SaveImageGallery(imageGallery);
+            }
         }
 
         public void GetThumbnailsOf(Guid collectionItemId, Action<ImageDto> callback)
         {
-            var ids = ImageRepository.GetIdsByCollectionItemId(collectionItemId);
-            foreach (var id in ids)
+            using (var locator = Begin())
             {
-                var image = ImageRepository.Get(id);
-                if (image == null) return;
-                callback(Assembler.ToDataTransferEntity(image));
+                var imgRepo = locator.Get<ICollectionItemImageRepository>();
+                var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
+                var ids = imgRepo.GetIdsByCollectionItemId(collectionItemId);
+                foreach (var id in ids)
+                {
+                    var image = imgRepo.Get(id);
+                    if (image == null) return;
+                    callback(assembler.ToDataTransferEntity(image));
+                }
             }
         }
 
         public CollectionItemDto GetCollectionItem(Guid collectionItemId)
         {
-            var collectionItemAssembler = Get<AssemblerBase<CollectionItem, CollectionItemDto>>();
-            var item = ItemRepository.Get(collectionItemId);
-            return collectionItemAssembler.ToDataTransferEntity(item);
+            using (var locator = Begin())
+            {
+                var collectionItemAssembler = locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>();
+                var item = locator.Get<ICollectionItemRepository>().Get(collectionItemId);
+                return collectionItemAssembler.ToDataTransferEntity(item);
+            }
         }
 
         public bool CollectionItemCodeExists(string collectionItemCode)
         {
-            return ItemRepository.ExistsByCode(collectionItemCode);
+            using (var locator = Begin())
+            {
+                return locator.Get<ICollectionItemRepository>().ExistsByCode(collectionItemCode);
+            }
         }
 
         public Guid GetCollectionItemIdByCode(string code)
         {
-            return ItemRepository.GetIdByCode(code);
+            using (var locator = Begin())
+            {
+                return locator.Get<ICollectionItemRepository>().GetIdByCode(code);
+            }
         }
 
         public void SaveToFiles(IEnumerable<ImageDto> images, string directoryPath)
         {
-            Get<FileSaver>().SaveToFiles(images, directoryPath);
+            using (var locator = Begin())
+            {
+                locator.Get<FileSaver>().SaveToFiles(images, directoryPath);
+            }
         }
 
         public void SaveToZip(IEnumerable<ImageDto> images, string directoryPath)
         {
-            var domainEntities = ToCollectionItemImages(images);
-            Get<InstagramPackageMaker>().SaveToZip(domainEntities, directoryPath);
-            ImageRepository.UpdateSharedOnInstagram(images.Select(x => x.Id));
-            Get<IUnitOfWork>().SaveChanges();
-        }
-
-        private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images)
-        {
-            var domainEntities = new List<CollectionItemImage>();
-            foreach (var image in images)
+            using (var locator = Begin())
             {
-                var itemImage = new CollectionItemImage();
-                Assembler.FillDomainEntity(itemImage, image);
-                domainEntities.Add(itemImage);
+                var domainEntities = ToCollectionItemImages(images, locator);
+                locator.Get<InstagramPackageMaker>().SaveToZip(domainEntities, directoryPath);
+                locator.Get<ICollectionItemImageRepository>().UpdateSharedOnInstagram(images.Select(x => x.Id));
+                locator.Get<IUnitOfWork>().SaveChanges();
             }
-            return domainEntities;
         }
 
-        private AssemblerBase<CollectionItemImage, ImageDto> Assembler
+        private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images, IServiceLocator locator)
         {
-            get { return Get<AssemblerBase<CollectionItemImage, ImageDto>>(); }
-        }
-
-        private ICollectionItemRepository ItemRepository
-        {
-            get { return Get<ICollectionItemRepository>(); }
-        }
-
-        private ICollectionItemImageRepository ImageRepository
-        {
-            get { return Get<ICollectionItemImageRepository>(); }
+                var domainEntities = new List<CollectionItemImage>();
+                foreach (var image in images)
+                {
+                    var itemImage = new CollectionItemImage();
+                    locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>().FillDomainEntity(itemImage, image);
+                    domainEntities.Add(itemImage);
+                }
+                return domainEntities;
+           
         }
     }
 }

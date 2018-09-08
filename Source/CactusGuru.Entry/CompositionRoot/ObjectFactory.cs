@@ -7,13 +7,13 @@ using StructureMap;
 
 namespace CactusGuru.Entry.CompositionRoot
 {
-    public class ObjectFactory
+    public class ObjectFactory: ServiceLocationBase
     {
         private Container _container;
 
         private ObjectFactory()
         {
-             _container = new Container();
+             _container = new Container(); 
             _container.Configure(cfg =>
             {
                 cfg.Scan(x =>
@@ -42,6 +42,11 @@ namespace CactusGuru.Entry.CompositionRoot
         public T GetInstance<T>(string name)
         {
             return _container.GetInstance<T>(name);
+        }
+
+        public override IServiceLocator Begin()
+        {
+            return new ServiceLocator(_container.GetNestedContainer());
         }
 
         private static ObjectFactory _instance;

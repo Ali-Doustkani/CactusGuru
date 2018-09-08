@@ -16,9 +16,12 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public IEnumerable<GenusDto> GetGenera()
         {
-            var assembler = Get<AssemblerBase<Genus, GenusDto>>();
-            var repo = Get<IGenusRepository>();
-            return assembler.ToDataTransferEntities(repo.GetAll().OrderBy(x => x.Title));
+            using (var locator = Begin())
+            {
+                var assembler = locator.Get<AssemblerBase<Genus, GenusDto>>();
+                var repo = locator.Get<IGenusRepository>();
+                return assembler.ToDataTransferEntities(repo.GetAll().OrderBy(x => x.Title));
+            }
         }
 
         public bool HasSimilar(TaxonDto taxon)
@@ -37,7 +40,8 @@ namespace CactusGuru.Application.Implementation.ViewProviders
                 Variety = taxon.Variety
             };
 
-            return Get<ITaxonRepository>().HasSimilar(entity);
+            using (var locator = Begin())
+                return locator.Get<ITaxonRepository>().HasSimilar(entity);
         }
     }
 }

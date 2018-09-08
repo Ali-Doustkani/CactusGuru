@@ -16,8 +16,11 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
         public bool HasSimilar(GenusDto genusDto)
         {
-            var genus = new Genus { Id = genusDto.Id, Title = genusDto.Name };
-            return Get<IGenusRepository>().HasSimilar(genus);
+            using (var locator = Begin())
+            {
+                var genus = new Genus { Id = genusDto.Id, Title = genusDto.Name };
+                return locator.Get<IGenusRepository>().HasSimilar(genus);
+            }
         }
     }
 }

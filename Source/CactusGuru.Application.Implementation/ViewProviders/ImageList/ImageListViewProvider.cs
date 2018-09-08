@@ -15,33 +15,39 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageList
 
         public bool GetImagesAsync(Action<IEnumerable<ImageDto>> callback)
         {
-            var images = Get<ICollectionItemImageRepository>().GetByRange(_start, 10);
-            var dtos = Get<AssemblerBase<CollectionItemImage, ImageDto>>().ToDataTransferEntities(images);
-            if (dtos.Any())
+            using (var locator = Begin())
             {
-                callback(dtos);
-                _start += 10;
-                return true;
+                var images = locator.Get<ICollectionItemImageRepository>().GetByRange(_start, 10);
+                var dtos = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>().ToDataTransferEntities(images);
+                if (dtos.Any())
+                {
+                    callback(dtos);
+                    _start += 10;
+                    return true;
+                }
+                _start = 0;
+                return false;
             }
-            _start = 0;
-            return false;
         }
 
         public void SaveToFiles(IEnumerable<ImageDto> images, string path)
         {
-            var domainEntities = ToCollectionItemImages(images);
-            Get<InstagramPackageMaker>().SaveToZip(domainEntities, path);
-            Get<ICollectionItemImageRepository>().UpdateSharedOnInstagram(images.Select(x => x.Id));
-            Get<IUnitOfWork>().SaveChanges();
+            using (var locator = Begin())
+            {
+                var domainEntities = ToCollectionItemImages(images, locator);
+                locator.Get<InstagramPackageMaker>().SaveToZip(domainEntities, path);
+                locator.Get<ICollectionItemImageRepository>().UpdateSharedOnInstagram(images.Select(x => x.Id));
+                locator.Get<IUnitOfWork>().SaveChanges();
+            }
         }
 
-        private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images)
+        private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images, IServiceLocator locator)
         {
             var domainEntities = new List<CollectionItemImage>();
             foreach (var image in images)
             {
                 var itemImage = new CollectionItemImage();
-                Get<AssemblerBase<CollectionItemImage, ImageDto>>().FillDomainEntity(itemImage, image);
+                locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>().FillDomainEntity(itemImage, image);
                 domainEntities.Add(itemImage);
             }
             return domainEntities;
