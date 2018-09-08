@@ -2,6 +2,7 @@
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -42,6 +43,15 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 
             using (var locator = Begin())
                 return locator.Get<ITaxonRepository>().HasSimilar(entity);
+        }
+
+        public TaxonDto Get(Guid id)
+        {
+            using (var locator = Begin())
+            {
+                var entity = locator.Get<ITaxonRepository>().Get(id);
+                return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntity(entity);
+            }
         }
     }
 }

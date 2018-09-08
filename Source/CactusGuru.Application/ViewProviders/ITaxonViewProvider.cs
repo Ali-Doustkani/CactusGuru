@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using CactusGuru.Application.Common;
 
 namespace CactusGuru.Application.ViewProviders
@@ -7,5 +8,6 @@ namespace CactusGuru.Application.ViewProviders
     {
         IEnumerable<GenusDto> GetGenera();
         bool HasSimilar(TaxonDto taxon);
+        TaxonDto Get(Guid id);
     }
 }

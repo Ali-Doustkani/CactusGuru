@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
+using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System.Windows.Input;
@@ -102,6 +103,16 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             if (_dataProvider.HasSimilar((TaxonDto)WorkingItem.InnerObject))
                 return "تاکسونی با این مشخصات در سیستم موجود است";
             return null;
+        }
+
+        protected override void OnSomethingHappened(NotificationEventArgs info)
+        {
+            base.OnSomethingHappened(info);
+            var genus = info.Object as GenusDto;
+            if (genus == null) return;
+            foreach (var item in ItemSourceWithoutFilter)
+                if (item.Genus.Id == genus.Id)
+                    item.InnerObject = _dataProvider.Get(item.InnerObject.Id);
         }
     }
 }
