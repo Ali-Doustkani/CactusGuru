@@ -3,14 +3,13 @@ using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.Persistance;
 using System;
-using System.Linq;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
 {
     public class CollectionItemListViewProvider : ViewProviderBase, ICollectionItemListViewProvider
     {
-        private int _start;
-
         public void DeleteCollectionItem(Guid collectionItemId)
         {
             using (var locator = Begin())
@@ -29,23 +28,16 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
             }
         }
 
-        public bool GetCollectionItemsAsync(Action<CollectionItemAsyncDto> callback)
+        public Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var repo = locator.Get<ICollectionItemRepository>();
-                var assembler = locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>();
-                var items = repo.GetByRange(_start, 10);
-                var dtos = assembler.ToDataTransferEntities(items);
-                if (dtos.Any())
+                using (var locator = Begin())
                 {
-                    callback(new CollectionItemAsyncDto(dtos));
-                    _start += 10;
-                    return true;
+                    var entities = locator.Get<ICollectionItemRepository>().GetAll();
+                    return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(entities);
                 }
-                _start = 0;
-                return false;
-            }
+            });
         }
 
         public CollectionItemDto Convert(Common.CollectionItemDto dto)
