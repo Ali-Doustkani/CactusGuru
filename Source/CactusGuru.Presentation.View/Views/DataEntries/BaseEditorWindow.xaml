@@ -1,17 +1,15 @@
-﻿<dx:DXWindow x:Class="CactusGuru.Presentation.View.Views.BaseEditorWindow"
-             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
-             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1"
-             xmlns:dx="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v15.1"
-             Title="{Binding ElementName=grid.Children[2], Path=Tag}"
-             ResizeMode="NoResize"
-             Height="480"
-             Width="420"
-             ShowIcon="False"
-             WindowStartupLocation="CenterOwner"
-             ShowInTaskbar="False"
-             FlowDirection="RightToLeft">
+﻿<Window x:Class="CactusGuru.Presentation.View.Views.BaseEditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:dxb="clr-namespace:DevExpress.Xpf.Bars;assembly=DevExpress.Xpf.Core.v15.1"
+        Title="{Binding ElementName=grid.Children[2], Path=Tag}"
+        ResizeMode="NoResize"
+        Height="480"
+        Width="420"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        FlowDirection="RightToLeft">
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
             <intr:InvokeCommandAction Command="{Binding LoadCommand}" />
@@ -20,7 +18,7 @@
             <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
         </intr:EventTrigger>
     </intr:Interaction.Triggers>
-    <dx:DXWindow.InputBindings>
+    <Window.InputBindings>
         <KeyBinding Key="F1"
                     Command="{Binding PrepareForAddCommand}" />
         <KeyBinding Key="F2"
@@ -34,7 +32,7 @@
         <KeyBinding Key="F"
                     Modifiers="Control"
                     Command="{Binding FocusOnSearchCommand}" />
-    </dx:DXWindow.InputBindings>
+    </Window.InputBindings>
     <Grid Name="grid" Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -69,4 +67,4 @@
             </dxb:ToolBarControl>
         </dxb:BarContainerControl>
     </Grid>
-</dx:DXWindow>
+</Window>
