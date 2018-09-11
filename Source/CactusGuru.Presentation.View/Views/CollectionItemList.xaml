@@ -26,6 +26,30 @@
         </Grid.RowDefinitions>
         <TextBox Text="{Binding CollectionItems.FilterText, UpdateSourceTrigger=PropertyChanged, Delay=400}" Margin="5" Padding="3" Width="250" HorizontalAlignment="Left"/>
         <ListBox Grid.Row="1" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}" AlternationCount="2">
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <ContextMenu.Template>
+                        <ControlTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Button>کپی</Button>
+                                <Button Grid.Column="1" Command="{Binding EditCurrentCollectionItemCommand}">ویرایش</Button>
+                                <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding DeleteCurrentCollectionItemCommand}">حذف</Button>
+                                <Button Grid.Row="1" Grid.ColumnSpan="2" Command="{Binding CopyNameCommand}">کپی</Button>
+                                <Button Grid.Row="2" Grid.ColumnSpan="2" Command="{Binding GotoImageGallaryCommand}">گالری</Button>
+                            </Grid>
+                        </ControlTemplate>
+                    </ContextMenu.Template>
+                </ContextMenu>
+            </ListBox.ContextMenu>
             <ListBox.ItemContainerStyle>
                 <Style>
                     <Style.Triggers>
@@ -54,43 +78,4 @@
             </ListBox.ItemTemplate>
         </ListBox>
     </Grid>
-   
-    
-    <!--<dxd:DockLayoutManager>
-        <dxd:LayoutGroup Orientation="Vertical" ItemWidth="3*">
-            <dxd:DocumentPanel ItemHeight="3*">
-                <dxg:GridControl Name="grid"
-                                 ShowBorder="False"
-                                 ItemsSource="{Binding CollectionItems}"
-                                 SelectedItem="{Binding SelectedCollectionItem}"
-                                 ShowLoadingPanel="{Binding State.IsBusy}"
-                                 IsEnabled="{Binding State.IsIdle}">
-                    <dxg:GridControl.View>
-                        <dxg:TableView AutoWidth="True"
-                                       EditorButtonShowMode="ShowForFocusedRow"
-                                       RowMinHeight="20"
-                                       FlowDirection="LeftToRight"
-                                       ShowSearchPanelMode="Always"
-                                       SearchPanelHorizontalAlignment="Left"
-                                       SearchPanelNullText="جست و جو بین گیاهان مجموعه"
-                                       NavigationStyle="Row"
-                                       ShowGroupPanel="False">
-                            <dxg:TableView.RowCellMenuCustomizations>
-                                <dxb:BarButtonItem Content="حذف" ItemClick="Delete_OnClick" />
-                                <dxb:BarButtonItem Content="ویرایش" ItemClick="Edit_OnClick" />
-                                <dxb:BarItemSeparator />
-                                <dxb:BarButtonItem Content="کپی نام" ItemClick="Copy_OnItemClick" />
-                                <dxb:BarItemSeparator />
-                                <dxb:BarButtonItem Content="گالری تصاویر" ItemClick="GotoImageGallery_OnItemClick" />
-                            </dxg:TableView.RowCellMenuCustomizations>
-                        </dxg:TableView>
-                    </dxg:GridControl.View>
-                    <dxg:GridControl.Columns>
-                        <dxg:GridColumn Header="کد" FieldName="Code" Width="20" AllowMoving="False" />
-                        <dxg:GridColumn Header="نام" AllowMoving="False" FieldName="Name" />
-                    </dxg:GridControl.Columns>
-                </dxg:GridControl>
-            </dxd:DocumentPanel>
-        </dxd:LayoutGroup>
-    </dxd:DockLayoutManager>-->
 </DockPanel>
