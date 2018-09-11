@@ -35,10 +35,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             CollectionItems = Bag.Of<CollectionItemViewModel>()
                 .WithConvertor((Application.Common.CollectionItemDto dto) => new CollectionItemViewModel(_viewProvider.Convert(dto)))
                 .WithId(x => x.InnerObject.Id)
-                .FilterBy((item, text) =>
-                            item.Name.IndexOf(text, StringComparison.OrdinalIgnoreCase) != -1 ||
-                            item.Code == text ||
-                            item.Info.IndexOf(text, StringComparison.OrdinalIgnoreCase) != -1)
+                .FilterBy((item, text) => item.Name.Has(text) || item.Code == text || item.Info.Has(text))
                 .Build();
             OnPropertyChanged(nameof(CollectionItems));
             AddListener(CollectionItems);

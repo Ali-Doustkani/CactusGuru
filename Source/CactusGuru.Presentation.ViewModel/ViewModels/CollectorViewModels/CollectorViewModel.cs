@@ -32,7 +32,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
             get { return Inner<CollectorDto>().Website; }
             set { Inner<CollectorDto>().Website = value; }
         }
-
-        public override string FilterTarget => FormattedName;
     }
 }

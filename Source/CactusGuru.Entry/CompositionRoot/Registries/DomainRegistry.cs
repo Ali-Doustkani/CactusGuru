@@ -43,7 +43,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<ValidatorBase<CollectionItem>>().Use(ctx => new CollectionItemValidator(ctx.GetInstance<EmptySpecification>()));
 
             // Inquiries
-            For<InquiryBase<CollectionItemImage>>().Use(() => new NullInquiry<CollectionItemImage>());
+            For<InquiryBase<CollectionItemImage>>().Use(InquiryBase<CollectionItemImage>.Empty);
         }
 
         private SimilaritySpec SimilaritySpec<TRepo>(IContext ctx)

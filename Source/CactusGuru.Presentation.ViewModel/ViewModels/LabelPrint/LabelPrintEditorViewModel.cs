@@ -1,7 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.LabelPrinting;
-using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Framework.DataSourceManagement;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using CactusGuru.Presentation.ViewModel.PrintService;
 using System;
 using System.Collections.Generic;
@@ -16,17 +15,18 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         {
             _viewProvider = viewProvider;
             _printService = printService;
-            CollectionItems = new FilterDataSource<CollectionItemViewModel>();
-            Taxa = new DataSource<TaxonViewModel>(nameof(TaxonViewModel.Name));
-            PrintItems = new DataSource<LabelPrintViewModel>(nameof(LabelPrintViewModel.Name));
+
+            PrintItems = Bag.Of<LabelPrintViewModel>()
+                .FilterBy((vm, text) => vm.Name.Has(text) || vm.Species.Has(text))
+                .Build();
+
             AddToPrintCommand = new RelayCommand(AddToPrint);
             ClearCollectionItemsFilterCommand = new RelayCommand(ClearSourceFilterText);
-            ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearTextFilter);
+            ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearFilterText);
             DeleteCurrentPrintItemCommand = new RelayCommand(DeleteSelectedPrintItem);
             PrintCommand = new RelayCommand(Print, CanPrint);
             PaperTypes = new[] { new PaperRowItem(PaperType.A4, "A4"), new PaperRowItem(PaperType.TenCm, "10cm") };
             SelectedPaperType = PaperTypes.First();
-            Load();
         }
 
         private readonly ILabelPrintViewProvider _viewProvider;
@@ -37,9 +37,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         public ICommand ClearPrintItemsFilterCommand { get; }
         public ICommand DeleteCurrentPrintItemCommand { get; }
         public ICommand PrintCommand { get; }
-        public DataSourceBase<CollectionItemViewModel> CollectionItems { get; }
-        public DataSourceBase<TaxonViewModel> Taxa { get; }
-        public DataSourceBase<LabelPrintViewModel> PrintItems { get; }
+        public ObservableBag<CollectionItemViewModel> CollectionItems { get; private set; }
+        public ObservableBag<TaxonViewModel> Taxa { get; private set; }
+        public ObservableBag<LabelPrintViewModel> PrintItems { get; }
         public IEnumerable<PaperRowItem> PaperTypes { get; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public TaxonViewModel SelectedTaxon { get; set; }
@@ -54,8 +54,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             {
                 if (value == _selectedPage) return;
                 _selectedPage = value;
-                CollectionItems.ClearTextFilter();
-                Taxa.ClearTextFilter();
+                CollectionItems.ClearFilterText();
+                Taxa.ClearFilterText();
                 OnPropertyChanged(nameof(SourceFilterNullText));
                 OnPropertyChanged(nameof(SourceFilterText));
             }
@@ -80,6 +80,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         {
             get
             {
+                if (CollectionItems == null) return string.Empty;
                 if (SelectedPage == SelectedTabPage.CollectionItem)
                     return CollectionItems.FilterText;
                 return Taxa.FilterText;
@@ -93,22 +94,22 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             }
         }
 
-        public void Load()
+        protected override void OnLoad()
         {
-            LoadCollectionItems();
-            LoadTaxa();
-        }
-
-        private void LoadCollectionItems()
-        {
-            var items = _viewProvider.GetCollectionItems().Select(x => new CollectionItemViewModel(x));
-            CollectionItems.Load(items);
-        }
-
-        private void LoadTaxa()
-        {
-            var taxa = _viewProvider.GetTaxa().Select(x => new TaxonViewModel(x));
-            Taxa.Load(taxa);
+            CollectionItems = Bag.Of<CollectionItemViewModel>()
+              .FilterBy((vm, text) => vm.Name.Has(text) || vm.Code == text)
+              .WithConvertor((CollectionItemDto dto) => new CollectionItemViewModel(dto))
+              .WithId(x => x.InnerObject.Id)
+              .LoadFrom(_viewProvider.GetCollectionItems)
+              .Build();
+            Taxa = Bag.Of<TaxonViewModel>()
+                .FilterBy((vm, text) => vm.Name.Has(text))
+                .LoadFrom(_viewProvider.GetTaxa)
+                .WithConvertor((TaxonDto dto) => new TaxonViewModel(dto))
+                .WithId(x => x.InnerObject.Id)
+                .Build();
+            OnPropertyChanged(nameof(CollectionItems));
+            OnPropertyChanged(nameof(Taxa));
         }
 
         private void AddToPrint()
@@ -190,48 +191,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         private void ClearSourceFilterText()
         {
             if (SelectedPage == SelectedTabPage.CollectionItem)
-                CollectionItems.ClearTextFilter();
+                CollectionItems.ClearFilterText();
             else if (SelectedPage == SelectedTabPage.Taxon)
-                Taxa.ClearTextFilter();
-        }
-
-        protected override void OnSomethingHappened(NotificationEventArgs info)
-        {
-            NotifyCollectionItem(info);
-            NotifyTaxa(info);
-        }
-
-        private void NotifyCollectionItem(NotificationEventArgs e)
-        {
-            var item = e.Object as Application.Common.CollectionItemDto;
-            if (item == null) return;
-            if (e.OperationType == OperationType.Add)
-                LoadCollectionItems();
-            else if (e.OperationType == OperationType.Update)
-            {
-                CollectionItems.Single(x => x.InnerObject.Id == item.Id).InnerObject = _viewProvider.GetCollectionItem(item.Id);
-                NotifyPrintItems(item.Id);
-            }
-        }
-
-        private void NotifyTaxa(NotificationEventArgs e)
-        {
-            var taxon = e.Object as Application.Common.TaxonDto;
-            if (taxon == null) return;
-            if (e.OperationType == OperationType.Add)
-                LoadTaxa();
-            else if (e.OperationType == OperationType.Update)
-            {
-                Taxa.Single(x => x.InnerObject.Id == taxon.Id).InnerObject = _viewProvider.GetTaxon(taxon.Id);
-                NotifyPrintItems(taxon.Id);
-            }
-        }
-
-        private void NotifyPrintItems(Guid id)
-        {
-            var printItem = PrintItems.SingleOrDefault(x => x.Id == id);
-            if (printItem != null)
-                printItem.Set(_viewProvider.GetCollectionItem(id));
+                Taxa.ClearFilterText();
         }
     }
 }

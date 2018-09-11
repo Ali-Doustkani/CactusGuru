@@ -1,6 +1,7 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
 {
@@ -40,6 +41,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
             Rules.MakeSure(nameof(FullName)).IsNotEmpty().ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Acronym)).ValidatesForWhole(Similarity);
         }
+
+        protected override bool Filter(SupplierViewModel vm, string text) => vm.FullName.Has(text) || vm.Acronym.Has(text) || vm.Website.Has(text);
 
         private string Similarity()
         {

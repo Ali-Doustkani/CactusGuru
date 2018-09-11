@@ -120,9 +120,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             GotoCollectorsCommand = new RelayCommand(Navigations.GotoCollectors);
             GotoSuppliersCommand = new RelayCommand(Navigations.GotoSuppliers);
 
-            Taxa = Bag.Of<TaxonDto>().WithId(x => x.Id).WithSource(_dataProvider.GetTaxa).Build();
-            Collectors = Bag.Of<CollectorDto>().WithId(x => x.Id).WithSource(_dataProvider.GetCollectors).Build();
-            Suppliers = Bag.Of<SupplierDto>().WithId(x => x.Id).WithSource(_dataProvider.GetSuppliers).Build();
+            Taxa = Bag.Of<TaxonDto>().WithId(x => x.Id).Loads(_dataProvider.GetTaxa).Build();
+            Collectors = Bag.Of<CollectorDto>().WithId(x => x.Id).Loads(_dataProvider.GetCollectors).Build();
+            Suppliers = Bag.Of<SupplierDto>().WithId(x => x.Id).Loads(_dataProvider.GetSuppliers).Build();
             LoadIncomeTypes();
 
             AddListener(Taxa);

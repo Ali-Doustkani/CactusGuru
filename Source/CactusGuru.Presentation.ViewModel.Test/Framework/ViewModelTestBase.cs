@@ -1,4 +1,5 @@
 ﻿using CactusGuru.Application.Common;
+using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -34,6 +35,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
             viewModel = Make();
             viewModel.GetType().GetProperty(nameof(FormViewModel.Dialog)).SetValue(viewModel, dialogService.Object);
             viewModel.GetType().GetProperty(nameof(FormViewModel.Navigations)).SetValue(viewModel, navigationService.Object);
+            viewModel.GetType().GetProperty(nameof(FormViewModel.EventAggregator)).SetValue(viewModel, new EventAggregator());
         }
 
         protected abstract TEditor Make();

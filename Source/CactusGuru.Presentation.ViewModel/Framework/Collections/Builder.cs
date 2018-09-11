@@ -24,9 +24,20 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
-        public Builder<T> WithSource(Func<IEnumerable<T>> sourceFunc)
+        public Builder<T> Loads(Func<IEnumerable<T>> sourceFunc)
         {
             _sourceFunc = sourceFunc;
+            return this;
+        }
+
+        public Builder<T> LoadFrom<TOtherType>(Func<IEnumerable<TOtherType>> sourceFunc)
+        {
+            _sourceFunc = () => {
+                var list = new List<T>();
+                foreach (var item in sourceFunc())
+                    list.Add(_convertorFunc(item));
+                return list;
+            };
             return this;
         }
 

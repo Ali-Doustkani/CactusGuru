@@ -9,8 +9,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
          : base(dto)
         { }
 
-        public override string FilterTarget => Code + Name;
-
         public string Code
         {
             get { return Inner<CollectionItemDto>().Code; }

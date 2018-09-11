@@ -46,7 +46,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             get { return Inner<TaxonDto>().Variety; }
             set { Inner<TaxonDto>().Variety = value; }
         }
-
-        public override string FilterTarget => Genus.Name + Species + Cultivar + Forma + SubSpecies + Variety;
     }
 }

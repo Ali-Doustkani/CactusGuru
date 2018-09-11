@@ -100,6 +100,11 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
         }
 
+        public void ClearFilterText()
+        {
+            FilterText = string.Empty;
+        }
+
         private T Single(T item)
         {
             return _source.Single(x => _idSelectorFunc(x).Equals(_idSelectorFunc(item)));

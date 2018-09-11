@@ -7,10 +7,19 @@
              xmlns:dx="clr-namespace:DevExpress.Xpf.Core;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:dxe="clr-namespace:DevExpress.Xpf.Editors;assembly=DevExpress.Xpf.Core.v15.1"
              xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
+             xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
              Title="چاپ برچسب"
              Height="500"
              Width="700"
              WindowStartupLocation="CenterOwner">
+    <intr:Interaction.Triggers>
+        <intr:EventTrigger EventName="Loaded">
+            <intr:InvokeCommandAction Command="{Binding LoadCommand}" />
+        </intr:EventTrigger>
+        <intr:EventTrigger EventName="Unloaded">
+            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
+        </intr:EventTrigger>
+    </intr:Interaction.Triggers>
     <dx:DXWindow.Resources>
         <local:ViewModelLocator x:Key="vmLocator" />
         <Style TargetType="dxe:ButtonEdit">
@@ -60,7 +69,7 @@
                          PreviewKeyDown="tab_PreviewKeyDown">
             <dx:DXTabItem Header="مجموعه">
                 <dxg:GridControl Name="listCollectionItems"
-                                 ItemsSource="{Binding CollectionItems.Source}"
+                                 ItemsSource="{Binding CollectionItems}"
                                  SelectedItem="{Binding SelectedCollectionItem, Mode=TwoWay}"
                                  PreviewKeyDown="listCollectionItems_PreviewKeyDown"
                                  MouseDoubleClick="listCollectionItems_MouseDoubleClick">
@@ -80,7 +89,7 @@
             </dx:DXTabItem>
             <dx:DXTabItem Header="تاکسون">
                 <dxg:GridControl Name="listTaxa"
-                                 ItemsSource="{Binding Taxa.Source}"
+                                 ItemsSource="{Binding Taxa}"
                                  SelectedItem="{Binding SelectedTaxon, Mode=TwoWay}"
                                  PreviewKeyDown="listCollectionItems_PreviewKeyDown"
                                  MouseDoubleClick="listCollectionItems_MouseDoubleClick">
@@ -124,7 +133,7 @@
         <dxg:GridControl Grid.Row="1"
                          Grid.Column="2"
                          Margin="10 5 10 10"
-                         ItemsSource="{Binding PrintItems.Source}"
+                         ItemsSource="{Binding PrintItems}"
                          SelectedItem="{Binding SelectedPrintItem, Mode=TwoWay}"
                          PreviewKeyDown="GridControl_PreviewKeyDown">
             <dxg:GridControl.View>

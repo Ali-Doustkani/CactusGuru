@@ -18,10 +18,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         {
             get { return Inner<CollectionItemDto>().Name; }
         }
-
-        public override string FilterTarget
-        {
-            get { return Code + Name; }
-        }
     }
 }

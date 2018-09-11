@@ -14,7 +14,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
             get { return Inner<GenusDto>().Name; }
             set { Inner<GenusDto>().Name = value; }
         }
-
-        public override string FilterTarget => FormattedName;
     }
 }

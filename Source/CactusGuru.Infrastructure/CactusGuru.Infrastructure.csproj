@@ -50,6 +50,7 @@
     <Compile Include="Persistance\ISimilarityRepository.cs" />
     <Compile Include="Persistance\Merging\DelegateMerger.cs" />
     <Compile Include="Persistance\Merging\Merger.cs" />
+    <Compile Include="Persistance\Publisher.cs" />
     <Compile Include="Qualification\EmptySpecification.cs" />
     <Compile Include="Qualification\IDomainDictionary.cs" />
     <Compile Include="Qualification\IEmptySpecification.cs" />
@@ -60,9 +61,7 @@
     <Compile Include="ObjectCreation\IFactory.cs" />
     <Compile Include="Persistance\Merging\IMerger.cs" />
     <Compile Include="Persistance\Merging\MergerAlgorithm.cs" />
-    <Compile Include="Persistance\SimplePublisher.cs" />
     <Compile Include="Persistance\Terminator.cs" />
-    <Compile Include="Qualification\NullInquiry.cs" />
     <Compile Include="Qualification\InquiryBase.cs" />
     <Compile Include="Qualification\ErrorCollection.cs" />
     <Compile Include="Qualification\ValidatorBase.cs" />

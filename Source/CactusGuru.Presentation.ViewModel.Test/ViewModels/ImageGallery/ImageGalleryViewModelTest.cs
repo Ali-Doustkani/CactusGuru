@@ -21,6 +21,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.ImageGallery
             _dataProvider = new Mock<IImageGalleryViewProvider>();
             _dialogService = new Mock<IDialogService>();
             _viewModel = new ImageGallaryEditorViewModel(_dataProvider.Object, new ImageItemViewModelFactory());
+            _viewModel.Navigations = new Mock<INavigationService>().Object;
         }
 
         [TestMethod]
@@ -35,6 +36,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.ImageGallery
             });
 
             _viewModel.Load(id);
+            _viewModel.LoadCommand.Execute(null);
             Thread.Sleep(10);
 
             Assert.AreEqual(2, _viewModel.Images.Count);

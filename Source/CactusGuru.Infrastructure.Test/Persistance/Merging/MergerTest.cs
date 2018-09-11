@@ -20,8 +20,8 @@ namespace CactusGuru.Infrastructure.Test.Persistance.Merging
         public void Setup()
         {
             _repo = new Mock<IRepository<TestDomainEntity>>();
-            _publisher = new Publisher<TestDomainEntity>(_repo.Object, new Mock<ValidatorBase<TestDomainEntity>>().Object);
-            _terminator = new Terminator<TestDomainEntity>(_repo.Object, new Mock<InquiryBase<TestDomainEntity>>().Object);
+            _publisher = new Publisher<TestDomainEntity>(_repo.Object, ValidatorBase<TestDomainEntity>.Empty);
+            _terminator = new Terminator<TestDomainEntity>(_repo.Object, InquiryBase<TestDomainEntity>.Empty);
             _merger = new Merger<TestDomainEntity>(_publisher, _terminator);
         }
 

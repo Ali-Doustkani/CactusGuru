@@ -17,7 +17,7 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
 
         private Terminator<CollectionItem> CollectionItemTerminator(ICollectionItemRepository repo)
         {
-            return new Terminator<CollectionItem>(repo, new NullInquiry<CollectionItem>());
+            return new Terminator<CollectionItem>(repo, InquiryBase<CollectionItem>.Empty);
         }
     }
 }

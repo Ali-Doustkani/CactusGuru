@@ -45,12 +45,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Framework\Collections\Bag.cs" />
-    <Compile Include="Framework\Collections\ChangeableObservableCollection.cs" />
+    <Compile Include="Framework\Collections\Builder.cs" />
     <Compile Include="Framework\Collections\IChangeableCollection.cs" />
     <Compile Include="Framework\Collections\ObservableBag.cs" />
-    <Compile Include="Framework\DataSourceManagement\DataSourceBase.cs" />
-    <Compile Include="Framework\DataSourceManagement\DataSource.cs" />
-    <Compile Include="Framework\DataSourceManagement\FilterDataSource.cs" />
+    <Compile Include="Framework\Collections\StringExtensions.cs" />
     <Compile Include="Framework\EditorState.cs" />
     <Compile Include="Framework\FormViewModel.cs" />
     <Compile Include="Framework\IRuleSet.cs" />

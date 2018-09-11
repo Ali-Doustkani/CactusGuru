@@ -32,7 +32,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
             get { return Inner<SupplierDto>().Website; }
             set { Inner<SupplierDto>().Website = value; }
         }
-
-        public override string FilterTarget => FormattedName;
     }
 }

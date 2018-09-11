@@ -25,7 +25,5 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         {
             return (T)(object)InnerObject;
         }
-
-        public abstract string FilterTarget { get; }
     }
 }

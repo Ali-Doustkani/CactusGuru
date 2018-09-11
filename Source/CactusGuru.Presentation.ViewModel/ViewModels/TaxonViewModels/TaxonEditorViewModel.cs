@@ -32,10 +32,19 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             Rules.MakeSure(nameof(Cultivar)).ValidatesForWhole(Similarity);
             Genera = Bag.Of<GenusDto>()
                 .WithId(x => x.Id)
-                .WithSource(_dataProvider.GetGenera)
+                .Loads(_dataProvider.GetGenera)
                 .Build();
             AddListener(Genera);
             OnPropertyChanged(nameof(Genera));
+        }
+
+        protected override bool Filter(TaxonViewModel vm, string text)
+        {
+            return vm.Species.Has(text) ||
+                        vm.Genus.Name.Has(text) ||
+                        vm.Variety.Has(text) ||
+                        vm.Cultivar.Has(text) ||
+                        vm.SubSpecies.Has(text);
         }
 
         public GenusDto Genus
@@ -110,7 +119,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             base.OnSomethingHappened(info);
             var genus = info.Object as GenusDto;
             if (genus == null) return;
-            foreach (var item in ItemSourceWithoutFilter)
+            foreach (var item in ItemSource)
                 if (item.Genus.Id == genus.Id)
                     item.InnerObject = _dataProvider.Get(item.InnerObject.Id);
         }

@@ -78,7 +78,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
             var col = Bag.Of<ViewModel>()
                 .WithConvertor((Dto x) => new ViewModel(x))
                 .WithId(x => x.Id)
-                .WithSource(() => new ViewModel[] { item1, item2 })
+                .Loads(() => new ViewModel[] { item1, item2 })
                 .Build();
 
             var item3 = new Dto { Id = 2, Name = "updated two" };
@@ -95,7 +95,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
             var old = new ViewModel(new Dto { Id = 1, Name = "one" });
             var col = Bag.Of<ViewModel>()
                 .WithId(x => x.Id)
-                .WithSource(() => new ViewModel[] { old })
+                .Loads(() => new ViewModel[] { old })
                 .Build();
 
             var newItem = new ViewModel(new Dto { Id = 1, Name = "new one" });
@@ -113,7 +113,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
             var col = Bag.Of<ViewModel>()
                 .WithConvertor((Dto x) => new ViewModel(x))
                 .WithId(x => x.Id)
-                .WithSource(() => new ViewModel[] { item1, item2 })
+                .Loads(() => new ViewModel[] { item1, item2 })
                 .Build();
 
             var deletedItem = new Dto { Id = 1, Name = "one" };

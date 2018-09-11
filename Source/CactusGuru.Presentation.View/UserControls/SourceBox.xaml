@@ -15,7 +15,7 @@
             <Setter Property="Control.Margin"
                     Value="0 0 0 5" />
             <Setter Property="dxe:ButtonEdit.Text"
-                    Value="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
+                    Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}" />
             <Setter Property="utils:FocusHandler.HasFocus"
                     Value="{Binding State.DefaultControlFocused}" />
         </Style>

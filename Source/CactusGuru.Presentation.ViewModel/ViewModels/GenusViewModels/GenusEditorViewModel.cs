@@ -1,6 +1,7 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
 {
@@ -19,6 +20,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
             base.OnLoad();
             Rules.MakeSure(nameof(FormattedName)).IsNotEmpty().ValidatesForWhole(Similarity);
         }
+
+        protected override bool Filter(GenusViewModel vm, string text) => vm.FormattedName.Has(text);
 
         public string FormattedName
         {
