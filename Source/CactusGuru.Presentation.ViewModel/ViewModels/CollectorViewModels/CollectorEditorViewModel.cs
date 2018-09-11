@@ -8,7 +8,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
     public class CollectorEditorViewModel : SimpleEditorViewModel<CollectorViewModel>
     {
         public CollectorEditorViewModel(ICollectorViewProvider dataProvider)
-            : base(dataProvider, new CollectorViewModelFactory())
+            : base(dataProvider)
         {
             _dataProvider = dataProvider;
         }

@@ -11,11 +11,11 @@ using System.Linq;
 namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
 {
     [TestClass]
-    public class SupplierEditorViewModelTest : ViewModelTestBase<SimpleEditorViewModel<SupplierViewModel>, IDataEntryViewProvider>
+    public class SupplierEditorViewModelTest : ViewModelTestBase<SimpleEditorViewModel<SupplierViewModel>, ISupplierViewProvider>
     {
         protected override SimpleEditorViewModel<SupplierViewModel> Make()
         {
-            return new SimpleEditorViewModel<SupplierViewModel>(dataProvider.Object, new SupplierViewModelFactory());
+            return new SupplierEditorViewModel(dataProvider.Object);
         }
 
         [TestMethod]
@@ -33,7 +33,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
         {
             Assert.IsFalse(viewModel.PrepareForEditCommand.CanExecute(null));
 
-            viewModel.WorkingItem = new SupplierViewModel(new SupplierDto());
+            viewModel.WorkingItem = new SupplierViewModel();
             Assert.IsTrue(viewModel.PrepareForEditCommand.CanExecute(null));
         }
 
@@ -192,7 +192,8 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
 
         private SupplierViewModel SetWorking()
         {
-            var ret = new SupplierViewModel(new SupplierDto());
+            var ret = new SupplierViewModel();
+            ret.InnerObject = new SupplierDto();
             viewModel.WorkingItem = ret;
             return ret;
         }

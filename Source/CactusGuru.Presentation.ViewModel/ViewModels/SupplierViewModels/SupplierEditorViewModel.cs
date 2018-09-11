@@ -8,7 +8,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
     public class SupplierEditorViewModel : SimpleEditorViewModel<SupplierViewModel>
     {
         public SupplierEditorViewModel(ISupplierViewProvider dataProvider)
-            : base(dataProvider, new SupplierViewModelFactory())
+            : base(dataProvider)
         {
             _dataProvider = dataProvider;
         }

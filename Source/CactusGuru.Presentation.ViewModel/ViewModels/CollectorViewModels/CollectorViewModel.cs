@@ -5,10 +5,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
 {
     public class CollectorViewModel : WorkingViewModel
     {
-        public CollectorViewModel(CollectorDto dto)
-            : base(dto)
-        { }
-
         public string FullName
         {
             get { return Inner<CollectorDto>().FullName; }

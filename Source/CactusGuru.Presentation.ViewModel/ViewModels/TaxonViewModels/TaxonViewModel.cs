@@ -5,10 +5,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
 {
     public class TaxonViewModel : WorkingViewModel
     {
-        public TaxonViewModel(TaxonDto dto)
-            : base(dto)
-        { }
-
         public string FormattedName => Inner<TaxonDto>().Name;
 
         public GenusDto Genus

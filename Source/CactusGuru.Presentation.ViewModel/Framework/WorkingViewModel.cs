@@ -4,16 +4,17 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 {
     public abstract class WorkingViewModel : BaseViewModel
     {
-        protected WorkingViewModel(TransferObjectBase dto)
+        public WorkingViewModel() { }
+
+        public WorkingViewModel(TransferObjectBase innerObj)
         {
-            InnerObject = dto;
+            InnerObject = innerObj;
         }
 
         private TransferObjectBase _innerObject;
-
         internal TransferObjectBase InnerObject
         {
-            get { return _innerObject;}
+            get { return _innerObject; }
             set
             {
                 _innerObject = value;

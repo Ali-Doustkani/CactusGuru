@@ -5,10 +5,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
 {
     public class SupplierViewModel : WorkingViewModel
     {
-        public SupplierViewModel(TransferObjectBase dto)
-            : base(dto)
-        { }
-
         public string FullName
         {
             get { return Inner<SupplierDto>().FullName; }

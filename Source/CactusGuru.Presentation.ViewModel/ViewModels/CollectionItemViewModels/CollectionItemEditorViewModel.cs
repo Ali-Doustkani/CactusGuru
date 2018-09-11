@@ -15,7 +15,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
     public class CollectionItemEditorViewModel : EditorViewModel<CollectionItemViewModel>
     {
         public CollectionItemEditorViewModel(ICollectionItemViewProvider dataProvider)
-              : base(dataProvider, new CollectionItemViewModelFactory())
+              : base(dataProvider)
         {
             _dataProvider = dataProvider;
         }
@@ -109,7 +109,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 
         public void PrepareForEdit(Guid id)
         {
-            _itemToEdit = ViewModelFactory.Create(_dataProvider.GetCollectionItem(id));
+            _itemToEdit = CreateWorkingObject(_dataProvider.GetCollectionItem(id));
             if (_itemToEdit.IncomeDate.HasValue)
                 IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
         }

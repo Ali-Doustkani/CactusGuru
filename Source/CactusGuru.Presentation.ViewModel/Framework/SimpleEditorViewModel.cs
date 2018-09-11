@@ -3,7 +3,6 @@ using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Input;
 
@@ -12,11 +11,11 @@ namespace CactusGuru.Presentation.ViewModel.Framework
     /// <summary>
     /// For simple objects that are managed with a list in the same window.
     /// </summary>
-    public class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
-         where TRowItem : WorkingViewModel
+    public abstract class SimpleEditorViewModel<TRowItem> : EditorViewModel<TRowItem>
+         where TRowItem : WorkingViewModel, new()
     {
-        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory)
-            : base(dataProvider, viewModelFactory)
+        public SimpleEditorViewModel(IDataEntryViewProvider dataProvider)
+            : base(dataProvider)
         {
             _dataProvider = dataProvider;
             SelectNextCommand = new RelayCommand(() => MoveTo(1));
@@ -35,8 +34,8 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         protected override void OnLoad()
         {
             var builder = Bag.Of<TRowItem>()
-                .WithConvertor((TransferObjectBase dto) => ViewModelFactory.Create(dto))
-                .LoadFrom<TransferObjectBase>(_dataProvider.GetList)
+                .WithConvertor<TransferObjectBase>(CreateWorkingObject)
+                .LoadFrom(_dataProvider.GetList)
                 .FilterBy(Filter);
             ItemSource = builder.Build();
             OnPropertyChanged(nameof(ItemSource));
@@ -61,7 +60,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             try
             {
                 var processedObject = _dataProvider.Add(WorkingItem.InnerObject);
-                var newItem = ViewModelFactory.Create(processedObject);
+                var newItem = CreateWorkingObject(processedObject);
                 ItemSource.Add(newItem);
                 WorkingItem = newItem;
                 OnPropertyChanged(nameof(WorkingItem));

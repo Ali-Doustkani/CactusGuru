@@ -10,12 +10,11 @@ using System.Windows.Input;
 namespace CactusGuru.Presentation.ViewModel.Framework
 {
     public abstract class EditorViewModel<TRowItem> : FormViewModel, INotifyDataErrorInfo
-        where TRowItem : WorkingViewModel
+        where TRowItem : WorkingViewModel, new()
     {
-        protected EditorViewModel(IDataEntryViewProvider dataProvider, IWorkingFactory<TRowItem> viewModelFactory)
+        protected EditorViewModel(IDataEntryViewProvider dataProvider)
         {
             _dataProvider = dataProvider;
-            ViewModelFactory = viewModelFactory;
             State = new EditorState();
             Rules = new Rules(RaiseErrorsChanged);
             PrepareForAddCommand = new RelayCommand(PrepareForAdd, () => State.IsView);
@@ -29,7 +28,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         private TransferObjectBase _originalItem;
         private TRowItem _workingItem;
         private readonly IDataEntryViewProvider _dataProvider;
-        protected readonly IWorkingFactory<TRowItem> ViewModelFactory;
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
@@ -57,7 +55,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public virtual void PrepareForAdd()
         {
             State.ToAdd();
-            WorkingItem = ViewModelFactory.Create(_dataProvider.Build());
+            WorkingItem = CreateWorkingObject(_dataProvider.Build());
             OnPropertyChanged(nameof(WorkingItem));
         }
 
@@ -116,6 +114,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 Dialog.Error(ex.Message);
                 return null;
             }
+        }
+
+        protected TRowItem CreateWorkingObject(TransferObjectBase innerObject)
+        {
+            var ret = new TRowItem();
+            ret.InnerObject = innerObject;
+            return ret;
         }
 
         private bool CanEditOrDelete()

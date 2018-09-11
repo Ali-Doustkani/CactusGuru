@@ -6,10 +6,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
 {
     public class CollectionItemViewModel : WorkingViewModel
     {
-        public CollectionItemViewModel(TransferObjectBase dto)
-            : base(dto)
-        { }
-
         public string Code
         {
             get { return Inner<CollectionItemDto>().Code; }
