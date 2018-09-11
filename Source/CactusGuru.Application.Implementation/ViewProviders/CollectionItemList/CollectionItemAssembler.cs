@@ -9,7 +9,8 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
         protected override void FillDataTransferEntityImp(CollectionItemDto dto, CollectionItem domainEntity)
         {
             dto.Code = domainEntity.Code;
-            dto.Name = domainEntity.Format("{GENUS} {taxon} {field}{, locality}");
+            dto.Name = domainEntity.Format("{GENUS} {taxon} {field}");
+            dto.Info = domainEntity.Format("{locality}");
         }
 
         protected override void FillDomainEntityImp(CollectionItem domainEntity, CollectionItemDto dto)

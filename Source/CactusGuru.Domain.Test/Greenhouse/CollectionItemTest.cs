@@ -133,6 +133,14 @@ namespace CactusGuru.Domain.Test.Greenhouse
             AssertFormat("LOBIVIA ferox", "{GENUS} {taxon}{, locality}");
         }
 
+        [TestMethod]
+        public void ToString_JustLocality()
+        {
+            Plant("astrophytum", "asterias", null, null, "Mexico");
+
+            AssertFormat("Mexico", "{locality}");
+        }
+
         private void AssertFormat(string expected, string format)
         {
             Assert.AreEqual(expected, _collectionItem.Format(format));
