@@ -4,7 +4,7 @@
     {
         public Main()
         {
-            InitializeComponent(); 
+            InitializeComponent();
         }
     }
 }
