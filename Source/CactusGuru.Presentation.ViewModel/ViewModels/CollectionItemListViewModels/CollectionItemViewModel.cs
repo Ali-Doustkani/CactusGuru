@@ -22,5 +22,11 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             get { return Inner<CollectionItemDto>().Name; }
             set { Inner<CollectionItemDto>().Name = value; }
         }
+
+        public string Info
+        {
+            get { return Inner<CollectionItemDto>().Info; }
+            set { Inner<CollectionItemDto>().Info = value; }
+        }
     }
 }

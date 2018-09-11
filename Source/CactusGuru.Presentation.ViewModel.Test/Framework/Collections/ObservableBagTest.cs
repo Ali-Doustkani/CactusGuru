@@ -1,6 +1,7 @@
 ﻿using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
@@ -49,6 +50,24 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
 
             Assert.AreEqual(1, col.Count);
             Assert.AreEqual(added, col.First().Dto);
+        }
+
+        [TestMethod]
+        public void Add_WhenFiltered_Apply()
+        {
+            var source = new List<Dto>();
+            source.Add(new Dto { Id = 1, Name = "ali" });
+            source.Add(new Dto { Id = 2, Name = "haniye" });
+            source.Add(new Dto { Id = 3, Name = "pooran" });
+            var col = Bag.Of<Dto>()
+                .FilterBy((item, text) => item.Name.Contains(text))
+                .WithSource(source)
+                .Build();
+            col.FilterText = "poo";
+
+            col.Add(new Dto { Id = 4, Name = "pooria" });
+
+            Assert.AreEqual(2, col.Count);
         }
 
         [TestMethod]
@@ -102,6 +121,27 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
 
             Assert.AreEqual(1, col.Count);
             Assert.AreEqual("two", col.First().Name);
+        }
+
+        [TestMethod]
+        public void Filter()
+        {
+            var source = new Dto[]
+            {
+                new Dto{ Id= 1, Name="abcd"},
+                new Dto{ Id= 2, Name="bab"},
+                new Dto{ Id= 3, Name="bbd"},
+                new Dto{ Id= 4, Name="dba"},
+                new Dto{ Id= 5, Name="ccc"}
+            };
+            var col = Bag.Of<Dto>()
+                .WithSource(source)
+                .FilterBy((item, text) => item.Name.Contains(text))
+                .Build();
+
+            col.FilterText = "a";
+
+            Assert.AreEqual(3, col.Count);
         }
     }
 }

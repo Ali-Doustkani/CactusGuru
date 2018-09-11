@@ -13,8 +13,10 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         private Func<T, object> _selectId;
         private Func<IEnumerable<T>> _sourceFunc;
+        private IEnumerable<T> _source;
         private List<Type> _acceptedTypes;
         private Func<object, T> _convertorFunc;
+        private Func<T, string, bool> _filterFunc;
 
         public Builder<T> WithId<TId>(Func<T, TId> selectId)
         {
@@ -22,9 +24,15 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
-        public Builder<T> WithSource(Func<IEnumerable<T>> source)
+        public Builder<T> WithSource(Func<IEnumerable<T>> sourceFunc)
         {
-            _sourceFunc = source;
+            _sourceFunc = sourceFunc;
+            return this;
+        }
+
+        public Builder<T> WithSource(IEnumerable<T> source)
+        {
+            _source = source;
             return this;
         }
 
@@ -35,11 +43,19 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
+        public Builder<T> FilterBy(Func<T, string, bool> func)
+        {
+            _filterFunc = func;
+            return this;
+        }
+
         public ObservableBag<T> Build()
         {
             var source = Enumerable.Empty<T>();
             if (_sourceFunc != null)
                 source = _sourceFunc();
+            else if (_source != null)
+                source = _source;
 
             if (!_acceptedTypes.Any())
                 _acceptedTypes.Add(typeof(T));
@@ -48,7 +64,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             if (_convertorFunc == null)
                 convertor = DefaultConvertor;
 
-            return new ObservableBag<T>(source, _selectId, Acceptor, convertor);
+            return new ObservableBag<T>(source, _selectId, Acceptor, convertor, _filterFunc);
         }
 
         private bool Acceptor(object obj)

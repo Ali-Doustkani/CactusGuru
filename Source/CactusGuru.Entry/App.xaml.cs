@@ -23,11 +23,5 @@ namespace CactusGuru.Entry
             var ex = e.ExceptionObject as Exception;
             log.Fatal(ex.Message, ex);
         }
-
-        protected override void OnExit(ExitEventArgs e)
-        {
-            base.OnExit(e);
-            CactusGuru.Presentation.View.Program.Exit();
-        }
     }
 }

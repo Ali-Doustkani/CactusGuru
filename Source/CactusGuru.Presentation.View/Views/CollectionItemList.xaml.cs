@@ -15,7 +15,7 @@ namespace CactusGuru.Presentation.View.Views
         {
             if (ViewModel() == null) return;
             ViewModel().EditCurrentCollectionItemCommand.Execute(null);
-            grid.RefreshRow(grid.View.FocusedRowHandle);
+          //  grid.RefreshRow(grid.View.FocusedRowHandle);
         }
 
         private void Delete_OnClick(object sender, RoutedEventArgs e)
