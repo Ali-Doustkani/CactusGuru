@@ -7,14 +7,14 @@
             InitializeComponent();
         }
 
-        private void ListBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
+        private void SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
         {
             listbox.ScrollIntoView(listbox.SelectedItem);
         }
 
-        private void listbox_Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        private void Click(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            buttonEdit.Focus();
+            txtSearch.Focus();
         }
     }
 }

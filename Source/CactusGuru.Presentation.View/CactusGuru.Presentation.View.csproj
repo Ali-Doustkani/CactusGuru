@@ -165,7 +165,6 @@
     <Compile Include="Views\Main\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\FilterButtonEdit.cs" />
     <Compile Include="Views\MyDXMessageBoxLocalizer.cs" />
     <Compile Include="Utils\StringVisibilityConverter.cs" />
     <Compile Include="Views\ViewModelLocator.cs" />
