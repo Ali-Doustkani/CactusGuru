@@ -7,7 +7,7 @@ namespace CactusGuru.Application.ViewProviders.CollectionItems
     public interface ICollectionItemListViewProvider
     {
         void DeleteCollectionItem(Guid collectionItemId);
-        Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync();
+        Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync(string sortBy);
         CollectionItemDto GetCollectionItem(Guid id);
         CollectionItemDto Convert(Common.CollectionItemDto dto);
     }

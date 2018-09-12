@@ -3,6 +3,7 @@ using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,6 +18,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItemUpdater(SelectedCollectionItem.InnerObject.Id));
             DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
             CopyNameCommand = new RelayCommand(CopyNameToClipboard);
+            SortCommand = new RelayCommand(Sort);
             State = new LoaderState();
         }
 
@@ -26,9 +28,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public ICommand DeleteCurrentCollectionItemCommand { get; }
         public ICommand CopyNameCommand { get; }
         public ICommand EditCurrentCollectionItemCommand { get; }
+        public ICommand SortCommand { get; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public ObservableBag<CollectionItemViewModel> CollectionItems { get; private set; }
         public LoaderState State { get; }
+        public bool SortOnGenus { get; private set; }
+        public bool SortOnCode { get; private set; }
 
         protected async override void OnLoad()
         {
@@ -39,8 +44,19 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
                 .Build();
             OnPropertyChanged(nameof(CollectionItems));
             AddListener(CollectionItems);
+            SortOnGenus = true;
+            await LoadData("Genus");
+        }
 
-            var items = await _viewProvider.GetCollectionItemsAsync();
+        private async Task LoadData(string sortBy)
+        {
+            State.ToBusy();
+            SortOnCode = sortBy == "Code";
+            SortOnGenus = sortBy == "Genus";
+            OnPropertyChanged(nameof(SortOnCode));
+            OnPropertyChanged(nameof(SortOnGenus));
+            var items = await _viewProvider.GetCollectionItemsAsync(sortBy);
+            CollectionItems.Clear();
             foreach (var item in items)
                 CollectionItems.Add(new CollectionItemViewModel(item));
             State.ToIdle();
@@ -70,6 +86,11 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         private CollectionItemViewModel GetCollectionItem(Guid id)
         {
             return CollectionItems.Single(x => x.InnerObject.Id == id);
+        }
+
+        private async void Sort(object type)
+        {
+            await LoadData((string)type);
         }
     }
 }

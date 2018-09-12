@@ -80,6 +80,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             }
         }
 
+        public void Clear()
+        {
+            _source.Clear();
+            _filtered.Clear();
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+        }
+
         public void Add(T item)
         {
             _source.Add(item);

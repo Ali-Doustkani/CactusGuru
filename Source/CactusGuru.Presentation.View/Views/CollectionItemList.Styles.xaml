@@ -5,17 +5,12 @@
                     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls">
     <local:ViewModelLocator x:Key="vmLocator" />
     <utils:StringVisibilityConverter x:Key="stringVisConverter"/>
-    
     <Style TargetType="controls:SimpleButton">
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Margin" Value="1"/>
         <Setter Property="Background" Value="#f0f8fd"/>
-       <Setter Property="OnOverBackground" Value="White"/>
+        <Setter Property="OnOverBackground" Value="White"/>
     </Style>
-
-   
-    
-
     <Style TargetType="ListBox">
         <Setter Property="AlternationCount" Value="2"/>
         <Setter Property="BorderThickness" Value="0 1 0 0"/>
@@ -98,6 +93,7 @@
     </Style>
     <Style TargetType="ToggleButton">
         <Setter Property="Cursor" Value="Hand"/>
+        <Setter Property="Command" Value="{Binding SortCommand}"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ToggleButton">

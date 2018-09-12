@@ -5,6 +5,7 @@ using CactusGuru.Persistance.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Data.Entity;
 
 namespace CactusGuru.Persistance.Repositories
 {
@@ -45,12 +46,7 @@ namespace CactusGuru.Persistance.Repositories
 
         public IEnumerable<CollectionItem> GetAll()
         {
-            return _translator.ToDomainEntities(
-                _context.tblCollectionItem.
-                         Include("tblTaxon.tblGenus").
-                         Include("tblCollector").
-                         Include("tblSupplier").
-                         ToList());
+            return _translator.ToDomainEntities(Query().ToList());
         }
 
         public IEnumerable<string> GetAllCodes()
@@ -78,8 +74,18 @@ namespace CactusGuru.Persistance.Repositories
 
         public IEnumerable<CollectionItem> GetByRange(int startIndex, int count)
         {
-            var entities = _context.tblCollectionItem.OrderBy(x=>x.Code).Skip(startIndex).Take(count).ToList();
+            var entities = _context.tblCollectionItem.OrderBy(x => x.Code).Skip(startIndex).Take(count).ToList();
             return _translator.ToDomainEntities(entities);
+        }
+
+        public IEnumerable<CollectionItem> GetAllSortedByGenus()
+        {
+            return _translator.ToDomainEntities(Query().OrderBy(x => x.tblTaxon.tblGenus.Name).ToList());
+        }
+
+        public IEnumerable<CollectionItem> GetAllSortedByCode()
+        {
+            return _translator.ToDomainEntities(Query().OrderBy(x => x.Code).ToList());
         }
 
         public bool ExistsByCode(string code)
@@ -95,6 +101,14 @@ namespace CactusGuru.Persistance.Repositories
         public int GetCount()
         {
             return _context.tblCollectionItem.Count();
+        }
+
+        private IQueryable<tblCollectionItem> Query()
+        {
+            return _context.tblCollectionItem.
+                         Include(x => x.tblTaxon.tblGenus).
+                         Include(x => x.tblCollector).
+                         Include(x => x.tblSupplier);
         }
     }
 }

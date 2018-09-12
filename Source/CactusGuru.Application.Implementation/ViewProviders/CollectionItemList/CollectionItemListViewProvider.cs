@@ -4,6 +4,7 @@ using CactusGuru.Domain.Persistance.Repositories;
 using CactusGuru.Infrastructure.Persistance;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
@@ -28,13 +29,17 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
             }
         }
 
-        public Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync()
+        public Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync(string sortBy)
         {
             return Task.Factory.StartNew(() =>
             {
                 using (var locator = Begin())
                 {
-                    var entities = locator.Get<ICollectionItemRepository>().GetAll();
+                    var entities = Enumerable.Empty<CollectionItem>();
+                    if (sortBy == "Genus")
+                        entities = locator.Get<ICollectionItemRepository>().GetAllSortedByGenus();
+                    else if (sortBy == "Code")
+                        entities = locator.Get<ICollectionItemRepository>().GetAllSortedByCode();
                     return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(entities);
                 }
             });
