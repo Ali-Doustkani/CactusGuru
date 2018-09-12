@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
-namespace CactusGuru.Presentation.View.UserControls
+namespace CactusGuru.Presentation.View.Controls
 {
     public partial class PopupMainMenu
     {

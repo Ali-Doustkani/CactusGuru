@@ -1,9 +1,8 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.CollectionItemEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
-      xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
+      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
       Validation.ErrorTemplate="{x:Null}"
       Tag="گیاه">

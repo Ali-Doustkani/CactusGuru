@@ -108,15 +108,16 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\SimpleButton.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="NavigationService\DialogService.cs" />
-    <Compile Include="UserControls\ErrorBox.xaml.cs">
+    <Compile Include="Controls\ErrorBox.xaml.cs">
       <DependentUpon>ErrorBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PopupMainMenu.xaml.cs">
+    <Compile Include="Controls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\SourceBox.xaml.cs">
+    <Compile Include="Controls\SourceBox.xaml.cs">
       <DependentUpon>SourceBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\EnterKeyAttach.cs" />
@@ -164,7 +165,7 @@
     <Compile Include="Views\Main\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\FilterButtonEdit.cs" />
+    <Compile Include="Controls\FilterButtonEdit.cs" />
     <Compile Include="Views\MyDXMessageBoxLocalizer.cs" />
     <Compile Include="Utils\StringVisibilityConverter.cs" />
     <Compile Include="Views\ViewModelLocator.cs" />
@@ -197,22 +198,26 @@
     <Resource Include="Fonts\Bebas.TTF" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="UserControls\ErrorBox.xaml">
+    <Page Include="Controls\ErrorBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PopupMainMenu.Styles.xaml">
+    <Page Include="Controls\PopupMainMenu.Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Page>
-    <Page Include="UserControls\PopupMainMenu.xaml">
+    <Page Include="Controls\PopupMainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\SourceBox.xaml">
+    <Page Include="Controls\SourceBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\CollectionItemList.Styles.xaml">
       <SubType>Designer</SubType>

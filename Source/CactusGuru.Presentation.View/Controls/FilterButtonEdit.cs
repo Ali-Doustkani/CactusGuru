@@ -1,7 +1,7 @@
 ﻿using DevExpress.Xpf.Editors;
 using System.Windows.Input;
 
-namespace CactusGuru.Presentation.View.UserControls
+namespace CactusGuru.Presentation.View.Controls
 {
     public class FilterButtonEdit : ButtonEdit
     {

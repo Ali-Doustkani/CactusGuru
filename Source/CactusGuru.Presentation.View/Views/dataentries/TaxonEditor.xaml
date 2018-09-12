@@ -1,7 +1,7 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.TaxonEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:CactusGuru.Presentation.View.UserControls"
+      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
       xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid.LookUp;assembly=DevExpress.Xpf.Grid.v15.1"
       Validation.ErrorTemplate="{x:Null}"

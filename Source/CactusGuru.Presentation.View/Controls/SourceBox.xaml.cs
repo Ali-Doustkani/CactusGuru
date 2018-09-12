@@ -1,4 +1,4 @@
-﻿namespace CactusGuru.Presentation.View.UserControls
+﻿namespace CactusGuru.Presentation.View.Controls
 {
     public partial class SourceBox
     {

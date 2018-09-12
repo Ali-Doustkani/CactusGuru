@@ -1,6 +1,7 @@
-﻿<UserControl x:Class="CactusGuru.Presentation.View.UserControls.PopupMainMenu"
+﻿<UserControl x:Class="CactusGuru.Presentation.View.Controls.PopupMainMenu"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
              Cursor="Hand"
              x:Name="this">
     <UserControl.Resources>
@@ -23,25 +24,25 @@
                     <!-- Definitions -->
                     <ContentControl Tag="..\Images\DefinitionHeader.png">
                         <WrapPanel>
-                            <Button Content="جنس ها" CommandParameter="Genus" />
-                            <Button Content="تاکسون ها" CommandParameter="Taxon" />
+                            <controls:SimpleButton Content="جنس ها" CommandParameter="Genus" />
+                            <controls:SimpleButton Content="تاکسون ها" CommandParameter="Taxon" />
                         </WrapPanel>
                     </ContentControl>
                     <!-- Collection -->
                     <ContentControl Grid.Row="1" Tag="..\Images\CollectionHeader.png">
                         <WrapPanel>
-                            <Button Content="ثبت گیاه جدید به مجموعه" CommandParameter="CollectionItem"/>
-                            <Button Content="چاپ برچسب" CommandParameter="PrintLabel" />
-                            <Button Content="کشت بذر" IsEnabled="False" />
-                            <Button Content="گالری تصاویر" CommandParameter="Gallary" />
+                            <controls:SimpleButton Content="ثبت گیاه جدید به مجموعه" CommandParameter="CollectionItem"/>
+                            <controls:SimpleButton Content="چاپ برچسب" CommandParameter="PrintLabel" />
+                            <controls:SimpleButton Content="کشت بذر" IsEnabled="False" />
+                            <controls:SimpleButton Content="گالری تصاویر" CommandParameter="Gallary" />
                         </WrapPanel>
                     </ContentControl>
                     <!-- People -->
                     <ContentControl Grid.Row="2" Tag="..\Images\PeopleHeader.png">
                         <WrapPanel>
-                            <Button Content="تامین کنندگان" CommandParameter="Supplier" />
-                            <Button Content="کلکتورها" CommandParameter="Collector" />
-                            <Button Content="مشتری ها" IsEnabled="False" />
+                            <controls:SimpleButton Content="تامین کنندگان" CommandParameter="Supplier" />
+                            <controls:SimpleButton Content="کلکتورها" CommandParameter="Collector" />
+                            <controls:SimpleButton Content="مشتری ها" IsEnabled="False" />
                         </WrapPanel>
                     </ContentControl>
                 </Grid>
