@@ -1,7 +1,6 @@
 ﻿using DevExpress.Xpf.Editors;
 using DevExpress.Xpf.Grid.LookUp;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Utils
@@ -64,15 +63,11 @@ namespace CactusGuru.Presentation.View.Utils
         private static void TraverseOnEnterChanged(DependencyObject obj, DependencyPropertyChangedEventArgs e)
         {
             if (e.NewValue.Equals(true))
-                TabIndexController2.AddControl((FrameworkElement)obj);
+                AddControl((FrameworkElement)obj);
             else
-                TabIndexController2.RemoveControl((FrameworkElement)obj);
+                RemoveControl((FrameworkElement)obj);
         }
-    }
 
-
-    public static class TabIndexController2
-    {
         public static void AddControl(FrameworkElement ctrl)
         {
             if (ctrl is LookUpEdit)
@@ -84,9 +79,9 @@ namespace CactusGuru.Presentation.View.Utils
         public static void RemoveControl(FrameworkElement element)
         {
             if (element is LookUpEdit)
-                (element as LookUpEdit).PopupClosed += TabIndexController_PopupClosed;
-            element.PreviewKeyUp += ctrl_PreviewKeyUp;
-            element.Unloaded += Ctrl_Unloaded;
+                (element as LookUpEdit).PopupClosed -= TabIndexController_PopupClosed;
+            element.PreviewKeyUp -= ctrl_PreviewKeyUp;
+            element.Unloaded -= Ctrl_Unloaded;
         }
 
         private static void Ctrl_Unloaded(object sender, RoutedEventArgs e)
