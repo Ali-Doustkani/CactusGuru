@@ -33,7 +33,7 @@
         <Setter Property="Control.FlowDirection" Value="LeftToRight" />
         <Setter Property="Control.IsEnabled" Value="{Binding State.IsNotView}" />
         <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="True" />
-        <Setter Property="TextBox.Padding" Value="0 2"/>  
+        <Setter Property="TextBox.Padding" Value="3"/>  
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>
