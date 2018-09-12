@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-      xmlns:dxg="clr-namespace:DevExpress.Xpf.Grid.LookUp;assembly=DevExpress.Xpf.Grid.v15.1"
       Validation.ErrorTemplate="{x:Null}"
       Tag="تاکسون ها">
     <Grid.Resources>
@@ -33,12 +32,11 @@
     </Grid.ColumnDefinitions>
     <!-- Genera -->
     <TextBlock Text="جنس" />
-    <dxg:LookUpEdit Grid.ColumnSpan="1"
-                    AllowDefaultButton="True"
-                    utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
-                    ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
-                    DisplayMember="Name"
-                    SelectedItem="{Binding Genus}" />
+    <ComboBox Grid.ColumnSpan="1"
+              utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+              ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="Name"
+              SelectedItem="{Binding Genus}"/>
     <Button Command="{Binding GotoGeneraCommand}" />
     <!-- Species -->
     <TextBlock Grid.Row="1" Text="گونه" />

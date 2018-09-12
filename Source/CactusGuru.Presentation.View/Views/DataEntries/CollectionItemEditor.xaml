@@ -1,6 +1,5 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.CollectionItemEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:local="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
@@ -40,20 +39,20 @@
     <TextBox Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Taxon -->
     <TextBlock Grid.Row="1" Text="تاکسون" />
-    <dxg:LookUpEdit Grid.Row="1"
-                    Grid.ColumnSpan="1"
-                    utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
-                    ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}"
-                    DisplayMember="Name"
-                    SelectedItem="{Binding Taxon}"/>
+    <ComboBox Grid.Row="1"
+              Grid.ColumnSpan="1"
+              utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+              ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="Name"
+              SelectedItem="{Binding Taxon}"/>
     <Button Grid.Row="1" Command="{Binding GotoTaxaCommand}" />
     <!-- Collector -->
     <TextBlock Grid.Row="2" Text="کلکتور" />
-    <dxg:LookUpEdit Grid.Row="2"
-                    Grid.ColumnSpan="1"
-                    ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}"
-                    DisplayMember="FormattedName"
-                    SelectedItem="{Binding Collector}" />
+    <ComboBox Grid.Row="2"
+              Grid.ColumnSpan="1"
+              ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="FormattedName"
+              SelectedItem="{Binding Collector}" />
     <Button Grid.Row="2" Command="{Binding GotoCollectorsCommand}" />
     <!-- Field Number -->
     <TextBlock Grid.Row="3" Text="فیلد" />
@@ -75,11 +74,11 @@
               DisplayMemberPath="Title" />
     <!-- Supplier -->
     <TextBlock Grid.Row="7" Text="تامین کننده" />
-    <dxg:LookUpEdit Grid.Row="7"
-                    Grid.ColumnSpan="1"
-                    ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
-                    DisplayMember="FormattedName"
-                    SelectedItem="{Binding Supplier}" />
+    <ComboBox Grid.Row="7"
+              Grid.ColumnSpan="1"
+              ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
+              DisplayMemberPath="FormattedName"
+              SelectedItem="{Binding Supplier}" />
     <Button Grid.Row="7" Command="{Binding GotoSuppliersCommand}" />
     <!-- Supplier Code -->
     <TextBlock Grid.Row="8" Text="کد تامین کننده" />

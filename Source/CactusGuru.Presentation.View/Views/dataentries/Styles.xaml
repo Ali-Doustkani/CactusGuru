@@ -5,17 +5,6 @@
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
 
     <local:ViewModelLocator x:Key="vmLocator" />
-    
-    <ControlTemplate x:Key="_LookUpEditTemplate">
-        <dxg:GridControl Name="PART_GridControl" HorizontalAlignment="Right">
-            <dxg:GridControl.Columns>
-                <dxg:GridColumn FieldName="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type dxg:LookUpEdit}}, Path=DisplayMember}"/>
-            </dxg:GridControl.Columns>
-            <dxg:GridControl.View>
-                <dxg:TableView AutoWidth="True" ShowColumnHeaders="False" ShowIndicator="False"/>
-            </dxg:GridControl.View>
-        </dxg:GridControl>
-    </ControlTemplate>
 
     <Style TargetType="RowDefinition">
         <Setter Property="Height" Value="auto"/>
@@ -69,24 +58,16 @@
 
     <Style TargetType="TextBox" BasedOn="{StaticResource _EntryStyle}"/>
 
-    <Style TargetType="ComboBox" BasedOn="{StaticResource _EntryStyle}"/>
-
-    <Style TargetType="dxg:LookUpEdit" BasedOn="{StaticResource _EntryStyle}">
-        <Setter Property="AutoComplete" Value="False" />
-        <Setter Property="ImmediatePopup" Value="True" />
-        <Setter Property="FilterCondition" Value="Contains" />
-        <Setter Property="ValidateOnTextInput" Value="False" />
-        <Setter Property="IncrementalFiltering" Value="True" />
-        <Setter Property="AllowNullInput" Value="False" />
-        <Setter Property="AutoPopulateColumns" Value="False" />
-        <Setter Property="PopupContentTemplate" Value="{StaticResource _LookUpEditTemplate}"/>
+    <Style TargetType="ComboBox" BasedOn="{StaticResource _EntryStyle}">
+        <Setter Property="IsEditable" Value="True"/>
+        <Setter Property="utils:FocusHandler.AutoOpenDropDown" Value="True"/>
     </Style>
 
     <Style x:Key="LastEntryStyle" BasedOn="{StaticResource _EntryStyle}">
         <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="False" />
         <Setter Property="utils:EnterKeyAttach.EnterKey">
             <Setter.Value>
-                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
+                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" Gesture="" />
             </Setter.Value>
         </Setter>
     </Style>
