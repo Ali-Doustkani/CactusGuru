@@ -15,6 +15,10 @@
             <Setter Property="OnPressedBackground" Value="#b1d6f0"/>
             <Setter Property="OnOverBackground" Value="#cde6f7"/>
         </Style>
+        <Style x:Key="greenButtons" TargetType="controls:SimpleButton">
+            <Setter Property="OnPressedBackground" Value="#a1e056"/>
+            <Setter Property="OnOverBackground" Value="#92d050"/>
+        </Style>
         <Style x:Key="redButtons" TargetType="controls:SimpleButton">
             <Setter Property="OnPressedBackground" Value="#e04343"/>
             <Setter Property="OnOverBackground" Value="#c75050"/>
@@ -60,11 +64,11 @@
             <controls:SimpleButton Command="{Binding DeleteCommand}" ToolTip="حذف" Style="{StaticResource redButtons}">
                 <Image Source="../../Images/Icon/EditorViewBasics/delete_24.png"/>
             </controls:SimpleButton>
-            <Separator/>
-            <controls:SimpleButton Command="{Binding SaveNewCommand}" ToolTip="ذخیره">
+            <Separator Margin="5 0"/>
+            <controls:SimpleButton Command="{Binding SaveNewCommand}" ToolTip="ذخیره" Style="{StaticResource greenButtons}">
                 <Image Source="../../Images/Icon/EditorViewBasics/saveNew_24.png"/>
             </controls:SimpleButton>
-            <controls:SimpleButton Command="{Binding SaveCommand}" ToolTip="ذخیره و جدید">
+            <controls:SimpleButton Command="{Binding SaveCommand}" ToolTip="ذخیره و جدید" Style="{StaticResource greenButtons}">
                 <Image Source="../../Images/Icon/EditorViewBasics/save_24.png"/>
             </controls:SimpleButton>
             <controls:SimpleButton Command="{Binding CancelCommand}" ToolTip="لغو" Style="{StaticResource redButtons}">
