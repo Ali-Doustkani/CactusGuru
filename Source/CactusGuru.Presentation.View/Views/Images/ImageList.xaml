@@ -27,7 +27,7 @@
         <RowDefinition Height="auto"/>
         <RowDefinition Height="*"/>
     </Grid.RowDefinitions>
-    <dxb:BarContainerControl Style="{StaticResource ToolbarContainerStyle}">
+    <!--<dxb:BarContainerControl Style="{StaticResource ToolbarContainerStyle}">
         <dxb:ToolBarControl Style="{StaticResource ToolbarControlStyle}">
             <dxb:BarButtonItem BarItemDisplayMode="ContentAndGlyph"
                                Content="ذخیره برای اینستاگرام"
@@ -37,7 +37,7 @@
             <dxb:BarButtonItem Content="عدم انتخاب" BarItemDisplayMode="Content" Command="{Binding DeSelectAllCommand}" />
             <dxb:BarItemSeparator />
         </dxb:ToolBarControl>
-    </dxb:BarContainerControl>
+    </dxb:BarContainerControl>-->
     <dxg:GridControl Grid.Row="1" Style="{StaticResource GridStyle}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" >
         <dxg:GridControl.View>
             <dxg:CardView Style="{StaticResource CardViewStyle}" CardHeaderBinding="{Binding Path=Data.DateAddedTitle, RelativeSource={RelativeSource Self}}">

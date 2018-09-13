@@ -17,6 +17,17 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             _imageItemFactory = imageItemFactory;
             _dataProvider = dataProvider;
             State = new LoaderState();
+            SaveCommand = new RelayCommand(Save, CanUndo);
+            CancelCommand = new RelayCommand(() => Navigations.CloseCurrentView(), () => State.IsIdle);
+            AddImageCommand = new RelayCommand(AddImage, () => State.IsIdle);
+            DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
+            UndoCommand = new RelayCommand(Undo, CanUndo);
+            SelectAllCommand = new RelayCommand(SelectAll);
+            DeSelectAllCommand = new RelayCommand(DeSelectAll);
+            SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), () => IsAnythingSelected);
+            SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), () => IsAnythingSelected);
+
+
             _imageLoaderWorker = new BackgroundWorker();
             _imageLoaderWorker.WorkerReportsProgress = true;
             _imageLoaderWorker.DoWork += _backgroundWorker_DoWork;
@@ -170,18 +181,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         public void Load(Guid collectionItemId) => _collectionItemId = collectionItemId;
 
-        protected override void OnLoad( )
+        protected override void OnLoad()
         {
-            SaveCommand = new RelayCommand(Save, CanUndo);
-            CancelCommand = new RelayCommand(Navigations.CloseCurrentView, () => State.IsIdle);
-            AddImageCommand = new RelayCommand(AddImage, () => State.IsIdle);
-            DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
-            UndoCommand = new RelayCommand(Undo, CanUndo);
-            SelectAllCommand = new RelayCommand(SelectAll);
-            DeSelectAllCommand = new RelayCommand(DeSelectAll);
-            SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), () => IsAnythingSelected);
-            SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), () => IsAnythingSelected);
-
             Images.Clear();
             var collectionItem = _dataProvider.GetCollectionItem(_collectionItemId);
             _code = collectionItem.Code;

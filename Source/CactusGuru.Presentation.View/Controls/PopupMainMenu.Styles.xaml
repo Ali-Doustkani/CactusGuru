@@ -80,7 +80,7 @@
     <Style TargetType="WrapPanel">
         <Setter Property="FlowDirection" Value="RightToLeft"/>
     </Style>
-    <Style TargetType="{x:Type controls:SimpleButton}">
+    <Style TargetType="controls:SimpleButton">
         <Setter Property="Padding" Value="5" />
         <Setter Property="FontSize" Value="13"/>
         <Setter Property="Command" Value="{Binding ElementName=this, Path=MenuItemCommand}"/>

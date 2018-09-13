@@ -1,0 +1,45 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:util="clr-namespace:CactusGuru.Presentation.View.Utils">
+    <!-- Images -->
+    <ImageSource x:Key="Instagram">../../Images/Icon/ImageList/instagram_24.png</ImageSource>
+    <ImageSource x:Key="Jpeg">../../Images/Icon/ImageGallery/jpeg_24.png</ImageSource>
+    <ImageSource x:Key="Undo">../../Images/Icon/ImageGallery/undo_24.png</ImageSource>
+    <ImageSource x:Key="Add">../../Images/Icon/ImageGallery/addImage_24.png</ImageSource>
+    <ImageSource x:Key="Delete">../../Images/Icon/EditorViewBasics/delete_24.png</ImageSource>
+    <ImageSource x:Key="Cancel">../../Images/Icon/EditorViewBasics/cancel_24.png</ImageSource>
+    <ImageSource x:Key="Save">../../Images/Icon/EditorViewBasics/save_24.png</ImageSource>
+    <ImageSource x:Key="Select">../../Images/Icon/ImageGallery/select_24.png</ImageSource>
+    <!-- Label Styles -->
+    <Style x:Key="LabelStyleBase">
+        <Setter Property="Control.Margin" Value="5 0" />
+        <Setter Property="Control.Foreground" Value="LightSlateGray" />
+    </Style>
+    <Style x:Key="CodeStyle" BasedOn="{StaticResource LabelStyleBase}">
+        <Setter Property="Control.FontWeight" Value="Bold" />
+        <Setter Property="Control.FontSize" Value="25" />
+        <Setter Property="Control.HorizontalAlignment" Value="Right" />
+        <Setter Property="Control.VerticalAlignment" Value="Center" />
+        <Setter Property="Control.BorderThickness" Value="0" />
+    </Style>
+    <Style x:Key="TitleStyle" BasedOn="{StaticResource LabelStyleBase}">
+        <Setter Property="Control.FontSize" Value="17"/>
+        <Setter Property="Control.FontWeight" Value="Bold"/>
+    </Style>
+    <Style x:Key="LocalityStyle" BasedOn="{StaticResource LabelStyleBase}">
+        <Setter Property="Control.Visibility">
+            <Setter.Value>
+                <Binding Source="{RelativeSource Self}" Path="Text">
+                    <Binding.Converter>
+                        <util:StringVisibilityConverter/>
+                    </Binding.Converter>
+                </Binding>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SeparatorStyle" TargetType="Border">
+        <Setter Property="Background" Value="LightSlateGray"/>
+        <Setter Property="Margin" Value="0 3"/>
+        <Setter Property="Width" Value="1"/>
+    </Style>
+</ResourceDictionary>

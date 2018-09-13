@@ -18,7 +18,7 @@ namespace CactusGuru.Presentation.View.Views
         private void ChangeDateButton_Click(object sender, RoutedEventArgs e)
         {
             ViewModel().ChangeDate();
-            grid.RefreshData();
+           // grid.RefreshData();
         }
 
         private ImageGallaryEditorViewModel ViewModel()

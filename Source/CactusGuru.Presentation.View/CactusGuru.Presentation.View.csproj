@@ -123,6 +123,7 @@
     <Compile Include="Utils\EnterKeyAttach.cs" />
     <Compile Include="Utils\FocusHandler.cs" />
     <Compile Include="Utils\ImageConverter.cs" />
+    <Compile Include="Utils\Toolbars.cs" />
     <Compile Include="Views\DataEntries\BaseEditorWindow.xaml.cs">
       <DependentUpon>BaseEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -254,6 +255,11 @@
     <Page Include="Views\DataEntries\TaxonEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Images\ImageGallary.Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>ImageGallary.xaml</DependentUpon>
     </Page>
     <Page Include="Views\Main\FirstPage.xaml">
       <SubType>Designer</SubType>

@@ -79,26 +79,4 @@
         </Setter>
     </Style>
     <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}"/>
-    <Style TargetType="ToggleButton">
-        <Setter Property="Cursor" Value="Hand"/>
-        <Setter Property="Command" Value="{Binding SortCommand}"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="ToggleButton">
-                    <Border Name="border" Background="#3b4a61">
-                        <Grid>
-                            <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center" TextBlock.Foreground="White"/>
-                            <Rectangle Name="rect" HorizontalAlignment="Right" Fill="#c85051" Width="5" Visibility="Hidden"/>
-                        </Grid>
-                    </Border>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#364b5c"/>
-                            <Setter TargetName="rect" Property="Visibility" Value="Visible"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
 </ResourceDictionary>

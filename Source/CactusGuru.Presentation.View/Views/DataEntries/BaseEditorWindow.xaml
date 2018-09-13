@@ -11,27 +11,20 @@
         ShowInTaskbar="False"
         FlowDirection="RightToLeft">
     <Window.Resources>
-        <Style TargetType="controls:SimpleButton">
-            <Setter Property="OnPressedBackground" Value="#b1d6f0"/>
-            <Setter Property="OnOverBackground" Value="#cde6f7"/>
-        </Style>
-        <Style x:Key="greenButtons" TargetType="controls:SimpleButton">
-            <Setter Property="OnPressedBackground" Value="#a1e056"/>
-            <Setter Property="OnOverBackground" Value="#92d050"/>
-        </Style>
-        <Style x:Key="redButtons" TargetType="controls:SimpleButton">
-            <Setter Property="OnPressedBackground" Value="#e04343"/>
-            <Setter Property="OnOverBackground" Value="#c75050"/>
-        </Style>
-        <Style TargetType="Image">
-            <Setter Property="Width" Value="19"/>
-            <Setter Property="Height" Value="19"/>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Image">
+                <Setter Property="Width" Value="19"/>
+                <Setter Property="Height" Value="19"/>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
     <intr:Interaction.Triggers>
         <intr:EventTrigger EventName="Loaded">
@@ -54,7 +47,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ToolBar Background="Transparent" Margin="0 0 0 10"  IsOverflowOpen="False" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+        <ToolBar>
             <controls:SimpleButton Command="{Binding PrepareForAddCommand}" ToolTip="ثبت">
                 <Image Source="../../Images/Icon/EditorViewBasics/add_24.png" />
             </controls:SimpleButton>
