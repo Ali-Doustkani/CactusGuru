@@ -1,9 +1,9 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.FirstPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:lc="http://schemas.devexpress.com/winfx/2008/xaml/layoutcontrol"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:loaders="clr-namespace:Loaders;assembly=MrMitch.Loaders"
+      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+      xmlns:loaders="clr-namespace:Loaders;assembly=MrMitch.Loaders"
       FlowDirection="RightToLeft"
       utils:Events.BindLoadEvents="True">
     <Grid.Resources>
@@ -11,12 +11,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="{x:Type lc:Tile}">
-                <Setter Property="Cursor" Value="Hand" />
+            <Style TargetType="controls:SimpleButton">
                 <Setter Property="Background" Value="#1a1f33" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
-                <Setter Property="Size" Value="Small" />
+                <Setter Property="Width" Value="150" />
+                <Setter Property="Height" Value="150" />
             </Style>
             <BooleanToVisibilityConverter x:Key="visConverter"/>
         </ResourceDictionary>
@@ -28,8 +28,8 @@
         <loaders:ChromeLoader Thickness="6" Width="80" Height="80" Foreground="#374c61"/>
         <TextBlock Margin="0 140 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8">در حال بارگزاری</TextBlock>
     </Grid>
-    <lc:TileLayoutControl Visibility="{Binding LoaderState.IsIdle, Converter={StaticResource visConverter}}">
-        <lc:Tile Command="{Binding CollectionListCommand}">
+    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="50 80 0 0" Visibility="{Binding LoaderState.IsIdle, Converter={StaticResource visConverter}}">
+        <controls:SimpleButton Command="{Binding CollectionListCommand}" Margin="10">
             <StackPanel>
                 <TextBlock Style="{StaticResource LabelFontStyle}"
                            Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
@@ -42,14 +42,15 @@
                            LineStackingStrategy="BlockLineHeight"
                            LineHeight="52" />
             </StackPanel>
-        </lc:Tile>
-        <lc:Tile Command="{Binding ImageListCommand}">
+        </controls:SimpleButton>
+        <controls:SimpleButton Command="{Binding ImageListCommand}" Margin="10">
             <TextBlock FontFamily="B Titr"
                        FontSize="50"
-                       Foreground="#fff8e7">گالری</TextBlock>
-        </lc:Tile>
-        <lc:TileLayoutControl.Style>
-            <Style TargetType="lc:TileLayoutControl">
+                       Foreground="#fff8e7">گالری
+            </TextBlock>
+        </controls:SimpleButton>
+        <StackPanel.Style>
+            <Style TargetType="StackPanel">
                 <Style.Triggers>
                     <Trigger Property="Visibility" Value="Visible">
                         <Trigger.EnterActions>
@@ -62,6 +63,6 @@
                     </Trigger>
                 </Style.Triggers>
             </Style>
-        </lc:TileLayoutControl.Style>
-    </lc:TileLayoutControl>
+        </StackPanel.Style>
+    </StackPanel>
 </Grid>
