@@ -1,6 +1,6 @@
-﻿using System.Windows.Input;
-using CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint;
-using DevExpress.Xpf.Grid;
+﻿using CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint;
+using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace CactusGuru.Presentation.View.Views
 {
@@ -17,20 +17,20 @@ namespace CactusGuru.Presentation.View.Views
 
         private void txtSourceSearch_PreviewKeyDown(object sender, KeyEventArgs e)
         {
-            if (tab.SelectedIndex == COLLECTION_ITEMS)
-                ApplyKey(listCollectionItems, e.Key);
-            else if (tab.SelectedIndex == TAXA)
-                ApplyKey(listTaxa, e.Key);
+            //if (tab.SelectedIndex == COLLECTION_ITEMS)
+            //    ApplyKey(listCollectionItems, e.Key);
+            //else if (tab.SelectedIndex == TAXA)
+            //    ApplyKey(listTaxa, e.Key);
         }
 
-        private void ApplyKey(GridControl grid, Key key)
+        private void ApplyKey(ListBox grid, Key key)
         {
-            if (key == Key.Up)
-                grid.View.MovePrevRow();
-            else if (key == Key.Down)
-                grid.View.MoveNextRow();
-            else if (key == Key.Enter)
-                btnAddToPrint.Command.Execute(null);
+            //if (key == Key.Up)
+            //    grid.View.MovePrevRow();
+            //else if (key == Key.Down)
+            //    grid.View.MoveNextRow();
+            //else if (key == Key.Enter)
+            //    btnAddToPrint.Command.Execute(null);
         }
 
         private void listCollectionItems_PreviewKeyDown(object sender, KeyEventArgs e)
