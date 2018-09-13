@@ -5,17 +5,25 @@
              IsEnabled="{Binding State.IsView}"
              FlowDirection="LeftToRight">
     <UserControl.Resources>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="0 2" />
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}" />
-            <Setter Property="Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
-            <Setter Property="IsEnabled" Value="True"/>
-        </Style>
-        <Style TargetType="ListBox">
-            <Setter Property="ListBox.ItemsSource" Value="{Binding ItemSource}" />
-            <Setter Property="ListBox.SelectedItem" Value="{Binding WorkingItem, Mode=TwoWay}" />
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
+                <Setter Property="ItemsSource" Value="{Binding ItemSource}" />
+                <Setter Property="SelectedItem" Value="{Binding WorkingItem, Mode=TwoWay}" />
+            </Style>
+            <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
+                <Setter Property="Padding" Value="5 3"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="0 2" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}" />
+                <Setter Property="Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="IsEnabled" Value="True"/>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>

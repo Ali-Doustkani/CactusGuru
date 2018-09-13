@@ -3,6 +3,9 @@
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
                     xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
                     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls">
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
     <local:ViewModelLocator x:Key="vmLocator" />
     <utils:StringVisibilityConverter x:Key="stringVisConverter"/>
     <Style TargetType="controls:SimpleButton">
@@ -11,24 +14,8 @@
         <Setter Property="Background" Value="#f0f8fd"/>
         <Setter Property="OnOverBackground" Value="White"/>
     </Style>
-    <Style TargetType="ListBox">
-        <Setter Property="AlternationCount" Value="2"/>
+    <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
         <Setter Property="BorderThickness" Value="0 1 0 0"/>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Style.Triggers>
-                        <Trigger Property="IsSelected" Value="True">
-                            <Setter Property="Background" Value="Red"/>
-                        </Trigger>
-                        <Trigger Property="ListBox.AlternationIndex" Value="1">
-                            <Setter Property="Background" Value="#f0f8fd"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </Setter.Value>
-        </Setter>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
@@ -91,6 +78,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}"/>
     <Style TargetType="ToggleButton">
         <Setter Property="Cursor" Value="Hand"/>
         <Setter Property="Command" Value="{Binding SortCommand}"/>
