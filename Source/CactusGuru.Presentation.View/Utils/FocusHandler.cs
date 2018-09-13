@@ -100,7 +100,9 @@ namespace CactusGuru.Presentation.View.Utils
 
         private static void DropDownClosed(object sender, System.EventArgs e)
         {
-            GotoNextControl(sender);
+            var combo = (ComboBox)sender;
+            if (combo.SelectedItem != null)
+                GotoNextControl(sender);
         }
 
         private static void Ctrl_Unloaded(object sender, RoutedEventArgs e)
