@@ -1,13 +1,14 @@
 ﻿<Window x:Class="CactusGuru.Presentation.View.Views.ImageGallary"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
+        xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
         Title="گالری تصاویر"
         Height="600"
         Width="1030"
         FlowDirection="RightToLeft"
-        WindowStartupLocation="CenterScreen">
+        WindowStartupLocation="CenterScreen"
+        utils:Events.BindLoadEvents="True">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -19,14 +20,6 @@
     <Window.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="ImageGallaryEditorViewModel" />
     </Window.DataContext>
-    <intr:Interaction.Triggers>
-        <intr:EventTrigger EventName="Loaded">
-            <intr:InvokeCommandAction Command="{Binding LoadCommand}"/>
-        </intr:EventTrigger>
-        <intr:EventTrigger EventName="Unloaded">
-            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
-        </intr:EventTrigger>
-    </intr:Interaction.Triggers>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>

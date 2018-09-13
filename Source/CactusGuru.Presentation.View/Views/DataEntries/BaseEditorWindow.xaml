@@ -1,15 +1,17 @@
 ﻿<Window x:Class="CactusGuru.Presentation.View.Views.BaseEditorWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:intr="http://schemas.microsoft.com/expression/2010/interactivity"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
+        xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
         Title="{Binding ElementName=grid.Children[2], Path=Tag}"
+        utils:Events.BindLoadEvents="True"
         ResizeMode="NoResize"
         Height="480"
         Width="420"
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False"
-        FlowDirection="RightToLeft">
+        FlowDirection="RightToLeft"
+        >
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -26,14 +28,6 @@
             </Style>
         </ResourceDictionary>
     </Window.Resources>
-    <intr:Interaction.Triggers>
-        <intr:EventTrigger EventName="Loaded">
-            <intr:InvokeCommandAction Command="{Binding LoadCommand}" />
-        </intr:EventTrigger>
-        <intr:EventTrigger EventName="Unloaded">
-            <intr:InvokeCommandAction Command="{Binding UnloadCommand}"/>
-        </intr:EventTrigger>
-    </intr:Interaction.Triggers>
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding PrepareForAddCommand}" />
         <KeyBinding Key="F2" Command="{Binding PrepareForEditCommand}" />
