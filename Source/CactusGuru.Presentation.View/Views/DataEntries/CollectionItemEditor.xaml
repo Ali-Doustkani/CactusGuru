@@ -1,7 +1,7 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.CollectionItemEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Controls"
+      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
       Validation.ErrorTemplate="{x:Null}"
       Tag="گیاه">
@@ -45,7 +45,7 @@
               ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
               SelectedItem="{Binding Taxon}"/>
-    <Button Grid.Row="1" Command="{Binding GotoTaxaCommand}" />
+    <controls:SimpleButton Grid.Row="1" Command="{Binding GotoTaxaCommand}" />
     <!-- Collector -->
     <TextBlock Grid.Row="2" Text="کلکتور" />
     <ComboBox Grid.Row="2"
@@ -53,7 +53,7 @@
               ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="FormattedName"
               SelectedItem="{Binding Collector}" />
-    <Button Grid.Row="2" Command="{Binding GotoCollectorsCommand}" />
+    <controls:SimpleButton Grid.Row="2" Command="{Binding GotoCollectorsCommand}" />
     <!-- Field Number -->
     <TextBlock Grid.Row="3" Text="فیلد" />
     <TextBox Grid.Row="3"
@@ -79,7 +79,7 @@
               ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="FormattedName"
               SelectedItem="{Binding Supplier}" />
-    <Button Grid.Row="7" Command="{Binding GotoSuppliersCommand}" />
+    <controls:SimpleButton Grid.Row="7" Command="{Binding GotoSuppliersCommand}" />
     <!-- Supplier Code -->
     <TextBlock Grid.Row="8" Text="کد تامین کننده" />
     <TextBox Grid.Row="8"
@@ -96,5 +96,5 @@
              TextWrapping="Wrap"
              AcceptsReturn="True" />
     <!-- Errors -->
-    <local:ErrorBox Grid.Row="11" Grid.ColumnSpan="3"/>
+    <controls:ErrorBox Grid.Row="11" Grid.ColumnSpan="3"/>
 </Grid>

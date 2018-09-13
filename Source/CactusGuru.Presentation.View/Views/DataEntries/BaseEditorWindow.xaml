@@ -50,7 +50,7 @@
             <RowDefinition Height="auto" />
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <ToolBar Background="Transparent" IsOverflowOpen="False" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
+        <ToolBar Background="Transparent" Margin="0 0 0 10"  IsOverflowOpen="False" ToolBarTray.IsLocked="True" Loaded="ToolBar_Loaded">
             <controls:SimpleButton Command="{Binding PrepareForAddCommand}" ToolTip="ثبت">
                 <Image Source="../../Images/Icon/EditorViewBasics/add_24.png" />
             </controls:SimpleButton>

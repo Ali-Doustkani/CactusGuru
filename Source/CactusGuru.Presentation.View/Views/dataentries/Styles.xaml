@@ -2,7 +2,8 @@
                     xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
+                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
+                    xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls">
 
     <local:ViewModelLocator x:Key="vmLocator" />
 
@@ -73,11 +74,15 @@
         </Setter>
     </Style>
 
-    <Style TargetType="Button">
+    <Style TargetType="controls:SimpleButton">
         <Setter Property="Grid.Column" Value="2" />
         <Setter Property="Margin" Value="4 2 0 2" />
         <Setter Property="Content" Value="..." />
         <Setter Property="IsTabStop" Value="False" />
+        <Setter Property="Border.CornerRadius" Value="0" />
+        <Setter Property="OnPressedBackground" Value="#b1d6f0"/>
+        <Setter Property="OnOverBackground" Value="#cde6f7"/>
+        <Setter Property="Background" Value="#cccccc"/>
     </Style>
 
 </ResourceDictionary>

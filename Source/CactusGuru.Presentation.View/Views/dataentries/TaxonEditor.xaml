@@ -37,7 +37,7 @@
               ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
               SelectedItem="{Binding Genus}"/>
-    <Button Command="{Binding GotoGeneraCommand}" />
+    <local:SimpleButton Command="{Binding GotoGeneraCommand}" />
     <!-- Species -->
     <TextBlock Grid.Row="1" Text="گونه" />
     <TextBox Grid.Row="1"
