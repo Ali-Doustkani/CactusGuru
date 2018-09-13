@@ -1,35 +1,16 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <local:ViewModelLocator x:Key="vmLocator" />
-    <!-- ListBoxItem DataTemplate -->
-    <DataTemplate x:Key="ItemDataTemplate">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="auto"/>
-            </Grid.RowDefinitions>
-            <Image Source="{Binding Picture}" Stretch="None" Width="180" Height="140"/>
-            <TextBox Grid.Row="1" Padding="3" Margin="0 5" Text="{Binding Description}" />
-            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
-                <controls:SimpleButton Background="#dddddd" OnOverBackground="#c75050" Width="30" Height="30" Padding="6" >
-                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/EditorViewBasics/delete_24.png"/>
-                </controls:SimpleButton>
-                <ToggleButton Background="#bbbbbb" Margin="3 0" Height="30" IsChecked="{Binding Row.SharedOnInstagram}">اینستاگرام</ToggleButton>
-            </StackPanel>
-        </Grid>
-    </DataTemplate>
     <!-- Toolbar Styles -->
     <Style TargetType="Separator">
         <Setter Property="Margin" Value="5 0"/>
     </Style>
     <Style x:Key="ToolbarStyle" TargetType="ToolBar" BasedOn="{StaticResource {x:Type ToolBar}}">
-        <Setter Property="Control.Height" Value="35"/>
+        <Setter Property="Height" Value="35"/>
         <Setter Property="Margin" Value="10 0"/>
         <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>

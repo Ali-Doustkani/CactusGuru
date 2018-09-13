@@ -263,6 +263,11 @@
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>ImageGallary.xaml</DependentUpon>
     </Page>
+    <Page Include="Views\Images\ImageList.Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <DependentUpon>ImageList.xaml</DependentUpon>
+    </Page>
     <Page Include="Views\Main\FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
