@@ -12,6 +12,7 @@
                 <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="controls:SimpleButton">
+                <Setter Property="OnOverBackground" Value="#232944"/>
                 <Setter Property="Background" Value="#1a1f33" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
