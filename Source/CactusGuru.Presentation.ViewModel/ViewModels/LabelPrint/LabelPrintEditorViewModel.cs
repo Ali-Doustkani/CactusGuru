@@ -25,8 +25,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearFilterText);
             DeleteCurrentPrintItemCommand = new RelayCommand(DeleteSelectedPrintItem);
             PrintCommand = new RelayCommand(Print, CanPrint);
-            PaperTypes = new[] { new PaperRowItem(PaperType.A4, "A4"), new PaperRowItem(PaperType.TenCm, "10cm") };
-            SelectedPaperType = PaperTypes.First();
         }
 
         private readonly ILabelPrintViewProvider _viewProvider;
@@ -40,11 +38,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         public ObservableBag<CollectionItemViewModel> CollectionItems { get; private set; }
         public ObservableBag<TaxonViewModel> Taxa { get; private set; }
         public ObservableBag<LabelPrintViewModel> PrintItems { get; }
-        public IEnumerable<PaperRowItem> PaperTypes { get; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public TaxonViewModel SelectedTaxon { get; set; }
         public LabelPrintViewModel SelectedPrintItem { get; set; }
-        public PaperRowItem SelectedPaperType { get; set; }
 
         private SelectedTabPage _selectedPage;
         public SelectedTabPage SelectedPage
@@ -115,12 +111,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         private void AddToPrint()
         {
             if (NothingSelected()) return;
-            var count = Navigations.GetNumberFromUser();
-            if (!count.Result) return;
             if (PrintItemExists())
-                GetPrintItem().Count += count.Value;
+                GetPrintItem().Count += 1;
             else
-                AddPrintItem(count.Value);
+                AddPrintItem();
             OnPropertyChanged(nameof(LabelCount));
         }
 
@@ -145,10 +139,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             return SelectedPage == SelectedTabPage.CollectionItem ? SelectedCollectionItem.InnerObject.Id : SelectedTaxon.InnerObject.Id;
         }
 
-        private void AddPrintItem(int count)
+        private void AddPrintItem()
         {
             var dto = new LabelPrintViewModel();
-            dto.Count = count;
+            dto.Count = 1;
             if (SelectedPage == SelectedTabPage.CollectionItem)
                 dto.Set((CollectionItemDto)SelectedCollectionItem.InnerObject);
             else if (SelectedPage == SelectedTabPage.Taxon)
@@ -167,7 +161,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             var printDtos = new List<LabelPrintItemDto>();
             foreach (var printVm in PrintItems)
                 AddPrintDto(printDtos, printVm);
-            _printService.PrintLabel(printDtos, SelectedPaperType.Id);
+            _printService.PrintLabel(printDtos);
         }
 
         private void AddPrintDto(List<LabelPrintItemDto> printDtos, LabelPrintViewModel labelPrintItemViewModel)
@@ -176,7 +170,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             {
                 var dto = new LabelPrintItemDto();
                 dto.Code = labelPrintItemViewModel.Code;
-                dto.Genera = labelPrintItemViewModel.Genus;
+                dto.Genus = labelPrintItemViewModel.Genus;
                 dto.ReferenceInfo = labelPrintItemViewModel.ReferenceInfo;
                 dto.Species = labelPrintItemViewModel.Species;
                 printDtos.Add(dto);

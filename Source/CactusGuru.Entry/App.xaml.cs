@@ -15,6 +15,7 @@ namespace CactusGuru.Entry
             Application.Implementation.ServiceLocationBase.Instance = ObjectFactory.Instance;
             CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = new ViewModelFactory();
             CactusGuru.Presentation.View.Program.Start(ObjectFactory.Instance.GetInstance<MainViewModel>(), ObjectFactory.Instance.GetInstance<INavigationService>());
+            DevExpress.Xpf.Core.ApplicationThemeHelper.UpdateApplicationThemeName();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

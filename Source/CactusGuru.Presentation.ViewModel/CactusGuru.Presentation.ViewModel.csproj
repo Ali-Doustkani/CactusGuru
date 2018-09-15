@@ -63,7 +63,6 @@
     <Compile Include="NavigationService\INavigationService.cs" />
     <Compile Include="PrintService\IPrintService.cs" />
     <Compile Include="PrintService\LabelPrintItemDto.cs" />
-    <Compile Include="PrintService\PaperType.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RelayCommand.cs" />
@@ -91,7 +90,6 @@
     <Compile Include="ViewModels\LabelPrint\CollectionItemViewModel.cs" />
     <Compile Include="ViewModels\LabelPrint\LabelPrintEditorViewModel.cs" />
     <Compile Include="ViewModels\LabelPrint\LabelPrintViewModel.cs" />
-    <Compile Include="ViewModels\LabelPrint\PaperRowItem.cs" />
     <Compile Include="ViewModels\LabelPrint\SelectedTabPage.cs" />
     <Compile Include="ViewModels\LabelPrint\TaxonViewModel.cs" />
     <Compile Include="ViewModels\CollectionItemListViewModels\CollectionItemViewModel.cs" />
@@ -117,7 +115,6 @@
       <Name>CactusGuru.Infrastructure</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

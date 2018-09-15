@@ -110,6 +110,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controls\SimpleButton.cs" />
+    <Compile Include="PrintService\LabelPrintDocument.cs" />
+    <Compile Include="PrintService\PrintService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="NavigationService\DialogService.cs" />
     <Compile Include="Controls\ErrorBox.xaml.cs">
@@ -162,9 +164,6 @@
     <Compile Include="Views\Print\LabelPrint.xaml.cs">
       <DependentUpon>LabelPrint.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Print\LabelPrintCount.xaml.cs">
-      <DependentUpon>LabelPrintCount.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Main\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
@@ -216,6 +215,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <EmbeddedResource Include="PrintService\LabelTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -292,10 +295,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Print\LabelPrint.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Print\LabelPrintCount.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

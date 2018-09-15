@@ -83,16 +83,6 @@ namespace CactusGuru.Entry.Presentation
             }
         }
 
-        public DialogResult<int> GetNumberFromUser()
-        {
-            var view = new LabelPrintCount();
-            view.Owner = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
-            var dialogResult = view.ShowDialog();
-            if (dialogResult.HasValue)
-                return new DialogResult<int>(dialogResult.Value, view.GetCount());
-            return new DialogResult<int>(false, view.GetCount());
-        }
-
         public DialogResult<DateTime> GetDateFromUser()
         {
             var view = new ImageGallaryDate();

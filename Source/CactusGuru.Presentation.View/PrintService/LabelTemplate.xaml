@@ -1,0 +1,36 @@
+﻿<DataTemplate  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+    <Border BorderThickness="1" Width="378" Height="57" Margin="0">
+        <Border.BorderBrush>
+            <DrawingBrush Viewport="0,0,8,8" ViewportUnits="Absolute" TileMode="Tile">
+                <DrawingBrush.Drawing>
+                    <DrawingGroup>
+                        <GeometryDrawing Brush="LightGray">
+                            <GeometryDrawing.Geometry>
+                                <GeometryGroup>
+                                    <RectangleGeometry Rect="0,0,50,50" />
+                                    <RectangleGeometry Rect="50,50,50,50" />
+                                </GeometryGroup>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingBrush.Drawing>
+            </DrawingBrush>
+        </Border.BorderBrush>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="57"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Label VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Content="{Binding Code}" FontFamily="Arial" FontSize="17" FontWeight="Bold">
+                <Label.RenderTransform>
+                    <RotateTransform Angle="-90" CenterX="28" CenterY="28"/>
+                </Label.RenderTransform>
+            </Label>
+            <StackPanel Grid.Column="1">
+                <TextBlock FontFamily="Arial" FontWeight="Bold" FontSize="20" Margin="0 2 0 0" Text="{Binding Genus}"/>
+                <TextBlock FontFamily="Arial" FontWeight="Bold" FontSize="16" Margin="0 -5 0 0" Text="{Binding Species}"/>
+                <TextBlock FontFamily="Arial" FontSize="13" Text="{Binding ReferenceInfo}"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</DataTemplate>
