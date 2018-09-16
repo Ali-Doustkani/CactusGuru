@@ -1,6 +1,6 @@
-﻿using DevExpress.Xpf.Editors;
-using System;
+﻿using System;
 using System.Globalization;
+using System.Windows.Controls;
 
 namespace CactusGuru.Presentation.View.Views
 {
@@ -19,7 +19,7 @@ namespace CactusGuru.Presentation.View.Views
             if (cmbMonth.SelectedIndex != -1)
                 month = cmbMonth.SelectedIndex + 1;
             if (cmbYear.SelectedIndex != -1)
-                year = Convert.ToInt32(((ComboBoxEditItem)cmbYear.SelectedItem).Content);
+                year = Convert.ToInt32(((ComboBoxItem)cmbYear.SelectedItem).Content);
             return cal.ToDateTime(year, month, 1, 1, 1, 1, 1);
         }
 
@@ -27,13 +27,13 @@ namespace CactusGuru.Presentation.View.Views
         {
             cmbMonth.SelectedIndex = 0;
             cmbMonth.Focus();
-            cmbMonth.IsPopupOpen = true;
+            cmbMonth.IsDropDownOpen = true;
         }
 
-        private void cmbMonth_PopupClosed(object sender, ClosePopupEventArgs e)
+        private void cmbMonth_DropDownClosed(object sender, EventArgs e)
         {
             cmbYear.Focus();
-            cmbYear.IsPopupOpen = true;
+            cmbYear.IsDropDownOpen = true;
         }
     }
 }

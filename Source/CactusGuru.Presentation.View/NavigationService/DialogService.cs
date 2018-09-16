@@ -1,5 +1,4 @@
 ﻿using CactusGuru.Presentation.ViewModel.NavigationService;
-using DevExpress.Xpf.Core;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -11,12 +10,12 @@ namespace CactusGuru.Presentation.View.NavigationService
     {
         public void Say(string message)
         {
-            DXMessageBox.Show(message, "کاکتوس گورو", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+            System.Windows.MessageBox.Show(message, "کاکتوس گورو", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
         }
 
         public bool Ask(string message)
         {
-            var result = DXMessageBox.Show(message,
+            var result = System.Windows.MessageBox.Show(message,
                                            "کاکتوس گورو",
                                            MessageBoxButton.YesNo,
                                            MessageBoxImage.Question,
@@ -26,7 +25,7 @@ namespace CactusGuru.Presentation.View.NavigationService
 
         public void Error(string error)
         {
-            DXMessageBox.Show(error,
+            System.Windows.MessageBox.Show(error,
                               "کاکتوس گورو",
                               MessageBoxButton.OK,
                               MessageBoxImage.Error);
