@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace CactusGuru.Presentation.View.Controls
 {
@@ -12,6 +13,8 @@ namespace CactusGuru.Presentation.View.Controls
         static NullTextBox()
         {
             DefaultStyleKeyProperty.OverrideMetadata(typeof(NullTextBox), new FrameworkPropertyMetadata(typeof(NullTextBox)));
+            BorderThicknessProperty.OverrideMetadata(typeof(NullTextBox), new FrameworkPropertyMetadata(new Thickness(1)));
+            BorderBrushProperty.OverrideMetadata(typeof(NullTextBox), new FrameworkPropertyMetadata(Brushes.Gray));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

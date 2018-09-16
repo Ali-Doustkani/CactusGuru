@@ -23,7 +23,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            <TextBox Text="{Binding CollectionItems.FilterText, UpdateSourceTrigger=PropertyChanged, Delay=400}" Margin="5" Padding="3" Width="250"/>
+            <controls:NullTextBox NullText="Search in Taxa" Text="{Binding CollectionItems.FilterText, UpdateSourceTrigger=PropertyChanged, Delay=400}" Margin="5" Padding="3" Width="250"/>
             <TextBlock VerticalAlignment="Center" FlowDirection="RightToLeft">جست و جو:</TextBlock>
         </StackPanel>
         <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
