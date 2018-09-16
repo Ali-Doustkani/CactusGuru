@@ -109,6 +109,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\Loader.xaml.cs">
+      <DependentUpon>Loader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\NullTextBox.cs" />
     <Compile Include="Controls\SimpleButton.cs" />
     <Compile Include="PrintService\LabelPrintDocument.cs" />
@@ -201,6 +204,10 @@
   </ItemGroup>
   <ItemGroup>
     <Page Include="Controls\ErrorBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Loader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

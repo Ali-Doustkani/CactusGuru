@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.ViewProviders.LabelPrinting
 {
     public interface ILabelPrintViewProvider
     {
         CollectionItemDto GetCollectionItem(Guid id);
-        IEnumerable<CollectionItemDto> GetCollectionItems();
+        Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync();
         TaxonDto GetTaxon(Guid id);
-        IEnumerable<TaxonDto> GetTaxa();
+        Task<IEnumerable<TaxonDto>> GetTaxaAsync();
     }
 }

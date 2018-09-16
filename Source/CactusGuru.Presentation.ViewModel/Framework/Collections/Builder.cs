@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 {
@@ -13,6 +14,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         private Func<T, object> _selectId;
         private Func<IEnumerable<T>> _sourceFunc;
+        private Func<Task<IEnumerable<T>>> _asyncSourceFunc;
         private IEnumerable<T> _source;
         private List<Type> _acceptedTypes;
         private Func<object, T> _convertorFunc;
@@ -32,9 +34,23 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         public Builder<T> LoadFrom<TOtherType>(Func<IEnumerable<TOtherType>> sourceFunc)
         {
-            _sourceFunc = () => {
+            _sourceFunc = () =>
+            {
                 var list = new List<T>();
                 foreach (var item in sourceFunc())
+                    list.Add(_convertorFunc(item));
+                return list;
+            };
+            return this;
+        }
+
+        public Builder<T> LoadFromAsync<TOtherType>(Func<Task<IEnumerable<TOtherType>>> sourceFunc)
+        {
+            _asyncSourceFunc = async () =>
+            {
+                var list = new List<T>();
+                var sources = await sourceFunc();
+                foreach (var item in sources)
                     list.Add(_convertorFunc(item));
                 return list;
             };
@@ -62,12 +78,20 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         public ObservableBag<T> Build()
         {
-            var source = Enumerable.Empty<T>();
             if (_sourceFunc != null)
-                source = _sourceFunc();
-            else if (_source != null)
-                source = _source;
+                return CreateCollection(_sourceFunc());
+            return CreateCollection(_source);
+        }
 
+        public async Task<ObservableBag<T>> BuildAsync()
+        {
+            return CreateCollection(await _asyncSourceFunc());
+        }
+
+        private ObservableBag<T> CreateCollection(IEnumerable<T> source)
+        {
+            if (source == null)
+                source = Enumerable.Empty<T>();
             if (!_acceptedTypes.Any())
                 _acceptedTypes.Add(typeof(T));
 

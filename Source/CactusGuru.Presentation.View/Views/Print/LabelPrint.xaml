@@ -22,19 +22,22 @@
             </KeyBinding.Command>
         </KeyBinding>
     </Grid.InputBindings>
-    <Grid>
+    <!-- Loader -->
+    <controls:Loader Visibility="{Binding LoaderState.IsBusy, Converter={StaticResource visConverter}}"/>
+    <!-- Content -->
+    <Grid Visibility="{Binding LoaderState.IsIdle, Converter={StaticResource visConverter}}">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <!-- ToolBar -->
-        <ToolBar>
+        <StackPanel Orientation="Horizontal">
             <controls:SimpleButton Style="{StaticResource PrintButtonStyle}" Command="{Binding PrintCommand}"/>
-            <Separator/>
+            <Border Width="1" Background="Gray"/>
             <TextBlock Margin="10 0 0 0" VerticalAlignment="Center">جست و جو:</TextBlock>
             <controls:NullTextBox x:Name="txtSearch" Style="{StaticResource SearchTextBox}" Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}"/>
-        </ToolBar>
+        </StackPanel>
         <!-- Items -->
         <UniformGrid Grid.Row="1" FlowDirection="LeftToRight" Columns="2">
             <TabControl SelectedIndex="{Binding SelectedPage}" Margin="10 0 0 10">
@@ -59,5 +62,20 @@
         <StatusBar Grid.Row="2" Grid.ColumnSpan="3">
             <TextBlock Text="{Binding LabelCount}"/>
         </StatusBar>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <Trigger Property="Visibility" Value="Visible">
+                        <Trigger.EnterActions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <DoubleAnimation Duration="0:0:0.5" From="0" To="1" Storyboard.TargetProperty="Opacity" />
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </Trigger.EnterActions>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
     </Grid>
 </Grid>

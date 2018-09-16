@@ -7,6 +7,7 @@
         <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <local:ViewModelLocator x:Key="vmLocator" />
+    <BooleanToVisibilityConverter x:Key="visConverter"/>
     <!-- Print Button -->
     <Style x:Key="PrintButtonStyle" TargetType="controls:SimpleButton" BasedOn="{StaticResource greenButtons}">
         <Setter Property="HorizontalAlignment" Value="Left"/>

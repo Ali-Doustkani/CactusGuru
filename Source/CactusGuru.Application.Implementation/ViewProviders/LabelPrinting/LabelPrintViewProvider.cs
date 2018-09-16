@@ -3,6 +3,7 @@ using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
 {
@@ -17,13 +18,16 @@ namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
             }
         }
 
-        public IEnumerable<CollectionItemDto> GetCollectionItems()
+        public Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var items = locator.Get<ICollectionItemRepository>().GetAll();
-                return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(items);
-            }
+                using (var locator = Begin())
+                {
+                    var items = locator.Get<ICollectionItemRepository>().GetAll();
+                    return locator.Get<AssemblerBase<CollectionItem, CollectionItemDto>>().ToDataTransferEntities(items);
+                }
+            });
         }
 
         public TaxonDto GetTaxon(Guid id)
@@ -35,13 +39,16 @@ namespace CactusGuru.Application.Implementation.ViewProviders.LabelPrinting
             }
         }
 
-        public IEnumerable<TaxonDto> GetTaxa()
+        public Task<IEnumerable<TaxonDto>> GetTaxaAsync()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var items = locator.Get<ITaxonRepository>().GetAll();
-                return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(items);
-            }
+                using (var locator = Begin())
+                {
+                    var items = locator.Get<ITaxonRepository>().GetAll();
+                    return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(items);
+                }
+            });
         }
     }
 }

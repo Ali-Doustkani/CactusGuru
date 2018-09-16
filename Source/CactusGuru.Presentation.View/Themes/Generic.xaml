@@ -95,7 +95,7 @@
         <Setter Property="ToolBarTray.IsLocked" Value="True"/>
         <Setter Property="utils:Toolbars.HideGrip" Value="True"/>
     </Style>
-
+    <!-- NullTextBox -->
     <Style TargetType="{x:Type controls:NullTextBox}">
         <Setter Property="Cursor" Value="IBeam"/>
         <Setter Property="Background" Value="White"/>

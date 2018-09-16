@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
       xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
-      xmlns:loaders="clr-namespace:Loaders;assembly=MrMitch.Loaders"
       FlowDirection="RightToLeft"
       utils:Events.BindLoadEvents="True">
     <Grid.Resources>
@@ -25,10 +24,7 @@
     <Grid.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="FirstPageViewModel" />
     </Grid.DataContext>
-    <Grid Visibility="{Binding LoaderState.IsBusy, Converter={StaticResource visConverter}}">
-        <loaders:ChromeLoader Thickness="6" Width="80" Height="80" Foreground="#374c61"/>
-        <TextBlock Margin="0 140 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8">در حال بارگزاری</TextBlock>
-    </Grid>
+    <controls:Loader Visibility="{Binding LoaderState.IsBusy, Converter={StaticResource visConverter}}"/>
     <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="50 80 0 0" Visibility="{Binding LoaderState.IsIdle, Converter={StaticResource visConverter}}">
         <controls:SimpleButton Command="{Binding CollectionListCommand}" Margin="10">
             <StackPanel>

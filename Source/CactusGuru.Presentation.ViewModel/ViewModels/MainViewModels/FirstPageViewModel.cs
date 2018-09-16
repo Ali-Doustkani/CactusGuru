@@ -18,7 +18,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
 
         public ICommand CollectionListCommand { get; }
         public ICommand ImageListCommand { get; }
-        public LoaderState LoaderState { get; private set; }
+        public LoaderState LoaderState { get; }
         public int ItemsCount { get; private set; }
 
         protected override async void OnLoad()

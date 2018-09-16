@@ -25,6 +25,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearFilterText);
             DeleteCurrentPrintItemCommand = new RelayCommand(DeleteSelectedPrintItem);
             PrintCommand = new RelayCommand(Print, CanPrint);
+            LoaderState = new LoaderState();
         }
 
         private readonly ILabelPrintViewProvider _viewProvider;
@@ -41,6 +42,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public TaxonViewModel SelectedTaxon { get; set; }
         public LabelPrintViewModel SelectedPrintItem { get; set; }
+        public LoaderState LoaderState { get; }
 
         private SelectedTabPage _selectedPage;
         public SelectedTabPage SelectedPage
@@ -90,22 +92,23 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             }
         }
 
-        protected override void OnLoad()
+        protected async override void OnLoad()
         {
-            CollectionItems = Bag.Of<CollectionItemViewModel>()
+            CollectionItems = await Bag.Of<CollectionItemViewModel>()
               .FilterBy((vm, text) => vm.Name.Has(text) || vm.Code == text)
               .WithConvertor((CollectionItemDto dto) => new CollectionItemViewModel(dto))
               .WithId(x => x.InnerObject.Id)
-              .LoadFrom(_viewProvider.GetCollectionItems)
-              .Build();
-            Taxa = Bag.Of<TaxonViewModel>()
+              .LoadFromAsync(_viewProvider.GetCollectionItemsAsync)
+              .BuildAsync();
+            Taxa = await Bag.Of<TaxonViewModel>()
                 .FilterBy((vm, text) => vm.Name.Has(text))
-                .LoadFrom(_viewProvider.GetTaxa)
+                .LoadFromAsync(_viewProvider.GetTaxaAsync)
                 .WithConvertor((TaxonDto dto) => new TaxonViewModel(dto))
                 .WithId(x => x.InnerObject.Id)
-                .Build();
+                .BuildAsync();
             OnPropertyChanged(nameof(CollectionItems));
             OnPropertyChanged(nameof(Taxa));
+            LoaderState.ToIdle();
         }
 
         private void AddToPrint()
