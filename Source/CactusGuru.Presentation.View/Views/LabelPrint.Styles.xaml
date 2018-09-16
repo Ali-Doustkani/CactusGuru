@@ -1,13 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
                     xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
                     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    <local:ViewModelLocator x:Key="vmLocator" />
-    <BooleanToVisibilityConverter x:Key="visConverter"/>
     <!-- Print Button -->
     <Style x:Key="PrintButtonStyle" TargetType="controls:SimpleButton" BasedOn="{StaticResource greenButtons}">
         <Setter Property="HorizontalAlignment" Value="Left"/>

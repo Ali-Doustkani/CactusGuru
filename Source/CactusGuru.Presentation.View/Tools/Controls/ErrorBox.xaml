@@ -22,7 +22,7 @@
     </UserControl.Style>
     <Grid Background="#fbf6e9" Margin="0 2">
         <StackPanel Orientation="Horizontal">
-            <Image Source="../Images/Icon/cross.png" Width="16" Height="16" Margin="8 2 0 2"/>
+            <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/cross.png" Width="16" Height="16" Margin="8 2 0 2"/>
             <TextBlock Foreground="#b62a25" Name="message">Message Text Here</TextBlock>
         </StackPanel>
     </Grid>

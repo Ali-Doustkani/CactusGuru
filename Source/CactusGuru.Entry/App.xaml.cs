@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Entry.CompositionRoot;
 using CactusGuru.Infrastructure.Logging;
+using CactusGuru.Presentation.View.Views;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels;
 using System;
@@ -13,8 +14,10 @@ namespace CactusGuru.Entry
         {
             AppDomain.CurrentDomain.UnhandledException += CurrentDomain_UnhandledException;
             Application.Implementation.ServiceLocationBase.Instance = ObjectFactory.Instance;
-            CactusGuru.Presentation.View.Views.ViewModelLocator.Resolver = new ViewModelFactory();
-            CactusGuru.Presentation.View.Program.Start(ObjectFactory.Instance.GetInstance<MainViewModel>(), ObjectFactory.Instance.GetInstance<INavigationService>());
+            ViewModelLocator.Resolver = new ViewModelFactory();
+            var main = new Main { DataContext = ObjectFactory.Instance.GetInstance<MainViewModel>() };
+            main.Show();
+            ObjectFactory.Instance.GetInstance<INavigationService>().GotoHome();
         }
 
         private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)

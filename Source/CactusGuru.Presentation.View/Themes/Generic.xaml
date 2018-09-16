@@ -2,9 +2,13 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
-    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps">
-    <!-- Page -->
+    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
+    xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views">
+    <!-- Fields -->
+    <views:ViewModelLocator x:Key="vmLocator" />
     <BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
+
+    <!-- Page -->
     <Style TargetType="{x:Type controls:Page}">
         <Setter Property="FlowDirection" Value="RightToLeft"/>
         <Setter Property="Template">

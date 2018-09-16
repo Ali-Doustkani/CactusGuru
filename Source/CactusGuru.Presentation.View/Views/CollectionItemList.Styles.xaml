@@ -1,12 +1,10 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views"
-                    xmlns:converters="clr-namespace:CactusGuru.Presentation.View.Tools.Converters"
-                    xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
+                    xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+                    xmlns:converters="clr-namespace:CactusGuru.Presentation.View.Tools.Converters">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
-    <local:ViewModelLocator x:Key="vmLocator" />
     <converters:StringVisibilityConverter x:Key="stringVisConverter"/>
     <Style TargetType="controls:SimpleButton">
         <Setter Property="Padding" Value="10"/>
