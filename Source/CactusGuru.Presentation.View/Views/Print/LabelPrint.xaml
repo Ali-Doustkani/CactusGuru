@@ -15,6 +15,13 @@
     <Grid.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="LabelPrintEditorViewModel" />
     </Grid.DataContext>
+    <Grid.InputBindings>
+        <KeyBinding Modifiers="Ctrl" Key="F">
+            <KeyBinding.Command>
+                <utils:CommandToEvent Executed="FocusOnSearchBox"/>
+            </KeyBinding.Command>
+        </KeyBinding>
+    </Grid.InputBindings>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
@@ -26,8 +33,7 @@
             <controls:SimpleButton Style="{StaticResource PrintButtonStyle}" Command="{Binding PrintCommand}"/>
             <Separator/>
             <TextBlock Margin="10 0 0 0" VerticalAlignment="Center">جست و جو:</TextBlock>
-            <TextBox Style="{StaticResource SearchTextBox}" 
-                     Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+            <controls:NullTextBox x:Name="txtSearch" Style="{StaticResource SearchTextBox}" Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}"/>
         </ToolBar>
         <!-- Items -->
         <UniformGrid Grid.Row="1" FlowDirection="LeftToRight" Columns="2">

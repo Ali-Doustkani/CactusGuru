@@ -95,4 +95,25 @@
         <Setter Property="ToolBarTray.IsLocked" Value="True"/>
         <Setter Property="utils:Toolbars.HideGrip" Value="True"/>
     </Style>
+
+    <Style TargetType="{x:Type controls:NullTextBox}">
+        <Setter Property="Cursor" Value="IBeam"/>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:NullTextBox}">
+                    <Border VerticalAlignment="Center" Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                        <Grid Margin="2">
+                            <TextBlock Text="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NullText}"
+                                       Foreground="Gray" 
+                                       Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=NullTextVisibility}"/>
+                            <ScrollViewer x:Name="PART_ContentHost" />
+                        </Grid>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>

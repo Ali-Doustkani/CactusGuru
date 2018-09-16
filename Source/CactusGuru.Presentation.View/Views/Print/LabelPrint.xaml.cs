@@ -25,5 +25,10 @@ namespace CactusGuru.Presentation.View.Views
         {
             return DataContext as LabelPrintEditorViewModel;
         }
+
+        private void FocusOnSearchBox(object sender, System.EventArgs e)
+        {
+            txtSearch.Focus();
+        }
     }
 }

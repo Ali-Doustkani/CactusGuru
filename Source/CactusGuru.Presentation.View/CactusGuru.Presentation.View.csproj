@@ -109,6 +109,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\NullTextBox.cs" />
     <Compile Include="Controls\SimpleButton.cs" />
     <Compile Include="PrintService\LabelPrintDocument.cs" />
     <Compile Include="PrintService\PrintService.cs" />
@@ -123,6 +124,7 @@
     <Compile Include="Controls\SourceBox.xaml.cs">
       <DependentUpon>SourceBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\CommandToEvent.cs" />
     <Compile Include="Utils\EnterKeyAttach.cs" />
     <Compile Include="Utils\Events.cs" />
     <Compile Include="Utils\FocusHandler.cs" />
