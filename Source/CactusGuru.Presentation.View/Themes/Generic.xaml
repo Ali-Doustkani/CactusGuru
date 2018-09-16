@@ -3,6 +3,37 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
     xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils">
+    <!-- Page -->
+    <BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
+    <Style TargetType="{x:Type controls:Page}">
+        <Setter Property="FlowDirection" Value="RightToLeft"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type controls:Page}">
+                    <Grid>
+                        <controls:Loader Visibility="{Binding LoaderState.IsBusy, Converter={StaticResource boolToVisConverter}}"/>
+                        <ContentPresenter Visibility="{Binding LoaderState.IsIdle, Converter={StaticResource boolToVisConverter}}" utils:Events.BindLoadEvents="True">
+                            <ContentPresenter.Style>
+                                <Style>
+                                    <Style.Triggers>
+                                        <Trigger Property="Control.Visibility" Value="Visible">
+                                            <Trigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Duration="0:0:0.5" From="0" To="1" Storyboard.TargetProperty="Opacity" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </Trigger.EnterActions>
+                                        </Trigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ContentPresenter.Style>
+                        </ContentPresenter>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
     <!-- SimpleButton -->
     <Style TargetType="{x:Type controls:SimpleButton}">
         <Setter Property="OnPressedBackground" Value="#b1d6f0"/>

@@ -22,7 +22,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
             DeSelectAllCommand = new RelayCommand(DeSelectAll);
             SaveForInstagramCommand = new RelayCommand(SaveForInstagram, CanSave);
             Images = new ObservableCollection<ImageViewModel>();
-            State = new LoaderState();
         }
 
         private readonly IImageListViewProvider _viewProvider;
@@ -32,7 +31,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
         public ICommand DeSelectAllCommand { get; }
         public ICommand SaveForInstagramCommand { get; }
         public ObservableCollection<ImageViewModel> Images { get; private set; }
-        public LoaderState State { get; }
         public ImageViewModel SelectedImage { get; set; }
 
         protected override void OnLoad()
@@ -60,7 +58,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 
         private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            State.ToIdle();
+            LoaderState.ToIdle();
         }
 
         public void Select()

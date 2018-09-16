@@ -14,6 +14,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
             LoadCommand = new RelayCommand(OnLoad);
             UnloadCommand = new RelayCommand(OnUnload);
             _items = new List<IChangeableCollection>();
+            LoaderState = new LoaderState();
         }
 
         private EventAggregator _eventAggregator;
@@ -23,6 +24,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         public ICommand LoadCommand { get; private set; }
         public ICommand UnloadCommand { get; private set; }
+        public LoaderState LoaderState { get; }
 
         public EventAggregator EventAggregator
         {

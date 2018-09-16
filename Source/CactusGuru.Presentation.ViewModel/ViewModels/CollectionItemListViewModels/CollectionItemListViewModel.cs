@@ -19,7 +19,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
             CopyNameCommand = new RelayCommand(CopyNameToClipboard);
             SortCommand = new RelayCommand(Sort);
-            State = new LoaderState();
         }
 
         private readonly ICollectionItemListViewProvider _viewProvider;
@@ -31,7 +30,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public ICommand SortCommand { get; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public ObservableBag<CollectionItemViewModel> CollectionItems { get; private set; }
-        public LoaderState State { get; }
         public bool SortOnGenus { get; private set; }
         public bool SortOnCode { get; private set; }
 
@@ -50,7 +48,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
 
         private async Task LoadData(string sortBy)
         {
-            State.ToBusy();
+            LoaderState.ToBusy();
             SortOnCode = sortBy == "Code";
             SortOnGenus = sortBy == "Genus";
             OnPropertyChanged(nameof(SortOnCode));
@@ -59,7 +57,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             CollectionItems.Clear();
             foreach (var item in items)
                 CollectionItems.Add(new CollectionItemViewModel(item));
-            State.ToIdle();
+            LoaderState.ToIdle();
         }
 
         private void DeleteCurrentCollectionItem()

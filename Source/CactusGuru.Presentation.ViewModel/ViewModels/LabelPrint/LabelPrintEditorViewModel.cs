@@ -25,7 +25,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearFilterText);
             DeleteCurrentPrintItemCommand = new RelayCommand(DeleteSelectedPrintItem);
             PrintCommand = new RelayCommand(Print, CanPrint);
-            LoaderState = new LoaderState();
         }
 
         private readonly ILabelPrintViewProvider _viewProvider;
@@ -42,7 +41,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public TaxonViewModel SelectedTaxon { get; set; }
         public LabelPrintViewModel SelectedPrintItem { get; set; }
-        public LoaderState LoaderState { get; }
 
         private SelectedTabPage _selectedPage;
         public SelectedTabPage SelectedPage

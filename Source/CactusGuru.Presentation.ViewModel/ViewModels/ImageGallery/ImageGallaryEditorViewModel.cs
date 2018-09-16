@@ -16,10 +16,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         {
             _imageItemFactory = imageItemFactory;
             _dataProvider = dataProvider;
-            State = new LoaderState();
             SaveCommand = new RelayCommand(Save, CanUndo);
-            CancelCommand = new RelayCommand(() => Navigations.CloseCurrentView(), () => State.IsIdle);
-            AddImageCommand = new RelayCommand(AddImage, () => State.IsIdle);
+            CancelCommand = new RelayCommand(() => Navigations.CloseCurrentView(), () => LoaderState.IsIdle);
+            AddImageCommand = new RelayCommand(AddImage, () => LoaderState.IsIdle);
             DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
             UndoCommand = new RelayCommand(Undo, CanUndo);
             SelectAllCommand = new RelayCommand(SelectAll);
@@ -70,7 +69,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         public ICommand SaveForInstagramCommand { get; private set; }
         public ObservableCollection<ImageItemViewModel> Images { get; private set; }
         public ImageItemViewModel SelectedImage { get; set; }
-        private LoaderState State { get; }
 
         public string Code
         {
@@ -211,7 +209,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             _memento = new GalleryMemento(Images);
-            State.ToIdle();
+            LoaderState.ToIdle();
         }
 
         #endregion
@@ -222,7 +220,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         {
             var dialogResult = Dialog.OpenImageFileDialog();
             if (!dialogResult.Result) return;
-            State.ToBusy();
+            LoaderState.ToBusy();
             _imageAdderWorker.RunWorkerAsync(dialogResult.Value);
         }
 
@@ -247,7 +245,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         private void _imageAdderWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             System.Threading.Thread.Sleep(500);
-            State.ToIdle();
+            LoaderState.ToIdle();
         }
 
         #endregion
@@ -256,7 +254,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         private void Save()
         {
-            State.ToBusy();
+            LoaderState.ToBusy();
             _imageSaveWorker.RunWorkerAsync();
         }
 
@@ -271,7 +269,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 
         private void _imageSaveWorker_RunWorkerCompleted1(object sender, RunWorkerCompletedEventArgs e)
         {
-            State.ToIdle();
+            LoaderState.ToIdle();
             Navigations.CloseCurrentView();
         }
 
