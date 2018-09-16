@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Media;
 
-namespace CactusGuru.Presentation.View.Controls
+namespace CactusGuru.Presentation.View.Tools.Controls
 {
     public class SimpleButton : Button
     {

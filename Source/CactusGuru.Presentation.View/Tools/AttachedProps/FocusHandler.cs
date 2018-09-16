@@ -2,7 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 
-namespace CactusGuru.Presentation.View.Utils
+namespace CactusGuru.Presentation.View.Tools.AttachedProps
 {
     public static class FocusHandler
     {

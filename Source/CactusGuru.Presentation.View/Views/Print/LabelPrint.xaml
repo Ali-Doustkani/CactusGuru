@@ -1,8 +1,8 @@
 ﻿<controls:Page x:Class="CactusGuru.Presentation.View.Views.LabelPrint"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
-               xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils">
+               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+               xmlns:tools="clr-namespace:CactusGuru.Presentation.View.Tools">
     <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -16,7 +16,7 @@
     <controls:Page.InputBindings>
         <KeyBinding Modifiers="Ctrl" Key="F">
             <KeyBinding.Command>
-                <utils:CommandToEvent Executed="FocusOnSearchBox"/>
+                <tools:CommandToEvent Executed="FocusOnSearchBox"/>
             </KeyBinding.Command>
         </KeyBinding>
     </controls:Page.InputBindings>

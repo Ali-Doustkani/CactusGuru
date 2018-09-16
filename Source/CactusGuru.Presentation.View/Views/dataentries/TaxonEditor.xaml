@@ -1,8 +1,8 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.TaxonEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Controls"
-      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
       Tag="تاکسون ها">
     <Grid.Resources>

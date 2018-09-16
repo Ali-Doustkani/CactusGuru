@@ -1,8 +1,8 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:util="clr-namespace:CactusGuru.Presentation.View.Utils"
-                    xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls">
-    <util:ImageConverter x:Key="imageConverter"/>
+                    xmlns:converters="clr-namespace:CactusGuru.Presentation.View.Tools.Converters"
+                    xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
+    <converters:ImageConverter x:Key="imageConverter"/>
     <Style TargetType="ToggleButton">
         <Setter Property="Template">
             <Setter.Value>

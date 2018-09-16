@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace CactusGuru.Presentation.View.Utils
+namespace CactusGuru.Presentation.View.Tools
 {
     public class CommandToEvent : ICommand
     {

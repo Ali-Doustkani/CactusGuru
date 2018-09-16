@@ -57,30 +57,30 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controls\Loader.xaml.cs">
+    <Compile Include="Tools\Controls\Loader.xaml.cs">
       <DependentUpon>Loader.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\NullTextBox.cs" />
-    <Compile Include="Controls\Page.cs" />
-    <Compile Include="Controls\SimpleButton.cs" />
+    <Compile Include="Tools\Controls\NullTextBox.cs" />
+    <Compile Include="Tools\Controls\Page.cs" />
+    <Compile Include="Tools\Controls\SimpleButton.cs" />
     <Compile Include="PrintService\LabelPrintDocument.cs" />
     <Compile Include="PrintService\PrintService.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="Controls\ErrorBox.xaml.cs">
+    <Compile Include="Tools\Controls\ErrorBox.xaml.cs">
       <DependentUpon>ErrorBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\PopupMainMenu.xaml.cs">
+    <Compile Include="Tools\Controls\PopupMainMenu.xaml.cs">
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\SourceBox.xaml.cs">
+    <Compile Include="Tools\Controls\SourceBox.xaml.cs">
       <DependentUpon>SourceBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\CommandToEvent.cs" />
-    <Compile Include="Utils\EnterKeyAttach.cs" />
-    <Compile Include="Utils\Events.cs" />
-    <Compile Include="Utils\FocusHandler.cs" />
-    <Compile Include="Utils\ImageConverter.cs" />
-    <Compile Include="Utils\Toolbars.cs" />
+    <Compile Include="Tools\CommandToEvent.cs" />
+    <Compile Include="Tools\AttachedProps\EnterKeyAttach.cs" />
+    <Compile Include="Tools\AttachedProps\Events.cs" />
+    <Compile Include="Tools\AttachedProps\FocusHandler.cs" />
+    <Compile Include="Tools\Converters\ImageConverter.cs" />
+    <Compile Include="Tools\AttachedProps\Toolbars.cs" />
     <Compile Include="Views\DataEntries\BaseEditorWindow.xaml.cs">
       <DependentUpon>BaseEditorWindow.xaml</DependentUpon>
     </Compile>
@@ -120,7 +120,7 @@
     <Compile Include="Views\Main\Main.xaml.cs">
       <DependentUpon>Main.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Utils\StringVisibilityConverter.cs" />
+    <Compile Include="Tools\Converters\StringVisibilityConverter.cs" />
     <Compile Include="Views\ViewModelLocator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -150,24 +150,24 @@
     <Resource Include="Fonts\Bebas.TTF" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Controls\ErrorBox.xaml">
+    <Page Include="Tools\Controls\ErrorBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\Loader.xaml">
+    <Page Include="Tools\Controls\Loader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\PopupMainMenu.Styles.xaml">
+    <Page Include="Tools\Controls\PopupMainMenu.Styles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <DependentUpon>PopupMainMenu.xaml</DependentUpon>
     </Page>
-    <Page Include="Controls\PopupMainMenu.xaml">
+    <Page Include="Tools\Controls\PopupMainMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\SourceBox.xaml">
+    <Page Include="Tools\Controls\SourceBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

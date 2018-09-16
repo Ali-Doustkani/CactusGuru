@@ -2,7 +2,7 @@
 using System.Windows.Data;
 using System.Windows.Interactivity;
 
-namespace CactusGuru.Presentation.View.Utils
+namespace CactusGuru.Presentation.View.Tools.AttachedProps
 {
     public static class Events
     {

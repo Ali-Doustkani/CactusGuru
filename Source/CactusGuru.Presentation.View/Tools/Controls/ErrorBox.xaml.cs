@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace CactusGuru.Presentation.View.Controls
+namespace CactusGuru.Presentation.View.Tools.Controls
 {
     public partial class ErrorBox
     {

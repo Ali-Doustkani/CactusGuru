@@ -1,7 +1,7 @@
 ﻿<controls:Page x:Class="CactusGuru.Presentation.View.Views.CollectionItemList"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
+               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
                FlowDirection="LeftToRight">
     <controls:Page.Resources>
         <ResourceDictionary>

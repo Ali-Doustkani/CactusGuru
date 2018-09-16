@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
-namespace CactusGuru.Presentation.View.Utils
+namespace CactusGuru.Presentation.View.Tools.Converters
 {
     public class ImageConverter : IValueConverter
     {

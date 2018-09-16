@@ -1,8 +1,8 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.ImageList"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Controls"
-      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Utils"
+      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       utils:Events.BindLoadEvents="True">
     <Grid.Resources>
         <ResourceDictionary>
