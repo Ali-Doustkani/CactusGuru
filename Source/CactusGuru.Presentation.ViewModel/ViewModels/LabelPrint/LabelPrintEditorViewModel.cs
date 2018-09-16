@@ -147,6 +147,12 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
                 dto.Set((CollectionItemDto)SelectedCollectionItem.InnerObject);
             else if (SelectedPage == SelectedTabPage.Taxon)
                 dto.Set(SelectedTaxon.InnerObject);
+
+            dto.PropertyChanged += (sender, e) => {
+                if (e.PropertyName == nameof(LabelPrintViewModel.Count))
+                    OnPropertyChanged(nameof(LabelCount));
+            };
+
             PrintItems.Add(dto);
         }
 

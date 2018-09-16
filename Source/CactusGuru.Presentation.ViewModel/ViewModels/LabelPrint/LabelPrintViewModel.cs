@@ -26,7 +26,16 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             OnPropertyChanged(nameof(Name));
         }
 
-        public int Count { get; set; }
+        private int _count;
+        public int Count
+        {
+            get { return _count; }
+            set
+            {
+                _count = value;
+                OnPropertyChanged(nameof(Count));
+            }
+        }
 
         public string Name { get; private set; }
 
