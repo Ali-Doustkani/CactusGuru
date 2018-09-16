@@ -22,14 +22,14 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <!-- Definitions -->
-                    <ContentControl Tag="..\Images\DefinitionHeader.png">
+                    <ContentControl Tag="/CactusGuru.Presentation.View;component/Images/DefinitionHeader.png">
                         <WrapPanel>
                             <controls:SimpleButton Content="جنس ها" CommandParameter="Genus" />
                             <controls:SimpleButton Content="تاکسون ها" CommandParameter="Taxon" />
                         </WrapPanel>
                     </ContentControl>
                     <!-- Collection -->
-                    <ContentControl Grid.Row="1" Tag="..\Images\CollectionHeader.png">
+                    <ContentControl Grid.Row="1" Tag="/CactusGuru.Presentation.View;component/Images/CollectionHeader.png">
                         <WrapPanel>
                             <controls:SimpleButton Content="ثبت گیاه جدید به مجموعه" CommandParameter="CollectionItem"/>
                             <controls:SimpleButton Content="چاپ برچسب" CommandParameter="PrintLabel" />
@@ -38,7 +38,7 @@
                         </WrapPanel>
                     </ContentControl>
                     <!-- People -->
-                    <ContentControl Grid.Row="2" Tag="..\Images\PeopleHeader.png">
+                    <ContentControl Grid.Row="2" Tag="/CactusGuru.Presentation.View;component/Images/PeopleHeader.png">
                         <WrapPanel>
                             <controls:SimpleButton Content="تامین کنندگان" CommandParameter="Supplier" />
                             <controls:SimpleButton Content="کلکتورها" CommandParameter="Collector" />
