@@ -1,6 +1,6 @@
 ﻿using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
-using CactusGuru.Presentation.ViewModel.NavigationService;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using System;
 using System.Collections.Generic;
 using System.Windows.Input;

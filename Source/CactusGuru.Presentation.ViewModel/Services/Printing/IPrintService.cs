@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CactusGuru.Presentation.ViewModel.PrintService
+namespace CactusGuru.Presentation.ViewModel.Services.Printings
 {
     public interface IPrintService
     {

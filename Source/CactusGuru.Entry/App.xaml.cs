@@ -1,7 +1,7 @@
 ﻿using CactusGuru.Entry.CompositionRoot;
 using CactusGuru.Infrastructure.Logging;
 using CactusGuru.Presentation.View.Views;
-using CactusGuru.Presentation.ViewModel.NavigationService;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels;
 using System;
 using System.Windows;

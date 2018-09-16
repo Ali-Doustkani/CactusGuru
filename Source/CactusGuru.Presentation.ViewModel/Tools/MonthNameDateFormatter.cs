@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace CactusGuru.Presentation.ViewModel.Utils
+namespace CactusGuru.Presentation.ViewModel.Tools
 {
     public class MonthNameDateFormatter  
     {

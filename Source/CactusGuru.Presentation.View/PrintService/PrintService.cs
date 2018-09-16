@@ -1,4 +1,4 @@
-﻿using CactusGuru.Presentation.ViewModel.PrintService;
+﻿using CactusGuru.Presentation.ViewModel.Services.Printings;
 using System.Collections.Generic;
 using System.Windows.Controls;
 

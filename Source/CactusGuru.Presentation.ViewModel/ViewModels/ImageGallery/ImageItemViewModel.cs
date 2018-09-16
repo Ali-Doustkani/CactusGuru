@@ -1,6 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Utils;
+using CactusGuru.Presentation.ViewModel.Tools;
 using System;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery

@@ -1,5 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
-using CactusGuru.Presentation.ViewModel.NavigationService;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;

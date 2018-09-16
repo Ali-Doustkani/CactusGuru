@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Media.Imaging;
 
-namespace CactusGuru.Presentation.ViewModel.NavigationService
+namespace CactusGuru.Presentation.ViewModel.Services.Navigations
 {
     public interface INavigationService
     {

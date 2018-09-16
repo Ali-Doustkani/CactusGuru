@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace CactusGuru.Presentation.ViewModel.NavigationService
+namespace CactusGuru.Presentation.ViewModel.Services.Navigations
 {
     public interface IDialogService
     {

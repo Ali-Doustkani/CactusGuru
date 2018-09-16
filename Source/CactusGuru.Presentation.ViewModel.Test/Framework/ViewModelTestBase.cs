@@ -1,7 +1,7 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.NavigationService;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using Moq.Language.Flow;

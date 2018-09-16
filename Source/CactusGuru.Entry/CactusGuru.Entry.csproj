@@ -79,7 +79,7 @@
     <Compile Include="CompositionRoot\ServiceLocator.cs" />
     <Compile Include="CompositionRoot\ViewModelFactory.cs" />
     <Compile Include="Infrastructure\DomainDictionary.cs" />
-    <Compile Include="Infrastructure\Logging\LogForNet.cs" />
+    <Compile Include="Infrastructure\LogForNet.cs" />
     <Compile Include="Presentation\DialogService.cs" />
     <Compile Include="Presentation\ImageEditor.cs" />
     <Compile Include="Presentation\NavigationService.cs" />

@@ -1,7 +1,7 @@
 ﻿using CactusGuru.Entry.CompositionRoot;
 using CactusGuru.Presentation.View.Views;
 using CactusGuru.Presentation.View.Views.DataEntries;
-using CactusGuru.Presentation.ViewModel.NavigationService;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
 using Microsoft.Win32;

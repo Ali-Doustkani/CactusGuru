@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace CactusGuru.Presentation.ViewModel
+namespace CactusGuru.Presentation.ViewModel.Framework
 {
     public class RelayCommand : ICommand
     {

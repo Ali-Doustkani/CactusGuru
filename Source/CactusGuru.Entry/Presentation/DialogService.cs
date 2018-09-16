@@ -1,4 +1,4 @@
-﻿using CactusGuru.Presentation.ViewModel.NavigationService;
+﻿using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;

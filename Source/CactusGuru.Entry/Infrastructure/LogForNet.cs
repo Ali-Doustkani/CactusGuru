@@ -1,7 +1,7 @@
 ﻿using System;
 using CactusGuru.Infrastructure.Logging;
 
-namespace CactusGuru.Entry.Infrastructure.Logging
+namespace CactusGuru.Entry.Infrastructure
 {
     public class LogForNet : ILogger
     {

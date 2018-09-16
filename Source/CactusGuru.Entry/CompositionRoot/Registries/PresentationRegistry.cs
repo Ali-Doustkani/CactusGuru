@@ -1,7 +1,7 @@
 ﻿using CactusGuru.Entry.Presentation;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Presentation.ViewModel.NavigationService;
-using CactusGuru.Presentation.ViewModel.Utils;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
+using CactusGuru.Presentation.ViewModel.Tools;
 using StructureMap;
 
 namespace CactusGuru.Entry.CompositionRoot.Registries
@@ -20,7 +20,6 @@ namespace CactusGuru.Entry.CompositionRoot.Registries
             For<INavigationService>().Use<NavigationService>().Singleton();
             For<IDialogService>().Use<DialogService>().Singleton();
             For<MonthNameDateFormatter>().Singleton().Use<MonthNameDateFormatter>();
-            For<MonthNumberDateFormatter>().Use<MonthNumberDateFormatter>();
         }
     }
 }

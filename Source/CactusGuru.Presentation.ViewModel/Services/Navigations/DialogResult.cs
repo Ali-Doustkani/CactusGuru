@@ -1,4 +1,4 @@
-﻿namespace CactusGuru.Presentation.ViewModel.NavigationService
+﻿namespace CactusGuru.Presentation.ViewModel.Services.Navigations
 {
     public class DialogResult<T>
     {

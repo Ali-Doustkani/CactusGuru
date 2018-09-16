@@ -2,7 +2,7 @@
 using CactusGuru.Infrastructure.Utils;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace CactusGuru.Presentation.ViewModel.Test.Utils
+namespace CactusGuru.Presentation.ViewModel.Test.Tools
 {
     [TestClass]
     public class DateUtilTest

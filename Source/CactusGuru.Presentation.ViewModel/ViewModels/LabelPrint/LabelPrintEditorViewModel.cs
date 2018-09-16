@@ -1,7 +1,7 @@
 ﻿using CactusGuru.Application.ViewProviders.LabelPrinting;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
-using CactusGuru.Presentation.ViewModel.PrintService;
+using CactusGuru.Presentation.ViewModel.Services.Printings;
 using System;
 using System.Collections.Generic;
 using System.Linq;
