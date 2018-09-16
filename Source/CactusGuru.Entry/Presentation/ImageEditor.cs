@@ -1,8 +1,7 @@
 ﻿using CactusGuru.Infrastructure.Utils;
 using System;
-using System.Drawing;
-using System.Drawing.Imaging;
 using System.IO;
+using System.Windows.Media.Imaging;
 
 namespace CactusGuru.Entry.Presentation
 {
@@ -10,11 +9,19 @@ namespace CactusGuru.Entry.Presentation
     {
         public byte[] CreateThumbnail(string filePath)
         {
-            var image = Image.FromFile(filePath);
-            var thumb = image.GetThumbnailImage(200, 200, () => false, IntPtr.Zero);
-            var ms = new MemoryStream();
-            thumb.Save(ms, ImageFormat.Jpeg);
-            return ms.ToArray();
+            var img = new BitmapImage();
+            img.BeginInit();
+            img.UriSource = new Uri(filePath);
+            img.DecodePixelWidth = 200;
+            img.EndInit();
+
+            var encoder = new JpegBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(img));
+            using (MemoryStream ms = new MemoryStream())
+            {
+                encoder.Save(ms);
+                return ms.ToArray();
+            }
         }
     }
 }

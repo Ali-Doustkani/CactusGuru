@@ -6,10 +6,10 @@ using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
 using Microsoft.Win32;
 using System;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace CactusGuru.Entry.Presentation
 {
@@ -84,14 +84,14 @@ namespace CactusGuru.Entry.Presentation
             return new DialogResult<DateTime>(false, view.GetDate());
         }
 
-        public Image SelectImage()
+        public BitmapImage SelectImage()
         {
             var dialog = new OpenFileDialog();
             dialog.Filter = "JPEG Files|*.jpg";
             dialog.ShowDialog();
             if (!File.Exists(dialog.FileName))
                 return null;
-            return Image.FromFile(dialog.FileName);
+            return new BitmapImage(new Uri(dialog.FileName));
         }
 
         public void CloseCurrentView()
