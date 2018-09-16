@@ -71,16 +71,7 @@ namespace CactusGuru.Entry.Presentation
 
         public void GotoLabelPrint()
         {
-            var openedWindow = System.Windows.Application.Current.Windows.OfType<LabelPrint>().SingleOrDefault();
-            if (openedWindow == null)
-            {
-                var window = ObjectFactory.Instance.GetInstance<LabelPrint>();
-                window.Show();
-            }
-            else
-            {
-                openedWindow.Activate();
-            }
+            SlideTo(ObjectFactory.Instance.GetInstance<LabelPrint>());
         }
 
         public DialogResult<DateTime> GetDateFromUser()
