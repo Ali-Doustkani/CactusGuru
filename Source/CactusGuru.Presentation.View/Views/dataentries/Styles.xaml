@@ -1,7 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
-                    xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
+                    xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
                     xmlns:local="clr-namespace:CactusGuru.Presentation.View.Views">
 
     <local:ViewModelLocator x:Key="vmLocator" />
@@ -22,7 +22,7 @@
         <Setter Property="Control.Margin" Value="0 2" />
         <Setter Property="Control.FlowDirection" Value="LeftToRight" />
         <Setter Property="Control.IsEnabled" Value="{Binding State.IsNotView}" />
-        <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="True" />
+        <Setter Property="attch:FocusHandler.TraverseOnEnter" Value="True" />
         <Setter Property="TextBox.Padding" Value="3"/>  
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
@@ -51,12 +51,12 @@
 
     <Style TargetType="ComboBox" BasedOn="{StaticResource _EntryStyle}">
         <Setter Property="IsEditable" Value="True"/>
-        <Setter Property="utils:FocusHandler.AutoOpenDropDown" Value="True"/>
+        <Setter Property="attch:FocusHandler.AutoOpenDropDown" Value="True"/>
     </Style>
 
     <Style x:Key="LastEntryStyle" BasedOn="{StaticResource _EntryStyle}">
-        <Setter Property="utils:FocusHandler.TraverseOnEnter" Value="False" />
-        <Setter Property="utils:EnterKeyAttach.EnterKey">
+        <Setter Property="attch:FocusHandler.TraverseOnEnter" Value="False" />
+        <Setter Property="attch:EnterKeyAttach.EnterKey">
             <Setter.Value>
                 <KeyBinding Key="Enter" Command="{Binding SaveCommand}" Gesture="" />
             </Setter.Value>

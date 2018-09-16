@@ -1,8 +1,8 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.CollectorEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
-      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
+      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+      xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
       Tag="کلکتورها">
     <Grid.Resources>
@@ -28,7 +28,7 @@
     </Grid.ColumnDefinitions>
     <!-- FullName -->
     <TextBlock Text="عنوان" />
-    <TextBox utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+    <TextBox attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
              Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Acronym -->
     <TextBlock Grid.Row="1" Text="اختصار" />
@@ -40,7 +40,7 @@
              Style="{StaticResource LastEntryStyle}"
              Text="{Binding WorkingItem.Website, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Errors -->
-    <local:ErrorBox Grid.Row="3" Grid.ColumnSpan="3"/>
+    <controls:ErrorBox Grid.Row="3" Grid.ColumnSpan="3"/>
     <!-- Filter -->
-    <local:SourceBox Grid.Row="4" Grid.ColumnSpan="2" />
+    <controls:SourceBox Grid.Row="4" Grid.ColumnSpan="2" />
 </Grid>

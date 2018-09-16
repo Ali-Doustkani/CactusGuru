@@ -1,8 +1,8 @@
 ﻿<Grid x:Class="CactusGuru.Presentation.View.Views.DataEntries.TaxonEditor"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:local="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
-      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
+      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+      xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
       Tag="تاکسون ها">
     <Grid.Resources>
@@ -33,11 +33,11 @@
     <!-- Genera -->
     <TextBlock Text="جنس" />
     <ComboBox Grid.ColumnSpan="1"
-              utils:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+              attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
               ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
               SelectedItem="{Binding Genus}"/>
-    <local:SimpleButton Command="{Binding GotoGeneraCommand}" />
+    <controls:SimpleButton Command="{Binding GotoGeneraCommand}" />
     <!-- Species -->
     <TextBlock Grid.Row="1" Text="گونه" />
     <TextBox Grid.Row="1"
@@ -60,7 +60,7 @@
              Style="{StaticResource LastEntryStyle}"
              Text="{Binding Cultivar, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Errors -->
-    <local:ErrorBox Grid.Row="6" Grid.ColumnSpan="3" />
+    <controls:ErrorBox Grid.Row="6" Grid.ColumnSpan="3" />
     <!-- Filter -->
-    <local:SourceBox Grid.Row="7" Grid.ColumnSpan="3" />
+    <controls:SourceBox Grid.Row="7" Grid.ColumnSpan="3" />
 </Grid>
