@@ -50,7 +50,6 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Printing" />
-    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -76,7 +75,6 @@
     <Compile Include="PrintService\LabelPrintDocument.cs" />
     <Compile Include="PrintService\PrintService.cs" />
     <Compile Include="Program.cs" />
-    <Compile Include="NavigationService\DialogService.cs" />
     <Compile Include="Controls\ErrorBox.xaml.cs">
       <DependentUpon>ErrorBox.xaml</DependentUpon>
     </Compile>

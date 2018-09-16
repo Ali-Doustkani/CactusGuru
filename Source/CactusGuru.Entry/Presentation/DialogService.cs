@@ -4,7 +4,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Forms;
 
-namespace CactusGuru.Presentation.View.NavigationService
+namespace CactusGuru.Entry.Presentation
 {
     public class DialogService : IDialogService
     {

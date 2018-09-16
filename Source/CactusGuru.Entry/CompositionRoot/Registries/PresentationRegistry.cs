@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Entry.Presentation;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Presentation.View.NavigationService;
 using CactusGuru.Presentation.ViewModel.NavigationService;
 using CactusGuru.Presentation.ViewModel.Utils;
 using StructureMap;
