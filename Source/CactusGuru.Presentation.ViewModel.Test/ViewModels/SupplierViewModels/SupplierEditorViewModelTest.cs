@@ -21,11 +21,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
         [TestMethod]
         public void Load_LoadSuppliers()
         {
-            The(x => x.GetList()).ReturnsCollection<SupplierDto>();
+            The(x => x.GetListAsync()).ReturnsCollection();
 
             Load();
 
-            Assert.AreEqual(2, viewModel.ItemSource.Count());
+            MakeSure(x => x.ItemSource.Count).Is(2);
         }
 
         [TestMethod]
@@ -75,11 +75,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.SupplierViewModels
         [TestMethod]
         public void OnLoad_SelectFirstItem()
         {
-            The(x => x.GetList()).ReturnsCollection<SupplierDto>();
+            The(x => x.GetListAsync()).ReturnsCollection();
 
             Load();
 
-            Assert.AreEqual(viewModel.ItemSource.First(), viewModel.WorkingItem);
+            MakeSure(x => x.ItemSource.First()).Is(viewModel.WorkingItem);
         }
 
         [TestMethod]

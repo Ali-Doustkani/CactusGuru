@@ -2,7 +2,7 @@
 
 namespace CactusGuru.Application.Common
 {
-    public abstract class TransferObjectBase
+    public class TransferObjectBase
     {
         public Guid Id { get; set; }
 

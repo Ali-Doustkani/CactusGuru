@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using CactusGuru.Application.Common;
 
 namespace CactusGuru.Application.ViewProviders
@@ -12,7 +13,7 @@ namespace CactusGuru.Application.ViewProviders
         /// <summary>
         /// gets all the entered data before
         /// </summary>
-        IEnumerable<TransferObjectBase> GetList();
+        Task<IEnumerable<TransferObjectBase>> GetListAsync();
 
         /// <summary>
         /// create a new object with the default data

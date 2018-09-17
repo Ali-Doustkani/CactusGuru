@@ -5,6 +5,7 @@ using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
@@ -12,14 +13,17 @@ namespace CactusGuru.Application.Implementation.ViewProviders
           where TDomainEntity : DomainEntity
           where TDtoEntity : TransferObjectBase, new()
     {
-        public IEnumerable<TransferObjectBase> GetList()
+        public Task<IEnumerable<TransferObjectBase>> GetListAsync()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew<IEnumerable<TransferObjectBase>>(() =>
             {
-                var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
-                var repo = locator.Get<IRepository<TDomainEntity>>();
-                return assembler.ToDataTransferEntities(repo.GetAll()).OrderBy(GetOrderKey);
-            }
+                using (var locator = Begin())
+                {
+                    var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
+                    var repo = locator.Get<IRepository<TDomainEntity>>();
+                    return assembler.ToDataTransferEntities(repo.GetAll()).OrderBy(GetOrderKey);
+                }
+            });
         }
       
         public TransferObjectBase Build()

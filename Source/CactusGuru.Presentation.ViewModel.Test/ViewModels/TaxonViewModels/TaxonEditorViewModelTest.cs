@@ -18,11 +18,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.TaxonViewModels
         [TestMethod]
         public void Load_LoadTaxa()
         {
-            The(x => x.GetList()).ReturnsCollection<TaxonDto>();
+            The(x => x.GetListAsync()).ReturnsCollection();
 
             Load();
 
-            Assert.AreEqual(2, viewModel.ItemSource.Count());
+            MakeSure(vm => vm.ItemSource.Count).Is(2);
         }
 
         [TestMethod]
@@ -38,11 +38,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.TaxonViewModels
         [TestMethod]
         public void Load_SetFirstItemAsSelectedItem()
         {
-            The(x => x.GetList()).ReturnsCollection<TaxonDto>();
+            The(x => x.GetListAsync()).ReturnsCollection();
 
             Load();
 
-            Assert.AreEqual(viewModel.ItemSource.First(), viewModel.WorkingItem);
+            MakeSure(vm => vm.ItemSource.First()).Is(viewModel.WorkingItem);
         }
     }
 }

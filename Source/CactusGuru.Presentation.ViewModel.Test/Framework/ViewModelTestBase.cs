@@ -165,11 +165,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
                 }
             }
 
-            public void ReturnsCollection<TDto>()
-                where TDto : TransferObjectBase, new()
-            {
-                _dtoSetup.Returns(Enumerable.Repeat(new TDto(), 2));
-            }
+            //public void ReturnsCollection<TDto>()
+            //    where TDto : TransferObjectBase, new()
+            //{
+            //    _dtoSetup.Returns(Enumerable.Repeat(new TDto(), 2));
+            //}
 
             public void ReturnsEmptyCollection()
             {

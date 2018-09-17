@@ -33,11 +33,11 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         protected async override void OnLoad()
         {
-            var builder = Bag.Of<TRowItem>()
+            ItemSource = await Bag.Of<TRowItem>()
                 .WithConvertor<TransferObjectBase>(CreateWorkingObject)
-                .LoadFrom(_dataProvider.GetList)
-                .FilterBy(Filter);
-            ItemSource = await builder.Build();
+                .LoadFromAsync(_dataProvider.GetListAsync)
+                .FilterBy(Filter)
+                .Build();
             OnPropertyChanged(nameof(ItemSource));
             SelectFirstItem();
         }
