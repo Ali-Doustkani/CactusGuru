@@ -5,13 +5,18 @@ using CactusGuru.Application.Common;
 
 namespace CactusGuru.Application.ViewProviders
 {
+    public class LoadInfoDto
+    {
+        public IEnumerable<TaxonDto> Taxa { get; set; }
+        public IEnumerable<CollectorDto> Collectors { get; set; }
+        public IEnumerable<SupplierDto> Suppliers { get; set; }
+        public IEnumerable<IncomeTypeDto> IncomeTypes { get; set; }
+    }
+
     public interface ICollectionItemViewProvider : IDataEntryViewProvider
     {
         CollectionItemDto GetCollectionItem(Guid id);
-        Task<IEnumerable<TaxonDto>> GetTaxaAsync();
-        Task<IEnumerable<CollectorDto>> GetCollectors();
-        Task<IEnumerable<SupplierDto>> GetSuppliers();
-        IEnumerable<IncomeTypeDto> GetIncomeTypes();
+        Task<LoadInfoDto> LoadInfoAsync();
         bool HasSimilarCode(string code);
     }
 }

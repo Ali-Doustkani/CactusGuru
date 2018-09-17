@@ -70,6 +70,7 @@
     <Compile Include="ViewProviders\ImageGallery\IImageGalleryViewProvider.cs" />
     <Compile Include="ViewProviders\ISaveViewProvider.cs" />
     <Compile Include="ViewProviders\ITaxonViewProvider.cs" />
+    <Compile Include="ViewProviders\LabelPrinting\LoadInfoDto.cs" />
     <Compile Include="ViewProviders\LabelPrinting\TaxonDto.cs" />
     <Compile Include="ViewProviders\Main\IFirstPageViewProvider.cs" />
     <Compile Include="ViewProviders\CollectionItems\CollectionItemDto.cs" />

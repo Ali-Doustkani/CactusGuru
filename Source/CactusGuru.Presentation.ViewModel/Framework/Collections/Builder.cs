@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 {
@@ -14,7 +13,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         private Func<T, object> _selectId;
         private Func<IEnumerable<T>> _sourceFunc;
-        private Func<Task<IEnumerable<T>>> _sourceFuncAsync;
         private IEnumerable<T> _source;
         private List<Type> _acceptedTypes;
         private Func<object, T> _convertorFunc;
@@ -32,12 +30,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
-        public Builder<T> LoadsAsync(Func<Task<IEnumerable<T>>> sourceFunc)
-        {
-            _sourceFuncAsync = sourceFunc;
-            return this;
-        }
-
         public Builder<T> LoadFrom<TOtherType>(Func<IEnumerable<TOtherType>> sourceFunc)
         {
             _sourceFunc = () =>
@@ -50,21 +42,18 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
-        public Builder<T> LoadFromAsync<TOtherType>(Func<Task<IEnumerable<TOtherType>>> sourceFunc)
-        {
-            _sourceFuncAsync = async () =>
-            {
-                var list = new List<T>();
-                foreach (var item in await sourceFunc())
-                    list.Add(_convertorFunc(item));
-                return list;
-            };
-            return this;
-        }
-
         public Builder<T> WithSource(IEnumerable<T> source)
         {
             _source = source;
+            return this;
+        }
+
+        public Builder<T> WithSource<TOtherType>(IEnumerable<TOtherType> source)
+        {
+            var list = new List<T>();
+            foreach (var item in source)
+                list.Add(_convertorFunc(item));
+            _source = list;
             return this;
         }
 
@@ -81,14 +70,12 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
-        public async Task<ObservableBag<T>> Build()
+        public ObservableBag<T> Build()
         {
             if (_sourceFunc != null)
                 return CreateCollection(_sourceFunc());
             else if (_source != null)
                 return CreateCollection(_source);
-            else if (_sourceFuncAsync != null)
-                return CreateCollection(await _sourceFuncAsync());
             return CreateCollection(Enumerable.Empty<T>());
         }
 

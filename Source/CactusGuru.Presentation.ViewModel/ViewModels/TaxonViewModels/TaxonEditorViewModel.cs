@@ -21,7 +21,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
         public ICommand GotoGeneraCommand { get; private set; }
         public ObservableBag<GenusDto> Genera { get; private set; }
 
-        protected async override void OnLoad()
+        protected override void OnLoad()
         {
             base.OnLoad();
             Rules.MakeSure(nameof(Genus)).IsNotEmpty().ValidatesForWhole(Similarity);
@@ -30,7 +30,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
             Rules.MakeSure(nameof(SubSpecies)).ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Forma)).ValidatesForWhole(Similarity);
             Rules.MakeSure(nameof(Cultivar)).ValidatesForWhole(Similarity);
-            Genera = await Bag.Of<GenusDto>()
+            Genera = Bag.Of<GenusDto>()
                 .WithId(x => x.Id)
                 .Loads(_dataProvider.GetGenera)
                 .Build();

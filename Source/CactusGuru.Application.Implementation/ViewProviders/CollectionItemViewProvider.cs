@@ -20,48 +20,30 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             }
         }
 
-        public Task<IEnumerable<TaxonDto>> GetTaxaAsync()
+        public Task<LoadInfoDto> LoadInfoAsync()
         {
             return Task.Factory.StartNew(() =>
             {
+                var result = new LoadInfoDto();
                 using (var locator = Begin())
                 {
                     var taxa = locator.Get<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
-                    return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
-                }
-            });
-        }
+                    result.Taxa = locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
 
-        public Task<IEnumerable<CollectorDto>> GetCollectors()
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                using (var locator = Begin())
-                {
                     var collectors = locator.Get<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
-                    return locator.Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
-                }
-            });
-        }
+                    result.Collectors = locator.Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
 
-        public Task<IEnumerable<SupplierDto>> GetSuppliers()
-        {
-            return Task.Factory.StartNew(() =>
-            {
-                using (var locator = Begin())
-                {
                     var suppliers = locator.Get<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
-                    return locator.Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
+                    result.Suppliers = locator.Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
+
+                    var incomeTypes = new List<IncomeTypeDto>();
+                    incomeTypes.Add(new IncomeTypeDto { Value = (int)IncomeType.Plant });
+                    incomeTypes.Add(new IncomeTypeDto { Value = (int)IncomeType.Seed });
+                    result.IncomeTypes = incomeTypes;
+
+                    return result;
                 }
             });
-        }
-
-        public IEnumerable<IncomeTypeDto> GetIncomeTypes()
-        {
-            var ret = new List<IncomeTypeDto>();
-            ret.Add(new IncomeTypeDto { Value = (int)IncomeType.Plant });
-            ret.Add(new IncomeTypeDto { Value = (int)IncomeType.Seed });
-            return ret;
         }
 
         public bool HasSimilarCode(string code)

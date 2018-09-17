@@ -29,7 +29,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         public ObservableBag<TaxonDto> Taxa { get; private set; }
         public ObservableBag<SupplierDto> Suppliers { get; private set; }
         public ObservableBag<CollectorDto> Collectors { get; set; }
-        public ObservableCollection<IncomeTypeRowItem> IncomeTypes { get; private set; }
+        public ObservableBag<IncomeTypeRowItem> IncomeTypes { get; private set; }
 
         public string Code
         {
@@ -120,10 +120,23 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             GotoCollectorsCommand = new RelayCommand(Navigations.GotoCollectors);
             GotoSuppliersCommand = new RelayCommand(Navigations.GotoSuppliers);
 
-            Taxa = await Bag.Of<TaxonDto>().WithId(x => x.Id).LoadsAsync(_dataProvider.GetTaxaAsync).Build();
-            Collectors = await Bag.Of<CollectorDto>().WithId(x => x.Id).LoadsAsync(_dataProvider.GetCollectors).Build();
-            Suppliers = await Bag.Of<SupplierDto>().WithId(x => x.Id).LoadsAsync(_dataProvider.GetSuppliers).Build();
-            LoadIncomeTypes();
+            var loadInfo = await _dataProvider.LoadInfoAsync();
+            Taxa = Bag.Of<TaxonDto>()
+                .WithId(x => x.Id)
+                .WithSource(loadInfo.Taxa)
+                .Build();
+            Collectors = Bag.Of<CollectorDto>()
+                .WithId(x => x.Id)
+                .WithSource(loadInfo.Collectors)
+                .Build();
+            Suppliers = Bag.Of<SupplierDto>()
+                .WithId(x => x.Id)
+                .WithSource(loadInfo.Suppliers)
+                .Build();
+            IncomeTypes = Bag.Of<IncomeTypeRowItem>()
+                .WithConvertor<IncomeTypeDto>(x => new IncomeTypeRowItem(x.Value))
+                .WithSource(loadInfo.IncomeTypes)
+                .Build();
 
             AddListener(Taxa);
             AddListener(Collectors);
@@ -175,13 +188,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             return base.CanSaveNew() && DateIsValid();
         }
 
-        private void LoadIncomeTypes()
-        {
-            var list = new List<IncomeTypeRowItem>();
-            foreach (var dto in _dataProvider.GetIncomeTypes())
-                list.Add(new IncomeTypeRowItem(dto.Value));
-            IncomeTypes = new ObservableCollection<IncomeTypeRowItem>(list);
-        }
+
 
         private bool DateIsValid()
         {

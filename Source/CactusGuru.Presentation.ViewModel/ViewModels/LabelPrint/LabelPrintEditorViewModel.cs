@@ -88,19 +88,20 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 
         protected async override void OnLoad()
         {
-            PrintItems = await Bag.Of<LabelPrintViewModel>()
+            PrintItems = Bag.Of<LabelPrintViewModel>()
                .FilterBy((vm, text) => vm.Name.Has(text) || vm.Species.Has(text))
                .Build();
-            CollectionItems = await Bag.Of<CollectionItemViewModel>()
+            var info = await _viewProvider.LoadInfoAsync();
+            CollectionItems = Bag.Of<CollectionItemViewModel>()
               .FilterBy((vm, text) => vm.Name.Has(text) || vm.Code == text)
               .WithConvertor((CollectionItemDto dto) => new CollectionItemViewModel(dto))
               .WithId(x => x.InnerObject.Id)
-              .LoadFromAsync(_viewProvider.GetCollectionItemsAsync)
+              .WithSource(info.CollectionItems)
               .Build();
-            Taxa = await Bag.Of<TaxonViewModel>()
+            Taxa = Bag.Of<TaxonViewModel>()
                 .FilterBy((vm, text) => vm.Name.Has(text))
-                .LoadFromAsync(_viewProvider.GetTaxaAsync)
                 .WithConvertor((TaxonDto dto) => new TaxonViewModel(dto))
+                .WithSource(info.Taxa)
                 .WithId(x => x.InnerObject.Id)
                 .Build();
             OnPropertyChanged(nameof(PrintItems));

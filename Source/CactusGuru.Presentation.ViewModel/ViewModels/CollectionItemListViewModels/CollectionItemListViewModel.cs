@@ -35,7 +35,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
 
         protected async override void OnLoad()
         {
-            CollectionItems = await Bag.Of<CollectionItemViewModel>()
+            CollectionItems = Bag.Of<CollectionItemViewModel>()
                 .WithConvertor((Application.Common.CollectionItemDto dto) => new CollectionItemViewModel(_viewProvider.Convert(dto)))
                 .WithId(x => x.InnerObject.Id)
                 .FilterBy((item, text) => item.Name.Has(text) || item.Code == text || item.Info.Has(text))
