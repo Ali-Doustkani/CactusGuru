@@ -5,6 +5,7 @@ using CactusGuru.Domain.Persistance.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
@@ -19,31 +20,40 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             }
         }
 
-        public IEnumerable<TaxonDto> GetTaxa()
+        public Task<IEnumerable<TaxonDto>> GetTaxaAsync()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var taxa = locator.Get<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
-                return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
-            }
+                using (var locator = Begin())
+                {
+                    var taxa = locator.Get<ITaxonRepository>().GetAll().OrderBy(x => x.Genus.Title);
+                    return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntities(taxa);
+                }
+            });
         }
 
-        public IEnumerable<CollectorDto> GetCollectors()
+        public Task<IEnumerable<CollectorDto>> GetCollectors()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var collectors = locator.Get<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
-                return locator.Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
-            }
+                using (var locator = Begin())
+                {
+                    var collectors = locator.Get<ICollectorRepository>().GetAll().OrderBy(x => x.FullName);
+                    return locator.Get<AssemblerBase<Collector, CollectorDto>>().ToDataTransferEntities(collectors);
+                }
+            });
         }
 
-        public IEnumerable<SupplierDto> GetSuppliers()
+        public Task<IEnumerable<SupplierDto>> GetSuppliers()
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var suppliers = locator.Get<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
-                return locator.Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
-            }
+                using (var locator = Begin())
+                {
+                    var suppliers = locator.Get<ISupplierRepository>().GetAll().OrderBy(x => x.FullName);
+                    return locator.Get<AssemblerBase<Supplier, SupplierDto>>().ToDataTransferEntities(suppliers);
+                }
+            });
         }
 
         public IEnumerable<IncomeTypeDto> GetIncomeTypes()

@@ -14,7 +14,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         private Func<T, object> _selectId;
         private Func<IEnumerable<T>> _sourceFunc;
-        private Func<Task<IEnumerable<T>>> _asyncSourceFunc;
+        private Func<Task<IEnumerable<T>>> _sourceFuncAsync;
         private IEnumerable<T> _source;
         private List<Type> _acceptedTypes;
         private Func<object, T> _convertorFunc;
@@ -32,6 +32,12 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
+        public Builder<T> LoadsAsync(Func<Task<IEnumerable<T>>> sourceFunc)
+        {
+            _sourceFuncAsync = sourceFunc;
+            return this;
+        }
+
         public Builder<T> LoadFrom<TOtherType>(Func<IEnumerable<TOtherType>> sourceFunc)
         {
             _sourceFunc = () =>
@@ -46,11 +52,10 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         public Builder<T> LoadFromAsync<TOtherType>(Func<Task<IEnumerable<TOtherType>>> sourceFunc)
         {
-            _asyncSourceFunc = async () =>
+            _sourceFuncAsync = async () =>
             {
                 var list = new List<T>();
-                var sources = await sourceFunc();
-                foreach (var item in sources)
+                foreach (var item in await sourceFunc())
                     list.Add(_convertorFunc(item));
                 return list;
             };
@@ -76,16 +81,15 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             return this;
         }
 
-        public ObservableBag<T> Build()
+        public async Task<ObservableBag<T>> Build()
         {
             if (_sourceFunc != null)
                 return CreateCollection(_sourceFunc());
-            return CreateCollection(_source);
-        }
-
-        public async Task<ObservableBag<T>> BuildAsync()
-        {
-            return CreateCollection(await _asyncSourceFunc());
+            else if (_source != null)
+                return CreateCollection(_source);
+            else if (_sourceFuncAsync != null)
+                return CreateCollection(await _sourceFuncAsync());
+            return CreateCollection(Enumerable.Empty<T>());
         }
 
         private ObservableBag<T> CreateCollection(IEnumerable<T> source)

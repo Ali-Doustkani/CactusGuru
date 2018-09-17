@@ -114,15 +114,15 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
                 IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
         }
 
-        protected override void OnLoad()
+        protected async override void OnLoad()
         {
             GotoTaxaCommand = new RelayCommand(Navigations.GotoTaxa);
             GotoCollectorsCommand = new RelayCommand(Navigations.GotoCollectors);
             GotoSuppliersCommand = new RelayCommand(Navigations.GotoSuppliers);
 
-            Taxa = Bag.Of<TaxonDto>().WithId(x => x.Id).Loads(_dataProvider.GetTaxa).Build();
-            Collectors = Bag.Of<CollectorDto>().WithId(x => x.Id).Loads(_dataProvider.GetCollectors).Build();
-            Suppliers = Bag.Of<SupplierDto>().WithId(x => x.Id).Loads(_dataProvider.GetSuppliers).Build();
+            Taxa = await Bag.Of<TaxonDto>().WithId(x => x.Id).LoadsAsync(_dataProvider.GetTaxaAsync).Build();
+            Collectors = await Bag.Of<CollectorDto>().WithId(x => x.Id).LoadsAsync(_dataProvider.GetCollectors).Build();
+            Suppliers = await Bag.Of<SupplierDto>().WithId(x => x.Id).LoadsAsync(_dataProvider.GetSuppliers).Build();
             LoadIncomeTypes();
 
             AddListener(Taxa);

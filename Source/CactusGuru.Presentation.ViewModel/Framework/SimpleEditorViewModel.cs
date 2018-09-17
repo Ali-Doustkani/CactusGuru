@@ -31,13 +31,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework
         public ICommand SelectPreviousCommand { get; }
         public ICommand ClearFilterCommand { get; }
 
-        protected override void OnLoad()
+        protected async override void OnLoad()
         {
             var builder = Bag.Of<TRowItem>()
                 .WithConvertor<TransferObjectBase>(CreateWorkingObject)
                 .LoadFrom(_dataProvider.GetList)
                 .FilterBy(Filter);
-            ItemSource = builder.Build();
+            ItemSource = await builder.Build();
             OnPropertyChanged(nameof(ItemSource));
             SelectFirstItem();
         }

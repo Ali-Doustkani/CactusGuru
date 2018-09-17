@@ -97,6 +97,24 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item));
         }
 
+        public void AddRange(IEnumerable<object> items)
+        {
+            var converted = new List<T>();
+            foreach (var item in items)
+                converted.Add(_convertorFunc(item));
+
+            _source.AddRange(converted);
+            if (FilterDisabled())
+                _filtered.AddRange(converted);
+            else
+            {
+                foreach (var item in converted)
+                    if (FilterApplies(item))
+                        _filtered.Add(item);
+            }
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, items));
+        }
+
         public void Remove(T item)
         {
             var index = _filtered.IndexOf(item);

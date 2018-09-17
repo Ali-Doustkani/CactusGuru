@@ -15,11 +15,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         {
             _viewProvider = viewProvider;
             _printService = printService;
-
-            PrintItems = Bag.Of<LabelPrintViewModel>()
-                .FilterBy((vm, text) => vm.Name.Has(text) || vm.Species.Has(text))
-                .Build();
-
             AddToPrintCommand = new RelayCommand(AddToPrint);
             ClearCollectionItemsFilterCommand = new RelayCommand(ClearSourceFilterText);
             ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearFilterText);
@@ -37,7 +32,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         public ICommand PrintCommand { get; }
         public ObservableBag<CollectionItemViewModel> CollectionItems { get; private set; }
         public ObservableBag<TaxonViewModel> Taxa { get; private set; }
-        public ObservableBag<LabelPrintViewModel> PrintItems { get; }
+        public ObservableBag<LabelPrintViewModel> PrintItems { get; private set; }
         public CollectionItemViewModel SelectedCollectionItem { get; set; }
         public TaxonViewModel SelectedTaxon { get; set; }
         public LabelPrintViewModel SelectedPrintItem { get; set; }
@@ -92,18 +87,21 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 
         protected async override void OnLoad()
         {
+            PrintItems = await Bag.Of<LabelPrintViewModel>()
+              .FilterBy((vm, text) => vm.Name.Has(text) || vm.Species.Has(text))
+              .Build();
             CollectionItems = await Bag.Of<CollectionItemViewModel>()
               .FilterBy((vm, text) => vm.Name.Has(text) || vm.Code == text)
               .WithConvertor((CollectionItemDto dto) => new CollectionItemViewModel(dto))
               .WithId(x => x.InnerObject.Id)
               .LoadFromAsync(_viewProvider.GetCollectionItemsAsync)
-              .BuildAsync();
+              .Build();
             Taxa = await Bag.Of<TaxonViewModel>()
                 .FilterBy((vm, text) => vm.Name.Has(text))
                 .LoadFromAsync(_viewProvider.GetTaxaAsync)
                 .WithConvertor((TaxonDto dto) => new TaxonViewModel(dto))
                 .WithId(x => x.InnerObject.Id)
-                .BuildAsync();
+                .Build();
             OnPropertyChanged(nameof(CollectionItems));
             OnPropertyChanged(nameof(Taxa));
             LoaderState.ToIdle();
@@ -149,7 +147,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
             else if (SelectedPage == SelectedTabPage.Taxon)
                 dto.Set(SelectedTaxon.InnerObject);
 
-            dto.PropertyChanged += (sender, e) => {
+            dto.PropertyChanged += (sender, e) =>
+            {
                 if (e.PropertyName == nameof(LabelPrintViewModel.Count))
                     OnPropertyChanged(nameof(LabelCount));
             };

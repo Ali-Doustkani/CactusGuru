@@ -17,7 +17,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
         [TestMethod]
         public void Load_Taxa()
         {
-            The(x => x.GetTaxa()).ReturnsCollection();
+            The(x => x.GetTaxaAsync()).ReturnsCollection();
 
             Load();
 
