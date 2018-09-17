@@ -37,7 +37,7 @@
                 </StackPanel>
             </controls:SimpleButton>
             <controls:SimpleButton Canvas.Left="160" Command="{Binding ImageListCommand}">
-                <TextBlock FontFamily="B Titr"
+                <TextBlock FontFamily="/CactusGuru.Presentation.View;component/Resources/Fonts/#B Titr"
                        FontSize="50"
                        Foreground="#e7c951">گالری
                 </TextBlock>
