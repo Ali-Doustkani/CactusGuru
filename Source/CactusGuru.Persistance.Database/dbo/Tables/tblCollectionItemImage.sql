@@ -6,6 +6,6 @@
     [Image]               VARBINARY (MAX)  NOT NULL,
     [SharedOnInstagram] BIT NOT NULL DEFAULT 0, 
     PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_tblCollectionItemImage_tblCollectionItem] FOREIGN KEY ([tblCollectionItemId]) REFERENCES [dbo].[tblCollectionItem] ([Id])
+    CONSTRAINT [FK_tblCollectionItemImage_tblCollectionItem] FOREIGN KEY ([tblCollectionItemId]) REFERENCES [dbo].[tblCollectionItem] ([Id]) ON DELETE CASCADE
 );
 

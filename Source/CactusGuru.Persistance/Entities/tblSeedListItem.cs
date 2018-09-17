@@ -28,9 +28,9 @@ namespace CactusGuru.Persistance.Entities
         public Nullable<System.Guid> tblSupplierId { get; set; }
         public string SupplierCode { get; set; }
     
-        public virtual tblCollectionItem tblCollectionItem { get; set; }
         public virtual tblSeedList tblSeedList { get; set; }
         public virtual tblSupplier tblSupplier { get; set; }
         public virtual tblTaxon tblTaxon { get; set; }
+        public virtual tblCollectionItem tblCollectionItem { get; set; }
     }
 }

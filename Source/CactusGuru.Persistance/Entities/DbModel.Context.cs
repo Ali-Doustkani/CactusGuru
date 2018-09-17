@@ -25,14 +25,14 @@ namespace CactusGuru.Persistance.Entities
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<tblCollectionItem> tblCollectionItem { get; set; }
         public virtual DbSet<tblCollector> tblCollector { get; set; }
         public virtual DbSet<tblGenus> tblGenus { get; set; }
         public virtual DbSet<tblSeedList> tblSeedList { get; set; }
         public virtual DbSet<tblSeedListItem> tblSeedListItem { get; set; }
         public virtual DbSet<tblSupplier> tblSupplier { get; set; }
         public virtual DbSet<tblTaxon> tblTaxon { get; set; }
-        public virtual DbSet<tblCollectionItemImage> tblCollectionItemImage { get; set; }
+        public virtual DbSet<tblCollectionItem> tblCollectionItem { get; set; }
         public virtual DbSet<tblCollectionItemFullImage> tblCollectionItemFullImage { get; set; }
+        public virtual DbSet<tblCollectionItemImage> tblCollectionItemImage { get; set; }
     }
 }

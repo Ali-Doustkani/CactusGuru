@@ -17,8 +17,8 @@ namespace CactusGuru.Persistance.Entities
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public tblCollectionItem()
         {
-            this.tblSeedListItem = new HashSet<tblSeedListItem>();
             this.tblCollectionItemImage = new HashSet<tblCollectionItemImage>();
+            this.tblSeedListItem = new HashSet<tblSeedListItem>();
         }
     
         public System.Guid Id { get; set; }
@@ -38,8 +38,8 @@ namespace CactusGuru.Persistance.Entities
         public virtual tblSupplier tblSupplier { get; set; }
         public virtual tblTaxon tblTaxon { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<tblSeedListItem> tblSeedListItem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tblCollectionItemImage> tblCollectionItemImage { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tblSeedListItem> tblSeedListItem { get; set; }
     }
 }

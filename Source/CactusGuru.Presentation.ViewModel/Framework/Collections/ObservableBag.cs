@@ -99,12 +99,13 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 
         public void Remove(T item)
         {
+            var index = _filtered.IndexOf(item);
             _source.Remove(item);
             if (FilterDisabled())
                 _filtered.Remove(item);
             else if (FilterApplies(item))
                 _filtered.Remove(item);
-            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item));
+            CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, item, index));
         }
 
         public void ClearFilterText()
