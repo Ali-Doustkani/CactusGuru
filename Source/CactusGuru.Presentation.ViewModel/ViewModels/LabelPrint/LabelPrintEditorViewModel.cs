@@ -15,9 +15,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         {
             _viewProvider = viewProvider;
             _printService = printService;
+            PrintItems = Bag.Empty<LabelPrintViewModel>();
             AddToPrintCommand = new RelayCommand(AddToPrint);
             ClearCollectionItemsFilterCommand = new RelayCommand(ClearSourceFilterText);
-            ClearPrintItemsFilterCommand = new RelayCommand(PrintItems.ClearFilterText);
+            ClearPrintItemsFilterCommand = new RelayCommand(() => PrintItems.ClearFilterText());
             DeleteCurrentPrintItemCommand = new RelayCommand(DeleteSelectedPrintItem);
             PrintCommand = new RelayCommand(Print, CanPrint);
         }
@@ -88,8 +89,8 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
         protected async override void OnLoad()
         {
             PrintItems = await Bag.Of<LabelPrintViewModel>()
-              .FilterBy((vm, text) => vm.Name.Has(text) || vm.Species.Has(text))
-              .Build();
+               .FilterBy((vm, text) => vm.Name.Has(text) || vm.Species.Has(text))
+               .Build();
             CollectionItems = await Bag.Of<CollectionItemViewModel>()
               .FilterBy((vm, text) => vm.Name.Has(text) || vm.Code == text)
               .WithConvertor((CollectionItemDto dto) => new CollectionItemViewModel(dto))
@@ -102,6 +103,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
                 .WithConvertor((TaxonDto dto) => new TaxonViewModel(dto))
                 .WithId(x => x.InnerObject.Id)
                 .Build();
+            OnPropertyChanged(nameof(PrintItems));
             OnPropertyChanged(nameof(CollectionItems));
             OnPropertyChanged(nameof(Taxa));
             LoaderState.ToIdle();

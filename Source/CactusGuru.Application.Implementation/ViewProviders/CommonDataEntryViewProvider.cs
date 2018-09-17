@@ -4,6 +4,7 @@ using CactusGuru.Infrastructure;
 using CactusGuru.Infrastructure.ObjectCreation;
 using CactusGuru.Infrastructure.Persistance;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CactusGuru.Application.Implementation.ViewProviders
 {
@@ -11,17 +12,17 @@ namespace CactusGuru.Application.Implementation.ViewProviders
           where TDomainEntity : DomainEntity
           where TDtoEntity : TransferObjectBase, new()
     {
-        public virtual IEnumerable<TransferObjectBase> GetList()
+        public IEnumerable<TransferObjectBase> GetList()
         {
             using (var locator = Begin())
             {
                 var assembler = locator.Get<AssemblerBase<TDomainEntity, TDtoEntity>>();
                 var repo = locator.Get<IRepository<TDomainEntity>>();
-                return assembler.ToDataTransferEntities(repo.GetAll());
+                return assembler.ToDataTransferEntities(repo.GetAll()).OrderBy(GetOrderKey);
             }
         }
-
-        public virtual TransferObjectBase Build()
+      
+        public TransferObjectBase Build()
         {
             using (var locator = Begin())
             {
@@ -32,17 +33,17 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             }
         }
 
-        public virtual TransferObjectBase Copy(TransferObjectBase dto)
+        public TransferObjectBase Copy(TransferObjectBase dto)
         {
             return dto.Clone();
         }
 
-        public virtual void CopyTo(TransferObjectBase source, TransferObjectBase destination)
+        public void CopyTo(TransferObjectBase source, TransferObjectBase destination)
         {
             new Copier<TDtoEntity>().Copy((TDtoEntity)source, (TDtoEntity)destination);
         }
 
-        public virtual TransferObjectBase Add(TransferObjectBase dto)
+        public TransferObjectBase Add(TransferObjectBase dto)
         {
             using (var locator = Begin())
             {
@@ -55,7 +56,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             }
         }
 
-        public virtual TransferObjectBase Update(TransferObjectBase dto)
+        public TransferObjectBase Update(TransferObjectBase dto)
         {
             using (var locator = Begin())
             {
@@ -68,13 +69,18 @@ namespace CactusGuru.Application.Implementation.ViewProviders
             }
         }
 
-        public virtual void Delete(TransferObjectBase dto)
+        public void Delete(TransferObjectBase dto)
         {
             using (var locator = Begin())
             {
                 var terminator = locator.Get<Terminator<TDomainEntity>>();
                 terminator.Terminate(((TDtoEntity)dto).Id);
             }
+        }
+
+        protected virtual object GetOrderKey(TDtoEntity dto)
+        {
+            return null;
         }
     }
 }

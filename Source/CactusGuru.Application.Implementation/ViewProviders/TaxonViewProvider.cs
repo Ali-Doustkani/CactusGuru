@@ -10,11 +10,6 @@ namespace CactusGuru.Application.Implementation.ViewProviders
 {
     public class TaxonViewProvider : CommonDataEntryViewProvider<Taxon, TaxonDto>, ITaxonViewProvider
     {
-        public override IEnumerable<TransferObjectBase> GetList()
-        {
-            return base.GetList().Cast<TaxonDto>().OrderBy(x => x.Genus.Name);
-        }
-
         public IEnumerable<GenusDto> GetGenera()
         {
             using (var locator = Begin())
@@ -53,5 +48,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders
                 return locator.Get<AssemblerBase<Taxon, TaxonDto>>().ToDataTransferEntity(entity);
             }
         }
+
+        protected override object GetOrderKey(TaxonDto dto) => dto.Genus.Name;
     }
 }
