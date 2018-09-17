@@ -8,8 +8,8 @@
                 <ResourceDictionary Source="Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="controls:SimpleButton">
-                <Setter Property="OnOverBackground" Value="#232944"/>
-                <Setter Property="Background" Value="#1a1f33" />
+                <Setter Property="OnOverBackground" Value="#1b1b1b"/>
+                <Setter Property="Background" Value="#000000" />
                 <Setter Property="VerticalContentAlignment" Value="Center" />
                 <Setter Property="HorizontalContentAlignment" Value="Center" />
                 <Setter Property="Width" Value="150" />
@@ -20,26 +20,41 @@
     <controls:Page.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="FirstPageViewModel" />
     </controls:Page.DataContext>
-    <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Margin="50 80 0 0">
-        <controls:SimpleButton Command="{Binding CollectionListCommand}" Margin="10">
-            <StackPanel>
-                <TextBlock Style="{StaticResource LabelFontStyle}"
+    <Grid Width="320" Height="320" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 50 0 0">
+        <Canvas>
+            <controls:SimpleButton Command="{Binding CollectionListCommand}">
+                <StackPanel>
+                    <TextBlock Style="{StaticResource LabelFontStyle}"
                            Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
-                <TextBlock Name="lblItemsCount"
+                    <TextBlock Name="lblItemsCount"
                            FontSize="55"
                            VerticalAlignment="Top"
                            Text="{Binding ItemsCount, StringFormat='{}D4'}"
                            FontWeight="Bold"
-                           Foreground="#d0ba3a"
+                           Foreground="#17bebb"
                            LineStackingStrategy="BlockLineHeight"
                            LineHeight="52" />
-            </StackPanel>
-        </controls:SimpleButton>
-        <controls:SimpleButton Command="{Binding ImageListCommand}" Margin="10">
-            <TextBlock FontFamily="B Titr"
+                </StackPanel>
+            </controls:SimpleButton>
+            <controls:SimpleButton Canvas.Left="160" Command="{Binding ImageListCommand}">
+                <TextBlock FontFamily="B Titr"
                        FontSize="50"
-                       Foreground="#fff8e7">گالری
-            </TextBlock>
-        </controls:SimpleButton>
-    </StackPanel>
+                       Foreground="#e7c951">گالری
+                </TextBlock>
+            </controls:SimpleButton>
+            <controls:SimpleButton Canvas.Top="160" Command="{Binding PrintCommand}">
+                <StackPanel>
+                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/FirstPage/print_64.png" Width="64" Height="64"/>
+                    <TextBlock Foreground="#e5572f">چاپ برچسب</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
+            <controls:SimpleButton Canvas.Left="160" Canvas.Top="160" Command="{Binding CollectionItemCommand}">
+                <StackPanel>
+                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/FirstPage/plant.png" Width="32" Height="64"/>
+                    <TextBlock Foreground="#92d14f" Margin="0 5 0 0">درج گیاه</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
+            <Border Canvas.Top="320" Background="LightGray" Height="3" Width="310"/>
+        </Canvas>
+    </Grid>
 </controls:Page>

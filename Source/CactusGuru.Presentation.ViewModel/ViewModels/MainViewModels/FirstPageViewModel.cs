@@ -11,12 +11,16 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
             _viewProvider = viewProvider;
             CollectionListCommand = new RelayCommand(() => Navigations.GotoCollectionItemList());
             ImageListCommand = new RelayCommand(() => Navigations.GotoImageList());
+            CollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItem());
+            PrintCommand = new RelayCommand(() => Navigations.GotoLabelPrint());
         }
 
         private readonly IFirstPageViewProvider _viewProvider;
 
         public ICommand CollectionListCommand { get; }
         public ICommand ImageListCommand { get; }
+        public ICommand CollectionItemCommand { get; }
+        public ICommand PrintCommand { get; }
         public int ItemsCount { get; private set; }
 
         protected override async void OnLoad()

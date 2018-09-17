@@ -26,7 +26,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsChecked" Value="True">
-                            <Setter TargetName="Path" Property="Fill" Value="Tomato" />
+                            <Setter TargetName="Path" Property="Fill" Value="#92d14f" />
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>

@@ -7,6 +7,8 @@
         Title="Cactus Guru"
         Height="650"
         Width="1100"
+        MinHeight="600"
+        MinWidth="500"
         SnapsToDevicePixels="True"
         UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen">
