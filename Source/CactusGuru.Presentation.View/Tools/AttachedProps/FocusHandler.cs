@@ -113,7 +113,10 @@ namespace CactusGuru.Presentation.View.Tools.AttachedProps
         private static void ctrl_PreviewKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
+            {
+                e.Handled = true;
                 GotoNextControl(sender);
+            }
         }
 
         private static void GotoNextControl(object ctrl)

@@ -58,7 +58,7 @@
         <Setter Property="attch:FocusHandler.TraverseOnEnter" Value="False" />
         <Setter Property="attch:EnterKeyAttach.EnterKey">
             <Setter.Value>
-                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" Gesture="" />
+                <KeyBinding Key="Enter" Command="{Binding SaveCommand}" />
             </Setter.Value>
         </Setter>
     </Style>
