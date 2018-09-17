@@ -146,6 +146,7 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <Resource Include="Resources\Fonts\BTitrBd.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Tools\Controls\ErrorBox.xaml">
@@ -269,61 +270,61 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\CollectionHeader.png" />
-    <Resource Include="Images\DefinitionHeader.png" />
-    <Resource Include="Images\PeopleHeader.png" />
+    <Resource Include="Resources\Images\CollectionHeader.png" />
+    <Resource Include="Resources\Images\DefinitionHeader.png" />
+    <Resource Include="Resources\Images\PeopleHeader.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\cancel_16.png" />
+    <Resource Include="Resources\Images\Icon\cancel_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\ok_16.png" />
+    <Resource Include="Resources\Images\Icon\ok_16.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\EditorViewBasics\add_24.png" />
-    <Resource Include="Images\Icon\EditorViewBasics\cancel_24.png" />
-    <Resource Include="Images\Icon\EditorViewBasics\delete_24.png" />
-    <Resource Include="Images\Icon\EditorViewBasics\edit_24.png" />
-    <Resource Include="Images\Icon\EditorViewBasics\saveNew_24.png" />
-    <Resource Include="Images\Icon\EditorViewBasics\save_24.png" />
+    <Resource Include="Resources\Images\Icon\EditorViewBasics\add_24.png" />
+    <Resource Include="Resources\Images\Icon\EditorViewBasics\cancel_24.png" />
+    <Resource Include="Resources\Images\Icon\EditorViewBasics\delete_24.png" />
+    <Resource Include="Resources\Images\Icon\EditorViewBasics\edit_24.png" />
+    <Resource Include="Resources\Images\Icon\EditorViewBasics\saveNew_24.png" />
+    <Resource Include="Resources\Images\Icon\EditorViewBasics\save_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\ImageGallery\addImage_24.png" />
+    <Resource Include="Resources\Images\Icon\ImageGallery\addImage_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\ImageGallery\undo_24.png" />
+    <Resource Include="Resources\Images\Icon\ImageGallery\undo_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\ImageGallery\select_24.png" />
+    <Resource Include="Resources\Images\Icon\ImageGallery\select_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\ImageGallery\jpeg_24.png" />
+    <Resource Include="Resources\Images\Icon\ImageGallery\jpeg_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\ImageList\instagram_24.png" />
+    <Resource Include="Resources\Images\Icon\ImageList\instagram_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\home.png" />
+    <Resource Include="Resources\Images\Icon\home.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\Error.png" />
+    <Resource Include="Resources\Images\Icon\Error.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\cross.png" />
+    <Resource Include="Resources\Images\Icon\cross.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\CollectionList\delete_24.png" />
+    <Resource Include="Resources\Images\Icon\CollectionList\delete_24.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\CollectionList\copy_20.png" />
+    <Resource Include="Resources\Images\Icon\CollectionList\copy_20.png" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Resource Include="Images\Icon\Print\print.png" />
+    <Resource Include="Resources\Images\Icon\Print\print.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\Icon\FirstPage\plant.png" />
-    <Resource Include="Images\Icon\FirstPage\print_64.png" />
+    <Resource Include="Resources\Images\Icon\FirstPage\plant.png" />
+    <Resource Include="Resources\Images\Icon\FirstPage\print_64.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

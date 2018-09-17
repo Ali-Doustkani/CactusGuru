@@ -51,20 +51,20 @@
                                     </Grid.RowDefinitions>
                                     <controls:SimpleButton Command="{Binding CopyNameCommand}" Height="60">
                                         <StackPanel>
-                                            <Image Source="../Images/Icon/CollectionList/copy_20.png" Width="20" Height="20"/>
+                                            <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/copy_20.png" Width="20" Height="20"/>
                                             <TextBlock>کپی</TextBlock>
                                         </StackPanel>
                                     </controls:SimpleButton>
                                     <controls:SimpleButton Grid.Column="1" Command="{Binding EditCurrentCollectionItemCommand}" Height="60">
                                         <StackPanel>
-                                            <Image Source="../Images/Icon/EditorViewBasics/edit_24.png" Stretch="None"/>
+                                            <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png" Stretch="None"/>
                                             <TextBlock>ویرایش</TextBlock>
                                         </StackPanel>
                                     </controls:SimpleButton>
                                     <controls:SimpleButton Grid.Row="1" Grid.ColumnSpan="2" Height="40" Command="{Binding DeleteCurrentCollectionItemCommand}">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock VerticalAlignment="Center">حذف</TextBlock>
-                                            <Image VerticalAlignment="Center" Source="../Images/Icon/CollectionList/delete_24.png" Width="24" Height="24"/>
+                                            <Image VerticalAlignment="Center" Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/delete_24.png" Width="24" Height="24"/>
                                         </StackPanel>
                                     </controls:SimpleButton>
                                     <controls:SimpleButton Grid.Row="2" Grid.ColumnSpan="2" Height="40" Command="{Binding GotoImageGallaryCommand}">گالری</controls:SimpleButton>

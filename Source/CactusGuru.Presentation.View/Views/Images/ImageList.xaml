@@ -22,7 +22,7 @@
         <ToolBar Style="{StaticResource ToolbarStyle}">
             <controls:SimpleButton ToolTip="ذخیره برای اینستاگرام" Command="{Binding SaveForInstagramCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/ImageList/instagram_24.png"/>
+                    <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageList/instagram_24.png"/>
                     <TextBlock Margin="5 0 0 0">ذخیره برای اینستاگرام</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>

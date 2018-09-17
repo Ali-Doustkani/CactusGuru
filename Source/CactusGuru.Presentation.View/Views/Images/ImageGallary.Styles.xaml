@@ -3,14 +3,14 @@
                     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
                     xmlns:converters="clr-namespace:CactusGuru.Presentation.View.Tools.Converters">
     <!-- Images -->
-    <ImageSource x:Key="Instagram">/CactusGuru.Presentation.View;component/Images/Icon/ImageList/instagram_24.png</ImageSource>
-    <ImageSource x:Key="Jpeg">/CactusGuru.Presentation.View;component/Images/Icon/ImageGallery/jpeg_24.png</ImageSource>
-    <ImageSource x:Key="Undo">/CactusGuru.Presentation.View;component/Images/Icon/ImageGallery/undo_24.png</ImageSource>
-    <ImageSource x:Key="Add">/CactusGuru.Presentation.View;component/Images/Icon/ImageGallery/addImage_24.png</ImageSource>
-    <ImageSource x:Key="Delete">/CactusGuru.Presentation.View;component/Images/Icon/EditorViewBasics/delete_24.png</ImageSource>
-    <ImageSource x:Key="Cancel">/CactusGuru.Presentation.View;component/Images/Icon/EditorViewBasics/cancel_24.png</ImageSource>
-    <ImageSource x:Key="Save">/CactusGuru.Presentation.View;component/Images/Icon/EditorViewBasics/save_24.png</ImageSource>
-    <ImageSource x:Key="Select">/CactusGuru.Presentation.View;component/Images/Icon/ImageGallery/select_24.png</ImageSource>
+    <ImageSource x:Key="Instagram">/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageList/instagram_24.png</ImageSource>
+    <ImageSource x:Key="Jpeg">/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageGallery/jpeg_24.png</ImageSource>
+    <ImageSource x:Key="Undo">/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageGallery/undo_24.png</ImageSource>
+    <ImageSource x:Key="Add">/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageGallery/addImage_24.png</ImageSource>
+    <ImageSource x:Key="Delete">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/delete_24.png</ImageSource>
+    <ImageSource x:Key="Cancel">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/cancel_24.png</ImageSource>
+    <ImageSource x:Key="Save">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/save_24.png</ImageSource>
+    <ImageSource x:Key="Select">/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageGallery/select_24.png</ImageSource>
     <!-- Label Styles -->
     <Style x:Key="LabelStyleBase">
         <Setter Property="Control.Margin" Value="5 0" />
@@ -55,7 +55,7 @@
             <TextBox Grid.Row="1" Padding="3" Margin="0 5" Text="{Binding Description}" />
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left">
                 <controls:SimpleButton Background="#dddddd" OnOverBackground="#c75050" Width="30" Height="30" Padding="6" >
-                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/EditorViewBasics/delete_24.png"/>
+                    <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/delete_24.png"/>
                 </controls:SimpleButton>
                 <ToggleButton Background="#bbbbbb" Margin="3 0" Height="30" IsChecked="{Binding Row.SharedOnInstagram}">اینستاگرام</ToggleButton>
             </StackPanel>

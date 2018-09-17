@@ -44,13 +44,13 @@
             </controls:SimpleButton>
             <controls:SimpleButton Canvas.Top="160" Command="{Binding PrintCommand}">
                 <StackPanel>
-                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/FirstPage/print_64.png" Width="64" Height="64"/>
+                    <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/FirstPage/print_64.png" Width="64" Height="64"/>
                     <TextBlock Foreground="#e5572f">چاپ برچسب</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>
             <controls:SimpleButton Canvas.Left="160" Canvas.Top="160" Command="{Binding CollectionItemCommand}">
                 <StackPanel>
-                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/FirstPage/plant.png" Width="32" Height="64"/>
+                    <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/FirstPage/plant.png" Width="32" Height="64"/>
                     <TextBlock Foreground="#92d14f" Margin="0 5 0 0">درج گیاه</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>

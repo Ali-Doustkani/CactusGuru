@@ -14,7 +14,7 @@
         <Setter Property="Content">
             <Setter.Value>
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/Print/print.png" Width="20" Height="18"/>
+                    <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/Print/print.png" Width="20" Height="18"/>
                     <TextBlock Margin="5 0 0 0">چاپ</TextBlock>
                 </StackPanel>
             </Setter.Value>

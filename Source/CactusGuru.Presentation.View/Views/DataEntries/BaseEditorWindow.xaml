@@ -42,23 +42,23 @@
         </Grid.RowDefinitions>
         <ToolBar>
             <controls:SimpleButton Command="{Binding PrepareForAddCommand}" ToolTip="ثبت">
-                <Image Source="../../Images/Icon/EditorViewBasics/add_24.png" />
+                <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/add_24.png" />
             </controls:SimpleButton>
             <controls:SimpleButton Command="{Binding PrepareForEditCommand}" ToolTip="ویرایش">
-                <Image Source="../../Images/Icon/EditorViewBasics/edit_24.png"/>
+                <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png"/>
             </controls:SimpleButton>
             <controls:SimpleButton Command="{Binding DeleteCommand}" ToolTip="حذف" Style="{StaticResource redButtons}">
-                <Image Source="../../Images/Icon/EditorViewBasics/delete_24.png"/>
+                <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/delete_24.png"/>
             </controls:SimpleButton>
             <Separator Margin="5 0"/>
             <controls:SimpleButton Command="{Binding SaveNewCommand}" ToolTip="ذخیره" Style="{StaticResource greenButtons}">
-                <Image Source="../../Images/Icon/EditorViewBasics/saveNew_24.png"/>
+                <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/saveNew_24.png"/>
             </controls:SimpleButton>
             <controls:SimpleButton Command="{Binding SaveCommand}" ToolTip="ذخیره و جدید" Style="{StaticResource greenButtons}">
-                <Image Source="../../Images/Icon/EditorViewBasics/save_24.png"/>
+                <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/save_24.png"/>
             </controls:SimpleButton>
             <controls:SimpleButton Command="{Binding CancelCommand}" ToolTip="لغو" Style="{StaticResource redButtons}">
-                <Image Source="../../Images/Icon/EditorViewBasics/cancel_24.png"/>
+                <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/cancel_24.png"/>
             </controls:SimpleButton>
         </ToolBar>
     </Grid>
