@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.ViewProviders.ImageList
 {
     public interface IImageListViewProvider
     {
-        bool GetImagesAsync(Action<IEnumerable<ImageDto>> callback);
+        Task GetImagesAsync(IProgress<ImageDto> progress);
         void SaveToFiles(IEnumerable<ImageDto> images, string path);
     }
 }

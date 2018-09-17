@@ -1,33 +1,34 @@
-﻿<Grid x:Class="CactusGuru.Presentation.View.Views.ImageList"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
-      xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
-      utils:Events.BindLoadEvents="True">
-    <Grid.Resources>
+﻿<controls:Page x:Class="CactusGuru.Presentation.View.Views.ImageList"
+               xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+               FlowDirection="LeftToRight">
+    <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Styles.xaml"/>
                 <ResourceDictionary Source="ImageList.Styles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Grid.Resources>
-    <Grid.DataContext>
+    </controls:Page.Resources>
+    <controls:Page.DataContext>
         <Binding Source="{StaticResource vmLocator}" Path="ImageListViewModel" />
-    </Grid.DataContext>
-    <Grid.RowDefinitions>
-        <RowDefinition Height="auto"/>
-        <RowDefinition Height="*"/>
-    </Grid.RowDefinitions>
-    <ToolBar Style="{StaticResource ToolbarStyle}">
-        <controls:SimpleButton ToolTip="ذخیره برای اینستاگرام" Command="{Binding SaveForInstagramCommand}">
-            <StackPanel Orientation="Horizontal">
-                <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/ImageList/instagram_24.png"/>
-                <TextBlock Margin="5 0 0 0">ذخیره برای اینستاگرام</TextBlock>
-            </StackPanel>
-        </controls:SimpleButton>
-        <Separator/>
-        <controls:SimpleButton Command="{Binding DeSelectAllCommand}" >عدم انتخاب</controls:SimpleButton>
-    </ToolBar>
-    <ListBox FlowDirection="RightToLeft" Grid.Row="1" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" ItemTemplate="{StaticResource ItemDataTemplate}"/>
-</Grid>
+    </controls:Page.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <ToolBar Style="{StaticResource ToolbarStyle}">
+            <controls:SimpleButton ToolTip="ذخیره برای اینستاگرام" Command="{Binding SaveForInstagramCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/CactusGuru.Presentation.View;component/Images/Icon/ImageList/instagram_24.png"/>
+                    <TextBlock Margin="5 0 0 0">ذخیره برای اینستاگرام</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
+            <Separator/>
+            <controls:SimpleButton Command="{Binding DeSelectAllCommand}" >عدم انتخاب</controls:SimpleButton>
+        </ToolBar>
+        <ListBox FlowDirection="RightToLeft" Grid.Row="1" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" ItemTemplate="{StaticResource ItemDataTemplate}"/>
+    </Grid>
+</controls:Page>

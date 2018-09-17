@@ -81,7 +81,6 @@
     <Compile Include="ViewModels\ImageGallery\ImageItemViewModelFactory.cs" />
     <Compile Include="ViewModels\ImageListViewModels\ImageListViewModel.cs" />
     <Compile Include="ViewModels\ImageListViewModels\ImageViewModel.cs" />
-    <Compile Include="ViewModels\ImageListViewModels\ImageViewModelFactory.cs" />
     <Compile Include="ViewModels\IncomeTypeRowItem.cs" />
     <Compile Include="ViewModels\LabelPrint\CollectionItemViewModel.cs" />
     <Compile Include="ViewModels\LabelPrint\LabelPrintEditorViewModel.cs" />

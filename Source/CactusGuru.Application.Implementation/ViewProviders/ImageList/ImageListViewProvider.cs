@@ -6,28 +6,24 @@ using CactusGuru.Infrastructure.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.ImageList
 {
     public class ImageListViewProvider : ViewProviderBase, IImageListViewProvider
     {
-        private int _start;
-
-        public bool GetImagesAsync(Action<IEnumerable<ImageDto>> callback)
+        public Task GetImagesAsync(IProgress<ImageDto> progress)
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var images = locator.Get<ICollectionItemImageRepository>().GetByRange(_start, 10);
-                var dtos = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>().ToDataTransferEntities(images);
-                if (dtos.Any())
+                using (var locator = Begin())
                 {
-                    callback(dtos);
-                    _start += 10;
-                    return true;
+                    var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
+                    var reader = locator.Get<ICollectionItemImageRepository>().Reader();
+                    while (reader.Read())
+                        progress.Report(assembler.ToDataTransferEntity(reader.Value));
                 }
-                _start = 0;
-                return false;
-            }
+            });
         }
 
         public void SaveToFiles(IEnumerable<ImageDto> images, string path)

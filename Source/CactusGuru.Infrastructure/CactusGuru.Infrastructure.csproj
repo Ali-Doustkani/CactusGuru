@@ -47,6 +47,7 @@
     <Compile Include="ErrorHappenedException.cs" />
     <Compile Include="EventAggregation\EventAggregator.cs" />
     <Compile Include="EventAggregation\NotificationEventArgs.cs" />
+    <Compile Include="Persistance\IReader.cs" />
     <Compile Include="Persistance\ISimilarityRepository.cs" />
     <Compile Include="Persistance\Merging\DelegateMerger.cs" />
     <Compile Include="Persistance\Merging\Merger.cs" />

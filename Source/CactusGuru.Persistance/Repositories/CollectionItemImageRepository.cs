@@ -75,15 +75,9 @@ namespace CactusGuru.Persistance.Repositories
             throw new NotImplementedException();
         }
 
-        public IEnumerable<CollectionItemImage> GetByRange(int startIndex, int count)
+        public IReader<CollectionItemImage> Reader()
         {
-            var entities = _context.tblCollectionItemImage
-                .Where(x => !x.SharedOnInstagram)
-                .OrderByDescending(x => x.DateAdded)
-                .Skip(startIndex)
-                .Take(count)
-                .ToList();
-            return _translator.ToDomainEntities(entities);
+            return new CollectionItemImageReader(_context, _translator);
         }
 
         public byte[] GetFullImage(Guid id)

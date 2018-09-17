@@ -7,9 +7,9 @@ namespace CactusGuru.Domain.Persistance.Repositories
 {
     public interface ICollectionItemImageRepository : IRepository<CollectionItemImage>
     {
-        IEnumerable<CollectionItemImage> GetByRange(int startIndex, int count);
         IEnumerable<CollectionItemImage> GetByCollectionItemId(Guid collectionItemId);
         IEnumerable<Guid> GetIdsByCollectionItemId(Guid collectionItemId);
+        IReader<CollectionItemImage> Reader();
         void AddFullImage(Guid id, byte[] imageContent);
         void DeleteFullImage(Guid id);
         void UpdateSharedOnInstagram(IEnumerable<Guid> ids);

@@ -1,8 +1,7 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageList;
 using CactusGuru.Presentation.ViewModel.Framework;
-using System.Collections.Generic;
+using System;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -10,55 +9,30 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
 {
     public class ImageListViewModel : FormViewModel
     {
-        public ImageListViewModel(IImageListViewProvider viewProvider, ImageViewModelFactory imageViewModelFactory)
+        public ImageListViewModel(IImageListViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            _imageViewModelFactory = imageViewModelFactory;
-            _bgWorker = new BackgroundWorker();
-            _bgWorker.WorkerReportsProgress = true;
-            _bgWorker.DoWork += _bgWorker_DoWork;
-            _bgWorker.ProgressChanged += _bgWorker_ProgressChanged;
-            _bgWorker.RunWorkerCompleted += _bgWorker_RunWorkerCompleted;
             DeSelectAllCommand = new RelayCommand(DeSelectAll);
             SaveForInstagramCommand = new RelayCommand(SaveForInstagram, CanSave);
             Images = new ObservableCollection<ImageViewModel>();
         }
 
         private readonly IImageListViewProvider _viewProvider;
-        private readonly ImageViewModelFactory _imageViewModelFactory;
-        private readonly BackgroundWorker _bgWorker;
 
         public ICommand DeSelectAllCommand { get; }
         public ICommand SaveForInstagramCommand { get; }
-        public ObservableCollection<ImageViewModel> Images { get; private set; }
+        public ObservableCollection<ImageViewModel> Images { get; }
         public ImageViewModel SelectedImage { get; set; }
 
-        protected override void OnLoad()
+        protected async override void OnLoad()
         {
-            _bgWorker.RunWorkerAsync();
-        }
-
-        private void _bgWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            while (_viewProvider.GetImagesAsync(LoadImages)) { };
-        }
-
-        private void LoadImages(IEnumerable<ImageDto> dtos)
-        {
-            var images = new List<ImageViewModel>();
-            foreach (var dto in dtos)
-                images.Add(_imageViewModelFactory.Create(dto));
-            _bgWorker.ReportProgress(0, images);
-        }
-
-        private void _bgWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            ((List<ImageViewModel>)e.UserState).ForEach(Images.Add);
-        }
-
-        private void _bgWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            LoaderState.ToIdle();
+            var progress = new Progress<ImageDto>(dto =>
+            {
+                if (LoaderState.IsBusy)
+                    LoaderState.ToIdle();
+                Images.Add(new ImageViewModel(dto));
+            });
+            await _viewProvider.GetImagesAsync(progress);
         }
 
         public void Select()

@@ -7,7 +7,6 @@
     <!-- Fields -->
     <views:ViewModelLocator x:Key="vmLocator" />
     <BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
-
     <!-- Page -->
     <Style TargetType="{x:Type controls:Page}">
         <Setter Property="FlowDirection" Value="RightToLeft"/>
