@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.ViewProviders.ImageGallery
 {
     public interface IImageGalleryViewProvider
     {
-        ImageDto Build(string filePath, Guid collectionItemId);
-        void SaveImageGallery(ImageGalleryDto imageGallery);
-        void GetThumbnailsOf(Guid collectionItemId, Action<ImageDto> callback);
+        Task BuildAsync(IEnumerable<string> files, Guid collectionItemId, IProgress<ImageDto> progress);
+        Task SaveImageGalleryAsync(ImageGalleryDto imageGallery);
+        Task GetThumbnailsOfAsync(Guid collectionItemId, IProgress<ImageDto> progress);
         CollectionItemDto GetCollectionItem(Guid collectionItemId);
         bool CollectionItemCodeExists(string collectionItemCode);
         Guid GetCollectionItemIdByCode(string code);

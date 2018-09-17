@@ -2,9 +2,7 @@
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Tools;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -26,31 +24,18 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), () => IsAnythingSelected);
             SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), () => IsAnythingSelected);
 
-
-            _imageLoaderWorker = new BackgroundWorker();
-            _imageLoaderWorker.WorkerReportsProgress = true;
-            _imageLoaderWorker.DoWork += _backgroundWorker_DoWork;
-            _imageLoaderWorker.RunWorkerCompleted += _backgroundWorker_RunWorkerCompleted;
-            _imageLoaderWorker.ProgressChanged += _backgroundWorker_ProgressChanged;
-
-            _imageAdderWorker = new BackgroundWorker();
-            _imageAdderWorker.WorkerReportsProgress = true;
-            _imageAdderWorker.DoWork += _imageAdderWorker_DoWork;
-            _imageAdderWorker.ProgressChanged += _imageAdderWorker_ProgressChanged;
-            _imageAdderWorker.RunWorkerCompleted += _imageAdderWorker_RunWorkerCompleted;
-
-            _imageSaveWorker = new BackgroundWorker();
-            _imageSaveWorker.DoWork += _imageSaveWorker_DoWork;
-            _imageSaveWorker.RunWorkerCompleted += _imageSaveWorker_RunWorkerCompleted1;
+            _progress = new Progress<ImageDto>(dto =>
+           {
+               var vm = _imageItemFactory.Create(dto);
+               Images.Add(vm);
+           });
 
             Images = new ObservableCollection<ImageItemViewModel>();
         }
 
         private readonly IImageGalleryViewProvider _dataProvider;
         private readonly ImageItemViewModelFactory _imageItemFactory;
-        private readonly BackgroundWorker _imageLoaderWorker;
-        private readonly BackgroundWorker _imageAdderWorker;
-        private readonly BackgroundWorker _imageSaveWorker;
+        private readonly IProgress<ImageDto> _progress;
         private Guid _collectionItemId;
 
         private GalleryMemento _memento;
@@ -114,6 +99,32 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             SelectedImage.IsSelected = !SelectedImage.IsSelected;
         }
 
+        public void ChangeDate()
+        {
+            var result = Navigations.GetDateFromUser();
+            if (result.Result)
+            {
+                SelectedImage.DateAdded = result.Value;
+            }
+        }
+
+        protected async override void OnLoad()
+        {
+            Images.Clear();
+            var collectionItem = _dataProvider.GetCollectionItem(_collectionItemId);
+            _code = collectionItem.Code;
+            OnPropertyChanged(nameof(Code));
+            Title = collectionItem.Title;
+            Locality = collectionItem.Locality;
+            await _dataProvider.GetThumbnailsOfAsync(_collectionItemId, _progress);
+            _memento = new GalleryMemento(Images);
+            LoaderState.ToIdle();
+        }
+
+        private void LoadByCode(string code) => Load(_dataProvider.GetCollectionItemIdByCode(code));
+
+        public void Load(Guid collectionItemId) => _collectionItemId = collectionItemId;
+
         private void DeleteSelectedImages()
         {
             Images.RemoveAll(x => x.IsSelected);
@@ -144,8 +155,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             Dialog.Say("ذخیره ی تصاویر با موفقیت انجام شد.");
         }
 
-        #region UNDO
-
         private void Undo()
         {
             UndoImages();
@@ -171,117 +180,26 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             return anyImagesAdded || imageContentsChanged;
         }
 
-        #endregion
-
-        #region LOADING
-
-        private void LoadByCode(string code) => Load(_dataProvider.GetCollectionItemIdByCode(code));
-
-        public void Load(Guid collectionItemId) => _collectionItemId = collectionItemId;
-
-        protected override void OnLoad()
-        {
-            Images.Clear();
-            var collectionItem = _dataProvider.GetCollectionItem(_collectionItemId);
-            _code = collectionItem.Code;
-            OnPropertyChanged(nameof(Code));
-            Title = collectionItem.Title;
-            Locality = collectionItem.Locality;
-            _imageLoaderWorker.RunWorkerAsync();
-        }
-
-        private void _backgroundWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            _dataProvider.GetThumbnailsOf(_collectionItemId,
-                dto =>
-                {
-                    var vm = _imageItemFactory.Create(dto);
-                    _imageLoaderWorker.ReportProgress(0, vm);
-                });
-        }
-
-        private void _backgroundWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            var vm = (ImageItemViewModel)e.UserState;
-            Images.Add(vm);
-        }
-
-        private void _backgroundWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            _memento = new GalleryMemento(Images);
-            LoaderState.ToIdle();
-        }
-
-        #endregion
-
-        #region ADD IMAGE
-
-        private void AddImage()
+        private async void AddImage()
         {
             var dialogResult = Dialog.OpenImageFileDialog();
             if (!dialogResult.Result) return;
             LoaderState.ToBusy();
-            _imageAdderWorker.RunWorkerAsync(dialogResult.Value);
-        }
-
-        private void _imageAdderWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var files = (IEnumerable<string>)e.Argument;
-            foreach (var path in files)
-            {
-                var dto = _dataProvider.Build(path, _collectionItemId);
-                dto.ImagePath = path;
-                _imageAdderWorker.ReportProgress(0, dto);
-            }
-        }
-
-        private void _imageAdderWorker_ProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            var dto = (ImageDto)e.UserState;
-            var vm = _imageItemFactory.Create(dto);
-            Images.Add(vm);
-        }
-
-        private void _imageAdderWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            System.Threading.Thread.Sleep(500);
+            await _dataProvider.BuildAsync(dialogResult.Value, _collectionItemId, _progress);
             LoaderState.ToIdle();
         }
 
-        #endregion
-
-        #region SAVE IMAGE
-
-        private void Save()
+        private async void Save()
         {
             LoaderState.ToBusy();
-            _imageSaveWorker.RunWorkerAsync();
-        }
-
-        private void _imageSaveWorker_DoWork(object sender, DoWorkEventArgs e)
-        {
-            var dto = new ImageGalleryDto();
-            dto.CollectionItemId = _collectionItemId;
-            foreach (var vm in Images.Where(x => !x.IsSelected))
-                dto.Images.Add(vm.InnerObject);
-            _dataProvider.SaveImageGallery(dto);
-        }
-
-        private void _imageSaveWorker_RunWorkerCompleted1(object sender, RunWorkerCompletedEventArgs e)
-        {
+            var dto = new ImageGalleryDto
+            {
+                CollectionItemId = _collectionItemId,
+                Images = Images.Where(x => !x.IsSelected).Select(x => x.InnerObject).ToList()
+            };
+            await _dataProvider.SaveImageGalleryAsync(dto);
             LoaderState.ToIdle();
             Navigations.CloseCurrentView();
-        }
-
-        #endregion
-
-        public void ChangeDate()
-        {
-            var result = Navigations.GetDateFromUser();
-            if (result.Result)
-            {
-                SelectedImage.DateAdded = result.Value;
-            }
         }
     }
 }

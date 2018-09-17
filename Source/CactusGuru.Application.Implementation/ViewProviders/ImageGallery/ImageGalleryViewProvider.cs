@@ -8,45 +8,60 @@ using CactusGuru.Infrastructure.Persistance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
 {
     public class ImageGalleryViewProvider : ViewProviderBase, IImageGalleryViewProvider
     {
-        public ImageDto Build(string filePath, Guid collectionItemId)
+        public Task BuildAsync(IEnumerable<string> files, Guid collectionItemId, IProgress<ImageDto> progress)
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var factory = locator.Get<IFactory<CollectionItemImage>>();
-                var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
-                var arg = new CollectionItemImageFactoryArg(collectionItemId, filePath);
-                var image = factory.CreateNew(arg);
-                return assembler.ToDataTransferEntity(image);
-            }
-        }
-
-        public void SaveImageGallery(ImageGalleryDto imageGallery)
-        {
-            using (var locator = Begin())
-            {
-                locator.Get<ImageGallerySaver>().SaveImageGallery(imageGallery);
-            }
-        }
-
-        public void GetThumbnailsOf(Guid collectionItemId, Action<ImageDto> callback)
-        {
-            using (var locator = Begin())
-            {
-                var imgRepo = locator.Get<ICollectionItemImageRepository>();
-                var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
-                var ids = imgRepo.GetIdsByCollectionItemId(collectionItemId);
-                foreach (var id in ids)
+                using (var locator = Begin())
                 {
-                    var image = imgRepo.Get(id);
-                    if (image == null) return;
-                    callback(assembler.ToDataTransferEntity(image));
+                    var factory = locator.Get<IFactory<CollectionItemImage>>();
+                    var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
+                    foreach(var path in files)
+                    {
+                        var arg = new CollectionItemImageFactoryArg(collectionItemId, path);
+                        var image = factory.CreateNew(arg);
+                        var dto = assembler.ToDataTransferEntity(image);
+                        dto.ImagePath = path;
+                        progress.Report(dto);
+                    }
                 }
-            }
+            });
+        }
+
+        public Task SaveImageGalleryAsync(ImageGalleryDto imageGallery)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var locator = Begin())
+                {
+                    locator.Get<ImageGallerySaver>().SaveImageGallery(imageGallery);
+                }
+            });
+        }
+
+        public Task GetThumbnailsOfAsync(Guid collectionItemId, IProgress<ImageDto> progress)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var locator = Begin())
+                {
+                    var imgRepo = locator.Get<ICollectionItemImageRepository>();
+                    var assembler = locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>();
+                    var ids = imgRepo.GetIdsByCollectionItemId(collectionItemId);
+                    foreach (var id in ids)
+                    {
+                        var image = imgRepo.Get(id);
+                        if (image == null) return;
+                        progress.Report(assembler.ToDataTransferEntity(image));
+                    }
+                }
+            });
         }
 
         public CollectionItemDto GetCollectionItem(Guid collectionItemId)
@@ -96,15 +111,15 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
 
         private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images, IServiceLocator locator)
         {
-                var domainEntities = new List<CollectionItemImage>();
-                foreach (var image in images)
-                {
-                    var itemImage = new CollectionItemImage();
-                    locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>().FillDomainEntity(itemImage, image);
-                    domainEntities.Add(itemImage);
-                }
-                return domainEntities;
-           
+            var domainEntities = new List<CollectionItemImage>();
+            foreach (var image in images)
+            {
+                var itemImage = new CollectionItemImage();
+                locator.Get<AssemblerBase<CollectionItemImage, ImageDto>>().FillDomainEntity(itemImage, image);
+                domainEntities.Add(itemImage);
+            }
+            return domainEntities;
+
         }
     }
 }
