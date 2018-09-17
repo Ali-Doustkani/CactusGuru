@@ -37,7 +37,7 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <TextBox Style="{StaticResource CodeStyle}" Text="{Binding Code}" />
+                <TextBlock Style="{StaticResource CodeStyle}" Text="{Binding Code}" />
                 <Border Grid.Column="1" Style="{StaticResource SeparatorStyle}"/>
                 <StackPanel Grid.Column="2" VerticalAlignment="Center">
                     <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding Title}" />
@@ -86,6 +86,10 @@
             </ToolBar>
         </Grid>
         <!-- Content -->
-        <ListBox Grid.Row="1" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" ItemTemplate="{StaticResource ItemDataTemplate}"/>
+        <ListBox Grid.Row="1" 
+                 BorderThickness="0 1 0 0"
+                 ItemsSource="{Binding Images}" 
+                 SelectedItem="{Binding SelectedImage}"
+                 ItemTemplate="{StaticResource ItemDataTemplate}"/>
     </Grid>
 </Window>
