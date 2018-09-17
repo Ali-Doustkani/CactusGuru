@@ -10,8 +10,7 @@ namespace CactusGuru.Presentation.ViewModel.Services.Navigations
         void GotoTaxa();
         void GotoSuppliers();
         void GotoCollectors();
-        void GotoCollectionItemInserter();
-        void GotoCollectionItemUpdater(Guid collectionItemToEdit);
+        void GotoCollectionItem(Guid? collectionItemToEdit = null);
         void GotoCollectionItemImageGallary(Guid collectionItem);
         void GotoCollectionItemList();
         void GotoImageList();

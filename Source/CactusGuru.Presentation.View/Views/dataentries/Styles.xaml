@@ -49,9 +49,10 @@
 
     <Style TargetType="TextBox" BasedOn="{StaticResource _EntryStyle}"/>
 
+    <Style TargetType="DatePicker" BasedOn="{StaticResource _EntryStyle}"/>
+
     <Style TargetType="ComboBox" BasedOn="{StaticResource _EntryStyle}">
         <Setter Property="IsEditable" Value="True"/>
-        <Setter Property="attch:FocusHandler.AutoOpenDropDown" Value="True"/>
     </Style>
 
     <Style x:Key="LastEntryStyle" BasedOn="{StaticResource _EntryStyle}">

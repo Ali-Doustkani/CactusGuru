@@ -39,7 +39,8 @@
     <TextBox Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Taxon -->
     <TextBlock Grid.Row="1" Text="تاکسون" />
-    <ComboBox Grid.Row="1"
+    <ComboBox Name="cmbTaxon"
+              Grid.Row="1"
               Grid.ColumnSpan="1"
               attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
               ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}"
@@ -48,7 +49,8 @@
     <controls:SimpleButton Grid.Row="1" Command="{Binding GotoTaxaCommand}" />
     <!-- Collector -->
     <TextBlock Grid.Row="2" Text="کلکتور" />
-    <ComboBox Grid.Row="2"
+    <ComboBox Name="cmbCollector" 
+              Grid.Row="2"
               Grid.ColumnSpan="1"
               ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="FormattedName"
@@ -64,17 +66,19 @@
              Text="{Binding WorkingItem.Locality, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Income Date -->
     <TextBlock Grid.Row="5" Text="تاریخ ورود" />
-    <TextBox Grid.Row="5"
-             Text="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}" />
+    <DatePicker Grid.Row="5"
+                SelectedDate="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
     <!-- Income Type -->
     <TextBlock Grid.Row="6" Text="نوع ورود" />
-    <ComboBox Grid.Row="6"
+    <ComboBox Name="cmbIncomeType"
+              Grid.Row="6"
               ItemsSource="{Binding IncomeTypes}"
               SelectedItem="{Binding IncomeType, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Title" />
     <!-- Supplier -->
     <TextBlock Grid.Row="7" Text="تامین کننده" />
-    <ComboBox Grid.Row="7"
+    <ComboBox Name="cmbSupplier"
+              Grid.Row="7"
               Grid.ColumnSpan="1"
               ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="FormattedName"

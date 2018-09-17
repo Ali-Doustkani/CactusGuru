@@ -15,7 +15,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         {
             _viewProvider = viewProvider;
             GotoImageGallaryCommand = new RelayCommand(() => Navigations.GotoCollectionItemImageGallary(SelectedCollectionItem.InnerObject.Id), CanGotoImageGallery);
-            EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItemUpdater(SelectedCollectionItem.InnerObject.Id));
+            EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItem(SelectedCollectionItem.InnerObject.Id));
             DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
             CopyNameCommand = new RelayCommand(CopyNameToClipboard);
             SortCommand = new RelayCommand(Sort);

@@ -1,5 +1,4 @@
-﻿using CactusGuru.Application.Common;
-using CactusGuru.Application.ViewProviders;
+﻿using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Test.Framework;
 using CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;

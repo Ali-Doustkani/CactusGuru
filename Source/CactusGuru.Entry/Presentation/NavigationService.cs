@@ -2,7 +2,6 @@
 using CactusGuru.Presentation.View.Views;
 using CactusGuru.Presentation.View.Views.DataEntries;
 using CactusGuru.Presentation.ViewModel.Services.Navigations;
-using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery;
 using Microsoft.Win32;
 using System;
@@ -47,15 +46,10 @@ namespace CactusGuru.Entry.Presentation
             ShowDialog(view);
         }
 
-        public void GotoCollectionItemInserter()
-        {
-            OpenUserControl(ObjectFactory.Instance.GetInstance<CollectionItemEditor>(), 450, 420);
-        }
-
-        public void GotoCollectionItemUpdater(Guid collectionItem)
+        public void GotoCollectionItem(Guid? collectionItem = null)
         {
             var editor = ObjectFactory.Instance.GetInstance<CollectionItemEditor>();
-            ((CollectionItemEditorViewModel)editor.DataContext).PrepareForEdit(collectionItem);
+            editor.Set(collectionItem);
             OpenUserControl(editor, 450, 420);
         }
 

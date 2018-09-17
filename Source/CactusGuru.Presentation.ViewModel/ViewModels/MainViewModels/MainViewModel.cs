@@ -15,7 +15,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.MainViewModels
                 else if (cmd == "taxon")
                     Navigations.GotoTaxa();
                 else if (cmd == "collectionitem")
-                    Navigations.GotoCollectionItemInserter();
+                    Navigations.GotoCollectionItem();
                 else if (cmd == "supplier")
                     Navigations.GotoSuppliers();
                 else if (cmd == "collector")

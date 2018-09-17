@@ -1,7 +1,6 @@
 ﻿using CactusGuru.Domain.Greenhouse.CodeGenerating;
-using CactusGuru.Infrastructure;
-using System;
 using CactusGuru.Infrastructure.ObjectCreation;
+using System;
 
 namespace CactusGuru.Domain.Greenhouse.Factories
 {
@@ -19,6 +18,7 @@ namespace CactusGuru.Domain.Greenhouse.Factories
             var ret = new CollectionItem();
             ret.Id = Guid.NewGuid();
             ret.Code = _codeGenerator.Generate();
+            ret.IncomeDate = DateTime.Now;
             return ret;
         }
 

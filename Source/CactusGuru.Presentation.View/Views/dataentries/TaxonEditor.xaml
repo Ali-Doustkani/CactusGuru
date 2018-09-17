@@ -34,6 +34,7 @@
     <TextBlock Text="جنس" />
     <ComboBox Grid.ColumnSpan="1"
               attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
+              attch:FocusHandler.AutoOpenDropDown="True"
               ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
               SelectedItem="{Binding Genus}"/>

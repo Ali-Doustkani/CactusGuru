@@ -1,12 +1,9 @@
 ﻿using CactusGuru.Application.Common;
 using CactusGuru.Application.ViewProviders;
 using CactusGuru.Infrastructure.EventAggregation;
-using CactusGuru.Infrastructure.Utils;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
 
@@ -88,7 +85,11 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             set { WorkingItem.Collector = value?.Id; }
         }
 
-        public string IncomeDate { get; set; }
+        public DateTime? IncomeDate
+        {
+            get { return WorkingItem?.IncomeDate; }
+            set { WorkingItem.IncomeDate = value; }
+        }
 
         public IncomeTypeRowItem IncomeType
         {
@@ -110,8 +111,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         public void PrepareForEdit(Guid id)
         {
             _itemToEdit = CreateWorkingObject(_dataProvider.GetCollectionItem(id));
-            if (_itemToEdit.IncomeDate.HasValue)
-                IncomeDate = DateUtil.ToPersianDate(_itemToEdit.IncomeDate.Value);
         }
 
         protected async override void OnLoad()
@@ -155,18 +154,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
             }
         }
 
-        protected override void AddImp()
-        {
-            FillDate();
-            base.AddImp();
-        }
-
-        protected override void EditImp()
-        {
-            FillDate();
-            base.EditImp();
-        }
-
         protected override CollectionItemViewModel DeleteImp()
         {
             var deletedItem = base.DeleteImp();
@@ -176,32 +163,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
                 Navigations.CloseCurrentView();
             }
             return deletedItem;
-        }
-
-        protected override bool CanSave()
-        {
-            return base.CanSave() && DateIsValid();
-        }
-
-        protected override bool CanSaveNew()
-        {
-            return base.CanSaveNew() && DateIsValid();
-        }
-
-
-
-        private bool DateIsValid()
-        {
-            if (string.IsNullOrEmpty(IncomeDate)) return true;
-            return DateUtil.IsValid(IncomeDate);
-        }
-
-        private void FillDate()
-        {
-            if (DateUtil.IsValid(IncomeDate))
-                WorkingItem.IncomeDate = DateUtil.FromPersianDate(IncomeDate);
-            else if (string.IsNullOrEmpty(IncomeDate))
-                WorkingItem.IncomeDate = null;
         }
 
         private string CodeSimilarity()
