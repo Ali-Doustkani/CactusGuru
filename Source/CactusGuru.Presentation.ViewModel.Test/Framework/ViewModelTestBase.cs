@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.Test.Framework
@@ -25,6 +26,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         }
 
         protected TEditor viewModel;
+        private ResultBase _result;
         protected readonly Mock<TProvider> dataProvider;
         protected readonly Mock<INavigationService> navigationService;
         protected readonly Mock<IDialogService> dialogService;
@@ -32,6 +34,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
         [TestInitialize]
         public void SetUp()
         {
+            _result = null;
             viewModel = Make();
             viewModel.GetType().GetProperty(nameof(FormViewModel.Dialog)).SetValue(viewModel, dialogService.Object);
             viewModel.GetType().GetProperty(nameof(FormViewModel.Navigations)).SetValue(viewModel, navigationService.Object);
@@ -44,6 +47,14 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
                where TResult : new()
         {
             return new Result<TResult>(dataProvider.Setup(exp));
+        }
+
+        protected Result<TResult> The<TResult>(Expression<Func<TProvider, Task<IEnumerable<TResult>>>> exp)
+          where TResult : new()
+        {
+            var result = new Result<TResult>(dataProvider.Setup(exp));
+            _result = result;
+            return result;
         }
 
         protected Result<TestDto> The(Expression<Func<TProvider, IEnumerable<TransferObjectBase>>> exp)
@@ -83,13 +94,42 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
             RunCommand("DeleteCommand");
         }
 
+        protected Asserter<T> MakeSure<T>(Expression<Func<TEditor, T>> exp)
+        {
+            Func<T> valueRetreiverFunc = () => exp.Compile()(viewModel);
+            return new Asserter<T>(valueRetreiverFunc, _result);
+        }
+
         private void RunCommand(string command)
         {
             ((ICommand)viewModel.GetType().GetProperty(command).GetValue(viewModel)).Execute(null);
 
         }
 
-        public class Result<T>
+        public class Asserter<T>
+        {
+            public Asserter(Func<T> actualFunc, ResultBase result)
+            {
+                _actualFunc = actualFunc;
+                _result = result;
+            }
+
+            private readonly Func<T> _actualFunc;
+            private readonly ResultBase _result;
+
+            public void Is<TVal>(TVal value)
+            {
+                _result?.Task?.Wait();
+                Assert.AreEqual(value, _actualFunc());
+            }
+        }
+
+        public abstract class ResultBase
+        {
+            public Task Task { get; protected set; }
+        }
+
+        public class Result<T> : ResultBase
           where T : new()
         {
             public Result(ISetup<TProvider, IEnumerable<T>> setup)
@@ -102,13 +142,27 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
                 _dtoSetup = setup;
             }
 
+            public Result(ISetup<TProvider, Task<IEnumerable<T>>> setup)
+            {
+                _taskSetup = setup;
+            }
+
             private ISetup<TProvider, IEnumerable<T>> _generalSetup;
+            private ISetup<TProvider, Task<IEnumerable<T>>> _taskSetup;
             private ISetup<TProvider, IEnumerable<TransferObjectBase>> _dtoSetup;
 
             public void ReturnsCollection()
             {
-                _generalSetup.Returns(Enumerable.Repeat(new T(), 2));
-
+                if (_generalSetup != null)
+                    _generalSetup.Returns(Enumerable.Repeat(new T(), 2));
+                else if (_taskSetup != null)
+                {
+                    Task = Task.Factory.StartNew(() =>
+                    {
+                        return Enumerable.Repeat(new T(), 2);
+                    });
+                    _taskSetup.Returns((Task<IEnumerable<T>>)Task);
+                }
             }
 
             public void ReturnsCollection<TDto>()

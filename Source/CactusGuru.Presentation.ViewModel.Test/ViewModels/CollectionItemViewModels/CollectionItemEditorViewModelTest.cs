@@ -2,7 +2,6 @@
 using CactusGuru.Presentation.ViewModel.Test.Framework;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Linq;
 
 namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewModels
 {
@@ -21,7 +20,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
 
             Load();
 
-            Assert.AreEqual(2, viewModel.Taxa.Count);
+            MakeSure(x => x.Taxa.Count).Is(2);
         }
 
         [TestMethod]
@@ -31,7 +30,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
 
             Load();
 
-            Assert.AreEqual(2, viewModel.Collectors.Count);
+            MakeSure(vm => vm.Collectors.Count).Is(2);
         }
 
         [TestMethod]
@@ -41,7 +40,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
 
             Load();
 
-            Assert.AreEqual(2, viewModel.Suppliers.Count);
+            MakeSure(vm => vm.Suppliers.Count).Is(2);
         }
 
         [TestMethod]
@@ -51,7 +50,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
 
             Load();
 
-            Assert.AreEqual(2, viewModel.IncomeTypes.Count());
+            MakeSure(vm => vm.IncomeTypes.Count).Is(2);
         }
     }
 }

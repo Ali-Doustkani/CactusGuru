@@ -29,10 +29,10 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.ImageGallery
         {
             var id = Guid.NewGuid();
             _dataProvider.Setup(x => x.GetCollectionItem(id)).Returns(new CollectionItemDto { Id = id });
-            _dataProvider.Setup(x => x.GetThumbnailsOf(id, It.IsAny<Action<ImageDto>>())).Callback((Guid imageId, Action<ImageDto> callback) =>
+            _dataProvider.Setup(x => x.GetThumbnailsOfAsync(id, It.IsAny<IProgress<ImageDto>>())).Callback((Guid imageId, IProgress<ImageDto> progress) =>
             {
-                callback(new ImageDto { Id = imageId });
-                callback(new ImageDto { Id = imageId });
+                progress.Report(new ImageDto { Id = imageId });
+                progress.Report(new ImageDto { Id = imageId });
             });
 
             _viewModel.Load(id);
