@@ -15,7 +15,7 @@
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml" />
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Window.Resources>
@@ -47,11 +47,7 @@
                     Background="LightGray"
                     Margin="10 0" />
             <controls:PopupMainMenu VerticalAlignment="Center"
-                                        MenuItemCommand="{Binding MenuItemCommand}"/>
-            <TextBlock Style="{StaticResource LabelFontStyle}"
-                       Foreground="LightGray"
-                       VerticalAlignment="Center"
-                       Margin="5 0">منوی اصلی:</TextBlock>
+                                    MenuItemCommand="{Binding MenuItemCommand}"/>
         </StackPanel>
         <Frame Name="navFrame" Grid.Row="1" NavigationUIVisibility="Hidden"/>
     </Grid>

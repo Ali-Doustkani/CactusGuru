@@ -9,7 +9,6 @@
     <BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
     <!-- Page -->
     <Style TargetType="{x:Type controls:Page}">
-        <Setter Property="FlowDirection" Value="RightToLeft"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type controls:Page}">

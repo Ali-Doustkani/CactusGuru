@@ -5,7 +5,7 @@
     <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml" />
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml" />
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="controls:SimpleButton">
                 <Setter Property="OnOverBackground" Value="#1b1b1b"/>
@@ -23,35 +23,40 @@
     <Grid Width="320" Height="320" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 50 0 0">
         <Canvas>
             <controls:SimpleButton Command="{Binding CollectionListCommand}">
-                <StackPanel>
-                    <TextBlock Style="{StaticResource LabelFontStyle}"
-                           Width="{Binding ElementName=lblItemsCount, Path=Width}">تعداد اقلام:</TextBlock>
-                    <TextBlock Name="lblItemsCount"
-                           FontSize="55"
-                           VerticalAlignment="Top"
-                           Text="{Binding ItemsCount, StringFormat='{}D4'}"
-                           FontWeight="Bold"
-                           Foreground="#17bebb"
-                           LineStackingStrategy="BlockLineHeight"
-                           LineHeight="52" />
-                </StackPanel>
+                <Canvas Width="130" Height="130">
+                    <TextBlock Canvas.Top="25"
+                               FontSize="55"
+                               Text="{Binding ItemsCount, StringFormat='{}D4'}"
+                               FontWeight="Bold"
+                               Foreground="#17bebb"/>
+                    <TextBlock Canvas.Top="85"
+                               Canvas.Left="83"
+                               Foreground="LightGray"
+                               HorizontalAlignment="Right">PLANTS</TextBlock>
+                </Canvas>
             </controls:SimpleButton>
             <controls:SimpleButton Canvas.Left="160" Command="{Binding ImageListCommand}">
-                <TextBlock FontFamily="/CactusGuru.Presentation.View;component/Resources/Fonts/#B Titr"
-                       FontSize="50"
-                       Foreground="#e7c951">گالری
-                </TextBlock>
+                <Canvas Width="130" Height="130">
+                    <TextBlock Canvas.Top="0"
+                               FontWeight="Bold"
+                               FontSize="70"
+                               Foreground="#e7c951">ALL</TextBlock>
+                    <TextBlock Canvas.Top="67"
+                               FontWeight="Bold"
+                               FontSize="31"
+                               Foreground="#e7c951">PHOTOS</TextBlock>
+                </Canvas>
             </controls:SimpleButton>
             <controls:SimpleButton Canvas.Top="160" Command="{Binding PrintCommand}">
                 <StackPanel>
                     <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/FirstPage/print_64.png" Width="64" Height="64"/>
-                    <TextBlock Foreground="#e5572f">چاپ برچسب</TextBlock>
+                    <TextBlock Foreground="#e5572f">Label Print</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>
             <controls:SimpleButton Canvas.Left="160" Canvas.Top="160" Command="{Binding CollectionItemCommand}">
                 <StackPanel>
                     <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/FirstPage/plant.png" Width="32" Height="64"/>
-                    <TextBlock Foreground="#92d14f" Margin="0 5 0 0">درج گیاه</TextBlock>
+                    <TextBlock Foreground="#92d14f" Margin="0 5 0 0">Add Plant</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>
             <Border Canvas.Top="320" Background="LightGray" Height="3" Width="310"/>
