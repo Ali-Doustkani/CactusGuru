@@ -14,10 +14,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public CollectionItemListViewModel(ICollectionItemListViewProvider viewProvider)
         {
             _viewProvider = viewProvider;
-            GotoImageGallaryCommand = new RelayCommand(() => Navigations.GotoCollectionItemImageGallary(SelectedCollectionItem.InnerObject.Id), CanGotoImageGallery);
-            EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItem(SelectedCollectionItem.InnerObject.Id));
-            DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem);
-            CopyNameCommand = new RelayCommand(CopyNameToClipboard);
+            GotoImageGallaryCommand = new RelayCommand(() => Navigations.GotoCollectionItemImageGallary(SelectedCollectionItem.InnerObject.Id), IsItemSelected);
+            EditCurrentCollectionItemCommand = new RelayCommand(() => Navigations.GotoCollectionItem(SelectedCollectionItem.InnerObject.Id), IsItemSelected);
+            DeleteCurrentCollectionItemCommand = new RelayCommand(DeleteCurrentCollectionItem, IsItemSelected);
+            CopyNameCommand = new RelayCommand(CopyNameToClipboard, IsItemSelected);
             SortCommand = new RelayCommand(Sort);
         }
 
@@ -76,7 +76,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
             Clipboard.SetText(SelectedCollectionItem.Name);
         }
 
-        private bool CanGotoImageGallery()
+        private bool IsItemSelected()
         {
             return SelectedCollectionItem != null;
         }

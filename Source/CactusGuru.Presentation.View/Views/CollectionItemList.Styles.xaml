@@ -6,7 +6,18 @@
         <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
     </ResourceDictionary.MergedDictionaries>
     <converters:StringVisibilityConverter x:Key="stringVisConverter"/>
-    <Style TargetType="controls:SimpleButton">
+    <!-- Context Menu Images -->
+    <ImageSource x:Key="CopyImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/copy_20.png</ImageSource>
+    <ImageSource x:Key="EditImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png</ImageSource>
+    <ImageSource x:Key="DeleteImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/delete_24.png</ImageSource>
+    <!-- ToolBar -->
+    <Style x:Key="ToolbarButton" TargetType="controls:SimpleButton">
+        <Setter Property="Margin" Value="3 0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="#eeeeee"/>
+    </Style>
+    <!-- ListBox -->
+    <Style x:Key="ContextMenuButton" TargetType="controls:SimpleButton">
         <Setter Property="Padding" Value="10"/>
         <Setter Property="Margin" Value="1"/>
         <Setter Property="Background" Value="#f0f8fd"/>
@@ -49,25 +60,25 @@
                                         <RowDefinition/>
                                         <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <controls:SimpleButton Command="{Binding CopyNameCommand}" Height="60">
+                                    <controls:SimpleButton Style="{StaticResource ContextMenuButton}" Command="{Binding CopyNameCommand}" Height="60">
                                         <StackPanel>
-                                            <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/copy_20.png" Width="20" Height="20"/>
+                                            <Image Source="{StaticResource CopyImage}" Width="20" Height="20"/>
                                             <TextBlock>کپی</TextBlock>
                                         </StackPanel>
                                     </controls:SimpleButton>
-                                    <controls:SimpleButton Grid.Column="1" Command="{Binding EditCurrentCollectionItemCommand}" Height="60">
+                                    <controls:SimpleButton Grid.Column="1" Style="{StaticResource ContextMenuButton}" Command="{Binding EditCurrentCollectionItemCommand}" Height="60">
                                         <StackPanel>
-                                            <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png" Stretch="None"/>
+                                            <Image Source="{StaticResource EditImage}" Stretch="None"/>
                                             <TextBlock>ویرایش</TextBlock>
                                         </StackPanel>
                                     </controls:SimpleButton>
-                                    <controls:SimpleButton Grid.Row="1" Grid.ColumnSpan="2" Height="40" Command="{Binding DeleteCurrentCollectionItemCommand}">
+                                    <controls:SimpleButton Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource ContextMenuButton}" Height="40" Command="{Binding DeleteCurrentCollectionItemCommand}">
                                         <StackPanel Orientation="Horizontal">
                                             <TextBlock VerticalAlignment="Center">حذف</TextBlock>
-                                            <Image VerticalAlignment="Center" Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/delete_24.png" Width="24" Height="24"/>
+                                            <Image VerticalAlignment="Center" Source="{StaticResource DeleteImage}" Width="24" Height="24"/>
                                         </StackPanel>
                                     </controls:SimpleButton>
-                                    <controls:SimpleButton Grid.Row="2" Grid.ColumnSpan="2" Height="40" Command="{Binding GotoImageGallaryCommand}">گالری</controls:SimpleButton>
+                                    <controls:SimpleButton Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource ContextMenuButton}" Height="40" Command="{Binding GotoImageGallaryCommand}">گالری</controls:SimpleButton>
                                 </Grid>
                             </Border>
                         </ControlTemplate>
@@ -77,4 +88,18 @@
         </Setter>
     </Style>
     <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}"/>
+    <!-- Border (Separator) -->
+    <Style TargetType="Border">
+        <Setter Property="Margin" Value="10 4"/>
+        <Setter Property="Background" Value="LightGray"/>
+        <Setter Property="Width" Value="1"/>
+        <Setter Property="SnapsToDevicePixels" Value="True"/>
+    </Style>
+    <!-- ToggleButton -->
+    <Style x:Key="SortToggle" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+        <Setter Property="Margin" Value="3 0"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="#3b4a61"/>
+        <Setter Property="Command" Value="{Binding SortCommand}"/>
+    </Style>
 </ResourceDictionary>

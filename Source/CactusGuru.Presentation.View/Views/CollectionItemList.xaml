@@ -18,19 +18,36 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
-            <controls:NullTextBox NullText="Search in Taxa" Text="{Binding CollectionItems.FilterText, UpdateSourceTrigger=PropertyChanged, Delay=400}" Margin="5" Padding="3" Width="250"/>
-            <TextBlock VerticalAlignment="Center" FlowDirection="RightToLeft">جست و جو:</TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
+            <controls:NullTextBox NullText="Search in Taxa" Text="{Binding CollectionItems.FilterText, UpdateSourceTrigger=PropertyChanged, Delay=400}" VerticalContentAlignment="Center" Width="250"/>
+            <Border/>
+            <TextBlock VerticalAlignment="Center" Foreground="Gray" Margin="0 0 5 0">Sort By</TextBlock>
+            <ToggleButton Style="{StaticResource SortToggle}" IsChecked="{Binding SortOnGenus}" CommandParameter="Genus">Genus Title</ToggleButton>
+            <ToggleButton Style="{StaticResource SortToggle}" IsChecked="{Binding SortOnCode}" CommandParameter="Code">Code</ToggleButton>
+            <Border/>
+            <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding CopyNameCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource CopyImage}" Width="20" Height="20"/>
+                    <TextBlock Margin="3 0 0 0">Copy</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
+            <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding EditCurrentCollectionItemCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource EditImage}" Width="20" Height="20"/>
+                    <TextBlock Margin="3 0 0 0">Edit</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
+            <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding DeleteCurrentCollectionItemCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="{StaticResource DeleteImage}" Width="20" Height="20"/>
+                    <TextBlock Margin="3 0 0 0">Delete</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
+            <Border/>
+            <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding GotoImageGallaryCommand}">
+                <TextBlock>Photos</TextBlock>
+            </controls:SimpleButton>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Right">
-            <ToggleButton Background="#3b4a61" Margin="5 5 0 5" IsChecked="{Binding SortOnGenus}" Command="{Binding SortCommand}" CommandParameter="Genus">نام گونه</ToggleButton>
-            <ToggleButton Background="#3b4a61" Margin="5 5 0 5" IsChecked="{Binding SortOnCode}" Command="{Binding SortCommand}" CommandParameter="Code">کد</ToggleButton>
-            <TextBlock Margin="5 0 10 0" VerticalAlignment="Center" FlowDirection="RightToLeft">مرتب سازی لیست:</TextBlock>
-        </StackPanel>
-        <ListBox Grid.Row="1" Grid.ColumnSpan="2" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}"/>
+        <ListBox Grid.Row="1" ItemsSource="{Binding CollectionItems}" SelectedItem="{Binding SelectedCollectionItem}"/>
     </Grid>
 </controls:Page>
