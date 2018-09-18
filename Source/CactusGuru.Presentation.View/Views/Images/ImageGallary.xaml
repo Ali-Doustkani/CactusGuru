@@ -19,7 +19,6 @@
         <ImageSource x:Key="Delete">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/delete_24.png</ImageSource>
         <ImageSource x:Key="Cancel">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/cancel_24.png</ImageSource>
         <ImageSource x:Key="Save">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/save_24.png</ImageSource>
-        <ImageSource x:Key="Select">/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageGallery/select_24.png</ImageSource>
         <!-- Label Styles -->
         <Style x:Key="LabelStyleBase">
             <Setter Property="Control.Margin" Value="5 0" />
