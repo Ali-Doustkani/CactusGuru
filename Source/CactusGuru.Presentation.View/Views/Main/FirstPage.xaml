@@ -1,12 +1,9 @@
 ﻿<controls:Page x:Class="CactusGuru.Presentation.View.Views.FirstPage"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
+               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+               xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views">
     <controls:Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml" />
-            </ResourceDictionary.MergedDictionaries>
             <Style TargetType="controls:SimpleButton">
                 <Setter Property="OnOverBackground" Value="#1b1b1b"/>
                 <Setter Property="Background" Value="#000000" />
@@ -15,10 +12,13 @@
                 <Setter Property="Width" Value="150" />
                 <Setter Property="Height" Value="150" />
             </Style>
-        </ResourceDictionary>
     </controls:Page.Resources>
     <controls:Page.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="FirstPageViewModel" />
+        <Binding Path="FirstPageViewModel">
+            <Binding.Source>
+                <views:ViewModelLocator/>
+            </Binding.Source>
+        </Binding>
     </controls:Page.DataContext>
     <Grid Width="320" Height="320" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0 50 0 0">
         <Canvas>

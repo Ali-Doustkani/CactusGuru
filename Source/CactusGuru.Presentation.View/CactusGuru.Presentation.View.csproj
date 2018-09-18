@@ -57,6 +57,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Views\ResourceLocator.cs" />
     <Compile Include="Tools\Controls\Loader.xaml.cs">
       <DependentUpon>Loader.xaml</DependentUpon>
     </Compile>
@@ -148,6 +149,14 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="Resources\DataEntries.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Resources\Lists.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Tools\Controls\ErrorBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -177,11 +186,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\CollectionItemList.Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>CollectionItemList.xaml</DependentUpon>
-    </Page>
     <Page Include="Views\DataEntries\BaseEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -202,10 +206,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\DataEntries\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Views\DataEntries\SupplierEditor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -214,23 +214,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\Images\ImageGallary.Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>ImageGallary.xaml</DependentUpon>
-    </Page>
-    <Page Include="Views\Images\ImageList.Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>ImageList.xaml</DependentUpon>
-    </Page>
     <Page Include="Views\Main\FirstPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Images\Styles.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\Images\ImageGallary.xaml">
       <SubType>Designer</SubType>
@@ -243,11 +229,6 @@
     <Page Include="Views\Images\ImageList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\LabelPrint.Styles.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-      <DependentUpon>LabelPrint.xaml</DependentUpon>
     </Page>
     <Page Include="Views\LabelPrint.xaml">
       <SubType>Designer</SubType>

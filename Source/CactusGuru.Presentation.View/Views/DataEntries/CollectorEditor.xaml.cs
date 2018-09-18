@@ -4,6 +4,7 @@
     {
         public CollectorEditor()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.DataEntires);
             InitializeComponent();
         }
     }

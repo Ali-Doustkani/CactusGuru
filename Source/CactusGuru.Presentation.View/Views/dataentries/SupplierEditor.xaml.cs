@@ -4,6 +4,7 @@
     {
         public SupplierEditor()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.DataEntires);
             InitializeComponent();
         }
     }

@@ -2,10 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
                     xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
-    
+   
     <Style TargetType="RowDefinition">
         <Setter Property="Height" Value="auto"/>
     </Style>
@@ -22,7 +19,7 @@
         <Setter Property="Control.Margin" Value="0 2" />
         <Setter Property="Control.IsEnabled" Value="{Binding State.IsNotView}" />
         <Setter Property="attch:FocusHandler.TraverseOnEnter" Value="True" />
-        <Setter Property="TextBox.Padding" Value="3"/>  
+        <Setter Property="TextBox.Padding" Value="3"/>
         <Setter Property="Validation.ErrorTemplate">
             <Setter.Value>
                 <ControlTemplate>

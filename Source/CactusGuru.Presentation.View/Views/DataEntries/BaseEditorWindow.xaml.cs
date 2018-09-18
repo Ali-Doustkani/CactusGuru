@@ -6,6 +6,7 @@ namespace CactusGuru.Presentation.View.Views
     {
         public BaseEditorWindow()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.General);
             InitializeComponent();
         }
 

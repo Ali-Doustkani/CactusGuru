@@ -4,25 +4,16 @@
              xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
              IsEnabled="{Binding State.IsView}">
     <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
-                <Setter Property="ItemsSource" Value="{Binding ItemSource}" />
-                <Setter Property="SelectedItem" Value="{Binding WorkingItem, Mode=TwoWay}" />
-            </Style>
-            <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
-                <Setter Property="Padding" Value="5 3"/>
-            </Style>
-            <Style TargetType="TextBox">
-                <Setter Property="Margin" Value="0 2" />
-                <Setter Property="Padding" Value="3" />
-                <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}" />
-                <Setter Property="Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
-                <Setter Property="IsEnabled" Value="True"/>
-            </Style>
-        </ResourceDictionary>
+        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
+            <Setter Property="Padding" Value="5 3"/>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Margin" Value="0 2" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}" />
+            <Setter Property="Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+            <Setter Property="IsEnabled" Value="True"/>
+        </Style>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -37,6 +28,8 @@
         </TextBox>
         <ListBox Name="listbox"
                  Grid.Row="1"
+                 ItemsSource="{Binding ItemSource}"
+                 SelectedItem="{Binding WorkingItem, Mode=TwoWay}"
                  SelectionChanged="SelectionChanged"
                  PreviewMouseLeftButtonUp="Click"
                  IsTabStop="False">

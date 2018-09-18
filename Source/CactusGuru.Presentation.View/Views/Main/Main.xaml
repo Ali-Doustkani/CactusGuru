@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
         xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
+        xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
         attch:Events.BindLoadEvents="True"
         Title="Cactus Guru"
         Height="650"
@@ -12,15 +13,12 @@
         SnapsToDevicePixels="True"
         UseLayoutRounding="True"
         WindowStartupLocation="CenterScreen">
-    <Window.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Generic.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Window.Resources>
     <Window.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="MainViewModel" />
+        <Binding Path="MainViewModel">
+            <Binding.Source>
+                <views:ViewModelLocator/>
+            </Binding.Source>
+        </Binding>
     </Window.DataContext>
     <Grid>
         <Grid.RowDefinitions>

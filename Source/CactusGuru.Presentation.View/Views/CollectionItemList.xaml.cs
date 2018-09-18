@@ -4,6 +4,8 @@
     {
         public CollectionItemList()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.General);
+            Resources.MergedDictionaries.Add(ResourceLocator.Lists);
             InitializeComponent();
         }
     }

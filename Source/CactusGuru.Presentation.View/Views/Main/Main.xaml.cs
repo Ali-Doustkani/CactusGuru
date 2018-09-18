@@ -4,6 +4,7 @@
     {
         public Main()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.General);
             InitializeComponent();
         }
     }

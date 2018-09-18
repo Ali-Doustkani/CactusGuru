@@ -4,6 +4,7 @@
     {
         public TaxonEditor()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.DataEntires);
             InitializeComponent();
         }
     }

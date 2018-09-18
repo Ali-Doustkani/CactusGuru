@@ -5,7 +5,6 @@
     xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
     xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views">
     <!-- Fields -->
-    <views:ViewModelLocator x:Key="vmLocator" />
     <BooleanToVisibilityConverter x:Key="boolToVisConverter"/>
     <!-- Page -->
     <Style TargetType="{x:Type controls:Page}">
@@ -113,32 +112,15 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <!-- ListBox -->
-    <Style x:Key="ListBoxStyle" TargetType="ListBox">
-        <Setter Property="AlternationCount" Value="2"/>
-    </Style>
-    <Style x:Key="ListBoxItemStyle" TargetType="ListBoxItem">
-        <Setter Property="BorderThickness" Value="0"/>
-        <Style.Triggers>
-            <Trigger Property="ListBox.AlternationIndex" Value="1">
-                <Setter Property="Background" Value="#f0f8fd"/>
-            </Trigger>
-            <MultiTrigger>
-                <MultiTrigger.Conditions>
-                    <Condition Property="ListBox.AlternationIndex" Value="1"/>
-                    <Condition Property="IsEnabled" Value="False"/>
-                </MultiTrigger.Conditions>
-                <Setter Property="Background" Value="#f4f4f4"/>
-            </MultiTrigger>
-        </Style.Triggers>
-    </Style>
     <!-- ToolBar -->
     <Style TargetType="{x:Type ToolBar}">
         <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="Margin" Value="0 0 0 10"/>
+        <Setter Property="Margin" Value="10 0 10 10"/>
         <Setter Property="IsOverflowOpen" Value="False"/>
         <Setter Property="ToolBarTray.IsLocked" Value="True"/>
         <Setter Property="utils:Toolbars.HideGrip" Value="True"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
     </Style>
     <!-- NullTextBox -->
     <Style TargetType="{x:Type controls:NullTextBox}">

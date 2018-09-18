@@ -1,16 +1,101 @@
 ﻿<controls:Page x:Class="CactusGuru.Presentation.View.Views.CollectionItemList"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
+               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
+               xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
+               xmlns:converters="clr-namespace:CactusGuru.Presentation.View.Tools.Converters">
     <controls:Page.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="CollectionItemList.Styles.xaml"/>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
+        <converters:StringVisibilityConverter x:Key="stringVisConverter"/>
+        <!-- Context Menu Images -->
+        <ImageSource x:Key="CopyImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/copy_20.png</ImageSource>
+        <ImageSource x:Key="EditImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png</ImageSource>
+        <ImageSource x:Key="DeleteImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/delete_24.png</ImageSource>
+        <!-- ListBox -->
+        <Style x:Key="ContextMenuButton" TargetType="controls:SimpleButton">
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Margin" Value="1"/>
+            <Setter Property="Background" Value="#f0f8fd"/>
+            <Setter Property="OnOverBackground" Value="White"/>
+        </Style>
+        <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
+            <Setter Property="BorderThickness" Value="0 1 0 0"/>
+            <Setter Property="ItemTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Grid Height="35">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="40"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.RowSpan="2" Text="{Binding Code}" FontSize="14" VerticalAlignment="Center" FontWeight="Bold" Margin="0 0 8 0"/>
+                            <TextBlock Grid.Column="1" Text="{Binding Name}" FontSize="13" FontWeight="Bold" VerticalAlignment="Center"/>
+                            <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Info}" Visibility="{Binding Info, Converter={StaticResource stringVisConverter}}" FontSize="11"/>
+                        </Grid>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="ContextMenu">
+                <Setter.Value>
+                    <ContextMenu>
+                        <ContextMenu.Template>
+                            <ControlTemplate>
+                                <Border Padding="1" Background="#cde7f8" Width="130">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition/>
+                                            <ColumnDefinition/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                            <RowDefinition/>
+                                        </Grid.RowDefinitions>
+                                        <controls:SimpleButton Style="{StaticResource ContextMenuButton}" Command="{Binding CopyNameCommand}" Height="60">
+                                            <StackPanel>
+                                                <Image Source="{StaticResource CopyImage}" Width="20" Height="20"/>
+                                                <TextBlock>کپی</TextBlock>
+                                            </StackPanel>
+                                        </controls:SimpleButton>
+                                        <controls:SimpleButton Grid.Column="1" Style="{StaticResource ContextMenuButton}" Command="{Binding EditCurrentCollectionItemCommand}" Height="60">
+                                            <StackPanel>
+                                                <Image Source="{StaticResource EditImage}" Stretch="None"/>
+                                                <TextBlock>ویرایش</TextBlock>
+                                            </StackPanel>
+                                        </controls:SimpleButton>
+                                        <controls:SimpleButton Grid.Row="1" Grid.ColumnSpan="2" Style="{StaticResource ContextMenuButton}" Height="40" Command="{Binding DeleteCurrentCollectionItemCommand}">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock VerticalAlignment="Center">حذف</TextBlock>
+                                                <Image VerticalAlignment="Center" Source="{StaticResource DeleteImage}" Width="24" Height="24"/>
+                                            </StackPanel>
+                                        </controls:SimpleButton>
+                                        <controls:SimpleButton Grid.Row="2" Grid.ColumnSpan="2" Style="{StaticResource ContextMenuButton}" Height="40" Command="{Binding GotoImageGallaryCommand}">گالری</controls:SimpleButton>
+                                    </Grid>
+                                </Border>
+                            </ControlTemplate>
+                        </ContextMenu.Template>
+                    </ContextMenu>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}"/>
+        <!-- ToggleButton -->
+        <Style x:Key="SortToggle" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
+            <Setter Property="Margin" Value="3 0"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Background" Value="#3b4a61"/>
+            <Setter Property="Command" Value="{Binding SortCommand}"/>
+        </Style>
     </controls:Page.Resources>
     <controls:Page.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="CollectionItemListViewModel" />
+        <Binding Path="CollectionItemListViewModel" >
+            <Binding.Source>
+                <views:ViewModelLocator/>
+            </Binding.Source>
+        </Binding>
     </controls:Page.DataContext>
     <Grid>
         <Grid.RowDefinitions>

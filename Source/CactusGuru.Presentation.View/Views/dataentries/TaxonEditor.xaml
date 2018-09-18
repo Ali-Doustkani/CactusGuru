@@ -3,17 +3,15 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
       xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
+      xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
       Validation.ErrorTemplate="{x:Null}"
       Tag="Taxa">
-    <Grid.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="Styles.xaml" />
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </Grid.Resources>
     <Grid.DataContext>
-        <Binding Source="{StaticResource vmLocator}" Path="TaxonEditorViewModel" />
+        <Binding Path="TaxonEditorViewModel">
+            <Binding.Source>
+                <views:ViewModelLocator/>
+            </Binding.Source>
+        </Binding>
     </Grid.DataContext>
     <Grid.RowDefinitions>
         <RowDefinition Height="auto"/>

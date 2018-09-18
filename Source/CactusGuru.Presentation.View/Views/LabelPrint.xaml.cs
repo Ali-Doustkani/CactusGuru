@@ -7,23 +7,14 @@ namespace CactusGuru.Presentation.View.Views
     {
         public LabelPrint()
         {
+            Resources.MergedDictionaries.Add(ResourceLocator.General);
+            Resources.MergedDictionaries.Add(ResourceLocator.Lists);
             InitializeComponent();
         }
 
-        private void MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        private void ItemMouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            ViewModel().AddToPrintCommand.Execute(null);
-        }
-
-        private void GridControl_PreviewKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.Key == Key.Delete && ViewModel() != null)
-                ViewModel().DeleteCurrentPrintItemCommand.Execute(null);
-        }
-
-        private LabelPrintEditorViewModel ViewModel()
-        {
-            return DataContext as LabelPrintEditorViewModel;
+            ((LabelPrintEditorViewModel)DataContext).AddToPrintCommand.Execute(null);
         }
 
         private void FocusOnSearchBox(object sender, System.EventArgs e)
