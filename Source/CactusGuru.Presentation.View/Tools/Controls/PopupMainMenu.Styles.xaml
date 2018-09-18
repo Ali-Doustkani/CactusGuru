@@ -61,7 +61,7 @@
                             <RowDefinition/>
                             <RowDefinition Height="1"/>
                         </Grid.RowDefinitions>
-                        <Image Source="{TemplateBinding Tag, Converter={StaticResource imageConverter}}" HorizontalAlignment="Right"/>
+                        <Image Source="{TemplateBinding Tag, Converter={StaticResource imageConverter}}" HorizontalAlignment="Left"/>
                         <ContentPresenter Grid.Row="1" Margin="10 0 10 30"/>
                         <Border Grid.Row="2" Background="LightGray" Opacity="0.5"/>
                     </Grid>
@@ -76,9 +76,6 @@
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
-    </Style>
-    <Style TargetType="WrapPanel">
-        <Setter Property="FlowDirection" Value="RightToLeft"/>
     </Style>
     <Style TargetType="controls:SimpleButton">
         <Setter Property="Padding" Value="5" />

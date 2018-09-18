@@ -24,25 +24,25 @@
                     <!-- Definitions -->
                     <ContentControl Tag="/CactusGuru.Presentation.View;component/Resources/Images/DefinitionHeader.png">
                         <WrapPanel>
-                            <controls:SimpleButton Content="جنس ها" CommandParameter="Genus" />
-                            <controls:SimpleButton Content="تاکسون ها" CommandParameter="Taxon" />
+                            <controls:SimpleButton Content="Genera" CommandParameter="Genus" />
+                            <controls:SimpleButton Content="Taxa" CommandParameter="Taxon" />
                         </WrapPanel>
                     </ContentControl>
                     <!-- Collection -->
                     <ContentControl Grid.Row="1" Tag="/CactusGuru.Presentation.View;component/Resources/Images/CollectionHeader.png">
                         <WrapPanel>
-                            <controls:SimpleButton Content="ثبت گیاه جدید به مجموعه" CommandParameter="CollectionItem"/>
-                            <controls:SimpleButton Content="چاپ برچسب" CommandParameter="PrintLabel" />
-                            <controls:SimpleButton Content="کشت بذر" IsEnabled="False" />
-                            <controls:SimpleButton Content="گالری تصاویر" CommandParameter="Gallary" />
+                            <controls:SimpleButton Content="Add a Plant" CommandParameter="CollectionItem"/>
+                            <controls:SimpleButton Content="Label Print" CommandParameter="PrintLabel" />
+                            <controls:SimpleButton Content="Seed Cultivation" IsEnabled="False" />
+                            <controls:SimpleButton Content="Photos" CommandParameter="Gallary" />
                         </WrapPanel>
                     </ContentControl>
                     <!-- People -->
                     <ContentControl Grid.Row="2" Tag="/CactusGuru.Presentation.View;component/Resources/Images/PeopleHeader.png">
                         <WrapPanel>
-                            <controls:SimpleButton Content="تامین کنندگان" CommandParameter="Supplier" />
-                            <controls:SimpleButton Content="کلکتورها" CommandParameter="Collector" />
-                            <controls:SimpleButton Content="مشتری ها" IsEnabled="False" />
+                            <controls:SimpleButton Content="Suppliers" CommandParameter="Supplier" />
+                            <controls:SimpleButton Content="Collectors" CommandParameter="Collector" />
+                            <controls:SimpleButton Content="Customers" IsEnabled="False" />
                         </WrapPanel>
                     </ContentControl>
                 </Grid>

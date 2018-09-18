@@ -267,7 +267,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\CollectionHeader.png" />
-    <Resource Include="Resources\Images\DefinitionHeader.png" />
     <Resource Include="Resources\Images\PeopleHeader.png" />
   </ItemGroup>
   <ItemGroup>
@@ -326,6 +325,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Icon\Print\arrow_24.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\DefinitionHeader.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
