@@ -48,24 +48,13 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
                 _selectedPage = value;
                 CollectionItems.ClearFilterText();
                 Taxa.ClearFilterText();
-                OnPropertyChanged(nameof(SourceFilterNullText));
                 OnPropertyChanged(nameof(SourceFilterText));
             }
         }
 
         public string LabelCount
         {
-            get { return $"تعداد برچسب: {PrintItems.Sum(x => x.Count)}"; }
-        }
-
-        public string SourceFilterNullText
-        {
-            get
-            {
-                if (SelectedPage == SelectedTabPage.CollectionItem)
-                    return "جست و جو در اقلام مجموعه";
-                return "جست و جو در تاکسون ها";
-            }
+            get { return $"Count: {PrintItems.Sum(x => x.Count)}"; }
         }
 
         public string SourceFilterText
@@ -161,7 +150,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 
         private void DeleteSelectedPrintItem()
         {
-            if (Dialog.Ask("آیا از حذف آیتم اطمینان دارید؟"))
+            if (Dialog.Ask("Are you sure you want to delete this item?"))
                 PrintItems.Remove(SelectedPrintItem);
         }
 

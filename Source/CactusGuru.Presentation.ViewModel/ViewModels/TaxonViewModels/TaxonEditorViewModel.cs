@@ -110,7 +110,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.TaxonViewModels
         private string Similarity()
         {
             if (_dataProvider.HasSimilar((TaxonDto)WorkingItem.InnerObject))
-                return "تاکسونی با این مشخصات در سیستم موجود است";
+                return "This taxon already exists";
             return null;
         }
 

@@ -75,7 +75,6 @@
     <Compile Include="Qualification\ISpecification.cs" />
     <Compile Include="ObjectCreation\SimpleFactory.cs" />
     <Compile Include="Utils\ArgumentChecker.cs" />
-    <Compile Include="Utils\DateUtil.cs" />
     <Compile Include="Utils\FactoryArgumentChecker.cs" />
     <Compile Include="Utils\StringFormatting.cs" />
   </ItemGroup>

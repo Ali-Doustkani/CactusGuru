@@ -5,8 +5,8 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Validators
 {
     public class CollectionItemImageValidator : ValidatorBase<CollectionItemImage>
     {
-        public const string COLLECTION_ITEM_IS_EMPTY = "انتخاب یکی از اقلام مجموعه اجباری است.";
-        public const string CONTENT_IS_EMPTY = "انتخاب تصویر اجباری است.";
+        public const string COLLECTION_ITEM_IS_EMPTY = "A plant of the collection must be selected.";
+        public const string CONTENT_IS_EMPTY = "Image cannot be empty.";
 
         protected override ErrorCollection ValidateImp(CollectionItemImage image)
         {

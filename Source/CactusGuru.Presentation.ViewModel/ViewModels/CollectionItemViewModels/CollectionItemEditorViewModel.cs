@@ -168,16 +168,16 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels
         private string CodeSimilarity()
         {
             if (_dataProvider.HasSimilarCode(WorkingItem.Code))
-                return "کد تکراری است";
+                return "This code already exists";
             return null;
         }
 
         private string SupplierExistance()
         {
             if (WorkingItem.Supplier.HasValue && string.IsNullOrEmpty(WorkingItem.SupplierCode))
-                return "کد تامین کننده نیز باید مشخص شود";
+                return "Supplier code cannot be empty";
             else if (!WorkingItem.Supplier.HasValue && !string.IsNullOrEmpty(WorkingItem.SupplierCode))
-                return "تامین کننده نیز باید مشخص شود";
+                return "Supplier cannot be empty";
             return null;
         }
     }

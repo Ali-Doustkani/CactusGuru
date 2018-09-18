@@ -4,7 +4,7 @@
       xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
       xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
-      Tag="تاکسون ها">
+      Tag="Taxa">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -30,8 +30,8 @@
         <ColumnDefinition />
         <ColumnDefinition Width="26" />
     </Grid.ColumnDefinitions>
-    <!-- Genera -->
-    <TextBlock Text="جنس" />
+    <!-- Genus -->
+    <TextBlock Text="Genus" />
     <ComboBox Grid.ColumnSpan="1"
               attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
               attch:FocusHandler.AutoOpenDropDown="True"
@@ -40,23 +40,23 @@
               SelectedItem="{Binding Genus}"/>
     <controls:SimpleButton Command="{Binding GotoGeneraCommand}" />
     <!-- Species -->
-    <TextBlock Grid.Row="1" Text="گونه" />
+    <TextBlock Grid.Row="1" Text="Species" />
     <TextBox Grid.Row="1"
              Text="{Binding Species, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Variety -->
-    <TextBlock Grid.Row="2" Text="واریته" />
+    <TextBlock Grid.Row="2" Text="Variety" />
     <TextBox Grid.Row="2"
              Text="{Binding Variety, UpdateSourceTrigger=PropertyChanged}" />
     <!-- SubSpecies -->
-    <TextBlock Grid.Row="3" Text="زیرگونه" />
+    <TextBlock Grid.Row="3" Text="Subspecies" />
     <TextBox Grid.Row="3"
              Text="{Binding SubSpecies, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Forma -->
-    <TextBlock Grid.Row="4" Text="فرم" />
+    <TextBlock Grid.Row="4" Text="Forma" />
     <TextBox Grid.Row="4"
              Text="{Binding Forma, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Cultivar -->
-    <TextBlock Grid.Row="5" Text="کالتیوار" />
+    <TextBlock Grid.Row="5" Text="Cultivar" />
     <TextBox Grid.Row="5"
              Style="{StaticResource LastEntryStyle}"
              Text="{Binding Cultivar, UpdateSourceTrigger=PropertyChanged}" />

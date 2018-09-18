@@ -6,7 +6,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 {
     public partial class Rules
     {
-        public const string EMPTY_ERROR = "این فیلد نمی تواند خالی باشد";
+        public const string EMPTY_ERROR = "Can not be empty";
 
         public Rules(Action<string> eventRaiser)
         {

@@ -137,7 +137,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void Cancel()
         {
-            if (!Dialog.Ask("آیا از لغو عملیات اطمینان دارید؟")) return;
+            if (!Dialog.Ask("Are you sure you want to cancel?")) return;
             if (State.IsEdit)
                 CancelEdit();
             State.ToView();
@@ -173,7 +173,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void AskAndDelete()
         {
-            if (!Dialog.Ask("آیا از حذف تامین کننده ی انتخابی اطمینان دارید؟"))
+            if (!Dialog.Ask("Are you sure you want to delete this item?"))
                 return;
             DeleteImp();
         }

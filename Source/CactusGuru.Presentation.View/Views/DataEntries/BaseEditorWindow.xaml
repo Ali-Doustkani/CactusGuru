@@ -9,8 +9,7 @@
         Height="480"
         Width="420"
         WindowStartupLocation="CenterOwner"
-        ShowInTaskbar="False"
-        FlowDirection="RightToLeft">
+        ShowInTaskbar="False">
     <Window.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -41,23 +40,23 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ToolBar>
-            <controls:SimpleButton Command="{Binding PrepareForAddCommand}" ToolTip="ثبت">
+            <controls:SimpleButton Command="{Binding PrepareForAddCommand}" ToolTip="Add">
                 <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/add_24.png" />
             </controls:SimpleButton>
-            <controls:SimpleButton Command="{Binding PrepareForEditCommand}" ToolTip="ویرایش">
+            <controls:SimpleButton Command="{Binding PrepareForEditCommand}" ToolTip="Edit">
                 <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png"/>
             </controls:SimpleButton>
-            <controls:SimpleButton Command="{Binding DeleteCommand}" ToolTip="حذف" Style="{StaticResource redButtons}">
+            <controls:SimpleButton Command="{Binding DeleteCommand}" ToolTip="Delete" Style="{StaticResource redButtons}">
                 <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/delete_24.png"/>
             </controls:SimpleButton>
             <Separator Margin="5 0"/>
-            <controls:SimpleButton Command="{Binding SaveNewCommand}" ToolTip="ذخیره" Style="{StaticResource greenButtons}">
+            <controls:SimpleButton Command="{Binding SaveNewCommand}" ToolTip="Save" Style="{StaticResource greenButtons}">
                 <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/saveNew_24.png"/>
             </controls:SimpleButton>
-            <controls:SimpleButton Command="{Binding SaveCommand}" ToolTip="ذخیره و جدید" Style="{StaticResource greenButtons}">
+            <controls:SimpleButton Command="{Binding SaveCommand}" ToolTip="Save &amp; Add New" Style="{StaticResource greenButtons}">
                 <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/save_24.png"/>
             </controls:SimpleButton>
-            <controls:SimpleButton Command="{Binding CancelCommand}" ToolTip="لغو" Style="{StaticResource redButtons}">
+            <controls:SimpleButton Command="{Binding CancelCommand}" ToolTip="Cancel" Style="{StaticResource redButtons}">
                 <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/cancel_24.png"/>
             </controls:SimpleButton>
         </ToolBar>

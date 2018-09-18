@@ -16,7 +16,7 @@ namespace CactusGuru.Infrastructure.Qualification
         public Error Satisfy(DomainEntity domainEntity)
         {
             if (_repo.HasSimilar(domainEntity))
-                return new Error($"{_dictionary.Translate(domainEntity.GetType().Name)} تعریف شده تکراری است.");
+                return new Error($"{_dictionary.Translate(domainEntity.GetType().Name)} already exists.");
             return Error.Empty;
         }
     }

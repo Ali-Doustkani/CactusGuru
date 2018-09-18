@@ -59,7 +59,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
             var selectedImages = Images.Where(x => x.IsSelected).Select(x => x.InnerObject);
             _viewProvider.SaveToFiles(selectedImages, dialogResult.Value);
             DeSelectAll();
-            Dialog.Say("ذخیره با موفقیت انجام شد.");
+            Dialog.Say("Saving for Instagram completed successfully!");
         }
     }
 }

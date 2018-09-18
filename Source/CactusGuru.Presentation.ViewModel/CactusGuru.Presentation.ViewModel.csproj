@@ -64,8 +64,7 @@
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Framework\RelayCommand.cs" />
-    <Compile Include="Tools\MonthNameDateFormatter.cs" />
-    <Compile Include="Tools\ObservableCollectionExtensionMethod.cs" />
+    <Compile Include="Framework\ObservableCollectionExtensionMethod.cs" />
     <Compile Include="Framework\BaseViewModel.cs" />
     <Compile Include="ViewModels\CollectionItemListViewModels\CollectionItemListViewModel.cs" />
     <Compile Include="ViewModels\CollectionItemViewModels\CollectionItemEditorViewModel.cs" />

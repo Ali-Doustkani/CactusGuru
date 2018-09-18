@@ -4,7 +4,7 @@
       xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
       xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
-      Tag="گیاه">
+      Tag="Plant">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -35,10 +35,10 @@
         <RowDefinition Height="auto"/>
     </Grid.RowDefinitions>
     <!-- Code -->
-    <TextBlock Text="کد" />
+    <TextBlock Text="Code" />
     <TextBox Text="{Binding Code, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Taxon -->
-    <TextBlock Grid.Row="1" Text="تاکسون" />
+    <TextBlock Grid.Row="1" Text="Taxon" />
     <ComboBox Name="cmbTaxon"
               Grid.Row="1"
               Grid.ColumnSpan="1"
@@ -48,7 +48,7 @@
               SelectedItem="{Binding Taxon}"/>
     <controls:SimpleButton Grid.Row="1" Command="{Binding GotoTaxaCommand}" />
     <!-- Collector -->
-    <TextBlock Grid.Row="2" Text="کلکتور" />
+    <TextBlock Grid.Row="2" Text="Collector" />
     <ComboBox Name="cmbCollector" 
               Grid.Row="2"
               Grid.ColumnSpan="1"
@@ -57,26 +57,26 @@
               SelectedItem="{Binding Collector}" />
     <controls:SimpleButton Grid.Row="2" Command="{Binding GotoCollectorsCommand}" />
     <!-- Field Number -->
-    <TextBlock Grid.Row="3" Text="فیلد" />
+    <TextBlock Grid.Row="3" Text="Field" />
     <TextBox Grid.Row="3"
              Text="{Binding WorkingItem.FieldNumber, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Locality -->
-    <TextBlock Grid.Row="4" Text="منطقه ی زیست" />
+    <TextBlock Grid.Row="4" Text="Locality" />
     <TextBox Grid.Row="4"
              Text="{Binding WorkingItem.Locality, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Income Date -->
-    <TextBlock Grid.Row="5" Text="تاریخ ورود" />
+    <TextBlock Grid.Row="5" Text="Entry Date" />
     <DatePicker Grid.Row="5"
                 SelectedDate="{Binding IncomeDate, UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
     <!-- Income Type -->
-    <TextBlock Grid.Row="6" Text="نوع ورود" />
+    <TextBlock Grid.Row="6" Text="Entry Type" />
     <ComboBox Name="cmbIncomeType"
               Grid.Row="6"
               ItemsSource="{Binding IncomeTypes}"
               SelectedItem="{Binding IncomeType, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Title" />
     <!-- Supplier -->
-    <TextBlock Grid.Row="7" Text="تامین کننده" />
+    <TextBlock Grid.Row="7" Text="Supplier" />
     <ComboBox Name="cmbSupplier"
               Grid.Row="7"
               Grid.ColumnSpan="1"
@@ -85,15 +85,15 @@
               SelectedItem="{Binding Supplier}" />
     <controls:SimpleButton Grid.Row="7" Command="{Binding GotoSuppliersCommand}" />
     <!-- Supplier Code -->
-    <TextBlock Grid.Row="8" Text="کد تامین کننده" />
+    <TextBlock Grid.Row="8" Text="Supplier Code" />
     <TextBox Grid.Row="8"
              Text="{Binding SupplierCode, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Count -->
-    <TextBlock Grid.Row="9" Text="تعداد" />
+    <TextBlock Grid.Row="9" Text="Count" />
     <TextBox Grid.Row="9"
              Text="{Binding WorkingItem.Count, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Description -->
-    <TextBlock Grid.Row="10" Text="توضیحات" />
+    <TextBlock Grid.Row="10" Text="Description" />
     <TextBox Grid.Row="10"
              Text="{Binding WorkingItem.Description, UpdateSourceTrigger=PropertyChanged}"
              Style="{StaticResource LastEntryStyle}"

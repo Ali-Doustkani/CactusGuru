@@ -31,7 +31,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
             if (!items.Any()) return string.Empty;
             foreach (var collectionItem in items)
                 itemTitles.Add( collectionItem.Format("{code} - {GENUS} {taxon}"));
-            return string.Format("تاکسون مورد نظر در تعریف آیتم های ذیل استفاده شده است: {0}{1}",
+            return string.Format("This taxon is used in the following collection items: {0}{1}",
                                  Environment.NewLine,
                                  string.Join(Environment.NewLine, itemTitles));
         }

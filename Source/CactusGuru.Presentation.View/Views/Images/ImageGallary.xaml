@@ -3,10 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
         xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
-        Title="گالری تصاویر"
+        Title="Photos"
         Height="600"
         Width="1030"
-        FlowDirection="RightToLeft"
         WindowStartupLocation="CenterScreen"
         attch:Events.BindLoadEvents="True">
     <Window.Resources>
@@ -25,7 +24,7 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid FlowDirection="LeftToRight">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition />
@@ -46,39 +45,39 @@
             </Grid>
             <!-- Toolbar -->
             <ToolBar Grid.Column="1"  Style="{StaticResource ToolbarStyle}">
-                <controls:SimpleButton ToolTip="ذخیره" Command="{Binding SaveCommand}">
+                <controls:SimpleButton ToolTip="Save" Command="{Binding SaveCommand}">
                     <Image Source="{StaticResource Save}"/>
                 </controls:SimpleButton>
-                <controls:SimpleButton ToolTip="لغو" Command="{Binding CancelCommand}" Style="{StaticResource redButtons}">
+                <controls:SimpleButton ToolTip="Cancel" Command="{Binding CancelCommand}" Style="{StaticResource redButtons}">
                     <Image Source="{StaticResource Cancel}"/>
                 </controls:SimpleButton>
-                <controls:SimpleButton ToolTip="حذف" Command="{Binding DeleteImageCommand}" Style="{StaticResource redButtons}">
+                <controls:SimpleButton ToolTip="Delete" Command="{Binding DeleteImageCommand}" Style="{StaticResource redButtons}">
                     <Image Source="{StaticResource Delete}"/>
                 </controls:SimpleButton>
-                <controls:SimpleButton ToolTip="درج تصویر" Command="{Binding AddImageCommand}">
+                <controls:SimpleButton ToolTip="Add Photo" Command="{Binding AddImageCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource Add}"/>
-                        <TextBlock Margin="5 0 0 0">درج تصویر</TextBlock>
+                        <TextBlock Margin="5 0 0 0">Add Photo</TextBlock>
                     </StackPanel>
                 </controls:SimpleButton>
                 <Separator/>
-                <controls:SimpleButton Command="{Binding SelectAllCommand}">انتخاب</controls:SimpleButton>
-                <controls:SimpleButton Command="{Binding DeSelectAllCommand}">عدم انتخاب</controls:SimpleButton>
-                <controls:SimpleButton ToolTip="پشیمان شدم" Command="{Binding UndoCommand}">
+                <controls:SimpleButton Command="{Binding SelectAllCommand}">Select</controls:SimpleButton>
+                <controls:SimpleButton Command="{Binding DeSelectAllCommand}">Deselect</controls:SimpleButton>
+                <controls:SimpleButton ToolTip="Undo" Command="{Binding UndoCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource Undo}"/>
-                        <TextBlock Margin="5 0 0 0">پشیمان شدم</TextBlock>
+                        <TextBlock Margin="5 0 0 0">Undo</TextBlock>
                     </StackPanel>
                 </controls:SimpleButton>
                 <Separator/>
-                <controls:SimpleButton ToolTip="ذیخره ی فایل" Command="{Binding SaveToFilesCommand}">
+                <controls:SimpleButton ToolTip="Save To File" Command="{Binding SaveToFilesCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource Jpeg}"/>
-                        <TextBlock Margin="5 0 0 0">ذیخره ی فایل</TextBlock>
+                        <TextBlock Margin="5 0 0 0">Save To File</TextBlock>
                     </StackPanel>
                 </controls:SimpleButton>
                 <Separator/>
-                <controls:SimpleButton ToolTip="ذخیره برای اینستاگرام" Command="{Binding SaveForInstagramCommand}">
+                <controls:SimpleButton ToolTip="Save for Instagram" Command="{Binding SaveForInstagramCommand}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="{StaticResource Instagram}"/>
                     </StackPanel>

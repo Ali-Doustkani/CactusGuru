@@ -36,7 +36,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.GenusViewModels
         private string Similarity()
         {
             if (_dataProvider.HasSimilar((GenusDto)WorkingItem.InnerObject))
-                return "مشخصات گونه تکراری است";
+                return "This genus already exists";
             return null;
         }
     }

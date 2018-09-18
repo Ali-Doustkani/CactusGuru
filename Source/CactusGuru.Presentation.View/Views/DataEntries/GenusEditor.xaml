@@ -4,7 +4,7 @@
       xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
       xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
-      Tag="جنس ها">
+      Tag="Genera">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -25,7 +25,7 @@
         <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <!-- Title -->
-    <TextBlock Text="عنوان" />
+    <TextBlock Text="Name" />
     <TextBox Style="{StaticResource LastEntryStyle}"
              Text="{Binding FormattedName, UpdateSourceTrigger=PropertyChanged}"
              attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}" />

@@ -20,7 +20,6 @@
         <Setter Property="Grid.Column" Value="1" />
         <Setter Property="Grid.ColumnSpan" Value="2" />
         <Setter Property="Control.Margin" Value="0 2" />
-        <Setter Property="Control.FlowDirection" Value="LeftToRight" />
         <Setter Property="Control.IsEnabled" Value="{Binding State.IsNotView}" />
         <Setter Property="attch:FocusHandler.TraverseOnEnter" Value="True" />
         <Setter Property="TextBox.Padding" Value="3"/>  

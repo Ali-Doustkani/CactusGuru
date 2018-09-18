@@ -146,7 +146,6 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <Resource Include="Resources\Fonts\BTitrBd.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Tools\Controls\ErrorBox.xaml">

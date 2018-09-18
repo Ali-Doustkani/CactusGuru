@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure.Utils;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -75,7 +74,7 @@ namespace CactusGuru.Application.Implementation.Services
 
         private void CreateZipFile(string targetPath, MemoryStream memoryStream)
         {
-            var fileName = $"{DateUtil.ToPersianDate(DateTime.Now, "-")}.zip";
+            var fileName = $"{DateTime.Now.ToString("d")}.zip";
             var path = Path.Combine(targetPath, fileName);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {

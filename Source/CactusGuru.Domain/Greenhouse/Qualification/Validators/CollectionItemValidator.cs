@@ -9,7 +9,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Validators
             _emptySpec = emptySpec;
         }
 
-        public static string ERROR_SUPPLIER_CODE = "انتخاب کد تامین کننده بدون انتخاب تامین کننده ممکن نیست.";
+        public static string ERROR_SUPPLIER_CODE = "Supplier cannot be empty when you have entered the 'Supplier Code'.";
 
         private readonly IEmptySpecification _emptySpec;
 

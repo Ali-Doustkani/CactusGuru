@@ -151,7 +151,7 @@ namespace CactusGuru.Domain.Greenhouse
         {
             if (!IncomeDate.HasValue)
                 return reference;
-            var incomeYear = DateUtil.GetPersianYear(IncomeDate.Value);
+            var incomeYear = IncomeDate.Value.Year;
             if (!string.IsNullOrEmpty(reference))
                 return reference + "-" + incomeYear;
             return incomeYear.ToString();

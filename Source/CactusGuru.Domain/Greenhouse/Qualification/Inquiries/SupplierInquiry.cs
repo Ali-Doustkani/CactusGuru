@@ -31,7 +31,7 @@ namespace CactusGuru.Domain.Greenhouse.Qualification.Inquiries
             if (!items.Any()) return Error.Empty;
             foreach (var collectionItem in items)
                 itemTitles.Add(collectionItem.Format("{code} - {GENUS} {taxon}"));
-            return new Error($"تامین کننده ی مورد نظر در تعریف آیتم های ذیل استفاده شده است: {Environment.NewLine}{string.Join(Environment.NewLine, itemTitles)}");
+            return new Error($"This supplier is used in the following collection items: {Environment.NewLine}{string.Join(Environment.NewLine, itemTitles)}");
         }
     }
 }

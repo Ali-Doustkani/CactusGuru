@@ -27,22 +27,21 @@
             <RowDefinition Height="auto" />
         </Grid.RowDefinitions>
         <!-- ToolBar -->
-        <StackPanel Orientation="Horizontal">
-            <controls:SimpleButton Style="{StaticResource PrintButtonStyle}" Command="{Binding PrintCommand}"/>
-            <Border Width="1" Background="Gray"/>
-            <TextBlock Margin="10 0 0 0" VerticalAlignment="Center">جست و جو:</TextBlock>
+        <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
             <controls:NullTextBox x:Name="txtSearch" Style="{StaticResource SearchTextBox}" Text="{Binding SourceFilterText, UpdateSourceTrigger=PropertyChanged}"/>
+            <Border Style="{StaticResource Separator}"/>
+            <controls:SimpleButton Style="{StaticResource PrintButtonStyle}" Command="{Binding PrintCommand}"/>
         </StackPanel>
         <!-- Items -->
-        <UniformGrid Grid.Row="1" FlowDirection="LeftToRight" Columns="2">
+        <UniformGrid Grid.Row="1" Columns="2">
             <TabControl SelectedIndex="{Binding SelectedPage}" Margin="10 0 0 10">
-                <TabItem Header="مجموعه">
+                <TabItem Header="Collection Items">
                     <ListBox Style="{StaticResource CollectionItemListBox}"
                              ItemsSource="{Binding CollectionItems}"
                              SelectedItem="{Binding SelectedCollectionItem, Mode=TwoWay}"
                              MouseDoubleClick="MouseDoubleClick"/>
                 </TabItem>
-                <TabItem Header="تاکسون">
+                <TabItem Header="General Taxa">
                     <ListBox Style="{StaticResource TaxonListBox}" 
                              ItemsSource="{Binding Taxa}"
                              SelectedItem="{Binding SelectedTaxon, Mode=TwoWay}"

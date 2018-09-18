@@ -4,7 +4,7 @@
       xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
       Validation.ErrorTemplate="{x:Null}"
-      Tag="تامین کنندگان">
+      Tag="Suppliers">
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,15 +27,15 @@
         <ColumnDefinition />
     </Grid.ColumnDefinitions>
     <!-- FullName -->
-    <TextBlock Text="عنوان" />
+    <TextBlock Text="Name" />
     <TextBox attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
              Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Acronym -->
-    <TextBlock Grid.Row="1" Text="اختصار" />
+    <TextBlock Grid.Row="1" Text="Abbreviation" />
     <TextBox Grid.Row="1"
              Text="{Binding Acronym, UpdateSourceTrigger=PropertyChanged}" />
     <!-- Website -->
-    <TextBlock Grid.Row="2" Text="وب سایت" />
+    <TextBlock Grid.Row="2" Text="Website" />
     <TextBox Grid.Row="2"
              Style="{StaticResource LastEntryStyle}"
              Text="{Binding WorkingItem.Website, UpdateSourceTrigger=PropertyChanged}" />

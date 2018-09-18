@@ -50,7 +50,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectorViewModels
         private string Similarity()
         {
             if (_dataProvider.HasSimilar((CollectorDto)WorkingItem.InnerObject))
-                return "مشخصات کلکتور تکراری است";
+                return "This collector already exists";
             return null;
         }
     }

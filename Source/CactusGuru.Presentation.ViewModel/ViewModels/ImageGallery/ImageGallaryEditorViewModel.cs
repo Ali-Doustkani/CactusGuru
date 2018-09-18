@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Tools;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -101,7 +100,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
             else if (param == "zipFile")
                 _dataProvider.SaveToZip(selectedImages, dialogResult.Value);
             DeSelectAll();
-            Dialog.Say("ذخیره ی تصاویر با موفقیت انجام شد.");
+            Dialog.Say("Saving images completed successfully!");
         }
 
         private void Undo()

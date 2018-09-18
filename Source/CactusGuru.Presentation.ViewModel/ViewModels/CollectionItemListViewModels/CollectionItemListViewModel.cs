@@ -62,7 +62,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
 
         private void DeleteCurrentCollectionItem()
         {
-            if (!Dialog.Ask("آیا از حذف گیاه خود اطمینان دارید؟"))
+            if (!Dialog.Ask("Are you sure you want to delete this plant?"))
                 return;
             var itemToDelete = SelectedCollectionItem;
             SelectedCollectionItem = CollectionItems.Last();

@@ -21,9 +21,9 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels
                 switch (Value)
                 {
                     case PLANT:
-                        return "گیاه";
+                        return "Plant";
                     case SEED:
-                        return "بذر";
+                        return "Seed";
                 }
                 return string.Empty;
             }

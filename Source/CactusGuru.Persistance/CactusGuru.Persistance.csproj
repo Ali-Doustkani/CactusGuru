@@ -116,16 +116,12 @@
     <Compile Include="Repositories\CollectionItemRepository.cs" />
     <Compile Include="Repositories\CollectorRepository.cs" />
     <Compile Include="Repositories\GenusRepository.cs" />
-    <Compile Include="Repositories\SeedListItemRepository.cs" />
-    <Compile Include="Repositories\SeedListRepository.cs" />
     <Compile Include="Repositories\SupplierRepository.cs" />
     <Compile Include="Repositories\TaxonRepository.cs" />
     <Compile Include="Translators\CollectionItemImageTranslator.cs" />
     <Compile Include="Translators\CollectionItemTranslator.cs" />
     <Compile Include="Translators\CollectorTranslator.cs" />
     <Compile Include="Translators\GenusTranslator.cs" />
-    <Compile Include="Translators\SeedListItemTranslator.cs" />
-    <Compile Include="Translators\SeedListTranslator.cs" />
     <Compile Include="Translators\SupplierTranslator.cs" />
     <Compile Include="Translators\TaxonTranslator.cs" />
     <Compile Include="UnitOfWork.cs" />

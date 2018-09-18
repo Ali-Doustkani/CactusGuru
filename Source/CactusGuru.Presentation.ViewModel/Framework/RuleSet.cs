@@ -14,8 +14,6 @@ namespace CactusGuru.Presentation.ViewModel.Framework
                 Custom
             }
 
-            private const string EMPTY_ERROR = "این فیلد نمی تواند خالی باشد";
-
             public RuleSet(string propName)
             {
                 PropertyName = propName;

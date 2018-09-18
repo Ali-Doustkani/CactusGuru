@@ -4,6 +4,6 @@
              xmlns:loaders="clr-namespace:Loaders;assembly=MrMitch.Loaders">
     <Grid>
         <loaders:ChromeLoader Thickness="6" Width="80" Height="80" Foreground="#374c61"/>
-        <TextBlock Margin="0 140 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8">در حال بارگزاری</TextBlock>
+        <TextBlock Margin="0 140 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.8">please wait...</TextBlock>
     </Grid>
 </UserControl>

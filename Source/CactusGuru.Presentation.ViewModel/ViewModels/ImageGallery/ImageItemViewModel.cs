@@ -1,7 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Services.Navigations;
-using CactusGuru.Presentation.ViewModel.Tools;
 using System;
 using System.Windows.Input;
 
@@ -13,12 +12,10 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         {
             InnerObject = dto;
             _navigations = navigations;
-            _dateFormatter = new MonthNameDateFormatter();
             _memento = new ImageItemMemento(dto);
             ChangeDateCommand = new RelayCommand(ChangeDate);
         }
 
-        private readonly MonthNameDateFormatter _dateFormatter;
         private readonly ImageItemMemento _memento;
         private readonly INavigationService _navigations;
 

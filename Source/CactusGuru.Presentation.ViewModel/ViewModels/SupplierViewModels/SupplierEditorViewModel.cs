@@ -47,7 +47,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.SupplierViewModels
         private string Similarity()
         {
             if (_dataProvider.HasSimilar((SupplierDto)WorkingItem.InnerObject))
-                return "مشخصات تامین کننده تکراری است";
+                return "This supplier already exists";
             return null;
         }
     }

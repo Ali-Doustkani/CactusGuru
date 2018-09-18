@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Domain.Persistance.Repositories;
-using CactusGuru.Infrastructure.Utils;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,7 +31,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
         private string CreateName(ImageDto image, int number)
         {
             var collectionItem = _collectionItemRepository.Get(image.CollectionItemId).Format("{code} - {GENUS} {taxon}");
-            var date = DateUtil.ToPersianDate(image.DateAdded, "-");
+            var date = image.DateAdded.ToString("d");
             var strNumber = number.ToString().PadLeft(2, '0');
             return $"{collectionItem} {date} ({strNumber}).jpg";
         }

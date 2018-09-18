@@ -4,7 +4,6 @@
         <Grid>
             <Image Source="{Binding Picture}" Stretch="None" Width="180" Height="140"/>
             <TextBlock TextWrapping="Wrap"
-                       FlowDirection="LeftToRight"
                        Padding="3"
                        Width="180" 
                        VerticalAlignment="Bottom" 

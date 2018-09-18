@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 
-namespace CactusGuru.Presentation.ViewModel.Tools
+namespace CactusGuru.Presentation.ViewModel.Framework
 {
     public static class ObservableCollectionExtensionMethod
     {

@@ -10,9 +10,7 @@
     <Style x:Key="ToolbarStyle" TargetType="ToolBar" BasedOn="{StaticResource {x:Type ToolBar}}">
         <Setter Property="Height" Value="35"/>
         <Setter Property="Margin" Value="10 0"/>
-        <Setter Property="HorizontalAlignment" Value="Right"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="FlowDirection" Value="RightToLeft"/>
     </Style>
     <!-- ListBox -->
     <Style TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">

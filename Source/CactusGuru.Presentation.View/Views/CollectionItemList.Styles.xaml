@@ -10,12 +10,6 @@
     <ImageSource x:Key="CopyImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/copy_20.png</ImageSource>
     <ImageSource x:Key="EditImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png</ImageSource>
     <ImageSource x:Key="DeleteImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/delete_24.png</ImageSource>
-    <!-- ToolBar -->
-    <Style x:Key="ToolbarButton" TargetType="controls:SimpleButton">
-        <Setter Property="Margin" Value="3 0"/>
-        <Setter Property="Height" Value="30"/>
-        <Setter Property="Background" Value="#eeeeee"/>
-    </Style>
     <!-- ListBox -->
     <Style x:Key="ContextMenuButton" TargetType="controls:SimpleButton">
         <Setter Property="Padding" Value="10"/>
@@ -88,13 +82,6 @@
         </Setter>
     </Style>
     <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}"/>
-    <!-- Border (Separator) -->
-    <Style TargetType="Border">
-        <Setter Property="Margin" Value="10 4"/>
-        <Setter Property="Background" Value="LightGray"/>
-        <Setter Property="Width" Value="1"/>
-        <Setter Property="SnapsToDevicePixels" Value="True"/>
-    </Style>
     <!-- ToggleButton -->
     <Style x:Key="SortToggle" TargetType="ToggleButton" BasedOn="{StaticResource {x:Type ToggleButton}}">
         <Setter Property="Margin" Value="3 0"/>

@@ -8,14 +8,14 @@
     <!-- Print Button -->
     <Style x:Key="PrintButtonStyle" TargetType="controls:SimpleButton" BasedOn="{StaticResource greenButtons}">
         <Setter Property="HorizontalAlignment" Value="Left"/>
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="0"/>
         <Setter Property="Width" Value="60"/>
         <Setter Property="Height" Value="30"/>
         <Setter Property="Content">
             <Setter.Value>
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/Print/print.png" Width="20" Height="18"/>
-                    <TextBlock Margin="5 0 0 0">چاپ</TextBlock>
+                    <TextBlock Margin="5 0 0 0">Print</TextBlock>
                 </StackPanel>
             </Setter.Value>
         </Setter>
@@ -24,7 +24,6 @@
     <Style x:Key="SearchTextBox" TargetType="controls:NullTextBox">
         <Setter Property="utils:FocusHandler.HasFocus" Value="True"/>
         <Setter Property="NullText" Value="Search Taxa  -  Ctrl+F"/>
-        <Setter Property="FlowDirection" Value="LeftToRight"/>
         <Setter Property="Margin" Value="5 0 0 0"/>
         <Setter Property="Width" Value="200"/>
     </Style>

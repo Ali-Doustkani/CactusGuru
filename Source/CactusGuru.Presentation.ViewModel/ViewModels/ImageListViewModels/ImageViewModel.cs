@@ -1,6 +1,5 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageList;
 using CactusGuru.Presentation.ViewModel.Framework;
-using CactusGuru.Presentation.ViewModel.Tools;
 using System;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
@@ -10,10 +9,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
         public ImageViewModel(ImageDto imageDto)
         {
             InnerObject = imageDto;
-            _dateFormatter = new MonthNameDateFormatter();
         }
-
-        private readonly MonthNameDateFormatter _dateFormatter;
 
         internal ImageDto InnerObject { get; }
 
@@ -34,8 +30,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
             get { return InnerObject.DateAdded; }
         }
 
-        public string DateAddedTitle => _dateFormatter.Format(DateAdded);
-
         private bool _isSelected;
         public bool IsSelected
         {
@@ -46,7 +40,5 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
                 OnPropertyChanged(nameof(IsSelected));
             }
         }
-
-       
     }
 }

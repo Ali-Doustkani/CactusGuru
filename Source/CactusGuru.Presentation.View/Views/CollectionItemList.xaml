@@ -1,8 +1,7 @@
 ﻿<controls:Page x:Class="CactusGuru.Presentation.View.Views.CollectionItemList"
                xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
-               FlowDirection="LeftToRight">
+               xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls">
     <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -20,11 +19,11 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Margin="10 0 0 10">
             <controls:NullTextBox NullText="Search in Taxa" Text="{Binding CollectionItems.FilterText, UpdateSourceTrigger=PropertyChanged, Delay=400}" VerticalContentAlignment="Center" Width="250"/>
-            <Border/>
+            <Border Style="{StaticResource Separator}"/>
             <TextBlock VerticalAlignment="Center" Foreground="Gray" Margin="0 0 5 0">Sort By</TextBlock>
             <ToggleButton Style="{StaticResource SortToggle}" IsChecked="{Binding SortOnGenus}" CommandParameter="Genus">Genus Title</ToggleButton>
             <ToggleButton Style="{StaticResource SortToggle}" IsChecked="{Binding SortOnCode}" CommandParameter="Code">Code</ToggleButton>
-            <Border/>
+            <Border Style="{StaticResource Separator}"/>
             <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding CopyNameCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="{StaticResource CopyImage}" Width="20" Height="20"/>
@@ -43,7 +42,7 @@
                     <TextBlock Margin="3 0 0 0">Delete</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>
-            <Border/>
+            <Border Style="{StaticResource Separator}"/>
             <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding GotoImageGallaryCommand}">
                 <TextBlock>Photos</TextBlock>
             </controls:SimpleButton>

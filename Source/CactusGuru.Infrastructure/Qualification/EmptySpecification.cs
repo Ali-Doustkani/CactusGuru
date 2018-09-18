@@ -48,7 +48,7 @@ namespace CactusGuru.Infrastructure.Qualification
 
         private Error CreateError()
         {
-            var message = $"وارد کردن {_dictionary.Translate(_propertyName)} اجباری است.";
+            var message = $"{_dictionary.Translate(_propertyName)} cannot be empty.";
             return new Error(message);
         }
     }
