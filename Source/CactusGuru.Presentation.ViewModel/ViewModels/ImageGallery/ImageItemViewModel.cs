@@ -1,21 +1,28 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Services.Navigations;
 using CactusGuru.Presentation.ViewModel.Tools;
 using System;
+using System.Windows.Input;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 {
     public class ImageItemViewModel : BaseViewModel
     {
-        public ImageItemViewModel(ImageDto dto)
+        public ImageItemViewModel(ImageDto dto, INavigationService navigations)
         {
             InnerObject = dto;
-            _dateFormatter = new MonthNameDateFormatter ();
+            _navigations = navigations;
+            _dateFormatter = new MonthNameDateFormatter();
             _memento = new ImageItemMemento(dto);
+            ChangeDateCommand = new RelayCommand(ChangeDate);
         }
 
         private readonly MonthNameDateFormatter _dateFormatter;
         private readonly ImageItemMemento _memento;
+        private readonly INavigationService _navigations;
+
+        public ICommand ChangeDateCommand { get; }
 
         internal ImageDto InnerObject { get; }
 
@@ -32,7 +39,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         public byte[] Picture
         {
             get { return InnerObject.Thumbnail; }
-            set { InnerObject.Thumbnail = value; }
         }
 
         public bool SharedOnInstagram
@@ -48,23 +54,20 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         public DateTime DateAdded
         {
             get { return InnerObject.DateAdded; }
-            set
+            private set
             {
                 InnerObject.DateAdded = value;
-                OnPropertyChanged(nameof(DateAddedTitle));
+                OnPropertyChanged(nameof(DateAdded));
             }
         }
 
-        public string DateAddedTitle => _dateFormatter.Format(InnerObject.DateAdded);
-
-        private bool _isDeleted;
-
+        private bool _isSelected;
         public bool IsSelected
         {
-            get { return _isDeleted; }
+            get { return _isSelected; }
             set
             {
-                _isDeleted = value;
+                _isSelected = value;
                 OnPropertyChanged(nameof(IsSelected));
             }
         }
@@ -88,6 +91,13 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         public override int GetHashCode()
         {
             return InnerObject.Id.GetHashCode();
+        }
+
+        private void ChangeDate()
+        {
+            var result = _navigations.GetDateFromUser(DateAdded);
+            if (result.Result)
+                DateAdded = result.Value;
         }
     }
 }

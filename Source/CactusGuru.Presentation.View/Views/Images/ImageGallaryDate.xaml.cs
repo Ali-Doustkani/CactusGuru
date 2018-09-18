@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Globalization;
 using System.Windows.Controls;
 
 namespace CactusGuru.Presentation.View.Views
@@ -9,31 +8,45 @@ namespace CactusGuru.Presentation.View.Views
         public ImageGallaryDate()
         {
             InitializeComponent();
+            FillYears();
+        }
+
+        private void FillYears()
+        {
+            for (int i = DateTime.Now.Year; i > DateTime.Now.Year - 30; i--)
+            {
+                var item = new ComboBoxItem
+                {
+                    Content = i
+                };
+                cmbYear.Items.Add(item);
+            }
         }
 
         public DateTime GetDate()
         {
-            var cal = new PersianCalendar();
-            var month = cal.GetMonth(DateTime.Now);
-            var year = cal.GetYear(DateTime.Now);
-            if (cmbMonth.SelectedIndex != -1)
-                month = cmbMonth.SelectedIndex + 1;
-            if (cmbYear.SelectedIndex != -1)
-                year = Convert.ToInt32(((ComboBoxItem)cmbYear.SelectedItem).Content);
-            return cal.ToDateTime(year, month, 1, 1, 1, 1, 1);
+            var month = cmbMonth.SelectedIndex != -1 ? cmbMonth.SelectedIndex + 1 : DateTime.Now.Month;
+            var year = cmbYear.SelectedIndex != -1 ? (int)((ComboBoxItem)cmbYear.SelectedItem).Content : DateTime.Now.Year;
+            return new DateTime(year, month, 1);
         }
 
-        private void DXDialog_Loaded(object sender, System.Windows.RoutedEventArgs e)
+        public void SetDate(DateTime date)
         {
-            cmbMonth.SelectedIndex = 0;
-            cmbMonth.Focus();
-            cmbMonth.IsDropDownOpen = true;
+            cmbMonth.SelectedIndex = date.Month - 1;
+            foreach (ComboBoxItem item in cmbYear.Items)
+            {
+                if (item.Content.Equals(date.Year))
+                {
+                    cmbYear.SelectedItem = item;
+                    return;
+                }
+            }
+            cmbYear.SelectedIndex = 0;
         }
 
-        private void cmbMonth_DropDownClosed(object sender, EventArgs e)
+        private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
         {
-            cmbYear.Focus();
-            cmbYear.IsDropDownOpen = true;
+            DialogResult = true;
         }
     }
 }

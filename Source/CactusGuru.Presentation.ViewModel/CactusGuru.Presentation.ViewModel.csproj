@@ -78,7 +78,6 @@
     <Compile Include="ViewModels\ImageGallery\ImageGallaryEditorViewModel.cs" />
     <Compile Include="ViewModels\ImageGallery\ImageItemMemento.cs" />
     <Compile Include="ViewModels\ImageGallery\ImageItemViewModel.cs" />
-    <Compile Include="ViewModels\ImageGallery\ImageItemViewModelFactory.cs" />
     <Compile Include="ViewModels\ImageListViewModels\ImageListViewModel.cs" />
     <Compile Include="ViewModels\ImageListViewModels\ImageViewModel.cs" />
     <Compile Include="ViewModels\IncomeTypeRowItem.cs" />

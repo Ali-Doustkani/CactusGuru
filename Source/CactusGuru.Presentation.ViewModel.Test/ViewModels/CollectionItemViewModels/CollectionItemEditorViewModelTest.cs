@@ -1,7 +1,9 @@
-﻿using CactusGuru.Application.ViewProviders;
+﻿using CactusGuru.Application.Common;
+using CactusGuru.Application.ViewProviders;
 using CactusGuru.Presentation.ViewModel.Test.Framework;
 using CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemViewModels;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Linq;
 
 namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewModels
 {
@@ -14,43 +16,23 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.CollectionItemViewMo
         }
 
         [TestMethod]
-        public void Load_Taxa()
+        public void LoadInfo()
         {
-            The(x => x.GetTaxaAsync()).ReturnsCollection();
+            var info = new LoadInfoDto
+            {
+                Collectors = Enumerable.Repeat(new CollectorDto(), 2),
+                IncomeTypes = Enumerable.Repeat(new IncomeTypeDto(), 2),
+                Suppliers = Enumerable.Repeat(new SupplierDto(), 3),
+                Taxa = Enumerable.Repeat(new TaxonDto(), 4)
+            };
+            The(x => x.LoadInfoAsync()).Returns(info);
 
             Load();
 
-            MakeSure(x => x.Taxa.Count).Is(2);
-        }
-
-        [TestMethod]
-        public void Load_Collectors()
-        {
-            The(x => x.GetCollectors()).ReturnsCollection();
-
-            Load();
-
-            MakeSure(vm => vm.Collectors.Count).Is(2);
-        }
-
-        [TestMethod]
-        public void Load_Suppliers()
-        {
-            The(x => x.GetSuppliers()).ReturnsCollection();
-
-            Load();
-
-            MakeSure(vm => vm.Suppliers.Count).Is(2);
-        }
-
-        [TestMethod]
-        public void Load_IncomeTypes()
-        {
-            The(x => x.GetIncomeTypes()).ReturnsCollection();
-
-            Load();
-
-            MakeSure(vm => vm.IncomeTypes.Count).Is(2);
+            MakeSure(x => x.Collectors.Count).Is(2);
+            MakeSure(x => x.IncomeTypes.Count).Is(2);
+            MakeSure(x => x.Suppliers.Count).Is(3);
+            MakeSure(x => x.Taxa.Count).Is(4);
         }
     }
 }

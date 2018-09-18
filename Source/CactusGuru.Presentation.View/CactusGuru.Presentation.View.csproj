@@ -318,7 +318,9 @@
   <ItemGroup>
     <Resource Include="Resources\Images\Icon\CollectionList\copy_20.png" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Resources\Images\Icon\ImageGallery\calendar_24.png" />
+  </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\Icon\Print\print.png" />
   </ItemGroup>

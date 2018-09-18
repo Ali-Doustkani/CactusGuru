@@ -10,23 +10,22 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
 {
     public class ImageGallaryEditorViewModel : FormViewModel
     {
-        public ImageGallaryEditorViewModel(IImageGalleryViewProvider dataProvider, ImageItemViewModelFactory imageItemFactory)
+        public ImageGallaryEditorViewModel(IImageGalleryViewProvider dataProvider)
         {
-            _imageItemFactory = imageItemFactory;
             _dataProvider = dataProvider;
             SaveCommand = new RelayCommand(Save, CanUndo);
             CancelCommand = new RelayCommand(() => Navigations.CloseCurrentView(), () => LoaderState.IsIdle);
             AddImageCommand = new RelayCommand(AddImage, () => LoaderState.IsIdle);
-            DeleteImageCommand = new RelayCommand(DeleteSelectedImages, () => IsAnythingSelected);
+            DeleteImageCommand = new RelayCommand(DeleteSelectedImages, IsAnythingSelected);
             UndoCommand = new RelayCommand(Undo, CanUndo);
             SelectAllCommand = new RelayCommand(SelectAll);
             DeSelectAllCommand = new RelayCommand(DeSelectAll);
-            SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), () => IsAnythingSelected);
-            SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), () => IsAnythingSelected);
+            SaveToFilesCommand = new RelayCommand(() => SaveToFiles("imageFile"), IsAnythingSelected);
+            SaveForInstagramCommand = new RelayCommand(() => SaveToFiles("zipFile"), IsAnythingSelected);
 
             _progress = new Progress<ImageDto>(dto =>
            {
-               var vm = _imageItemFactory.Create(dto);
+               var vm = new ImageItemViewModel(dto, Navigations);
                Images.Add(vm);
            });
 
@@ -34,96 +33,46 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageGallery
         }
 
         private readonly IImageGalleryViewProvider _dataProvider;
-        private readonly ImageItemViewModelFactory _imageItemFactory;
         private readonly IProgress<ImageDto> _progress;
         private Guid _collectionItemId;
-
         private GalleryMemento _memento;
-        private string _code;
-        private string _title;
-        private string _locality;
 
-        public ICommand SaveCommand { get; private set; }
-        public ICommand CancelCommand { get; private set; }
-        public ICommand AddImageCommand { get; private set; }
-        public ICommand DeleteImageCommand { get; private set; }
-        public ICommand SelectAllCommand { get; private set; }
-        public ICommand DeSelectAllCommand { get; private set; }
-        public ICommand UndoCommand { get; private set; }
-        public ICommand SaveToFilesCommand { get; private set; }
-        public ICommand SaveForInstagramCommand { get; private set; }
-        public ObservableCollection<ImageItemViewModel> Images { get; private set; }
-        public ImageItemViewModel SelectedImage { get; set; }
+        public ICommand SaveCommand { get; }
+        public ICommand CancelCommand { get; }
+        public ICommand AddImageCommand { get; }
+        public ICommand DeleteImageCommand { get; }
+        public ICommand SelectAllCommand { get; }
+        public ICommand DeSelectAllCommand { get; }
+        public ICommand UndoCommand { get; }
+        public ICommand SaveToFilesCommand { get; }
+        public ICommand SaveForInstagramCommand { get; }
+        public ObservableCollection<ImageItemViewModel> Images { get; }
+        public string Code { get; private set; }
+        public string Title { get; private set; }
+        public string Locality { get; private set; }
 
-        public string Code
-        {
-            get { return _code; }
-            set
-            {
-                if (value == _code) return;
-                if (!_dataProvider.CollectionItemCodeExists(value)) return;
-                LoadByCode(value);
-                _code = value;
-                OnPropertyChanged(nameof(Code));
-            }
-        }
-
-        public string Title
-        {
-            get { return _title; }
-            private set
-            {
-                _title = value;
-                OnPropertyChanged(nameof(Title));
-            }
-        }
-
-        public string Locality
-        {
-            get { return _locality; }
-            private set
-            {
-                _locality = value;
-                OnPropertyChanged(nameof(Locality));
-            }
-        }
-
-        public bool IsAnythingSelected
-        {
-            get { return Images.Any(x => x.IsSelected); }
-        }
-
-        public void SelectImage()
-        {
-            if (SelectedImage == null) return;
-            SelectedImage.IsSelected = !SelectedImage.IsSelected;
-        }
-
-        public void ChangeDate()
-        {
-            var result = Navigations.GetDateFromUser();
-            if (result.Result)
-            {
-                SelectedImage.DateAdded = result.Value;
-            }
-        }
+        public void Load(Guid collectionItemId) => _collectionItemId = collectionItemId;
 
         protected async override void OnLoad()
         {
-            Images.Clear();
             var collectionItem = _dataProvider.GetCollectionItem(_collectionItemId);
-            _code = collectionItem.Code;
-            OnPropertyChanged(nameof(Code));
+            Code = collectionItem.Code;
             Title = collectionItem.Title;
             Locality = collectionItem.Locality;
             await _dataProvider.GetThumbnailsOfAsync(_collectionItemId, _progress);
             _memento = new GalleryMemento(Images);
+            OnPropertyChanged(nameof(Code));
+            OnPropertyChanged(nameof(Title));
+            OnPropertyChanged(nameof(Locality));
             LoaderState.ToIdle();
         }
 
         private void LoadByCode(string code) => Load(_dataProvider.GetCollectionItemIdByCode(code));
 
-        public void Load(Guid collectionItemId) => _collectionItemId = collectionItemId;
+        private bool IsAnythingSelected()
+        {
+            return Images.Any(x => x.IsSelected);
+        }
 
         private void DeleteSelectedImages()
         {

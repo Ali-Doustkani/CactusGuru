@@ -68,10 +68,11 @@ namespace CactusGuru.Entry.Presentation
             SlideTo(ObjectFactory.Instance.GetInstance<LabelPrint>());
         }
 
-        public DialogResult<DateTime> GetDateFromUser()
+        public DialogResult<DateTime> GetDateFromUser(DateTime date)
         {
             var view = new ImageGallaryDate();
             view.Owner = System.Windows.Application.Current.Windows.OfType<Window>().SingleOrDefault(x => x.IsActive);
+            view.SetDate(date);
             var dialogResult = view.ShowDialog();
             if (dialogResult.HasValue)
                 return new DialogResult<DateTime>(dialogResult.Value, view.GetDate());

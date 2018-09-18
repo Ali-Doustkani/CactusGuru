@@ -38,9 +38,9 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
     public class ObservableBagTest
     {
         [TestMethod]
-        public async void Add()
+        public void Add()
         {
-            var col = await Bag.Of<ViewModel>()
+            var col = Bag.Of<ViewModel>()
                 .WithConvertor((Dto x) => new ViewModel(x))
                 .WithId(x => x.Id)
                 .Build();
@@ -53,13 +53,13 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
         }
 
         [TestMethod]
-        public async void Add_WhenFiltered_Apply()
+        public void Add_WhenFiltered_Apply()
         {
             var source = new List<Dto>();
             source.Add(new Dto { Id = 1, Name = "ali" });
             source.Add(new Dto { Id = 2, Name = "haniye" });
             source.Add(new Dto { Id = 3, Name = "pooran" });
-            var col = await Bag.Of<Dto>()
+            var col = Bag.Of<Dto>()
                 .FilterBy((item, text) => item.Name.Contains(text))
                 .WithSource(source)
                 .Build();
@@ -71,11 +71,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
         }
 
         [TestMethod]
-        public async void Edit()
+        public void Edit()
         {
             var item1 = new ViewModel(new Dto { Id = 1, Name = "one" });
             var item2 = new ViewModel(new Dto { Id = 2, Name = "two" });
-            var col = await Bag.Of<ViewModel>()
+            var col = Bag.Of<ViewModel>()
                 .WithConvertor((Dto x) => new ViewModel(x))
                 .WithId(x => x.Id)
                 .Loads(() => new ViewModel[] { item1, item2 })
@@ -90,10 +90,10 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
         }
 
         [TestMethod]
-        public async void EditWithTheSameType()
+        public void EditWithTheSameType()
         {
             var old = new ViewModel(new Dto { Id = 1, Name = "one" });
-            var col = await Bag.Of<ViewModel>()
+            var col = Bag.Of<ViewModel>()
                 .WithId(x => x.Id)
                 .Loads(() => new ViewModel[] { old })
                 .Build();
@@ -106,11 +106,11 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
         }
 
         [TestMethod]
-        public async void Delete()
+        public void Delete()
         {
             var item1 = new ViewModel(new Dto { Id = 1, Name = "one" });
             var item2 = new ViewModel(new Dto { Id = 2, Name = "two" });
-            var col = await Bag.Of<ViewModel>()
+            var col = Bag.Of<ViewModel>()
                 .WithConvertor((Dto x) => new ViewModel(x))
                 .WithId(x => x.Id)
                 .Loads(() => new ViewModel[] { item1, item2 })
@@ -124,7 +124,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
         }
 
         [TestMethod]
-        public async void Filter()
+        public void Filter()
         {
             var source = new Dto[]
             {
@@ -134,7 +134,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework.Collections
                 new Dto{ Id= 4, Name="dba"},
                 new Dto{ Id= 5, Name="ccc"}
             };
-            var col = await Bag.Of<Dto>()
+            var col = Bag.Of<Dto>()
                 .WithSource(source)
                 .FilterBy((item, text) => item.Name.Contains(text))
                 .Build();

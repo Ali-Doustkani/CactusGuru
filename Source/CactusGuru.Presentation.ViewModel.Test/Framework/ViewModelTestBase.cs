@@ -57,6 +57,14 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
             return result;
         }
 
+        protected Result<TResult> The<TResult>(Expression<Func<TProvider, Task<TResult>>> exp)
+         where TResult : new()
+        {
+            var result = new Result<TResult>(dataProvider.Setup(exp));
+            _result = result;
+            return result;
+        }
+
         protected Result<TestDto> The(Expression<Func<TProvider, IEnumerable<TransferObjectBase>>> exp)
         {
             return new Result<TestDto>(dataProvider.Setup(exp));
@@ -144,32 +152,32 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
 
             public Result(ISetup<TProvider, Task<IEnumerable<T>>> setup)
             {
+                _collectionTaskSetup = setup;
+            }
+
+            public Result(ISetup<TProvider, Task<T>> setup)
+            {
                 _taskSetup = setup;
             }
 
             private ISetup<TProvider, IEnumerable<T>> _generalSetup;
-            private ISetup<TProvider, Task<IEnumerable<T>>> _taskSetup;
+            private ISetup<TProvider, Task<IEnumerable<T>>> _collectionTaskSetup;
+            private ISetup<TProvider, Task<T>> _taskSetup;
             private ISetup<TProvider, IEnumerable<TransferObjectBase>> _dtoSetup;
 
             public void ReturnsCollection()
             {
                 if (_generalSetup != null)
                     _generalSetup.Returns(Enumerable.Repeat(new T(), 2));
-                else if (_taskSetup != null)
+                else if (_collectionTaskSetup != null)
                 {
                     Task = Task.Factory.StartNew(() =>
                     {
                         return Enumerable.Repeat(new T(), 2);
                     });
-                    _taskSetup.Returns((Task<IEnumerable<T>>)Task);
+                    _collectionTaskSetup.Returns((Task<IEnumerable<T>>)Task);
                 }
             }
-
-            //public void ReturnsCollection<TDto>()
-            //    where TDto : TransferObjectBase, new()
-            //{
-            //    _dtoSetup.Returns(Enumerable.Repeat(new TDto(), 2));
-            //}
 
             public void ReturnsEmptyCollection()
             {
@@ -177,6 +185,15 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
                     _generalSetup.Returns(Enumerable.Empty<T>());
                 if (_dtoSetup != null)
                     _dtoSetup.Returns(Enumerable.Empty<TestDto>());
+            }
+
+            public void Returns(T result)
+            {
+                Task = Task.Factory.StartNew(() =>
+                {
+                    return result;
+                });
+                _taskSetup.ReturnsAsync(result);
             }
         }
     }

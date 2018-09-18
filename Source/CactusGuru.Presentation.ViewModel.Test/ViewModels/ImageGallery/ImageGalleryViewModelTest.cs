@@ -20,7 +20,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.ViewModels.ImageGallery
         {
             _dataProvider = new Mock<IImageGalleryViewProvider>();
             _dialogService = new Mock<IDialogService>();
-            _viewModel = new ImageGallaryEditorViewModel(_dataProvider.Object, new ImageItemViewModelFactory());
+            _viewModel = new ImageGallaryEditorViewModel(_dataProvider.Object);
             _viewModel.Navigations = new Mock<INavigationService>().Object;
         }
 

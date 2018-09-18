@@ -17,6 +17,6 @@ namespace CactusGuru.Presentation.ViewModel.Services.Navigations
         BitmapImage SelectImage();
         void CloseCurrentView();
         void GotoLabelPrint();
-        DialogResult<DateTime> GetDateFromUser();
+        DialogResult<DateTime> GetDateFromUser(DateTime date);
     }
 }
