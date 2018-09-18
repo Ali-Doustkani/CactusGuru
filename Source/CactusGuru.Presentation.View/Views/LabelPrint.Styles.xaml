@@ -28,31 +28,66 @@
         <Setter Property="Margin" Value="5 0 0 0"/>
         <Setter Property="Width" Value="200"/>
     </Style>
+    <!-- Arrow Image -->
+    <Style x:Key="_ArrowImage" TargetType="Image">
+        <Setter Property="Source" Value="/CactusGuru.Presentation.View;component/Resources/Images/Icon/Print/arrow_24.png"/>
+        <Setter Property="Width" Value="23"/>
+        <Setter Property="Height" Value="23"/>
+        <Setter Property="Visibility" Value="Collapsed"/>
+    </Style>
     <!-- CollectionItem ListBox -->
     <Style x:Key="CollectionItemListBox" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemStyle}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Margin="2 5">
-                        <TextBlock.Text>
-                            <MultiBinding StringFormat="{}{0} - {1}">
-                                <Binding Path="Code"/>
-                                <Binding Path="Name"/>
-                            </MultiBinding>
-                        </TextBlock.Text>
-                    </TextBlock>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="2 5" TextTrimming="CharacterEllipsis">
+                            <TextBlock.Text>
+                                <MultiBinding StringFormat="{}{0} - {1}">
+                                    <Binding Path="Code"/>
+                                    <Binding Path="Name"/>
+                                </MultiBinding>
+                            </TextBlock.Text>
+                        </TextBlock>
+                        <Image Name="arrow" Grid.Column="1" Style="{StaticResource _ArrowImage}"/>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="arrow" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
     </Style>
     <!-- TaxonList ListBox -->
     <Style x:Key="TaxonListBox" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
+        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemStyle}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Margin="2 5" Text="{Binding Name}"/>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="30"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Margin="2 5" Text="{Binding Name}"/>
+                        <Image Name="arrow" Grid.Column="1" Style="{StaticResource _ArrowImage}"/>
+                    </Grid>
+                    <DataTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="arrow" Property="Visibility" Value="Visible"/>
+                        </Trigger>
+                    </DataTemplate.Triggers>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
@@ -62,6 +97,7 @@
         <Setter Property="Margin" Value="10 22 10 10"/>
         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource ListBoxItemStyle}"/>
+        <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>

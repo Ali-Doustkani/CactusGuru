@@ -51,7 +51,7 @@
             </TabControl>
             <ListBox Style="{StaticResource PrintItemsListBox}" 
                      ItemsSource="{Binding PrintItems}"
-                     SelectedItem="{Binding SelectedPrintItem, Mode=TwoWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled"/>
+                     SelectedItem="{Binding SelectedPrintItem, Mode=TwoWay}"/>
         </UniformGrid>
         <!-- StatusBar -->
         <StatusBar Grid.Row="2" Grid.ColumnSpan="3">
