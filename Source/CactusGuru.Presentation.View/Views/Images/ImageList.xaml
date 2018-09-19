@@ -21,6 +21,9 @@
                        Background="#99000000"/>
                 </Grid>
             </DataTemplate>
+            <Style x:Key="ItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource WrappedListBox_Item}">
+                <Setter Property="IsSelected" Value="{Binding IsSelected}"/>
+            </Style>
             <Style TargetType="Separator">
                 <Setter Property="Margin" Value="5 0"/>
             </Style>
@@ -50,6 +53,10 @@
                 <TextBlock>Deselect</TextBlock>
             </controls:SimpleButton>
         </ToolBar>
-        <ListBox Grid.Row="1" Style="{StaticResource WrappedListBox}" ItemsSource="{Binding Images}" SelectedItem="{Binding SelectedImage}" ItemTemplate="{StaticResource ItemDataTemplate}"/>
+        <ListBox Grid.Row="1" 
+                 Style="{StaticResource WrappedListBox}" 
+                 ItemContainerStyle="{StaticResource ItemStyle}"
+                 ItemsSource="{Binding Images}" 
+                 ItemTemplate="{StaticResource ItemDataTemplate}"/>
     </Grid>
 </controls:Page>

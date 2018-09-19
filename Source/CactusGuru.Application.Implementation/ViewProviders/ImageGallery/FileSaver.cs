@@ -31,7 +31,7 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageGallery
         private string CreateName(ImageDto image, int number)
         {
             var collectionItem = _collectionItemRepository.Get(image.CollectionItemId).Format("{code} - {GENUS} {taxon}");
-            var date = image.DateAdded.ToString("d");
+            var date = image.DateAdded.ToString("yyyy-mm-dd");
             var strNumber = number.ToString().PadLeft(2, '0');
             return $"{collectionItem} {date} ({strNumber}).jpg";
         }

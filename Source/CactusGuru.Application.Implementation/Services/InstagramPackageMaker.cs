@@ -74,7 +74,7 @@ namespace CactusGuru.Application.Implementation.Services
 
         private void CreateZipFile(string targetPath, MemoryStream memoryStream)
         {
-            var fileName = $"{DateTime.Now.ToString("d")}.zip";
+            var fileName = $"{DateTime.Now.ToString("yyyy-mm-dd")}.zip";
             var path = Path.Combine(targetPath, fileName);
             using (var fileStream = new FileStream(path, FileMode.Create))
             {

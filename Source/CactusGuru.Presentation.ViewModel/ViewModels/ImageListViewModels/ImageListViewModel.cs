@@ -22,7 +22,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
         public ICommand DeSelectAllCommand { get; }
         public ICommand SaveForInstagramCommand { get; }
         public ObservableCollection<ImageViewModel> Images { get; }
-        public ImageViewModel SelectedImage { get; set; }
 
         protected async override void OnLoad()
         {
@@ -33,12 +32,6 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
                 Images.Add(new ImageViewModel(dto));
             });
             await _viewProvider.GetImagesAsync(progress);
-        }
-
-        public void Select()
-        {
-            if (SelectedImage == null) return;
-            SelectedImage.IsSelected = !SelectedImage.IsSelected;
         }
 
         private void DeSelectAll()
