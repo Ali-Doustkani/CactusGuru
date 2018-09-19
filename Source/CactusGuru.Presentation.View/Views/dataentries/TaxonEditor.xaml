@@ -42,7 +42,8 @@
               attch:FocusHandler.AutoOpenDropDown="True"
               ItemsSource="{Binding Genera, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
-              SelectedItem="{Binding Genus}"/>
+              SelectedItem="{Binding Genus}"
+              SelectedIndex="{Binding Genera.SelectedIndex}"/>
     <controls:SimpleButton Command="{Binding GotoGeneraCommand}" />
     <!-- Species -->
     <TextBlock Grid.Row="1" Text="Species" />

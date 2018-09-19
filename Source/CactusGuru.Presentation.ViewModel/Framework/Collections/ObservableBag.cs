@@ -3,11 +3,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Linq;
 
 namespace CactusGuru.Presentation.ViewModel.Framework.Collections
 {
-    public class ObservableBag<T> : IEnumerable<T>, INotifyCollectionChanged, IChangeableCollection
+    public class ObservableBag<T> : IEnumerable<T>, INotifyCollectionChanged, INotifyPropertyChanged, IChangeableCollection
     {
         public ObservableBag(IEnumerable<T> source,
             Func<T, object> selectId,
@@ -17,11 +18,11 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
         {
             _source = source.ToList();
             _filtered = source.ToList();
-
             _idSelectorFunc = selectId;
             _acceptorFunc = acceptorFunc;
             _convertorFunc = convertorFunc;
             _filterPredicate = filterPredicate;
+            SelectedIndex = -1;
         }
 
         private readonly List<T> _source;
@@ -32,6 +33,9 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
         private readonly Func<T, string, bool> _filterPredicate;
 
         public event NotifyCollectionChangedEventHandler CollectionChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public int SelectedIndex { get; set; }
 
         public int Count
         {
@@ -74,9 +78,20 @@ namespace CactusGuru.Presentation.ViewModel.Framework.Collections
             }
             else
             {
-                Remove(oldItem);
-                Add(item);
-                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Replace, item, oldItem));
+                _source.Add(item);
+                _source.Remove(oldItem);
+
+                var index = _filtered.IndexOf(oldItem);
+                if (index == -1) return;
+
+                _filtered.Insert(index, item);
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, item, index));
+
+                SelectedIndex = index;
+                var oldIndex = index + 1;
+                _filtered.RemoveAt(oldIndex);
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(SelectedIndex)));
+                CollectionChanged?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Remove, oldItem, oldIndex));
             }
         }
 

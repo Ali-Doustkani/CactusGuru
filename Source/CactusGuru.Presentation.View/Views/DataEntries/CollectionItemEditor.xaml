@@ -50,7 +50,8 @@
               attch:FocusHandler.HasFocus="{Binding State.FirstControlFocused}"
               ItemsSource="{Binding Taxa, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="Name"
-              SelectedItem="{Binding Taxon}"/>
+              SelectedItem="{Binding Taxon}"
+              SelectedIndex="{Binding Taxa.SelectedIndex}"/>
     <controls:SimpleButton Grid.Row="1" Command="{Binding GotoTaxaCommand}" />
     <!-- Collector -->
     <TextBlock Grid.Row="2" Text="Collector" />
@@ -59,7 +60,8 @@
               Grid.ColumnSpan="1"
               ItemsSource="{Binding Collectors, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="FormattedName"
-              SelectedItem="{Binding Collector}" />
+              SelectedItem="{Binding Collector}" 
+              SelectedIndex="{Binding Collectors.SelectedIndex}"/>
     <controls:SimpleButton Grid.Row="2" Command="{Binding GotoCollectorsCommand}" />
     <!-- Field Number -->
     <TextBlock Grid.Row="3" Text="Field" />
@@ -87,7 +89,8 @@
               Grid.ColumnSpan="1"
               ItemsSource="{Binding Suppliers, UpdateSourceTrigger=PropertyChanged}"
               DisplayMemberPath="FormattedName"
-              SelectedItem="{Binding Supplier}" />
+              SelectedItem="{Binding Supplier}" 
+              SelectedIndex="{Binding Suppliers.SelectedIndex}"/>
     <controls:SimpleButton Grid.Row="7" Command="{Binding GotoSuppliersCommand}" />
     <!-- Supplier Code -->
     <TextBlock Grid.Row="8" Text="Supplier Code" />
