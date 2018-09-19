@@ -8,15 +8,17 @@ namespace CactusGuru.Entry.Presentation
 {
     public class DialogService : IDialogService
     {
+        private const string APP_TITLE = "Cactus Guru";
+
         public void Say(string message)
         {
-            System.Windows.MessageBox.Show(message, "کاکتوس گورو", MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
+            System.Windows.MessageBox.Show(message, APP_TITLE, MessageBoxButton.OK, MessageBoxImage.Information, MessageBoxResult.OK);
         }
 
         public bool Ask(string message)
         {
             var result = System.Windows.MessageBox.Show(message,
-                                           "کاکتوس گورو",
+                                           APP_TITLE,
                                            MessageBoxButton.YesNo,
                                            MessageBoxImage.Question,
                                            MessageBoxResult.No);
@@ -26,7 +28,7 @@ namespace CactusGuru.Entry.Presentation
         public void Error(string error)
         {
             System.Windows.MessageBox.Show(error,
-                              "کاکتوس گورو",
+                              APP_TITLE,
                               MessageBoxButton.OK,
                               MessageBoxImage.Error);
         }
