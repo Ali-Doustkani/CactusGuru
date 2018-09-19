@@ -7,14 +7,14 @@
     <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Lists.xaml"/>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Lists.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Buttons.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <converters:StringVisibilityConverter x:Key="stringVisConverter"/>
             <!-- Context Menu Images -->
-            <ImageSource x:Key="CopyImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/copy_20.png</ImageSource>
-            <ImageSource x:Key="EditImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/EditorViewBasics/edit_24.png</ImageSource>
-            <ImageSource x:Key="DeleteImage">/CactusGuru.Presentation.View;component/Resources/Images/Icon/CollectionList/delete_24.png</ImageSource>
+            <ImageSource x:Key="CopyImage">/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/CollectionList/copy_20.png</ImageSource>
+            <ImageSource x:Key="EditImage">/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/EditorViewBasics/edit_24.png</ImageSource>
+            <ImageSource x:Key="DeleteImage">/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/CollectionList/delete_24.png</ImageSource>
             <!-- ListBox -->
             <Style x:Key="ContextMenuButton" TargetType="controls:SimpleButton">
                 <Setter Property="Padding" Value="10"/>

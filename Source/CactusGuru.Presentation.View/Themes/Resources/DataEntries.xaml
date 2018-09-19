@@ -24,7 +24,7 @@
             <Setter.Value>
                 <ControlTemplate>
                     <Grid>
-                        <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/Error.png" 
+                        <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/Error.png" 
                                Width="16" 
                                Height="16" 
                                Opacity="0.8"

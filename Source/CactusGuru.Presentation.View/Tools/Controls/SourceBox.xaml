@@ -6,8 +6,8 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Lists.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Lists.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
                 <Setter Property="Padding" Value="5 3"/>

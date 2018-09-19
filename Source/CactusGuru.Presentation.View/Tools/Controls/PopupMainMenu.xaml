@@ -22,14 +22,14 @@
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <!-- Definitions -->
-                    <ContentControl Tag="/CactusGuru.Presentation.View;component/Resources/Images/DefinitionHeader.png">
+                    <ContentControl Tag="/CactusGuru.Presentation.View;component/Themes/Resources/Images/DefinitionHeader.png">
                         <WrapPanel>
                             <controls:SimpleButton Content="Genera" CommandParameter="Genus" />
                             <controls:SimpleButton Content="Taxa" CommandParameter="Taxon" />
                         </WrapPanel>
                     </ContentControl>
                     <!-- Collection -->
-                    <ContentControl Grid.Row="1" Tag="/CactusGuru.Presentation.View;component/Resources/Images/CollectionHeader.png">
+                    <ContentControl Grid.Row="1" Tag="/CactusGuru.Presentation.View;component/Themes/Resources/Images/CollectionHeader.png">
                         <WrapPanel>
                             <controls:SimpleButton Content="Add a Plant" CommandParameter="CollectionItem"/>
                             <controls:SimpleButton Content="Label Print" CommandParameter="PrintLabel" />
@@ -38,7 +38,7 @@
                         </WrapPanel>
                     </ContentControl>
                     <!-- People -->
-                    <ContentControl Grid.Row="2" Tag="/CactusGuru.Presentation.View;component/Resources/Images/PeopleHeader.png">
+                    <ContentControl Grid.Row="2" Tag="/CactusGuru.Presentation.View;component/Themes/Resources/Images/PeopleHeader.png">
                         <WrapPanel>
                             <controls:SimpleButton Content="Suppliers" CommandParameter="Supplier" />
                             <controls:SimpleButton Content="Collectors" CommandParameter="Collector" />

@@ -34,7 +34,7 @@
                     Cursor="Hand">
                 <Button.Template>
                     <ControlTemplate>
-                        <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/home.png"
+                        <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/home.png"
                                HorizontalAlignment="Right"
                                VerticalAlignment="Top" />
                     </ControlTemplate>

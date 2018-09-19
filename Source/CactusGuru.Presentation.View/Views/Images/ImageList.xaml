@@ -6,8 +6,8 @@
     <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Lists.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Lists.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <DataTemplate x:Key="ItemDataTemplate">
                 <Grid>
@@ -41,7 +41,7 @@
         <ToolBar>
             <controls:SimpleButton Style="{StaticResource ToolbarButton}" ToolTip="Save for Instagram" Command="{Binding SaveForInstagramCommand}">
                 <StackPanel Orientation="Horizontal">
-                    <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/ImageList/instagram_24.png"/>
+                    <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/ImageList/instagram_24.png"/>
                     <TextBlock Margin="5 0 0 0">Save for Instagram</TextBlock>
                 </StackPanel>
             </controls:SimpleButton>

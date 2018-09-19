@@ -9,7 +9,7 @@
     <Grid.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/DataEntries.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/DataEntries.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Grid.Resources>

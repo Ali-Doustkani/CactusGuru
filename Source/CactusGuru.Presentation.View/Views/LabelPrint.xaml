@@ -8,8 +8,8 @@
     <controls:Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
-                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Lists.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Lists.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Print Button -->
             <Style x:Key="PrintButtonStyle" TargetType="controls:SimpleButton" BasedOn="{StaticResource greenButtons}">
@@ -20,7 +20,7 @@
                 <Setter Property="Content">
                     <Setter.Value>
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/CactusGuru.Presentation.View;component/Resources/Images/Icon/Print/print.png" Width="20" Height="18"/>
+                            <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/Print/print.png" Width="20" Height="18"/>
                             <TextBlock Margin="5 0 0 0">Print</TextBlock>
                         </StackPanel>
                     </Setter.Value>
@@ -35,7 +35,7 @@
             </Style>
             <!-- Arrow Image -->
             <Style x:Key="_ArrowImage" TargetType="Image">
-                <Setter Property="Source" Value="/CactusGuru.Presentation.View;component/Resources/Images/Icon/Print/arrow_24.png"/>
+                <Setter Property="Source" Value="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/Print/arrow_24.png"/>
                 <Setter Property="Width" Value="23"/>
                 <Setter Property="Height" Value="23"/>
                 <Setter Property="Visibility" Value="Collapsed"/>
