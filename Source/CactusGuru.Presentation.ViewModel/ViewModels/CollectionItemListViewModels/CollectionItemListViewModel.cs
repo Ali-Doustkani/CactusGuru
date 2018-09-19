@@ -1,4 +1,6 @@
-﻿using CactusGuru.Application.ViewProviders.CollectionItems;
+﻿using CactusGuru.Application.Common;
+using CactusGuru.Application.ViewProviders.CollectionItems;
+using CactusGuru.Infrastructure.EventAggregation;
 using CactusGuru.Presentation.ViewModel.Framework;
 using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
@@ -89,6 +91,33 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         private async void Sort(object type)
         {
             await LoadData((string)type);
+        }
+
+        protected override void OnSomethingHappened(NotificationEventArgs info)
+        {
+            base.OnSomethingHappened(info);
+            if (info.Object is TaxonDto)
+                RenewTaxa((TaxonDto)info.Object);
+            else if (info.Object is GenusDto)
+                RenewGenera((GenusDto)info.Object);
+        }
+
+        private void RenewTaxa(TaxonDto taxon)
+        {
+            foreach (var item in CollectionItems)
+            {
+                if (item.TaxonId == taxon.Id)
+                    item.Name = _viewProvider.GenerateName(item.InnerObject.Id);
+            }
+        }
+
+        private void RenewGenera(GenusDto genus)
+        {
+            foreach (var item in CollectionItems)
+            {
+                if (item.GenusId == genus.Id)
+                    item.Name = _viewProvider.GenerateName(item.InnerObject.Id);
+            }
         }
     }
 }

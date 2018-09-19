@@ -55,5 +55,13 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
                 return assembler.ToDataTransferEntity(repo.Get(dto.Id));
             }
         }
+
+        public string GenerateName(Guid id)
+        {
+            using (var locator = Begin())
+            {
+                return locator.Get<ICollectionItemRepository>().Get(id).Format("{GENUS} {taxon} {field}");
+            }
+        }
     }
 }

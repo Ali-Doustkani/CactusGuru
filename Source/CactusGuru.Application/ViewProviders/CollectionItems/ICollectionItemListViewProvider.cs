@@ -10,5 +10,6 @@ namespace CactusGuru.Application.ViewProviders.CollectionItems
         Task<IEnumerable<CollectionItemDto>> GetCollectionItemsAsync(string sortBy);
         CollectionItemDto GetCollectionItem(Guid id);
         CollectionItemDto Convert(Common.CollectionItemDto dto);
+        string GenerateName(Guid id);
     }
 }

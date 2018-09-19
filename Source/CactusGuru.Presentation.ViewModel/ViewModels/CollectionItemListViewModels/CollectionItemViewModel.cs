@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.CollectionItems;
 using CactusGuru.Presentation.ViewModel.Framework;
+using System;
 
 namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewModels
 {
@@ -18,13 +19,27 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.CollectionItemListViewMod
         public string Name
         {
             get { return Inner<CollectionItemDto>().Name; }
-            set { Inner<CollectionItemDto>().Name = value; }
+            set
+            {
+                Inner<CollectionItemDto>().Name = value;
+                OnPropertyChanged(nameof(Name));
+            }
         }
 
         public string Info
         {
             get { return Inner<CollectionItemDto>().Info; }
             set { Inner<CollectionItemDto>().Info = value; }
+        }
+
+        public Guid TaxonId
+        {
+            get { return Inner<CollectionItemDto>().TaxonId; }
+        }
+
+        public Guid GenusId
+        {
+            get { return Inner<CollectionItemDto>().GenusId; }
         }
     }
 }

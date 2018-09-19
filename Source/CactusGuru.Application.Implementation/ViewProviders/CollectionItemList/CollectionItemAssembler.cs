@@ -11,6 +11,8 @@ namespace CactusGuru.Application.Implementation.ViewProviders.CollectionItemList
             dto.Code = domainEntity.Code;
             dto.Name = domainEntity.Format("{GENUS} {taxon} {field}");
             dto.Info = domainEntity.Format("{locality}");
+            dto.TaxonId = domainEntity.Taxon.Id;
+            dto.GenusId = domainEntity.Taxon.Genus.Id;
         }
 
         protected override void FillDomainEntityImp(CollectionItem domainEntity, CollectionItemDto dto)
