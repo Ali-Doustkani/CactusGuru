@@ -14,6 +14,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Themes/Resources/Lists.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <!-- Images -->
             <ImageSource x:Key="Instagram">/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/ImageList/instagram_24.png</ImageSource>
@@ -50,53 +51,27 @@
                     </Setter.Value>
                 </Setter>
             </Style>
-            <Style x:Key="SeparatorStyle" TargetType="Border">
-                <Setter Property="Background" Value="LightSlateGray"/>
-                <Setter Property="Margin" Value="0 3"/>
-                <Setter Property="Width" Value="1"/>
-            </Style>
             <!-- ListBox -->
-            <Style TargetType="ListBox">
-                <Setter Property="BorderThickness" Value="0 1 0 0"/>
-                <Setter Property="SelectionMode" Value="Multiple"/>
-                <Setter Property="ItemsPanel">
-                    <Setter.Value>
-                        <ItemsPanelTemplate>
-                            <WrapPanel/>
-                        </ItemsPanelTemplate>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ItemContainerStyle">
-                    <Setter.Value>
-                        <Style TargetType="ListBoxItem">
-                            <Setter Property="BorderThickness" Value="0"/>
-                            <Setter Property="Margin" Value="2"/>
-                            <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
-                        </Style>
-                    </Setter.Value>
-                </Setter>
-                <Setter Property="ItemTemplate">
-                    <Setter.Value>
-                        <DataTemplate DataType="{x:Type ListBoxItem}">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*"/>
-                                    <RowDefinition Height="auto"/>
-                                    <RowDefinition Height="auto"/>
-                                </Grid.RowDefinitions>
-                                <Image Source="{Binding Picture}" Stretch="None" Width="180" Height="140"/>
-                                <TextBlock Text="{Binding DateAdded, StringFormat={}{0:yyyy, MMMM}}" Foreground="White" Background="#99000000" Padding="3" VerticalAlignment="Top"/>
-                                <TextBox Grid.Row="1" Padding="3" Margin="0 5" Text="{Binding Description}" />
-                                <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 5">
-                                    <controls:SimpleButton Background="#dddddd" OnOverBackground="#c75050" Width="30" Height="30" Padding="6" Command="{Binding ChangeDateCommand}">
-                                        <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/ImageGallery/calendar_24.png"/>
-                                    </controls:SimpleButton>
-                                    <ToggleButton Background="#bbbbbb" Margin="3 0" Height="30" IsChecked="{Binding SharedOnInstagram}">اینستاگرام</ToggleButton>
-                                </StackPanel>
-                            </Grid>
-                        </DataTemplate>
-                    </Setter.Value>
-                </Setter>
+            <DataTemplate x:Key="ItemTemplate" DataType="{x:Type ListBoxItem}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Image Source="{Binding Picture}" Stretch="None" Width="180" Height="140"/>
+                    <TextBlock Text="{Binding DateAdded, StringFormat={}{0:yyyy, MMMM}}" Foreground="White" Background="#99000000" Padding="3" VerticalAlignment="Top"/>
+                    <TextBox Grid.Row="1" Padding="3" Margin="0 5" Text="{Binding Description}" />
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Left" Margin="0 0 0 5">
+                        <controls:SimpleButton Background="#dddddd" OnOverBackground="#c75050" Width="30" Height="30" Padding="6" Command="{Binding ChangeDateCommand}">
+                            <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/ImageGallery/calendar_24.png"/>
+                        </controls:SimpleButton>
+                        <ToggleButton Background="#bbbbbb" Margin="3 0" Height="30" IsChecked="{Binding SharedOnInstagram}">اینستاگرام</ToggleButton>
+                    </StackPanel>
+                </Grid>
+            </DataTemplate>
+            <Style x:Key="ItemStyle" TargetType="ListBoxItem" BasedOn="{StaticResource WrappedListBox_Item}">
+                <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}"/>
             </Style>
             <Style TargetType="Separator">
                 <Setter Property="Margin" Value="5 0"/>
@@ -115,27 +90,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="auto" />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <!-- Label -->
-            <Grid Margin="10 0 0 5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                </Grid.ColumnDefinitions>
-                <TextBlock Style="{StaticResource CodeStyle}" Text="{Binding Code}" />
-                <Border Grid.Column="1" Style="{StaticResource SeparatorStyle}"/>
-                <StackPanel Grid.Column="2" VerticalAlignment="Center">
-                    <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding Title}" />
-                    <TextBlock Style="{StaticResource LocalityStyle}" Text="{Binding Locality}" />
-                </StackPanel>
-            </Grid>
+        <StackPanel Orientation="Horizontal">
             <!-- Toolbar -->
-            <ToolBar Grid.Column="1">
+            <ToolBar>
                 <controls:SimpleButton ToolTip="Save" Command="{Binding SaveCommand}">
                     <Image Source="{StaticResource Save}"/>
                 </controls:SimpleButton>
@@ -170,12 +127,33 @@
                 <Separator/>
                 <controls:SimpleButton ToolTip="Save for Instagram" Command="{Binding SaveForInstagramCommand}">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="{StaticResource Instagram}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="{StaticResource Instagram}"/>
+                            <TextBlock Margin="5 0 0 0">Save for Instagram</TextBlock>
+                        </StackPanel>
                     </StackPanel>
                 </controls:SimpleButton>
             </ToolBar>
-        </Grid>
+            <!-- Label -->
+            <Grid Margin="10 0 0 5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Style="{StaticResource CodeStyle}" Text="{Binding Code}" />
+                <Border Grid.Column="1" Style="{StaticResource Separator}"/>
+                <StackPanel Grid.Column="2" VerticalAlignment="Center">
+                    <TextBlock Style="{StaticResource TitleStyle}" Text="{Binding Title}" />
+                    <TextBlock Style="{StaticResource LocalityStyle}" Text="{Binding Locality}" />
+                </StackPanel>
+            </Grid>
+        </StackPanel>
         <!-- Content -->
-        <ListBox Grid.Row="1" ItemsSource="{Binding Images}"/>
+        <ListBox Grid.Row="1"
+                 Style="{StaticResource WrappedListBox}" 
+                 ItemTemplate="{StaticResource ItemTemplate}"
+                 ItemContainerStyle="{StaticResource ItemStyle}"
+                 ItemsSource="{Binding Images}"/>
     </Grid>
 </Window>

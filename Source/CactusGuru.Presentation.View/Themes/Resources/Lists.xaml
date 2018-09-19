@@ -18,24 +18,22 @@
             </MultiTrigger>
         </Style.Triggers>
     </Style>
+    <Style x:Key="WrappedListBox_Item" TargetType="ListBoxItem">
+        <Setter Property="Background" Value="#efefef"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Padding" Value="7"/>
+        <Setter Property="Margin" Value="2"/>
+    </Style>
     <Style x:Key="WrappedListBox" TargetType="ListBox" BasedOn="{StaticResource ListBoxStyle}">
         <Setter Property="SelectionMode" Value="Multiple"/>
+        <Setter Property="BorderThickness" Value="0 1 0 0"/>
         <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource WrappedListBox_Item}"/>
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
                     <WrapPanel/>
                 </ItemsPanelTemplate>
-            </Setter.Value>
-        </Setter>
-        <Setter Property="ItemContainerStyle">
-            <Setter.Value>
-                <Style TargetType="ListBoxItem">
-                    <Setter Property="Background" Value="#efefef"/>
-                    <Setter Property="BorderThickness" Value="0"/>
-                    <Setter Property="Padding" Value="7"/>
-                    <Setter Property="Margin" Value="2"/>
-                </Style>
             </Setter.Value>
         </Setter>
     </Style>
