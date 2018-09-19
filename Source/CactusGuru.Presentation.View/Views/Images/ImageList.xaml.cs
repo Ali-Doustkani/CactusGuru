@@ -7,8 +7,6 @@ namespace CactusGuru.Presentation.View.Views
     {
         public ImageList()
         {
-            Resources.MergedDictionaries.Add(ResourceLocator.General);
-            Resources.MergedDictionaries.Add(ResourceLocator.Lists);
             InitializeComponent();
         }
 

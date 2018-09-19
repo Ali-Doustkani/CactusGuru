@@ -11,15 +11,20 @@
         WindowStartupLocation="CenterOwner"
         ShowInTaskbar="False">
     <Window.Resources>
-        <Style TargetType="Image">
-            <Setter Property="Width" Value="19"/>
-            <Setter Property="Height" Value="19"/>
-            <Style.Triggers>
-                <Trigger Property="IsEnabled" Value="False">
-                    <Setter Property="Opacity" Value="0.5"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="Image">
+                <Setter Property="Width" Value="19"/>
+                <Setter Property="Height" Value="19"/>
+                <Style.Triggers>
+                    <Trigger Property="IsEnabled" Value="False">
+                        <Setter Property="Opacity" Value="0.5"/>
+                    </Trigger>
+                </Style.Triggers>
+            </Style>
+        </ResourceDictionary>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Key="F1" Command="{Binding PrepareForAddCommand}" />

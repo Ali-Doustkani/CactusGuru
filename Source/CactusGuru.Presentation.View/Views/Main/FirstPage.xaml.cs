@@ -4,7 +4,6 @@
     {
         public FirstPage()
         {
-            Resources.MergedDictionaries.Add(ResourceLocator.General);
             InitializeComponent();
         }
     }

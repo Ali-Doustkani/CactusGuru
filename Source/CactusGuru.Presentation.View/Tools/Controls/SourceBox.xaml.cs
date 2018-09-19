@@ -4,7 +4,6 @@
     {
         public SourceBox()
         {
-            Resources.MergedDictionaries.Add(ResourceLocator.Lists);
             InitializeComponent();
         }
 

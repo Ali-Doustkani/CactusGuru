@@ -6,6 +6,13 @@
       xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views"
       Validation.ErrorTemplate="{x:Null}"
       Tag="Taxa">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/DataEntries.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
     <Grid.DataContext>
         <Binding Path="TaxonEditorViewModel">
             <Binding.Source>

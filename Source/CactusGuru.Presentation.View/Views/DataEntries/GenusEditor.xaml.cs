@@ -4,7 +4,6 @@
     {
         public GenusEditor()
         {
-            Resources.MergedDictionaries.Add(ResourceLocator.DataEntires);
             InitializeComponent();
         }
     }

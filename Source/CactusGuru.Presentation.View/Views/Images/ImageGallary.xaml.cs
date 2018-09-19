@@ -4,8 +4,6 @@
     {
         public ImageGallary()
         {
-            Resources.MergedDictionaries.Add(ResourceLocator.General);
-            Resources.MergedDictionaries.Add(ResourceLocator.Lists);
             InitializeComponent();
         }
     }

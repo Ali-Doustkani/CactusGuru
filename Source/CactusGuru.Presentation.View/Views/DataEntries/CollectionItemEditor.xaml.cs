@@ -8,7 +8,6 @@ namespace CactusGuru.Presentation.View.Views.DataEntries
     {
         public CollectionItemEditor()
         {
-            Resources.MergedDictionaries.Add(ResourceLocator.DataEntires);
             InitializeComponent();
         }
 

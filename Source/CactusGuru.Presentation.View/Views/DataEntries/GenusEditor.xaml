@@ -6,6 +6,13 @@
       xmlns:attch="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
       Validation.ErrorTemplate="{x:Null}"
       Tag="Genera">
+    <Grid.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/DataEntries.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Grid.Resources>
     <Grid.DataContext>
         <Binding Path="GenusEditorViewModel">
             <Binding.Source>

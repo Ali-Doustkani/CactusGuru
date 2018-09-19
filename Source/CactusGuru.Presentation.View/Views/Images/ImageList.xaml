@@ -4,21 +4,27 @@
                xmlns:controls="clr-namespace:CactusGuru.Presentation.View.Tools.Controls"
                xmlns:views="clr-namespace:CactusGuru.Presentation.View.Views">
     <controls:Page.Resources>
-        <DataTemplate x:Key="ItemDataTemplate">
-            <Grid>
-                <Image Source="{Binding Picture}" Stretch="None" Width="180" Height="140"/>
-                <TextBlock TextWrapping="Wrap"
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Lists.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <DataTemplate x:Key="ItemDataTemplate">
+                <Grid>
+                    <Image Source="{Binding Picture}" Stretch="None" Width="180" Height="140"/>
+                    <TextBlock TextWrapping="Wrap"
                        Padding="3"
                        Width="180" 
                        VerticalAlignment="Bottom" 
                        Foreground="White" 
                        Text="{Binding Title}" 
                        Background="#99000000"/>
-            </Grid>
-        </DataTemplate>
-        <Style TargetType="Separator">
-            <Setter Property="Margin" Value="5 0"/>
-        </Style>
+                </Grid>
+            </DataTemplate>
+            <Style TargetType="Separator">
+                <Setter Property="Margin" Value="5 0"/>
+            </Style>
+        </ResourceDictionary>
     </controls:Page.Resources>
     <controls:Page.DataContext>
         <Binding Path="ImageListViewModel">

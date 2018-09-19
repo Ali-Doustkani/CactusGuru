@@ -4,16 +4,22 @@
              xmlns:utils="clr-namespace:CactusGuru.Presentation.View.Tools.AttachedProps"
              IsEnabled="{Binding State.IsView}">
     <UserControl.Resources>
-        <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
-            <Setter Property="Padding" Value="5 3"/>
-        </Style>
-        <Style TargetType="TextBox">
-            <Setter Property="Margin" Value="0 2" />
-            <Setter Property="Padding" Value="3" />
-            <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}" />
-            <Setter Property="Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
-            <Setter Property="IsEnabled" Value="True"/>
-        </Style>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Buttons.xaml"/>
+                <ResourceDictionary Source="/CactusGuru.Presentation.View;component/Resources/Lists.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <Style TargetType="ListBoxItem" BasedOn="{StaticResource ListBoxItemStyle}">
+                <Setter Property="Padding" Value="5 3"/>
+            </Style>
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="0 2" />
+                <Setter Property="Padding" Value="3" />
+                <Setter Property="utils:FocusHandler.HasFocus" Value="{Binding State.DefaultControlFocused}" />
+                <Setter Property="Text" Value="{Binding ItemSource.FilterText, UpdateSourceTrigger=PropertyChanged}"/>
+                <Setter Property="IsEnabled" Value="True"/>
+            </Style>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
