@@ -1,6 +1,7 @@
 # Cactus Guru
 I created this thing when I had some plants! (Actually it was more than some! About 800 species and varieties!)
 You can manage your collection, add genera, taxa and print labels, and etc...
+![Screenshot](https://gdurl.com/1SGf)
 
 ## Getting Started
 Before you get started you need to make sure you have .Net4.5 and MS Sql LocalDb installed on your computer. 
