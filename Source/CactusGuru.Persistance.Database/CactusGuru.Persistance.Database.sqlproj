@@ -71,9 +71,7 @@
     <Build Include="dbo\Tables\tblSupplier.sql" />
     <Build Include="dbo\Tables\tblGenus.sql" />
     <Build Include="dbo\Tables\tblTaxon.sql" />
-    <Build Include="dbo\Tables\tblSeedList.sql" />
     <Build Include="dbo\Tables\tblCollectionItem.sql" />
-    <Build Include="dbo\Tables\tblSeedListItem.sql" />
     <Build Include="dbo\Tables\tblCollectionItemImage.sql" />
     <Build Include="dbo\Tables\tblCollectionItemFullImage.sql" />
   </ItemGroup>
