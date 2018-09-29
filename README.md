@@ -4,6 +4,16 @@ You can manage your collection, add genera, taxa and print labels, and etc...
 
 ![Screenshot](https://gdurl.com/fIuF)
 
+## Design
+You may find this project over-engineered at first look. That's becuase I was trying to solve some of my issues with Enterprise Architecture, MVVM, DDD, and IoC. So I used this project not only for my plants, but also as a proof of concept to implement the things that I was learning at the time.
+Here is technologies and patterns that used in this project:
+* ORM, EF
+* SQL Server Database Project for tracking db object changes with SCM
+* WPF, MVVM with testable view-models
+* Service Layer (as Facades for the Domain)
+* DDD with testable domain entities
+* IoC Container, Composition Root, StructureMap
+
 ## Getting Started
 Before you get started you need to make sure you have .Net4.5 and MS Sql LocalDb installed on your computer. 
 After that you have two options to run the app:
