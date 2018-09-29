@@ -31,7 +31,7 @@ Database Name: CactusGuru.Database
 Finally you can click the Publish button. Just remember that the mdf file must be placed in the bin/debug directory. You can detatch and attach the file again in order to do that. Or simply change the connection string (CactusGuru.Entry > app.config) so you don't have to move the mdf file.
 
 ### Using the Sample Database
-Just download the mdf file from the [https://drive.google.com/file/d/1SMP9AEGM-Zh77WTg6J5PKI8KbhPZFIQl/view?usp=sharing](link) and attach it to your SQL Server.
+Just download the mdf file from the [here](https://drive.google.com/file/d/1SMP9AEGM-Zh77WTg6J5PKI8KbhPZFIQl/view?usp=sharing) and attach it to your SQL Server.
 Set the PROJECT_PATH before running the script.
 ```
 USE [master]
