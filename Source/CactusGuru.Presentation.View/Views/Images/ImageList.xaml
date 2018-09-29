@@ -42,6 +42,12 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ToolBar>
+            <controls:SimpleButton Style="{StaticResource ToolbarButton}" ToolTip="Save to File" Command="{Binding SaveToFileCommand}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/ImageGallery/jpeg_24.png"/>
+                    <TextBlock Margin="5 0 0 0">Save to File</TextBlock>
+                </StackPanel>
+            </controls:SimpleButton>
             <controls:SimpleButton Style="{StaticResource ToolbarButton}" ToolTip="Save for Instagram" Command="{Binding SaveForInstagramCommand}">
                 <StackPanel Orientation="Horizontal">
                     <Image Source="/CactusGuru.Presentation.View;component/Themes/Resources/Images/Icon/ImageList/instagram_24.png"/>
@@ -51,6 +57,10 @@
             <Separator/>
             <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding DeSelectAllCommand}">
                 <TextBlock>Deselect</TextBlock>
+            </controls:SimpleButton>
+            <Separator/>
+            <controls:SimpleButton Style="{StaticResource ToolbarButton}" Command="{Binding DeleteCommand}">
+                <TextBlock>Delete</TextBlock>
             </controls:SimpleButton>
         </ToolBar>
         <ListBox Grid.Row="1" 

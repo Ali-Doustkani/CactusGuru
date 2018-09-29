@@ -98,7 +98,7 @@ namespace CactusGuru.Presentation.ViewModel.Test.Framework
 
         protected void Delete(User userAnswer)
         {
-            dialogService.Setup(x => x.Ask(It.IsAny<string>())).Returns(userAnswer == User.Accepted);
+            dialogService.Setup(x => x.AskForDelete()).Returns(userAnswer == User.Accepted);
             RunCommand("DeleteCommand");
         }
 

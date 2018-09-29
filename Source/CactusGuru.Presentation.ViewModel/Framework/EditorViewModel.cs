@@ -173,7 +173,7 @@ namespace CactusGuru.Presentation.ViewModel.Framework
 
         private void AskAndDelete()
         {
-            if (!Dialog.Ask("Are you sure you want to delete this item?"))
+            if (!Dialog.AskForDelete())
                 return;
             DeleteImp();
         }

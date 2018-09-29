@@ -7,6 +7,8 @@ namespace CactusGuru.Application.ViewProviders.ImageList
     public interface IImageListViewProvider
     {
         Task GetImagesAsync(IProgress<ImageDto> progress);
-        void SaveToFiles(IEnumerable<ImageDto> images, string path);
+        Task Delete(IEnumerable<ImageDto> images);
+        Task SaveForInstagram(IEnumerable<ImageDto> images, string path);
+        Task SaveToFile(IEnumerable<ImageDto> images, string path);
     }
 }

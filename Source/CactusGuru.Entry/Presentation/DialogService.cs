@@ -25,6 +25,11 @@ namespace CactusGuru.Entry.Presentation
             return result == MessageBoxResult.Yes;
         }
 
+        public bool AskForDelete()
+        {
+            return Ask("Are you sure you want to delete?");
+        }
+
         public void Error(string error)
         {
             System.Windows.MessageBox.Show(error,

@@ -150,7 +150,7 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.LabelPrint
 
         private void DeleteSelectedPrintItem()
         {
-            if (Dialog.Ask("Are you sure you want to delete this item?"))
+            if (Dialog.AskForDelete())
                 PrintItems.Remove(SelectedPrintItem);
         }
 

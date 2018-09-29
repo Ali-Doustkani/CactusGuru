@@ -23,7 +23,7 @@ namespace CactusGuru.Persistance.Repositories
         {
             var entity = _context.tblCollectionItemImage
                 .Where(x => !x.SharedOnInstagram)
-                .OrderByDescending(x => x.DateAdded)
+                .OrderByDescending(x => x.tblCollectionItem.tblTaxon.tblGenusId)
                 .Skip(_skiped)
                 .Take(1)
                 .SingleOrDefault();

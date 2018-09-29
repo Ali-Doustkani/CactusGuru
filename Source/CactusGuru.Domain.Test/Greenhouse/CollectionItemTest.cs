@@ -51,7 +51,7 @@ namespace CactusGuru.Domain.Test.Greenhouse
             Date(2015);
             Type(IncomeType.Plant);
 
-            AssertFormat("(MG-12.36-1393-P)",  "{ref}");
+            AssertFormat("(MG-12.36-2015-P)",  "{ref}");
         }
 
         [TestMethod]
@@ -62,7 +62,7 @@ namespace CactusGuru.Domain.Test.Greenhouse
             Date(2015);
             Type(IncomeType.Plant);
 
-            AssertFormat("(IRKS-1393-P)",  "{ref}");
+            AssertFormat("(IRKS-2015-P)",  "{ref}");
         }
 
         [TestMethod]
@@ -98,7 +98,7 @@ namespace CactusGuru.Domain.Test.Greenhouse
             Plant("lobivia", "ferox");
             Date(2015);
 
-            AssertFormat("(1393-S)", "{ref}");
+            AssertFormat("(2015-S)", "{ref}");
         }
 
         [TestMethod]

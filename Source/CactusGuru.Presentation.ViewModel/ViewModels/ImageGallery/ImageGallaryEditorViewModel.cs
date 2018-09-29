@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageGallery;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;

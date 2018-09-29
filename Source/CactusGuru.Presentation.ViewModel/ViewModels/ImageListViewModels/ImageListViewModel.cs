@@ -1,5 +1,6 @@
 ﻿using CactusGuru.Application.ViewProviders.ImageList;
 using CactusGuru.Presentation.ViewModel.Framework;
+using CactusGuru.Presentation.ViewModel.Framework.Collections;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -13,14 +14,18 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
         {
             _viewProvider = viewProvider;
             DeSelectAllCommand = new RelayCommand(DeSelectAll);
-            SaveForInstagramCommand = new RelayCommand(SaveForInstagram, CanSave);
+            SaveToFileCommand = new RelayCommand(SaveToFile, AnySelected);
+            SaveForInstagramCommand = new RelayCommand(SaveForInstagram, AnySelected);
+            DeleteCommand = new RelayCommand(Delete, AnySelected);
             Images = new ObservableCollection<ImageViewModel>();
         }
 
         private readonly IImageListViewProvider _viewProvider;
 
         public ICommand DeSelectAllCommand { get; }
+        public ICommand SaveToFileCommand { get; }
         public ICommand SaveForInstagramCommand { get; }
+        public ICommand DeleteCommand { get; }
         public ObservableCollection<ImageViewModel> Images { get; }
 
         protected async override void OnLoad()
@@ -40,19 +45,43 @@ namespace CactusGuru.Presentation.ViewModel.ViewModels.ImageListViewModels
                 image.IsSelected = false;
         }
 
-        private bool CanSave()
+        private bool AnySelected()
         {
-            return Images.Any(x => x.IsSelected);
+            return Images.Any(x => x.IsSelected) && LoaderState.IsIdle;
         }
 
-        private void SaveForInstagram()
+        private async void Delete()
+        {
+            if (!Dialog.AskForDelete()) return;
+            LoaderState.ToBusy();
+            var selectedImages = Images.Where(x => x.IsSelected);
+            await _viewProvider.Delete(selectedImages.Select(x => x.InnerObject));
+            Images.RemoveAll(selectedImages.ToArray());
+            LoaderState.ToIdle();
+        }
+
+        private async void SaveForInstagram()
         {
             var dialogResult = Dialog.OpenDirectorySelector();
             if (!dialogResult.Result) return;
+            LoaderState.ToBusy();
             var selectedImages = Images.Where(x => x.IsSelected).Select(x => x.InnerObject);
-            _viewProvider.SaveToFiles(selectedImages, dialogResult.Value);
+            await _viewProvider.SaveForInstagram(selectedImages, dialogResult.Value);
             DeSelectAll();
+            LoaderState.ToIdle();
             Dialog.Say("Saving for Instagram completed successfully!");
+        }
+
+        private async void SaveToFile()
+        {
+            var dialogResult = Dialog.OpenDirectorySelector();
+            if (!dialogResult.Result) return;
+            LoaderState.ToBusy();
+            var selectedImages = Images.Where(x => x.IsSelected).Select(x => x.InnerObject);
+            await _viewProvider.SaveToFile(selectedImages, dialogResult.Value);
+            DeSelectAll();
+            LoaderState.ToIdle();
+            Dialog.Say("Saving images completed successfully!");
         }
     }
 }

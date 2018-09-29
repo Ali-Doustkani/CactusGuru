@@ -1,4 +1,5 @@
 ﻿using CactusGuru.Application.Implementation.Services;
+using CactusGuru.Application.Implementation.ViewProviders.ImageGallery;
 using CactusGuru.Application.ViewProviders.ImageList;
 using CactusGuru.Domain.Greenhouse;
 using CactusGuru.Domain.Persistance.Repositories;
@@ -26,15 +27,51 @@ namespace CactusGuru.Application.Implementation.ViewProviders.ImageList
             });
         }
 
-        public void SaveToFiles(IEnumerable<ImageDto> images, string path)
+        public Task Delete(IEnumerable<ImageDto> images)
         {
-            using (var locator = Begin())
+            return Task.Factory.StartNew(() =>
             {
-                var domainEntities = ToCollectionItemImages(images, locator);
-                locator.Get<InstagramPackageMaker>().SaveToZip(domainEntities, path);
-                locator.Get<ICollectionItemImageRepository>().UpdateSharedOnInstagram(images.Select(x => x.Id));
-                locator.Get<IUnitOfWork>().SaveChanges();
-            }
+                using (var locator = Begin())
+                {
+                    var terminator = locator.Get<Terminator<CollectionItemImage>>();
+                    for (int i = 0; i < images.Count(); i++)
+                        terminator.Terminate(images.ElementAt(i).Id);
+                    locator.Get<IUnitOfWork>().SaveChanges();
+                }
+            });
+        }
+
+        public Task SaveForInstagram(IEnumerable<ImageDto> images, string path)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var locator = Begin())
+                {
+                    var domainEntities = ToCollectionItemImages(images, locator);
+                    locator.Get<InstagramPackageMaker>().SaveToZip(domainEntities, path);
+                    locator.Get<ICollectionItemImageRepository>().UpdateSharedOnInstagram(images.Select(x => x.Id));
+                    locator.Get<IUnitOfWork>().SaveChanges();
+                }
+            });
+        }
+
+        public Task SaveToFile(IEnumerable<ImageDto> images, string path)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                using (var locator = Begin())
+                {
+                    var dtos = new List<Application.ViewProviders.ImageGallery.ImageDto>();
+                    foreach (var img in images)
+                        dtos.Add(new Application.ViewProviders.ImageGallery.ImageDto
+                        {
+                            CollectionItemId = img.CollectionItemId,
+                            Id = img.Id,
+                            DateAdded = img.DateAdded
+                        });
+                    locator.Get<FileSaver>().SaveToFiles(dtos, path);
+                }
+            });
         }
 
         private IEnumerable<CollectionItemImage> ToCollectionItemImages(IEnumerable<ImageDto> images, IServiceLocator locator)
